@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
+ <editorsettings>
+  <export target="world_1_1.tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" name="1" tilewidth="16" tileheight="16" tilecount="1056" columns="32">
+  <image source="1.png" width="512" height="528"/>
+ </tileset>
+ <tileset firstgid="1057" name="2" tilewidth="16" tileheight="16" tilecount="1794" columns="78">
+  <image source="2.png" width="1248" height="368"/>
+ </tileset>
+</map>

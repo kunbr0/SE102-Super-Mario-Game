@@ -1,0 +1,141 @@
+#include "GameMap.h"
+#include "SpriteManager.h"
+
+GameMap::GameMap(const char* filePath)
+{
+    LoadMap(filePath);
+}
+
+GameMap::~GameMap()
+{
+    delete mMap;
+}
+
+void GameMap::LoadMap(const char* filePath)
+{
+    mMap = new Tmx::Map();
+    mMap->ParseFile(filePath);
+
+    RECT r;
+    r.left = 0;
+    r.top = 0;
+    r.right = this->GetWidth();
+    r.bottom = this->GetHeight();
+
+    for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
+    {
+        int idTileSet = 132034 + i;
+        const Tmx::Tileset* tileset = mMap->GetTileset(i);
+        CTextures::GetInstance()->Add(idTileSet, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
+        //CSprite* sprite = new CSprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, D3DCOLOR_XRGB(255, 128, 192));
+        //CSprite* sprite = new CSprite(idTileSet, 0,0,160,160, CTextures::GetInstance()->Get(idTileSet));
+        mListTilesetId.push_back(idTileSet);
+        //mListTileset.insert(std::pair<int, CSprite*>(i, sprite));
+    }
+}
+
+Tmx::Map* GameMap::GetMap()
+{
+    return mMap;
+}
+
+int GameMap::GetWidth()
+{
+    return mMap->GetWidth() * mMap->GetTileWidth();
+}
+
+int GameMap::GetHeight()
+{
+    return mMap->GetHeight() * mMap->GetTileHeight();
+}
+
+int GameMap::GetTileWidth()
+{
+    return mMap->GetTileWidth();
+}
+
+int GameMap::GetTileHeight()
+{
+    return mMap->GetTileHeight();
+}
+
+void GameMap::Draw()
+{
+    for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
+    {
+        const Tmx::TileLayer* layer = mMap->GetTileLayer(i);
+
+        if (!layer->IsVisible())
+        {
+            continue;
+        }
+
+        RECT sourceRECT;
+
+
+
+        for (size_t m = 0; m < layer->GetHeight(); m++)
+        {
+            for (size_t n = 0; n < layer->GetWidth(); n++)
+            {
+                int tilesetIndex = layer->GetTileTilesetIndex(n, m);
+
+                if (tilesetIndex != -1)
+                {
+                    const Tmx::Tileset* tileSet = mMap->GetTileset(tilesetIndex);
+
+                    int tileWidth = mMap->GetTileWidth();
+                    int tileHeight = mMap->GetTileHeight();
+                    //TO DO
+                    /*int tileWidth = mMap->GetTileWidth() + 1;
+                    int tileHeight = mMap->GetTileHeight() + 1;*/
+
+                    //int tileWidth = 17;
+                    //int tileHeight = 17;
+                    auto margin = tileSet->GetMargin();
+
+                    int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
+                    int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
+
+                    int abc = layer->GetTileTilesetIndex(n, m);
+                    int kID = mListTilesetId[layer->GetTileTilesetIndex(n, m)];
+
+                    //tile index
+                    int tileID = layer->GetTileId(n, m);
+
+                    int y = tileID / tileSetWidth;
+                    int x = tileID - y * tileSetWidth;
+
+                    //TODO
+                    /*sourceRECT.top = y * tileHeight + margin;
+                    sourceRECT.bottom = sourceRECT.top + tileHeight - margin;
+                    sourceRECT.left = x * tileWidth + margin;
+                    sourceRECT.right = sourceRECT.left + tileWidth - margin;*/
+
+                    sourceRECT.top = y * tileHeight;
+                    sourceRECT.bottom = sourceRECT.top + tileHeight;
+                    sourceRECT.left = x * tileWidth;
+                    sourceRECT.right = sourceRECT.left + tileWidth;
+
+                    //TODO
+                    /*tileWidth -= 1;
+                    tileHeight -= 1;*/
+
+
+                    //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
+                    //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
+                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+
+                    /*sprite->SetWidth(tileWidth);
+                    sprite->SetHeight(tileHeight);*/
+                    //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
+                    CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
+                    CSprite* a = new CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID));
+                    a->Draw(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2-245, 200);
+                    /*CSprites::GetInstance()->Add(1111, 0, 0, 16, 16, CTextures::GetInstance()->Get(kID));
+                    CSprites::GetInstance()->Get(1111)->Draw(17, 100, 200);*/
+                }
+            }
+        }
+    }
+}

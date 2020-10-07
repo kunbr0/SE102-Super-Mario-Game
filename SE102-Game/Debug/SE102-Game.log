@@ -1,0 +1,10 @@
+﻿  PlayScene.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(89,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(111,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(134,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(135,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(161,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(162,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(268,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(278,20): warning C4018: '<': signed/unsigned mismatch
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

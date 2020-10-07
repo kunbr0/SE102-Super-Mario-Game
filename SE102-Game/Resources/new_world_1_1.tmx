@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="1">
+ <editorsettings>
+  <export target="world_1_1.tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" name="1" tilewidth="16" tileheight="16" tilecount="1056" columns="32">
+  <image source="Resources/1.png" width="512" height="528"/>
+ </tileset>
+ <tileset firstgid="1057" name="2" tilewidth="16" tileheight="16" tilecount="1794" columns="78">
+  <image source="Resources/2.png" width="1248" height="368"/>
+ </tileset>
+ <layer id="19" name="GhostPlatform" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt2tlNw0AUBVCHrQ+2VAL0wfoFRbDlC4oAmqER+uCN5FGMJUdJPhhnco50v6JIz3p3ZNly0wAAAAAAAFCry8hVm+vCs8CqPiKfbb4KzwIAAMB22IvsRw5KDzJyP5FJZKfNbtlxBt3HkA+T0lP8n5PIaWRaepCRS/09jBy1OS47zqC36O67/tL8fc+f3/WPvb/LSGfxJnLby13Joda0Lf3N+1plR4+Rp06em3r6+xJ57WUW+S441zq2pb95X7MV/lNbf1Nv+/eUfF/R3/HKO0t7Gupv2m1+lu0mPdfW1N/+mczXtWn97e609v7mnaU9LepvPsvdTJv5nof6PXZDZzPPv4n97e609v7m71XStyqL+nsWOe/lopn3d+j3sRu6tjz/Jva3u9Pa+wsAAAAAAAAAAAAAAMv6BTcJR3A=
+  </data>
+ </layer>
+ <layer id="15" name="Brick" width="176" height="41" offsetx="0.424242" offsety="0.0606061">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEJgDAQRcGkJHuxSAu0AA9BiEsukgUVZ2A7eHy2FAAAAACAZ23dwdfoFwAAAAAAAICRtbYD4B36Tc7e56VeDzLFnyLzx4jtxn71zIyz1VG/sw2P2o0N22Tu2vUCAAAAAAAAAAAAAPzIAXToDUI=
+  </data>
+ </layer>
+ <layer id="14" name="Background" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt2jFOwzAUxnFngjL1FkBvUgYm7kCRwgZ36FCYYGQHhpZrwD24AQfAUWvJetjFTl3Hrv4/6QkIae3YX14jgVLA/l0PPQFgB+QXNSO/qBn5Rc3IL2pGflGCO133PV5HflGCJ13PPV5Hfus2aoaeQRrkFzUjv6gZ+cVlE1+lCMnv3HGM/Nap1Bz29V9+56IM8osSkN9+Wt27bg+gf9Wupvy2Vl5Cs7OvnC30ez6Q38HVlN+FlZfQ7OTKWSvGoDfn4cqv7FkjXSdq+PyWbCHySm/O46pZl032rHNdF2qdYYP8ohZdfm90Taxj2/J7pOvYcfxN13vCedXIfJYhj269pyouv6e6zhzHP3V9RYx7KPtsrsWs5UT9vb5Dut5S2NmNza+vB8eMa+/zrvvb9//sUjDPX1Prq1xP1zNa7ew139f96Xr+NcxzQ5/8zpS7B7vIrNv7bcbddX/7/p18m8fGXTbZA1zr6fuMc71fyWSPsNc8dv/GgefJfbXnIPNrjx+S39AeLJ83XOPK/fXlxSdVfpd6vFXm+vBcY+wapCbHl2tsfvbdn9JYfB+SYd+YHZkje3xffk1mZyqsB5vzzXm5s5EiRzm9NOtKfV3fm/fv7s+l+N3Ppoa4d7fN+VWVNadVAfkAAAAAAAAAAAAAAAAAAAAAEO4XFEfakQ==
+  </data>
+ </layer>
+ <layer id="17" name="Shadow" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKhDAQBMD8fp+Sb8oeFiQoGlzRHqoueshhZjrRtAYAAAAAAAAAAAAArH2eLiCMeb1Lf7qAMOb1LvI4tv7mVpxX8j+lYh5brmTUd96rSO4pufYZV/qsun9/Zzq5p+Taz/rmNNvn3p2h0rz68ExS4eyd1dt8n0frk++MY/aJeyC59ll37N/kuY3ZJ/aSXDsAAAAAAAAAAAAAAPzTAhkPHUo=
+  </data>
+ </layer>
+</map>
