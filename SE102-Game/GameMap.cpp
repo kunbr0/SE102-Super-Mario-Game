@@ -1,9 +1,11 @@
 #include "GameMap.h"
 #include "SpriteManager.h"
+#include "RectCollision.h"
 
-GameMap::GameMap(const char* filePath)
+GameMap::GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects)
 {
     LoadMap(filePath);
+    this->listObjects = listObjects;
 }
 
 GameMap::~GameMap()
@@ -132,10 +134,17 @@ void GameMap::Draw()
                     CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
                     CSprite* a = new CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID));
                     a->Draw(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2-245, 200);
+                    
+                    LPGAMEOBJECT aa = new RectCollision(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2 - 245);
+                    if (!hasLoaded) {
+                        listObjects->push_back(aa);
+                    }
+
                     /*CSprites::GetInstance()->Add(1111, 0, 0, 16, 16, CTextures::GetInstance()->Get(kID));
                     CSprites::GetInstance()->Get(1111)->Draw(17, 100, 200);*/
                 }
             }
         }
     }
+    hasLoaded = true;
 }

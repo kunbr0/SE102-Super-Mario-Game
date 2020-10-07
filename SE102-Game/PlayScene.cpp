@@ -180,7 +180,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 void CPlayScene::Load()
 {
-	mMap = new GameMap("Resources/new_world_1_1.tmx");
+	mMap = new GameMap("Resources/new_world_1_1.tmx", &objects);
 	
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 

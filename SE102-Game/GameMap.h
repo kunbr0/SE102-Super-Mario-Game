@@ -10,19 +10,22 @@
 #include "Sprite.h"
 #include "MapReader/Tmx.h.in"
 #include "Utils.h"
+#include "GameObject.h"
 //#include "GameGlobal.h"
 
 class GameMap
 {
 public:
-    GameMap(const char* filePath);
+    GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects);
 
     Tmx::Map* GetMap();
-
+    
     int GetWidth();
     int GetHeight();
     int GetTileWidth();
     int GetTileHeight();
+
+    
 
     void Draw();
 
@@ -30,9 +33,11 @@ public:
 
 private:
     void LoadMap(const char* filePath);
+    std::vector<LPGAMEOBJECT>* listObjects;
 
     Tmx::Map* mMap;
     std::vector<int> mListTilesetId;
+    bool hasLoaded = false;
 };
 
 #endif

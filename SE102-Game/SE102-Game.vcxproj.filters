@@ -70,6 +70,9 @@
     <Filter Include="Framework\Utils\MapReader">
       <UniqueIdentifier>{3e9a9f20-27b3-4120-b771-762693b0e9a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\RectCollision">
+      <UniqueIdentifier>{8eee1b50-fe6b-4338-a118-8149e4349b40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\Utils\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="RectCollision.cpp">
+      <Filter>GameSource\GameObjects\RectCollision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\Utils\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="RectCollision.h">
+      <Filter>GameSource\GameObjects\RectCollision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
