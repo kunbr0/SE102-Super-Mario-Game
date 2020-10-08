@@ -34,6 +34,8 @@ class CGame
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
 	LPKEYEVENTHANDLER keyHandler;
+	
+	
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
@@ -62,7 +64,8 @@ public:
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
-
+	ID3DXFont* font;
+	void KDrawText(float x, float y, LPCSTR text);
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top

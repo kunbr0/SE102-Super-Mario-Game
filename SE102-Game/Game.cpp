@@ -6,6 +6,7 @@
 
 #include "PlayScene.h"
 
+
 CGame* CGame::__instance = NULL;
 
 /*
@@ -56,8 +57,19 @@ void CGame::Init(HWND hWnd)
 
 	// Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddv, &spriteHandler);
-
+	font = NULL;
+	
 	OutputDebugString(L"[INFO] InitGame done;\n");
+}
+
+void CGame::KDrawText(float x, float y, LPCSTR text) {
+	D3DXCreateFont(d3ddv, x, y, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+		ANTIALIASED_QUALITY, DEFAULT_PITCH, L"Arial", &font);
+	RECT* a = new RECT();
+	a->left = 0; a->right = 100; a->top = 0; a->bottom = 100;
+
+	CGame::GetInstance()->font->DrawTextA(NULL, text, -1, a, DT_LEFT, D3DCOLOR_XRGB(0, 0, 0));
+
 }
 
 /*
@@ -72,6 +84,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	
 }
 
 int CGame::IsKeyDown(int KeyCode)

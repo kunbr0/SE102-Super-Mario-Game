@@ -239,9 +239,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Framework\Scence</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>GameSource\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Koopas.h">
       <Filter>GameSource\GameObjects\Koopas</Filter>
     </ClInclude>
@@ -329,6 +326,9 @@
     <ClInclude Include="RectCollision.h">
       <Filter>GameSource\GameObjects\RectCollision</Filter>
     </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>GameSource\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\mario.png">
@@ -370,5 +370,6 @@
     <None Include="Resources\world_1_1.tmx">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resources\world_1_1_1017.tmx" />
   </ItemGroup>
 </Project>

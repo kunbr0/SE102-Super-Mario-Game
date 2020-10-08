@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="29">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="15">
  <editorsettings>
   <export target="world_1_1.tmx" format="tmx"/>
  </editorsettings>
@@ -14,41 +14,15 @@
    eJzt2tlNw0AUBVCHrQ+2VAL0wfoFRbDlC4oAmqER+uCN5FGMJUdJPhhnco50v6JIz3p3ZNly0wAAAAAAAFCry8hVm+vCs8CqPiKfbb4KzwIAAMB22IvsRw5KDzJyP5FJZKfNbtlxBt3HkA+T0lP8n5PIaWRaepCRS/09jBy1OS47zqC36O67/tL8fc+f3/WPvb/LSGfxJnLby13Joda0Lf3N+1plR4+Rp06em3r6+xJ57WUW+S441zq2pb95X7MV/lNbf1Nv+/eUfF/R3/HKO0t7Gupv2m1+lu0mPdfW1N/+mczXtWn97e609v7mnaU9LepvPsvdTJv5nof6PXZDZzPPv4n97e609v7m71XStyqL+nsWOe/lopn3d+j3sRu6tjz/Jva3u9Pa+wsAAAAAAAAAAAAAAMv6BTcJR3A=
   </data>
  </layer>
+ <objectgroup id="20" name="Collision">
+  <object id="13" name="Ground1" x="-0.5" y="385.5" width="640" height="13.5"/>
+  <object id="14" name="Pipe1" x="353.5" y="336.5" width="29" height="47.5"/>
+ </objectgroup>
  <layer id="15" name="Brick" width="176" height="41" offsetx="0.424242" offsety="0.0606061">
   <data encoding="base64" compression="zlib">
    eJzt1sEJgDAQRcGkJHuxSAu0AA9BiEsukgUVZ2A7eHy2FAAAAACAZ23dwdfoFwAAAAAAAICRtbYD4B36Tc7e56VeDzLFnyLzx4jtxn71zIyz1VG/sw2P2o0N22Tu2vUCAAAAAAAAAAAAAPzIAXToDUI=
   </data>
  </layer>
- <objectgroup id="20" name="Collision">
-  <object id="1" x="0.5" y="384.5" width="639" height="15.5"/>
-  <object id="2" x="352" y="336" width="31.25" height="48.75"/>
-  <object id="3" x="640" y="367.5" width="479.5" height="16"/>
-  <object id="4" x="1183.5" y="384.25" width="320" height="15.5"/>
-  <object id="5" x="1504.75" y="303.75" width="31.25" height="16"/>
-  <object id="6" x="1408.75" y="191.75" width="63" height="16"/>
-  <object id="7" x="1488.75" y="175.75" width="206.5" height="16"/>
-  <object id="8" x="1536" y="383.75" width="32.75" height="16.25"/>
-  <object id="9" x="1568.25" y="367.75" width="16.5" height="16.25"/>
-  <object id="10" x="1584.75" y="352" width="15.5" height="15"/>
-  <object id="11" x="1600.75" y="336.25" width="15.75" height="47.75"/>
-  <object id="12" x="1649" y="335.75" width="15" height="48"/>
-  <object id="13" x="1664.5" y="352" width="15" height="16.25"/>
-  <object id="14" x="1679.75" y="368.5" width="16.5" height="15.25"/>
-  <object id="15" x="1776.5" y="351.75" width="31.25" height="33"/>
-  <object id="16" x="1840.25" y="335.75" width="31.25" height="48.75"/>
-  <object id="17" x="1936.25" y="368.25" width="16.5" height="15.75"/>
-  <object id="18" x="1953.25" y="351.5" width="15.5" height="16.75"/>
-  <object id="19" x="1969.25" y="335.75" width="47.5" height="15.75"/>
-  <object id="20" x="2016.75" y="335.75" width="15.5" height="47.5"/>
-  <object id="21" x="2032.75" y="368" width="15.5" height="15"/>
-  <object id="22" x="1648.75" y="384.75" width="574.25" height="15.5"/>
-  <object id="23" x="2080.75" y="352.25" width="15.75" height="31"/>
-  <object id="24" x="2097" y="368.25" width="15" height="15.25"/>
-  <object id="25" x="2240.5" y="335.75" width="30.25" height="48.75"/>
-  <object id="26" x="2240.75" y="96.5" width="30.75" height="190.75"/>
-  <object id="27" x="2240.75" y="385" width="574.25" height="14.75"/>
-  <object id="28" x="2304.5" y="351.75" width="31" height="32.5"/>
- </objectgroup>
  <layer id="14" name="Background" width="176" height="41">
   <data encoding="base64" compression="zlib">
    eJzt2jFOwzAUxnFngjL1FkBvUgYm7kCRwgZ36FCYYGQHhpZrwD24AQfAUWvJetjFTl3Hrv4/6QkIae3YX14jgVLA/l0PPQFgB+QXNSO/qBn5Rc3IL2pGflGCO133PV5HflGCJ13PPV5Hfus2aoaeQRrkFzUjv6gZ+cVlE1+lCMnv3HGM/Nap1Bz29V9+56IM8osSkN9+Wt27bg+gf9Wupvy2Vl5Cs7OvnC30ez6Q38HVlN+FlZfQ7OTKWSvGoDfn4cqv7FkjXSdq+PyWbCHySm/O46pZl032rHNdF2qdYYP8ohZdfm90Taxj2/J7pOvYcfxN13vCedXIfJYhj269pyouv6e6zhzHP3V9RYx7KPtsrsWs5UT9vb5Dut5S2NmNza+vB8eMa+/zrvvb9//sUjDPX1Prq1xP1zNa7ew139f96Xr+NcxzQ5/8zpS7B7vIrNv7bcbddX/7/p18m8fGXTbZA1zr6fuMc71fyWSPsNc8dv/GgefJfbXnIPNrjx+S39AeLJ83XOPK/fXlxSdVfpd6vFXm+vBcY+wapCbHl2tsfvbdn9JYfB+SYd+YHZkje3xffk1mZyqsB5vzzXm5s5EiRzm9NOtKfV3fm/fv7s+l+N3Ppoa4d7fN+VWVNadVAfkAAAAAAAAAAAAAAAAAAAAAEO4XFEfakQ==

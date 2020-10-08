@@ -257,6 +257,7 @@
     <None Include="Resources\untitled.tmx" />
     <None Include="Resources\world_1_1(1).tmx" />
     <None Include="Resources\world_1_1.tmx" />
+    <None Include="Resources\world_1_1_1017.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
