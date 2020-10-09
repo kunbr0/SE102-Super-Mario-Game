@@ -13,6 +13,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	
 }
 
 /*
@@ -180,6 +181,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 void CPlayScene::Load()
 {
+	
 	mMap = new GameMap("Resources/new_world_1_1.tmx", &objects);
 	
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -237,6 +239,7 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
+
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{
@@ -257,9 +260,10 @@ void CPlayScene::Update(DWORD dt)
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
-
+	cy -= game->GetScreenHeight() / 2 + 50;
+	
 	CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
+	
 }
 
 void CPlayScene::Render()
@@ -267,7 +271,15 @@ void CPlayScene::Render()
 	mMap->Draw();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	float pX, pY;
+	player->GetPosition(pX, pY);
 	
+	std::string txDetails = 
+		"World 1-1\nMario: 1\n(" + std::to_string((int)pX) + "," + std::to_string((int)(-pY+357)) + ")" + "\n" +
+		"";
+
+	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());
+
 }
 
 /*

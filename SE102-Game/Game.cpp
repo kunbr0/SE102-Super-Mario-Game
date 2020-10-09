@@ -58,15 +58,15 @@ void CGame::Init(HWND hWnd)
 	// Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 	font = NULL;
-	
+	D3DXCreateFont(d3ddv, 10, 7, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+		ANTIALIASED_QUALITY, DEFAULT_PITCH, L"Arial", &font);
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-void CGame::KDrawText(float x, float y, LPCSTR text) {
-	D3DXCreateFont(d3ddv, x, y, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY, DEFAULT_PITCH, L"Arial", &font);
+void CGame::KDrawBoardDetails(float x, float y, LPCSTR text) {
+	
 	RECT* a = new RECT();
-	a->left = 0; a->right = 100; a->top = 0; a->bottom = 100;
+	a->left = x; a->right = 100; a->top = y; a->bottom = 100;
 
 	CGame::GetInstance()->font->DrawTextA(NULL, text, -1, a, DT_LEFT, D3DCOLOR_XRGB(0, 0, 0));
 

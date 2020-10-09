@@ -65,7 +65,7 @@ public:
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
 	ID3DXFont* font;
-	void KDrawText(float x, float y, LPCSTR text);
+	void KDrawBoardDetails(float x, float y, LPCSTR text);
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top

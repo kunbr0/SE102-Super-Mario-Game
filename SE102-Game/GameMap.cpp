@@ -77,6 +77,7 @@ void GameMap::Draw()
     
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
     {
+        auto abc = mMap->GetNumTileLayers();
         const Tmx::TileLayer* layer = mMap->GetTileLayer(i);
 
         if (!layer->IsVisible())
@@ -143,41 +144,44 @@ void GameMap::Draw()
                     /*sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);*/
                     //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
-                    CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
-                    CSprite* a = new CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID));
-                    a->Draw(n * tileWidth + tileWidth / 2 -8, m * tileHeight + tileHeight / 2 - 8, 200);
+                    //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
+                    CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(n * tileWidth + tileWidth / 2 -8, m * tileHeight + tileHeight / 2 - 8, 200);
                     
-                     if (!hasLoaded) {
-                         for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
-                         {
-
-                             if (mMap->GetObjectGroup(i)->GetName() == "Collision")
-                             {
-                                 auto objs = mMap->GetObjectGroup(i)->GetObjects();
-                                 for (int j = 0; j < objs.size(); ++j)
-                                 {
-                                     const Tmx::Object* kObject = objs.at(j);
-                                     float x = kObject->GetX();
-                                     float y = kObject->GetY();
-                                     float width = kObject->GetWidth();
-                                     float height = kObject->GetHeight();
-                                     LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
-                                     listObjects->push_back(rectCollision);
-
-
-                                 }
-
-
-
-                             }
-
-                         }
-                     }
+                    
+                     
 
                     /*CSprites::GetInstance()->Add(1111, 0, 0, 16, 16, CTextures::GetInstance()->Get(kID));
                     CSprites::GetInstance()->Get(1111)->Draw(17, 100, 200);*/
                 }
             }
+        }
+    
+    }
+
+    if (!hasLoaded) {
+        for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
+        {
+
+            if (mMap->GetObjectGroup(i)->GetName() == "Collision")
+            {
+                auto objs = mMap->GetObjectGroup(i)->GetObjects();
+                for (int j = 0; j < objs.size(); ++j)
+                {
+                    const Tmx::Object* kObject = objs.at(j);
+                    float x = kObject->GetX();
+                    float y = kObject->GetY();
+                    float width = kObject->GetWidth();
+                    float height = kObject->GetHeight();
+                    LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
+                    listObjects->push_back(rectCollision);
+
+
+                }
+
+
+
+            }
+
         }
     }
     hasLoaded = true;
