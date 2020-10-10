@@ -68,8 +68,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-
+		if (ny != 0) { isStandingInSomething = true; vy = 0;}
+		
 
 		//
 		// Collision logic with other objects
@@ -172,7 +172,11 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
+		if (isStandingInSomething) {
+			vy = -MARIO_JUMP_SPEED_Y;
+			isStandingInSomething = false;
+		}
+		
 		break;
 	case MARIO_STATE_IDLE:
 		vx = 0;

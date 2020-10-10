@@ -43,7 +43,7 @@ class CMario : public CGameObject
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
-
+	bool isStandingInSomething = false;
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 public:
@@ -53,7 +53,10 @@ public:
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+
+	int GetLevel() { return level; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+
 
 	void Reset();
 

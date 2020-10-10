@@ -10,6 +10,7 @@ void DebugOut(const wchar_t* fmt, ...)
 	vswprintf_s(dbg_out, fmt, argp);
 	va_end(argp);
 	OutputDebugString(dbg_out);
+	
 }
 
 vector<string> split(string line, string delimeter)

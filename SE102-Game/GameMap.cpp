@@ -27,7 +27,7 @@ void GameMap::LoadMap(const char* filePath)
 
     for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
     {
-        int idTileSet = 132034 + i;
+        string idTileSet = "132034" + i;
         const Tmx::Tileset* tileset = mMap->GetTileset(i);
         
         CTextures::GetInstance()->Add(idTileSet, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
@@ -113,7 +113,7 @@ void GameMap::Draw()
                     int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
 
                     int abc = layer->GetTileTilesetIndex(n, m);
-                    int kID = mListTilesetId[layer->GetTileTilesetIndex(n, m)];
+                    string kID = mListTilesetId[layer->GetTileTilesetIndex(n, m)];
 
                     //tile index
                     int tileID = layer->GetTileId(n, m);

@@ -329,6 +329,9 @@
     <ClInclude Include="PlayScene.h">
       <Filter>GameSource\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\mario.png">

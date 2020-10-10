@@ -6,7 +6,8 @@
 #include "TextureManager.h"
 #include "AnimationManager.h"
 #include "Portal.h"
-
+#include "TextureManager.h"
+#include "Const.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -44,7 +45,7 @@ void CPlayScene::_ParseSection_TEXTURES(string line)
 
 	if (tokens.size() < 5) return; // skip invalid lines
 
-	int texID = atoi(tokens[0].c_str());
+	std::string texID = tokens[0] ;
 	wstring path = ToWSTR(tokens[1]);
 	int R = atoi(tokens[2].c_str());
 	int G = atoi(tokens[3].c_str());
@@ -64,7 +65,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	int t = atoi(tokens[2].c_str());
 	int r = atoi(tokens[3].c_str());
 	int b = atoi(tokens[4].c_str());
-	int texID = atoi(tokens[5].c_str());
+	string texID = (tokens[5].c_str());
 
 	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texID);
 	if (tex == NULL)
@@ -183,7 +184,7 @@ void CPlayScene::Load()
 {
 	
 	mMap = new GameMap("Resources/new_world_1_1.tmx", &objects);
-	
+	//CTextures::GetInstance()->Add(TEXTURE_MARIO, ToLPCWSTR(SPRITE_PATH + "mario.png"), D3DCOLOR_XRGB(255, 255, 255));
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -193,6 +194,7 @@ void CPlayScene::Load()
 	int section = SCENE_SECTION_UNKNOWN;
 
 	char str[MAX_SCENE_LINE];
+	
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -226,10 +228,10 @@ void CPlayScene::Load()
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		}
 	}
-
+	
 	f.close();
 
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
@@ -271,13 +273,15 @@ void CPlayScene::Render()
 	mMap->Draw();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	float pX, pY;
+	float pX, pY, pVX, pVY;
 	player->GetPosition(pX, pY);
+	player->GetSpeed(pVX, pVY);
 	
 	std::string txDetails = 
-		"World 1-1\nMario: 1\n(" + std::to_string((int)pX) + "," + std::to_string((int)(-pY+357)) + ")" + "\n" +
-		"";
-
+		"(" + std::to_string((int)pX) + "," + std::to_string((int)(-pY+357)) + ")" + "\n" +
+		"vX: " + std::to_string((int)pVX) + "vY: " + std::to_string((int)pVY) 
+		+ "\nMario: " + std::to_string(player->GetLevel());
+	 
 	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());
 
 }

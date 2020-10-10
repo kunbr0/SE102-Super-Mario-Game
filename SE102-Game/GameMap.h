@@ -36,7 +36,7 @@ private:
     std::vector<LPGAMEOBJECT>* listObjects;
     std::list<int> listNoCollision = {40 };
     Tmx::Map* mMap;
-    std::vector<int> mListTilesetId;
+    std::vector<std::string> mListTilesetId;
     bool hasLoaded = false;
     bool isExistInList(int a);
 };
