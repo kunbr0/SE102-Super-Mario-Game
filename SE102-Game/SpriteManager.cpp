@@ -65,6 +65,10 @@ bool CSprites::LoadSpriteFromFile(std::string filePath) {
 		node->QueryIntAttribute("top", &top);
 		node->QueryIntAttribute("width", &width);
 		node->QueryIntAttribute("height", &height);
+		left *= 3;
+		top *= 3;
+		width *= 3;
+		height *= 3;
 		OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
 		Add(spriteID, left, top, left+width, top+height, tex);
 	}

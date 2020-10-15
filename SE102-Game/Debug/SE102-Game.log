@@ -1,15 +1,2 @@
-﻿  GameMap.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(28,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(69,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(78,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(92,30): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(94,34): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(143,109): warning C4244: 'argument': conversion from 'size_t' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(143,72): warning C4244: 'argument': conversion from 'size_t' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(165,30): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(171,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(174,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(175,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(176,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap.cpp(177,34): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe
+﻿  Animation.cpp
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe

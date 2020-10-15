@@ -249,6 +249,7 @@
     <ClInclude Include="XmlReader\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Sprites\mario1.png" />
     <Image Include="Resources\1.png" />
     <Image Include="Resources\2.png" />
     <Image Include="Resources\goldbrick.png" />
@@ -256,7 +257,6 @@
     <Image Include="Resources\normalbrick.png" />
     <Image Include="Resources\tileset-platformer.png" />
     <Image Include="Resources\world-1-1n.png" />
-    <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
   </ItemGroup>
   <ItemGroup>

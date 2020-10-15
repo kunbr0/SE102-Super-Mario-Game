@@ -23,6 +23,7 @@ CMario::CMario(float x, float y) : CGameObject()
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	dt = 20;
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -157,7 +158,10 @@ void CMario::Render()
 	/*CAnimation* a = animation_set->at(ani);
 	a->Render(x, y, alpha);*/
 	CAnimation* a = CAnimations::GetInstance()->Get(ani);
-	a->Render(x, y, 255);
+	if(nx>0)
+		a->Render(x, y, 255);
+	else
+		a->Render(x, y, 255, -1.0f);
 	
 	
 	//RenderBoundingBox();

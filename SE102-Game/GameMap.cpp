@@ -74,7 +74,6 @@ bool GameMap::isExistInList(int a) {
 
 void GameMap::Draw()
 {
-    float scaleRatio = 0.25f;
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
     {
         auto abc = mMap->GetNumTileLayers();
@@ -87,7 +86,7 @@ void GameMap::Draw()
 
         RECT sourceRECT;
 
-
+        
 
         for (size_t m = 0; m < layer->GetHeight(); m++)
         {
@@ -101,18 +100,13 @@ void GameMap::Draw()
 
                     int tileWidth = mMap->GetTileWidth();
                     int tileHeight = mMap->GetTileHeight();
-                    //TO DO
-                    /*int tileWidth = mMap->GetTileWidth() + 1;
-                    int tileHeight = mMap->GetTileHeight() + 1;*/
-
-                    //int tileWidth = 17;
-                    //int tileHeight = 17;
+                    
                     auto margin = tileSet->GetMargin();
 
                     int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
                     int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
 
-                    int abc = layer->GetTileTilesetIndex(n, m);
+                    
                     string kID = mListTilesetId[layer->GetTileTilesetIndex(n, m)];
 
                     //tile index
@@ -140,14 +134,16 @@ void GameMap::Draw()
 
                     //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR2 position(n * tileWidth + tileWidth / 2 - 8, m * tileHeight + tileHeight / 2 - 8);
-
+                    D3DXVECTOR2 position(
+                        n * tileWidth,
+                        m * tileHeight);
+                    auto nameLayer = layer->GetName();
                     /*sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);*/
                     //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
                     //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
                     CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID))
-                        .DrawWithScale(position.x*scaleRatio, position.y*scaleRatio, D3DXVECTOR2(scaleRatio, scaleRatio), 200);
+                        .Draw((int)position.x, (int)position.y, 200);
                     
                     
                      
@@ -175,7 +171,7 @@ void GameMap::Draw()
                     float y = kObject->GetY();
                     float width = kObject->GetWidth();
                     float height = kObject->GetHeight();
-                    LPGAMEOBJECT rectCollision = new RectCollision(x, y-610, width, height);
+                    LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
                     listObjects->push_back(rectCollision);
 
 

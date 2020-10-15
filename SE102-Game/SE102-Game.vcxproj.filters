@@ -352,9 +352,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\mario.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Textures\misc.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -377,6 +374,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\world-1-1n.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Sprites\mario1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

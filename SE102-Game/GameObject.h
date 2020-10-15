@@ -70,7 +70,7 @@ public:
 
 	int GetState() { return this->state; }
 
-	void RenderBoundingBox();
+	void RenderBoundingBox(D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f));
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 

@@ -92,7 +92,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 }
 
 
-//void CGame::DrawWithTransform(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+
 void CGame::DrawWithTransform(float x, float y, LPDIRECT3DTEXTURE9 texture,
 	int left, int top, int right, int bottom,
 	D3DXVECTOR2 scale, float rotation, int alpha)

@@ -235,7 +235,7 @@ void CPlayScene::Load()
 	
 	f.close();
 
-	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
@@ -244,7 +244,8 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
+	
+	
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
@@ -266,9 +267,12 @@ void CPlayScene::Update(DWORD dt)
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2 + 50;
+	if (cx <= 0) cx = 0;
+	cy = 1166 + 125 - game->GetScreenHeight();
 	
-	CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
+	
+
+	CGame::GetInstance()->SetCamPos((int)cx, (int)cy /*cy*/);
 	
 }
 
@@ -282,7 +286,7 @@ void CPlayScene::Render()
 	player->GetSpeed(pVX, pVY);
 	
 	std::string txDetails = 
-		"(" + std::to_string((int)pX) + "," + std::to_string((int)(-pY+357)) + ")" + "\n" +
+		"(" + std::to_string((int)pX) + "," + std::to_string((int)(pY)) + ")" + "\n" +
 		"vX: " + std::to_string((int)pVX) + "vY: " + std::to_string((int)pVY) 
 		+ "\nMario: " + std::to_string(player->GetLevel());
 	 
