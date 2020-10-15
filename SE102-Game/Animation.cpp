@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include "SpriteManager.h"
 
-void CAnimation::Add(int spriteId, DWORD time)
+void CAnimation::Add(std::string spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;
@@ -48,12 +48,12 @@ CAnimations* CAnimations::GetInstance()
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::Add(std::string id, LPANIMATION ani)
 {
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::Get(std::string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)

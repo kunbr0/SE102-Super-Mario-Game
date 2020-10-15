@@ -4,9 +4,8 @@
 #include "PlayScene.h"
 #include "Utils.h"
 #include "TextureManager.h"
-#include "AnimationManager.h"
+#include "AnimationSet.h"
 #include "Portal.h"
-#include "TextureManager.h"
 #include "Const.h"
 using namespace std;
 
@@ -60,7 +59,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 
 	if (tokens.size() < 6) return; // skip invalid lines
 
-	int ID = atoi(tokens[0].c_str());
+	std::string ID = (tokens[0].c_str());
 	int l = atoi(tokens[1].c_str());
 	int t = atoi(tokens[2].c_str());
 	int r = atoi(tokens[3].c_str());
@@ -87,10 +86,10 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 
 	LPANIMATION ani = new CAnimation();
 
-	int ani_id = atoi(tokens[0].c_str());
+	std::string ani_id = (tokens[0].c_str());
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
-		int sprite_id = atoi(tokens[i].c_str());
+		std::string sprite_id = (tokens[i].c_str());
 		int frame_time = atoi(tokens[i + 1].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
@@ -104,7 +103,7 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 
 	if (tokens.size() < 2) return; // skip invalid lines - an animation set must at least id and one animation id
 
-	int ani_set_id = atoi(tokens[0].c_str());
+	std::string ani_set_id = (tokens[0].c_str());
 
 	LPANIMATION_SET s = new CAnimationSet();
 
@@ -112,7 +111,7 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 
 	for (int i = 1; i < tokens.size(); i++)
 	{
-		int ani_id = atoi(tokens[i].c_str());
+		std::string ani_id = (tokens[i].c_str());
 
 		LPANIMATION ani = animations->Get(ani_id);
 		s->push_back(ani);
@@ -136,7 +135,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
 
-	int ani_set_id = atoi(tokens[3].c_str());
+	std::string ani_set_id = (tokens[3].c_str());
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
@@ -177,13 +176,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
 	obj->SetAnimationSet(ani_set);
+	CAnimationSet* a = CAnimationSets::GetInstance()->Get("mario");
+	player->SetAnimationSet(a);
 	objects.push_back(obj);
 }
 
 void CPlayScene::Load()
 {
-	
-	mMap = new GameMap("Resources/new_world_1_1.tmx", &objects);
+	CTextures::GetInstance()->Add("tex-mario", L"Assets/Sprites/mario.png", D3DCOLOR());
+	CSprites::GetInstance()->LoadSpriteFromFile("Assets/Sprites//SpriteDatabases/MarioDB.xml");
+	CAnimationSets::GetInstance()->LoadAnimationFromFile("Assets/Animations/MarioAnim.xml", "mario");
+
+	mMap = new GameMap("Resources/new_world_1_1n.tmx", &objects);
 	//CTextures::GetInstance()->Add(TEXTURE_MARIO, ToLPCWSTR(SPRITE_PATH + "mario.png"), D3DCOLOR_XRGB(255, 255, 255));
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 

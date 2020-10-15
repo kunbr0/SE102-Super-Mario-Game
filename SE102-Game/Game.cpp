@@ -6,6 +6,9 @@
 
 #include "PlayScene.h"
 
+#include "SpriteManager.h"
+#include "AnimationSet.h"
+
 
 CGame* CGame::__instance = NULL;
 
@@ -61,6 +64,8 @@ void CGame::Init(HWND hWnd)
 	D3DXCreateFont(d3ddv, 10, 7, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
 		ANTIALIASED_QUALITY, DEFAULT_PITCH, L"Arial", &font);
 	OutputDebugString(L"[INFO] InitGame done;\n");
+
+	
 }
 
 void CGame::KDrawBoardDetails(float x, float y, LPCSTR text) {
@@ -84,7 +89,28 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	
+}
+
+
+//void CGame::DrawWithTransform(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::DrawWithTransform(float x, float y, LPDIRECT3DTEXTURE9 texture,
+	int left, int top, int right, int bottom,
+	D3DXVECTOR2 scale, float rotation, int alpha)
+{
+	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+
+	D3DXMATRIX oldMatrix, newMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x, y), 0, &scale, &D3DXVECTOR2(x, y), 0, &D3DXVECTOR2(0.0f,0.0f));
+
+	spriteHandler->SetTransform(&newMatrix);
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
 }
 
 int CGame::IsKeyDown(int KeyCode)
@@ -390,8 +416,8 @@ void CGame::Load(LPCWSTR gameFile)
 	f.close();
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
-
 	SwitchScene(current_scene);
+	
 }
 
 void CGame::SwitchScene(int scene_id)

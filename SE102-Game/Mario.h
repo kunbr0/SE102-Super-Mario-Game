@@ -14,15 +14,15 @@
 #define MARIO_STATE_JUMP			300
 #define MARIO_STATE_DIE				400
 
-#define MARIO_ANI_BIG_IDLE_RIGHT		0
-#define MARIO_ANI_BIG_IDLE_LEFT			1
-#define MARIO_ANI_SMALL_IDLE_RIGHT		2
-#define MARIO_ANI_SMALL_IDLE_LEFT			3
+#define MARIO_ANI_BIG_IDLE_RIGHT		"ani-big-mario-idle"
+#define MARIO_ANI_BIG_IDLE_LEFT			"ani-big-mario-idle"
+#define MARIO_ANI_SMALL_IDLE_RIGHT		"ani-small-mario-idle"
+#define MARIO_ANI_SMALL_IDLE_LEFT		"ani-small-mario-idle"
 
-#define MARIO_ANI_BIG_WALKING_RIGHT			4
-#define MARIO_ANI_BIG_WALKING_LEFT			5
-#define MARIO_ANI_SMALL_WALKING_RIGHT		6
-#define MARIO_ANI_SMALL_WALKING_LEFT		7
+#define MARIO_ANI_BIG_WALKING_RIGHT			"ani-big-mario-walk"
+#define MARIO_ANI_BIG_WALKING_LEFT			"ani-big-mario-walk"
+#define MARIO_ANI_SMALL_WALKING_RIGHT		"ani-small-mario-walk"
+#define MARIO_ANI_SMALL_WALKING_LEFT		"ani-small-mario-walk"
 
 #define MARIO_ANI_DIE				8
 
@@ -37,6 +37,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME 5000
 
+#include "AnimationSet.h"
 
 class CMario : public CGameObject
 {

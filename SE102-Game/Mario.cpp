@@ -18,6 +18,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+	//SetAnimationSet(CAnimationSets::GetInstance()->Get("mario"));
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -122,7 +123,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMario::Render()
 {
-	int ani = -1;
+	string ani;
 	if (state == MARIO_STATE_DIE)
 		ani = MARIO_ANI_DIE;
 	else
@@ -152,7 +153,13 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+	//animation_set->at(ani)->Render(x, y, alpha);
+	/*CAnimation* a = animation_set->at(ani);
+	a->Render(x, y, alpha);*/
+	CAnimation* a = CAnimations::GetInstance()->Get(ani);
+	a->Render(x, y, 255);
+	
+	
 	//RenderBoundingBox();
 }
 
@@ -172,10 +179,11 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		if (isStandingInSomething) {
+		/*if (isStandingInSomething) {
 			vy = -MARIO_JUMP_SPEED_Y;
 			isStandingInSomething = false;
-		}
+		}*/
+		vy = -MARIO_JUMP_SPEED_Y;
 		
 		break;
 	case MARIO_STATE_IDLE:

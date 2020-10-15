@@ -74,7 +74,7 @@ bool GameMap::isExistInList(int a) {
 
 void GameMap::Draw()
 {
-    
+    float scaleRatio = 0.25f;
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
     {
         auto abc = mMap->GetNumTileLayers();
@@ -136,16 +136,18 @@ void GameMap::Draw()
                     /*tileWidth -= 1;
                     tileHeight -= 1;*/
 
+                    
 
                     //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                    D3DXVECTOR2 position(n * tileWidth + tileWidth / 2 - 8, m * tileHeight + tileHeight / 2 - 8);
 
                     /*sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);*/
                     //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
                     //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
-                    CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(n * tileWidth + tileWidth / 2 -8, m * tileHeight + tileHeight / 2 - 8, 200);
+                    CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID))
+                        .DrawWithScale(position.x*scaleRatio, position.y*scaleRatio, D3DXVECTOR2(scaleRatio, scaleRatio), 200);
                     
                     
                      
@@ -159,9 +161,10 @@ void GameMap::Draw()
     }
 
     if (!hasLoaded) {
+        hasLoaded = true;
         for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
         {
-
+            
             if (mMap->GetObjectGroup(i)->GetName() == "Collision")
             {
                 auto objs = mMap->GetObjectGroup(i)->GetObjects();
@@ -172,7 +175,7 @@ void GameMap::Draw()
                     float y = kObject->GetY();
                     float width = kObject->GetWidth();
                     float height = kObject->GetHeight();
-                    LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
+                    LPGAMEOBJECT rectCollision = new RectCollision(x, y-610, width, height);
                     listObjects->push_back(rectCollision);
 
 
@@ -184,5 +187,5 @@ void GameMap::Draw()
 
         }
     }
-    hasLoaded = true;
+    
 }

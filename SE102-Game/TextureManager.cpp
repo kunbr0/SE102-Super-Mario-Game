@@ -76,5 +76,3 @@ void CTextures::Clear()
 	textures.clear();
 }
 
-
-

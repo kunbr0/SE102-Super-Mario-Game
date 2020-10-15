@@ -18,6 +18,8 @@ public:
 	void Add(std::string id, LPCWSTR filePath, D3DCOLOR transparentColor);
 	LPDIRECT3DTEXTURE9 Get(std::string i);
 
+	bool LoadTextureFromFile(LPCWSTR filePath);
+
 	void Clear();
 	static CTextures* GetInstance();
 };

@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "debug.h"
 
-CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(std::string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
 	this->left = left;
@@ -20,4 +20,10 @@ void CSprite::Draw(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
+}
+
+void CSprite::DrawWithScale(float x, float y, D3DXVECTOR2 scale, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->DrawWithTransform(x, y, texture, left, top, right, bottom, scale, 0.0f, 255);
 }

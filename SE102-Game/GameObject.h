@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "SpriteManager.h"
-#include "AnimationManager.h"
+#include "AnimationSet.h"
 
 
 using namespace std;

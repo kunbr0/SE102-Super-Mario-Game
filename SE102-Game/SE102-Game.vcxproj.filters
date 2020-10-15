@@ -123,9 +123,6 @@
     <ClCompile Include="Koopas.cpp">
       <Filter>GameSource\GameObjects\Koopas</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationManager.cpp">
-      <Filter>Framework\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Framework\Utils</Filter>
     </ClCompile>
@@ -198,6 +195,21 @@
     <ClCompile Include="RectCollision.cpp">
       <Filter>GameSource\GameObjects\RectCollision</Filter>
     </ClCompile>
+    <ClCompile Include="XmlReader\tinystr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxmlerror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxmlparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSet.cpp">
+      <Filter>Framework\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -241,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="Koopas.h">
       <Filter>GameSource\GameObjects\Koopas</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationManager.h">
-      <Filter>Framework\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\Utils</Filter>
@@ -332,6 +341,15 @@
     <ClInclude Include="Const.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XmlReader\tinystr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlReader\tinyxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSet.h">
+      <Filter>Framework\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\mario.png">
@@ -358,6 +376,9 @@
     <Image Include="Resources\tileset-platformer.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\world-1-1n.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />
@@ -367,12 +388,15 @@
     <None Include="Resources\untitled.tmx">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\world_1_1(1).tmx">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Resources\world_1_1.tmx">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Resources\world_1_1_1017.tmx" />
+    <None Include="Resources\world-1-1n.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\new_world_1_1n.tmx">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

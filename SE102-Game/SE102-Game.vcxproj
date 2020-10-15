@@ -156,7 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
-    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -195,11 +195,15 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="XmlReader\tinystr.cpp" />
+    <ClCompile Include="XmlReader\tinyxml.cpp" />
+    <ClCompile Include="XmlReader\tinyxmlerror.cpp" />
+    <ClCompile Include="XmlReader\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationFrame.h" />
-    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Game.h" />
@@ -241,6 +245,8 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="XmlReader\tinystr.h" />
+    <ClInclude Include="XmlReader\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\1.png" />
@@ -249,14 +255,16 @@
     <Image Include="Resources\loctho.png" />
     <Image Include="Resources\normalbrick.png" />
     <Image Include="Resources\tileset-platformer.png" />
+    <Image Include="Resources\world-1-1n.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />
     <None Include="Resources\new_world_1_1.tmx" />
+    <None Include="Resources\new_world_1_1n.tmx" />
     <None Include="Resources\untitled.tmx" />
-    <None Include="Resources\world_1_1(1).tmx" />
+    <None Include="Resources\world-1-1n.tsx" />
     <None Include="Resources\world_1_1.tmx" />
     <None Include="Resources\world_1_1_1017.tmx" />
   </ItemGroup>
