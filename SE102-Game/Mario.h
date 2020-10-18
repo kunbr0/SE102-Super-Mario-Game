@@ -15,14 +15,22 @@ class CMario : public CGameObject
 	DWORD untouchable_start;
 	bool isStandingInSomething = false;
 	int status = 0;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render(Vector2 finalPos);
 
 	void SetState(int state);
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
 	int GetType() { return type; }
 	void SetType(int t) { type = t; }
 

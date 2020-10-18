@@ -17,8 +17,13 @@ void RectCollision::GetBoundingBox(float& left, float& top, float& right, float&
 
 }
 
+<<<<<<< HEAD
 void RectCollision::Render(Vector2 finalPos) {
 	RenderBoundingBox(finalPos);
+=======
+void RectCollision::Render() {
+	RenderBoundingBox();
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
 	
 }
 

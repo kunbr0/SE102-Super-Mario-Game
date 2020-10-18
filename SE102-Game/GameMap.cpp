@@ -151,12 +151,20 @@ void GameMap::Draw()
                     sprite->SetHeight(tileHeight);*/
                     //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
                     //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
+<<<<<<< HEAD
                     auto aaa = ConvertToPositionInCam(Vector2((int)position.x, (int)position.y));
                     CSprite az = CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID));
                     az.Draw(ConvertToPositionInCam(Vector2((int)position.x, (int)position.y)), 255);
 
 
 
+=======
+                    CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID))
+                        .Draw((int)position.x, (int)position.y, 255);
+                    
+                    
+                     
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
 
                     /*CSprites::GetInstance()->Add(1111, 0, 0, 16, 16, CTextures::GetInstance()->Get(kID));
                     CSprites::GetInstance()->Get(1111)->Draw(17, 100, 200);*/

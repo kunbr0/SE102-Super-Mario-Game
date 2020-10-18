@@ -19,7 +19,56 @@ void CAnimation::Add(std::string spriteId, DWORD time)
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
 
+<<<<<<< HEAD
 void CAnimation::Render(Vector2 finalPos, int alpha)
+=======
+void CAnimation::Render(float x, float y, int alpha, D3DXVECTOR2 scale)
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
+{
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		DWORD t = frames[currentFrame]->GetTime();
+		if (now - lastFrameTime > t)
+		{
+			currentFrame++;
+			lastFrameTime = now;
+			if (currentFrame == frames.size()) currentFrame = 0;
+		}
+	}
+<<<<<<< HEAD
+
+	frames[currentFrame]->GetSprite()->Draw(finalPos, alpha);
+
+	
+}
+
+
+=======
+	if (scale.x == 1.0f && scale.y == 1.0f) {
+		frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+	}
+	else {
+		LPSPRITE sp = frames[currentFrame]->GetSprite();
+		int width, height;
+		sp->getSize(width, height);
+
+		sp->DrawWithScaling(
+			x, y, 
+			//D3DXVECTOR2(x+width/2, y+height/2),
+			D3DXVECTOR2(x + 21, y + 40),
+			scale
+		);
+	}
+	
+}
+
+void CAnimation::Render2(float x, float y, int alpha, D3DXVECTOR2 scale)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -38,12 +87,9 @@ void CAnimation::Render(Vector2 finalPos, int alpha)
 		}
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(finalPos, alpha);
-
-	
+	frames[currentFrame]->GetSprite()->DrawWithScaling(x, y, D3DXVECTOR2(x, y), D3DXVECTOR2(1, 1), 255);
 }
-
-
+>>>>>>> 538793a0c457bccbeca438980298e425d334832d
 CAnimations* CAnimations::__instance = NULL;
 
 CAnimations* CAnimations::GetInstance()
