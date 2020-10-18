@@ -356,7 +356,6 @@
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animation</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="MarioConsts.h">
       <Filter>GameSource\GameObjects\Mario</Filter>
     </ClInclude>
@@ -365,13 +364,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
-=======
-    <ClInclude Include="PhysicConstants.h">
-      <Filter>Framework\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioConsts.h">
-      <Filter>GameSource\GameObjects\Mario</Filter>
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

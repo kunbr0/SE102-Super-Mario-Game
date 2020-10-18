@@ -277,11 +277,6 @@ void CPlayScene::Update(DWORD dt)
 	//CGame::GetInstance()->SetCamPos(50, 804 /*cy*/);
 	senceCamera.Update(dt);
 
-<<<<<<< HEAD
-=======
-	CGame::GetInstance()->SetCamPos((int)cx, (int)cy /*cy*/);
-	//CGame::GetInstance()->SetCamPos(50, 804 /*cy*/);
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 }
 
 void CPlayScene::Render()
@@ -345,17 +340,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetType(4);
 		break;
 	case DIK_MINUS:
-<<<<<<< HEAD
 		mario->SetLevel(mario->GetLevel()-1);
 		break;
 	case DIK_EQUALS:
 		mario->SetLevel(mario->GetLevel()+1);
-=======
-		mario->SetLevel(mario->GetLevel() - 1);
-		break;
-	case DIK_EQUALS:
-		mario->SetLevel(mario->GetLevel() + 1);
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 		break;
 
 	}

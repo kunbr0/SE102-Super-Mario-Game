@@ -6,11 +6,7 @@
 
 #include "SpriteManager.h"
 #include "AnimationSet.h"
-<<<<<<< HEAD
 #include "PhysicsConsts.h"
-=======
-#include "PhysicConstants.h"
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 
 
 
@@ -93,11 +89,7 @@ public:
 
 	// BoundingBox
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
-<<<<<<< HEAD
 	void RenderBoundingBox(Vector2 finalPos);
-=======
-	void RenderBoundingBox(D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f));
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 
 	// AnimationSet
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
@@ -120,11 +112,7 @@ public:
 
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
-<<<<<<< HEAD
 	virtual void Render(Vector2 finalPos) = 0;
-=======
-	virtual void Render() = 0;
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 
 
 };

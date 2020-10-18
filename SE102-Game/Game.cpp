@@ -97,24 +97,7 @@ void CGame::Draw(Vector2 finalPos, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-<<<<<<< HEAD
 
-=======
-	/*D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
-	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
-
-	D3DXMATRIX oldMatrix, newMatrix;
-	spriteHandler->GetTransform(&oldMatrix);
-	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x, y), 0, &D3DXVECTOR2(-1, 1),
-		&D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
-	spriteHandler->SetTransform(&newMatrix);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	spriteHandler->SetTransform(&oldMatrix);*/
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 }
 
 
@@ -124,12 +107,8 @@ void CGame::DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
 	D3DXVECTOR2 scalingCenter, D3DXVECTOR2 scale, int alpha)
 {
 	
-<<<<<<< HEAD
 	/*D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);*/
 	D3DXVECTOR3 p(x, y, 0);
-=======
-	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 	RECT r;
 	r.left = left;
 	r.top = top;
@@ -138,7 +117,6 @@ void CGame::DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
 
 	D3DXMATRIX oldMatrix, newMatrix;
 	spriteHandler->GetTransform(&oldMatrix);
-<<<<<<< HEAD
 	
 	/*D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x, y), 0, &D3DXVECTOR2(0.8, 1),
 		&D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));*/
@@ -146,12 +124,6 @@ void CGame::DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
 		&D3DXVECTOR2(x - cam_x + ((right - left) / 2), y - cam_y + ((bottom - top) / 2)), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));*/
 	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x  + ((right - left) / 2), y  + ((bottom - top) / 2)), 0, &scale,
 		&D3DXVECTOR2(x + ((right - left) / 2), y  + ((bottom - top) / 2)), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
-=======
-	/*D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x, y), 0, &D3DXVECTOR2(0.8, 1),
-		&D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));*/
-	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(x - cam_x + ((right - left) / 2), y - cam_y + ((bottom - top) / 2)), 0, &scale,
-		&D3DXVECTOR2(x - cam_x + ((right - left) / 2), y - cam_y + ((bottom - top) / 2)), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
 	spriteHandler->SetTransform(&newMatrix);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);

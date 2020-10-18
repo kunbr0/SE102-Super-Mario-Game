@@ -238,11 +238,7 @@
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConsts.h" />
-<<<<<<< HEAD
     <ClInclude Include="PhysicsConsts.h" />
-=======
-    <ClInclude Include="PhysicConstants.h" />
->>>>>>> 538793a0c457bccbeca438980298e425d334832d
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RectCollision.h" />
