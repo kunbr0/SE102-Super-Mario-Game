@@ -16,14 +16,19 @@ CSprite::CSprite(std::string id, int left, int top, int right, int bottom, LPDIR
 
 
 
-void CSprite::Draw(float x, float y, int alpha)
+void CSprite::Draw(Vector2 finalPos, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, alpha);
+	game->Draw(finalPos, texture, left, top, right, bottom, alpha);
 }
 
-void CSprite::DrawWithScale(float x, float y, D3DXVECTOR2 scale, int alpha)
+void CSprite::DrawWithScaling(float x, float y, D3DXVECTOR2 scalingCenter, D3DXVECTOR2 scale, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->DrawWithTransform(x, y, texture, left, top, right, bottom, scale, 0.0f, 255);
+	game->DrawWithScaling(x, y, texture, left, top, right, bottom, scalingCenter, scale, 255);
+}
+
+void CSprite::getSize(int& width, int& height) {
+	width = this->right - this->left;
+	height = this->bottom - this->top;
 }

@@ -25,7 +25,6 @@ class CGame
 	LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
 
 	LPDIRECT3DSURFACE9 backBuffer = NULL;
-	LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
 
 	LPDIRECTINPUT8       di;		// The DirectInput object         
 	LPDIRECTINPUTDEVICE8 didv;		// The keyboard device 
@@ -35,10 +34,9 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 	
-	
 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
+	/*float cam_x = 0.0f;
+	float cam_y = 0.0f;*/
 
 	int screen_width;
 	int screen_height;
@@ -53,11 +51,12 @@ public:
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
-	void DrawWithTransform(float x, float y, LPDIRECT3DTEXTURE9 texture,
-		int left, int top, int right, int bottom,
-		D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f), float rotation = 0.0f, int alpha = 255);
-
+	void Draw(Vector2 finalPos, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
+	void DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
+		int left, int top, int right, int bottom, 
+		D3DXVECTOR2 scalingCenter,
+		D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f), int alpha = 255);
+	
 
 
 	int IsKeyDown(int KeyCode);
@@ -90,10 +89,16 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
+	/*void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }*/
 
 	static CGame* GetInstance();
 
+	// Sprite Handler
+	LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
+	/*D3DXMATRIX initialTransform;
+
+	void ResetTransform();
+	void SetNewTransform(D3DXMATRIX newTransform);*/
 	~CGame();
 };
 

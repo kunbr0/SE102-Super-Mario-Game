@@ -73,6 +73,9 @@
     <Filter Include="GameSource\GameObjects\RectCollision">
       <UniqueIdentifier>{8eee1b50-fe6b-4338-a118-8149e4349b40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{13da4362-146c-4732-87a2-fe893a4f8f28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="AnimationSet.cpp">
       <Filter>Framework\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +355,15 @@
     </ClInclude>
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioConsts.h">
+      <Filter>GameSource\GameObjects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsConsts.h">
+      <Filter>Framework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

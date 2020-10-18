@@ -18,7 +18,8 @@ void CAnimation::Add(std::string spriteId, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha, float scale, bool isReverse)
+
+void CAnimation::Render(Vector2 finalPos, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -36,14 +37,12 @@ void CAnimation::Render(float x, float y, int alpha, float scale, bool isReverse
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
 	}
-	if (scale == 1.0f && isReverse == false) {
-		frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
-	}
-	else {
-		frames[currentFrame]->GetSprite()->DrawWithScale(x, y, D3DXVECTOR2(1.0f*scale, 1.0f));
-	}
+
+	frames[currentFrame]->GetSprite()->Draw(finalPos, alpha);
+
 	
 }
+
 
 CAnimations* CAnimations::__instance = NULL;
 

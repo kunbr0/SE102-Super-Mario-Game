@@ -10,9 +10,9 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	level = MARIO_LEVEL_BIG;
+	type = 1;
+	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
-	SetState(MARIO_STATE_IDLE);
 
 	start_x = x;
 	start_y = y;
@@ -28,7 +28,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+	//vy += MARIO_GRAVITY * dt;
+	//applyGravity();
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -51,6 +52,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
+		if (dy > 0) {
+			status = STATUS_IS_FALLING;
+		}
 	}
 	else
 	{
@@ -67,10 +71,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
+		
 		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) vx = 0;
-		if (ny != 0) { isStandingInSomething = true; vy = 0;}
+		
+		if (ny != 0) { 
+			vy = 0;
+			if (ny < 0) status = STATUS_IS_IDLING_IN_SOMETHING;
+		}
+		
 		
 
 		//
@@ -122,49 +132,77 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CMario::Render()
+void CMario::Render(Vector2 finalPos)
 {
 	string ani;
 	if (state == MARIO_STATE_DIE)
 		ani = MARIO_ANI_DIE;
 	else
-		if (level == MARIO_LEVEL_BIG)
-		{
-			if (vx == 0)
+		if (type == 1) {
+			if (level == MARIO_LEVEL_RACCOON)
 			{
-				if (nx > 0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-				else ani = MARIO_ANI_BIG_IDLE_LEFT;
+				if (vx == 0)
+					ani = RACCOON_MARIO_ANI_BIG_IDLE;
+				else
+					ani = RACCOON_MARIO_ANI_BIG_WALK;
+
+
 			}
-			else if (vx > 0)
-				ani = MARIO_ANI_BIG_WALKING_RIGHT;
-			else ani = MARIO_ANI_BIG_WALKING_LEFT;
+			else if (level == MARIO_LEVEL_BIG)
+			{
+				if (vx == 0)
+					ani = MARIO_ANI_BIG_IDLE;
+				else
+					ani = MARIO_ANI_BIG_WALK;
+				if (status == STATUS_IS_JUMPING)
+					ani = MARIO_ANI_BIG_JUMP;
+				if (status == STATUS_IS_FALLING)
+					ani = MARIO_ANI_BIG_FALL;
+			}
+			else if (level == MARIO_LEVEL_SMALL)
+			{
+				if (vx == 0)
+					ani = MARIO_ANI_SMALL_IDLE;
+				else
+					ani = MARIO_ANI_SMALL_WALK;
+			}
 		}
-		else if (level == MARIO_LEVEL_SMALL)
-		{
+		else if(type == 2) {
 			if (vx == 0)
-			{
-				if (nx > 0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-				else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-			}
-			else if (vx > 0)
-				ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-			else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+				ani = FIRE_MARIO_ANI_IDLE;
+			else
+				ani = FIRE_MARIO_ANI_WALK;
+			if (status == STATUS_IS_JUMPING)
+				ani = FIRE_MARIO_ANI_JUMP;
+		}
+		else if (type == 3) {
+			if (vx == 0)
+				ani = HAMMER_MARIO_ANI_IDLE;
+			else
+				ani = HAMMER_MARIO_ANI_WALK;
+			if (status == STATUS_IS_JUMPING)
+				ani = HAMMER_MARIO_ANI_JUMP;
+		}
+		else if (type == 4) {
+			if (vx == 0)
+				ani = FROG_MARIO_ANI_IDLE;
+			else
+				ani = FROG_MARIO_ANI_WALK;
+			if (status == STATUS_IS_JUMPING)
+				ani = FROG_MARIO_ANI_JUMP;
 		}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-
-	//animation_set->at(ani)->Render(x, y, alpha);
-	/*CAnimation* a = animation_set->at(ani);
-	a->Render(x, y, alpha);*/
-	CAnimation* a = CAnimations::GetInstance()->Get(ani);
-	if(nx>0)
+	
+	/*CAnimation* a = CAnimations::GetInstance()->Get(ani);
+	if(nx>=0)
 		a->Render(x, y, 255);
 	else
-		a->Render(x, y, 255, -1.0f);
+		a->Render(x, y, 255);*/
 	
-	
-	//RenderBoundingBox();
+	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255);
+	RenderBoundingBox(finalPos);
 }
 
 void CMario::SetState(int state)
@@ -181,15 +219,20 @@ void CMario::SetState(int state)
 		vx = -MARIO_WALKING_SPEED;
 		nx = -1;
 		break;
-	case MARIO_STATE_JUMP:
+	case MARIO_STATE_JUMP_X: 
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		/*if (isStandingInSomething) {
+		if (status == STATUS_IS_IDLING_IN_SOMETHING) {
 			vy = -MARIO_JUMP_SPEED_Y;
-			isStandingInSomething = false;
-		}*/
-		vy = -MARIO_JUMP_SPEED_Y;
-		
+			status = STATUS_IS_JUMPING;
 		break;
+	}
+	case MARIO_STATE_JUMP_S:
+		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
+		if (status == STATUS_IS_IDLING_IN_SOMETHING) {
+			vy = -MARIO_JUMP_SPEED_Y*1.20f;
+			status = STATUS_IS_JUMPING;
+			break;
+	}
 	case MARIO_STATE_IDLE:
 		vx = 0;
 		break;
@@ -204,15 +247,41 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	left = x;
 	top = y;
 
-	if (level == MARIO_LEVEL_BIG)
-	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
+	if (type == 1) {
+		if (level == MARIO_LEVEL_RACCOON)
+		{
+			right = x + RACCOON_MARIO_BIG_BBOX_WIDTH;
+			bottom = y + RACCOON_MARIO_BIG_BBOX_HEIGHT;
+		}
+		else if (level == MARIO_LEVEL_BIG)
+		{
+			right = x + MARIO_BIG_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		}
+		else
+		{
+			right = x + MARIO_SMALL_BBOX_WIDTH;
+			bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+		}
 	}
-	else
-	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+	else if (type == 2) {
+		right = x + FIRE_MARIO_BBOX_WIDTH;
+		bottom = y + FIRE_MARIO_BBOX_HEIGHT;
+	}
+	else if (type == 3) {
+		right = x + HAMMER_MARIO_BBOX_WIDTH;
+		bottom = y + HAMMER_MARIO_BBOX_HEIGHT;
+	}
+	else if (type == 4) {
+		if (status == STATUS_IS_IDLING_IN_SOMETHING) {
+			right = x + FROG_MARIO_BBOX_WIDTH_LIE;
+			bottom = y + FROG_MARIO_BBOX_HEIGHT_LIE;
+		}
+		else {
+			right = x + FROG_MARIO_BBOX_WIDTH;
+			bottom = y + FROG_MARIO_BBOX_HEIGHT;
+		}
+		
 	}
 }
 

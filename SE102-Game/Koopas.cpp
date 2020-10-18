@@ -37,7 +37,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CKoopas::Render()
+void CKoopas::Render(Vector2 finalPos)
 {
 	int ani = KOOPAS_ANI_WALKING_LEFT;
 	if (state == KOOPAS_STATE_DIE) {
@@ -46,9 +46,9 @@ void CKoopas::Render()
 	else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
 	else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
 
-	animation_set->at(ani)->Render(x, y);
+	animation_set->at(ani)->Render(finalPos,255);
 
-	RenderBoundingBox();
+	RenderBoundingBox(finalPos);
 }
 
 void CKoopas::SetState(int state)

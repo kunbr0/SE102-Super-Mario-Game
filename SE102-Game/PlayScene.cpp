@@ -12,8 +12,9 @@ using namespace std;
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
-	key_handler = new CPlayScenceKeyHandler(this);
 	
+	key_handler = new CPlayScenceKeyHandler(this);
+	senceCamera.SetCamPosition(Vector2(50,1000));
 }
 
 /*
@@ -144,14 +145,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player != NULL)
+		if (senceCamera.GetPlayer() != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
 		obj = new CMario(x, y);
-		player = (CMario*)obj;
-
+		//player = (CMario*)obj;
+		senceCamera.SetPlayer((CMario*)obj);
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
@@ -177,17 +178,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	obj->SetAnimationSet(ani_set);
 	CAnimationSet* a = CAnimationSets::GetInstance()->Get("mario");
-	player->SetAnimationSet(a);
+	senceCamera.GetPlayer()->SetAnimationSet(a);
 	objects.push_back(obj);
 }
 
 void CPlayScene::Load()
 {
+	
 	CTextures::GetInstance()->Add("tex-mario", L"Assets/Sprites/mario.png", D3DCOLOR());
 	CSprites::GetInstance()->LoadSpriteFromFile("Assets/Sprites//SpriteDatabases/MarioDB.xml");
 	CAnimationSets::GetInstance()->LoadAnimationFromFile("Assets/Animations/MarioAnim.xml", "mario");
-
-	mMap = new GameMap("Resources/new_world_1_1n.tmx", &objects);
 	//CTextures::GetInstance()->Add(TEXTURE_MARIO, ToLPCWSTR(SPRITE_PATH + "mario.png"), D3DCOLOR_XRGB(255, 255, 255));
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
@@ -237,6 +237,7 @@ void CPlayScene::Load()
 
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
+	senceCamera.LoadMap();
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -247,39 +248,40 @@ void CPlayScene::Update(DWORD dt)
 	
 	
 
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
+	//vector<LPGAMEOBJECT> coObjects;
+	//for (size_t i = 1; i < objects.size(); i++)
+	//{
+	//	coObjects.push_back(objects[i]);
+	//}
 
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
+	//for (size_t i = 0; i < objects.size(); i++)
+	//{
+	//	objects[i]->Update(dt, &coObjects);
+	//}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
+	//// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	//if (senceCamera.GetPlayer() == NULL) return;
 
-	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
+	//// Update camera to follow mario
+	//float cx, cy;
+	//senceCamera.GetPlayer()->GetPosition(cx, cy);
 
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	if (cx <= 0) cx = 0;
-	cy = 1166 + 125 - game->GetScreenHeight();
-	
-	
+	//CGame* game = CGame::GetInstance();
+	//cx -= game->GetScreenWidth() / 2;
+	//if (cx <= 0) cx = 0;
+	//cy = 1166 + 125 - game->GetScreenHeight();
+	//
+	//senceCamera.SetCamPosition(Vector2((int)cx, (int)cy));
 
-	CGame::GetInstance()->SetCamPos((int)cx, (int)cy /*cy*/);
-	
+	//CGame::GetInstance()->SetCamPos((int)cx, (int)cy /*cy*/);
+	//CGame::GetInstance()->SetCamPos(50, 804 /*cy*/);
+	senceCamera.Update(dt);
+
 }
 
 void CPlayScene::Render()
 {
-	mMap->Draw();
-	for (int i = 0; i < objects.size(); i++)
+	/*for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	float pX, pY, pVX, pVY;
 	player->GetPosition(pX, pY);
@@ -287,11 +289,11 @@ void CPlayScene::Render()
 	
 	std::string txDetails = 
 		"(" + std::to_string((int)pX) + "," + std::to_string((int)(pY)) + ")" + "\n" +
-		"vX: " + std::to_string((int)pVX) + "vY: " + std::to_string((int)pVY) 
-		+ "\nMario: " + std::to_string(player->GetLevel());
+		"Type: " + std::to_string(player->GetType()) 
+		+ "\nLevel: " + std::to_string(player->GetLevel());
 	 
-	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());
-
+	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());*/
+	senceCamera.Render();
 }
 
 /*
@@ -303,7 +305,7 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
-	player = NULL;
+	senceCamera.SetPlayer(NULL);
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
@@ -312,29 +314,55 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* mario = ((CPlayScene*)scence)->GetCamera()->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+	case DIK_X:
+		mario->SetState(MARIO_STATE_JUMP_X);
+		break;
+	case DIK_S:
+		mario->SetState(MARIO_STATE_JUMP_S);
 		break;
 	case DIK_A:
 		mario->Reset();
 		break;
+
+	case DIK_1:
+		mario->SetType(1);
+		break;
+	case DIK_2:
+		mario->SetType(2);
+		break;
+	case DIK_3:
+		mario->SetType(3);
+		break;
+	case DIK_4:
+		mario->SetType(4);
+		break;
+	case DIK_MINUS:
+		mario->SetLevel(mario->GetLevel()-1);
+		break;
+	case DIK_EQUALS:
+		mario->SetLevel(mario->GetLevel()+1);
+		break;
+
 	}
+
+	
+
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
-	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	//CGame* game = CGame::GetInstance();
+	//CMario* mario = ((CPlayScene*)scence)->GetPlayer();
 
-	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	//// disable control key when Mario die 
+	//if (mario->GetState() == MARIO_STATE_DIE) return;
+	//if (game->IsKeyDown(DIK_RIGHT))
+	//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
+	//else if (game->IsKeyDown(DIK_LEFT))
+	//	mario->SetState(MARIO_STATE_WALKING_LEFT);
+	//else
+	//	mario->SetState(MARIO_STATE_IDLE);
 }

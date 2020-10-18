@@ -158,6 +158,7 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
@@ -235,6 +237,8 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioConsts.h" />
+    <ClInclude Include="PhysicsConsts.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RectCollision.h" />

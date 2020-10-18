@@ -1,2 +1,4 @@
-﻿  Animation.cpp
+﻿  Camera.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(39,19): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(38,19): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe

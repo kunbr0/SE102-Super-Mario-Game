@@ -4,17 +4,14 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Brick.h"
-#include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
-#include "GameMap.h"
 
 
 class CPlayScene : public CScene
 {
 protected:
-	CMario* player;					// A play scene has to have player, right? 
-	GameMap* mMap;
+	
 	vector<LPGAMEOBJECT> objects;
 
 	float standingY;
@@ -34,7 +31,6 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	CMario* GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;
 };

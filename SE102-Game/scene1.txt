@@ -100,7 +100,7 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
-0	50.0	800	1
+0	560.0	1000	1
 
 # GOOMBA
 2	200	370	3

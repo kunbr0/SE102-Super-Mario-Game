@@ -114,7 +114,7 @@ void CGameObject::FilterCollision(
 }
 
 
-void CGameObject::RenderBoundingBox(D3DXVECTOR2 scale)
+void CGameObject::RenderBoundingBox(Vector2 finalPos)
 {
 	
 	RECT rect;
@@ -129,10 +129,13 @@ void CGameObject::RenderBoundingBox(D3DXVECTOR2 scale)
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 222);
+	CGame::GetInstance()->Draw(finalPos, bbox, rect.left, rect.top, rect.right, rect.bottom, 222);
 	
 }
 
+void CGameObject::applyGravity() {
+	vy += ACCELERATION_GRAVITY * dt;
+}
 
 CGameObject::~CGameObject()
 {

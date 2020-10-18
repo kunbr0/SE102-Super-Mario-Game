@@ -20,7 +20,7 @@ class CKoopas : public CGameObject
 	float initX, initY;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
+	virtual void Render(Vector2 finalPos);
 
 public:
 	CKoopas();

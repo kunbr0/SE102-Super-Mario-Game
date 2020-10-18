@@ -1,8 +1,8 @@
 #include "Brick.h"
 
-void CBrick::Render()
+void CBrick::Render(Vector2 finalPos)
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(finalPos, 255);
 	//RenderBoundingBox();
 }
 

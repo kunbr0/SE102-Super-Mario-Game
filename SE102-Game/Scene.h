@@ -2,6 +2,7 @@
 
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
+#include "Camera.h"
 
 class CScene
 {
@@ -9,9 +10,12 @@ protected:
 	CKeyEventHandler* key_handler;
 	int id;
 	LPCWSTR sceneFilePath;
+	CCamera senceCamera;
 
 public:
 	CScene(int id, LPCWSTR filePath);
+
+	CCamera* GetCamera() { return &senceCamera; }
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;

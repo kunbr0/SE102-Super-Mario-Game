@@ -11,23 +11,21 @@
 #include "MapReader/Tmx.h.in"
 #include "Utils.h"
 #include "GameObject.h"
+//#include "GameGlobal.h"
 
 class GameMap
 {
 public:
-    /*GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects);*/
-    GameMap(const char* filePath);
-    Tmx::Map* GetMap();
+    GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects);
 
+    Tmx::Map* GetMap();
+    
     int GetWidth();
     int GetHeight();
     int GetTileWidth();
     int GetTileHeight();
 
-    // Area of visible ( Camera )
-    Vector2 camPosition;
-
-    void UpdateCamPosition(Vector2 newPos);
+    
 
     void Draw();
 
@@ -35,14 +33,12 @@ public:
 
 private:
     void LoadMap(const char* filePath);
-    //std::vector<LPGAMEOBJECT>* listObjects;
-    std::list<int> listNoCollision = { 40 };
+    std::vector<LPGAMEOBJECT>* listObjects;
+    std::list<int> listNoCollision = {40 };
     Tmx::Map* mMap;
     std::vector<std::string> mListTilesetId;
     bool hasLoaded = false;
     bool isExistInList(int a);
-    Vector2 ConvertToPositionInCam(Vector2 oldPos);
-
 };
 
 #endif

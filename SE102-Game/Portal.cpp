@@ -10,9 +10,9 @@ CPortal::CPortal(float l, float t, float r, float b, int scene_id)
 	height = b - t + 1;
 }
 
-void CPortal::Render()
+void CPortal::Render(Vector2 finalPos)
 {
-	RenderBoundingBox();
+	RenderBoundingBox(finalPos);
 }
 
 void CPortal::GetBoundingBox(float& l, float& t, float& r, float& b)
