@@ -28,7 +28,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+	//vy += MARIO_GRAVITY * dt;
+	applyGravity();
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -158,13 +159,14 @@ void CMario::Render()
 	/*CAnimation* a = animation_set->at(ani);
 	a->Render(x, y, alpha);*/
 	CAnimation* a = CAnimations::GetInstance()->Get(ani);
-	if(nx>0)
+	if(nx>=0)
 		a->Render(x, y, 255);
 	else
-		a->Render(x, y, 255, -1.0f);
+		a->Render((int)x, (int)y, 255, D3DXVECTOR2(-1.0f, 1.0f));
+	//a->Render((int)x, (int)y, 255, D3DXVECTOR2(-1.0f, 1.0f));
 	
 	
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

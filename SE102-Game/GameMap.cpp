@@ -143,7 +143,7 @@ void GameMap::Draw()
                     //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
                     //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
                     CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID))
-                        .Draw((int)position.x, (int)position.y, 200);
+                        .Draw((int)position.x, (int)position.y, 255);
                     
                     
                      

@@ -6,9 +6,9 @@
 
 #include "SpriteManager.h"
 #include "AnimationSet.h"
+#include "PhysicConstants.h"
 
 
-using namespace std;
 
 #define ID_TEX_BBOX "-100"		// special texture to draw object bounding box
 
@@ -44,18 +44,26 @@ struct CCollisionEvent
 class CGameObject
 {
 public:
-
+	// Position
 	float x;
 	float y;
 
-	float dx;	// dx = vx*dt
-	float dy;	// dy = vy*dt
-
+	// Velocity
 	float vx;
 	float vy;
 
+	// Acceleration
+	float ax;
+	float ay;
+
+	// Distance
+	float dx;	// dx = vx*dt
+	float dy;	// dy = vy*dt
+
+	// Direction of Object ( Left , Right )
 	int nx;
 
+	// State
 	int state;
 
 	DWORD dt;
@@ -63,17 +71,30 @@ public:
 	LPANIMATION_SET animation_set;
 
 public:
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	// Con/Destructor
+	CGameObject();
+	~CGameObject();
+
+	// Position 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
+	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+
+	// Speed
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
-
+	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	
+	// State
 	int GetState() { return this->state; }
+	virtual void SetState(int state) { this->state = state; }
 
+	// BoundingBox
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	void RenderBoundingBox(D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f));
 
+	// AnimationSet
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 
+	// Collision
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void FilterCollision(
@@ -86,14 +107,13 @@ public:
 		float& rdx,
 		float& rdy);
 
-	CGameObject();
+	// Physics
+	void applyGravity();
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
+
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
 
 
-	~CGameObject();
 };
 

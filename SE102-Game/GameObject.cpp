@@ -133,6 +133,9 @@ void CGameObject::RenderBoundingBox(D3DXVECTOR2 scale)
 	
 }
 
+void CGameObject::applyGravity() {
+	vy += ACCELERATION_GRAVITY * dt;
+}
 
 CGameObject::~CGameObject()
 {

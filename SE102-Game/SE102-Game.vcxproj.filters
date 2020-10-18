@@ -350,6 +350,9 @@
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicConstants.h">
+      <Filter>Framework\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\misc.png">
