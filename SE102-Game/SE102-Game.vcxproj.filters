@@ -353,6 +353,9 @@
     <ClInclude Include="PhysicConstants.h">
       <Filter>Framework\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="MarioConsts.h">
+      <Filter>GameSource\GameObjects\Mario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\misc.png">

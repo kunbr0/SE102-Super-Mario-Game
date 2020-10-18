@@ -235,6 +235,7 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioConsts.h" />
     <ClInclude Include="PhysicConstants.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
