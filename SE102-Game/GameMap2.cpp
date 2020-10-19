@@ -1,187 +1,119 @@
-#include "GameMap.h"
-#include "SpriteManager.h"
-#include "RectCollision.h"
+#include "GameMap2.h"
 
-GameMap::GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects)
+CGameMap::CGameMap()
 {
-    LoadMap(filePath);
-    this->listObjects = listObjects;
-    
+
 }
 
-GameMap::~GameMap()
+CGameMap::CGameMap(int width, int height, int tileWidth, int tileHeight)
 {
-    delete mMap;
+	this->width = width;
+	this->height = height;
+	this->tileHeight = tileHeight;
+	this->tileWidth = tileWidth;
 }
 
-void GameMap::LoadMap(const char* filePath)
-{
-    mMap = new Tmx::Map();
-    mMap->ParseFile(filePath);
-
-    RECT r;
-    r.left = 0;
-    r.top = 0;
-    r.right = this->GetWidth();
-    r.bottom = this->GetHeight();
-
-    for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
-    {
-        string idTileSet = "132034" + i;
-        const Tmx::Tileset* tileset = mMap->GetTileset(i);
-        
-        CTextures::GetInstance()->Add(idTileSet, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
-        //CSprite* sprite = new CSprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, D3DCOLOR_XRGB(255, 128, 192));
-        //CSprite* sprite = new CSprite(idTileSet, 0,0,160,160, CTextures::GetInstance()->Get(idTileSet));
-        mListTilesetId.push_back(idTileSet);
-       
-        //mListTileset.insert(std::pair<int, CSprite*>(i, sprite));
-    }
-    
+void CGameMap::UpdateCamPosition(Vector2 newPos) {
+	camPosition = newPos;
 }
 
-Tmx::Map* GameMap::GetMap()
-{
-    return mMap;
+Vector2 CGameMap::ConvertToPositionInCam(Vector2 oldPos) {
+	return Vector2(oldPos.x - camPosition.x, oldPos.y - camPosition.y);
 }
 
-int GameMap::GetWidth()
+Vector2 CGameMap::GetBound()
 {
-    return mMap->GetWidth() * mMap->GetTileWidth();
+	return Vector2(this->width * tileWidth, this->height * tileHeight);
 }
 
-int GameMap::GetHeight()
+shared_ptr<CTileSet> CGameMap::GetTileSetByTileID(int id)
 {
-    return mMap->GetHeight() * mMap->GetTileHeight();
+	/*return floor_entry(tilesets, id).second;*/
+
+	return tilesets[1];
 }
 
-int GameMap::GetTileWidth()
+void CGameMap::AddTileSet(int firstgid, shared_ptr<CTileSet> tileSet)
 {
-    return mMap->GetTileWidth();
+	this->tilesets[firstgid] = tileSet;
 }
 
-int GameMap::GetTileHeight()
+void CGameMap::AddLayer(shared_ptr<CMapLayer> layer)
 {
-    return mMap->GetTileHeight();
+	this->layers.push_back(layer);
 }
 
-bool GameMap::isExistInList(int a) {
-    for (int i = 0; i < listNoCollision.size(); i++) {
-        
-    }
-    return false;
+void CGameMap::Update(int dt)
+{
 }
 
-void GameMap::Draw()
+void CGameMap::Render()
 {
-    for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
-    {
-        auto abc = mMap->GetNumTileLayers();
-        const Tmx::TileLayer* layer = mMap->GetTileLayer(i);
-
-        if (!layer->IsVisible())
-        {
-            continue;
-        }
-
-        RECT sourceRECT;
-
-        
-
-        for (size_t m = 0; m < layer->GetHeight(); m++)
-        {
-            for (size_t n = 0; n < layer->GetWidth(); n++)
-            {
-                int tilesetIndex = layer->GetTileTilesetIndex(n, m);
-
-                if (tilesetIndex != -1)
-                {
-                    const Tmx::Tileset* tileSet = mMap->GetTileset(tilesetIndex);
-
-                    int tileWidth = mMap->GetTileWidth();
-                    int tileHeight = mMap->GetTileHeight();
-                    
-                    auto margin = tileSet->GetMargin();
-
-                    int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
-                    int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
-
-                    
-                    string kID = mListTilesetId[layer->GetTileTilesetIndex(n, m)];
-
-                    //tile index
-                    int tileID = layer->GetTileId(n, m);
-
-                    int y = tileID / tileSetWidth;
-                    int x = tileID - y * tileSetWidth;
-
-                    //TODO
-                    /*sourceRECT.top = y * tileHeight + margin;
-                    sourceRECT.bottom = sourceRECT.top + tileHeight - margin;
-                    sourceRECT.left = x * tileWidth + margin;
-                    sourceRECT.right = sourceRECT.left + tileWidth - margin;*/
-
-                    sourceRECT.top = y * tileHeight;
-                    sourceRECT.bottom = sourceRECT.top + tileHeight;
-                    sourceRECT.left = x * tileWidth;
-                    sourceRECT.right = sourceRECT.left + tileWidth;
-
-                    //TODO
-                    /*tileWidth -= 1;
-                    tileHeight -= 1;*/
-
-                    
-
-                    //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
-                    //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR2 position(
-                        n * tileWidth,
-                        m * tileHeight);
-                    auto nameLayer = layer->GetName();
-                    /*sprite->SetWidth(tileWidth);
-                    sprite->SetHeight(tileHeight);*/
-                    //sprite->Draw(position, sourceRECT, D3DXVECTOR2(), D3DXVECTOR2(), 0.0f, D3DXVECTOR2(), D3DCOLOR_XRGB(255, 128, 192));
-                    //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
-                    CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID))
-                        .Draw((int)position.x, (int)position.y, 255);
-                    
-                    
-                     
-
-                    /*CSprites::GetInstance()->Add(1111, 0, 0, 16, 16, CTextures::GetInstance()->Get(kID));
-                    CSprites::GetInstance()->Get(1111)->Draw(17, 100, 200);*/
-                }
-            }
-        }
-    
-    }
-
-    if (!hasLoaded) {
-        hasLoaded = true;
-        for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
-        {
-            
-            if (mMap->GetObjectGroup(i)->GetName() == "Collision")
-            {
-                auto objs = mMap->GetObjectGroup(i)->GetObjects();
-                for (int j = 0; j < objs.size(); ++j)
-                {
-                    const Tmx::Object* kObject = objs.at(j);
-                    float x = kObject->GetX();
-                    float y = kObject->GetY();
-                    float width = kObject->GetWidth();
-                    float height = kObject->GetHeight();
-                    LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
-                    listObjects->push_back(rectCollision);
+	/*int col = this->camera->Position.x / tileWidth;
+	int row = this->camera->Position.y / tileHeight;*/
+	int col = 18;
+	int row = 22;
 
 
-                }
+	if (col > 0) col--;
+	if (row > 0) row--;
 
+	Vector2 camSize = Vector2(640 / tileWidth, 640 / tileHeight);
 
+	for (int i = col; i < camSize.x + col + 2; i++) {
+		for (int j = row; j < camSize.y + row + 2; j++) {
 
-            }
+			/*int x = i * tileWidth - this->camera->Position.x;
+			int y = j * tileHeight - this->camera->Position.y;*/
+			int x = i * tileWidth - 50;
+			int y = j * tileHeight - 800;
 
-        }
-    }
-    
+			for (shared_ptr<CMapLayer> layer : layers) {
+				if (layer->Hidden) continue;
+				int id = layer->GetTileID(i % width, j % height);
+				auto abc = this->GetTileSetByTileID(id);
+				abc->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
+			}
+		}
+	}
+}
+
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath)
+{
+	string fullPath = filePath;
+	TiXmlDocument doc(fullPath.c_str());
+
+	if (doc.LoadFile()) {
+		TiXmlElement* root = doc.RootElement();
+		shared_ptr<CGameMap> gameMap = shared_ptr<CGameMap>(new CGameMap());
+
+		root->QueryIntAttribute("width", &gameMap->width);
+		root->QueryIntAttribute("height", &gameMap->height);
+		root->QueryIntAttribute("tilewidth", &gameMap->tileWidth);
+		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
+
+		//Load tileset
+		
+		for (TiXmlElement* node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset")) {
+			CTileSet* tileSet = new CTileSet(node, filePath);
+			auto abc = tileSet->GetFirstGID();
+			gameMap->tilesets[tileSet->GetFirstGID()] = shared_ptr<CTileSet>(tileSet);
+		}
+
+		//Load layer
+		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
+			shared_ptr<CMapLayer> layer = shared_ptr<CMapLayer>(new CMapLayer(node));
+			gameMap->AddLayer(layer);
+		}
+
+		return gameMap;
+	}
+
+	throw "Load map that bai!!";
+}
+
+CGameMap::~CGameMap()
+{
+	layers.clear();
+	tilesets.clear();
 }

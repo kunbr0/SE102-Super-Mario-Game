@@ -1,16 +1,16 @@
 #pragma once
 #include "Transform.h"
+#include "GameObject.h"
 #include "GameMap.h"
-#include "Mario.h"
-//#include "Game.h"
-
+#include "GameMap2.h"
 class CCamera {
 
 protected:
-	CMario* player; // Player controls the position of camera.
-	GameMap* mMap;
+	
 	Vector2 camPosition = Vector2(0.0f, 0.0f);
-
+	Vector2 camSize; // (width,height)
+	CGameObject* positionController; // who controls the camera position
+	shared_ptr<CGameMap> mMap;
 public:
 
 	CCamera();
@@ -18,8 +18,10 @@ public:
 	Vector2 GetCamPosition();
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
-	CMario* GetPlayer() { return player; }
-	void SetPlayer(CMario* obj) { player = obj; }
+	
+	void InitPositionController(CGameObject* a);
+
+	void UpdateCamPosition();
 
 	void LoadMap();
 	void Update(DWORD dt);

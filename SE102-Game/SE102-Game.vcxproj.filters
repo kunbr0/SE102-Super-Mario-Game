@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -52,9 +44,6 @@
     <Filter Include="Framework\KeyEventHandler">
       <UniqueIdentifier>{88722fea-5038-4b4f-93c3-7c069208e574}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Scence">
-      <UniqueIdentifier>{859688a5-c8a8-4ac5-849b-6a04bc22299f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource\GameObjects\Goomba">
       <UniqueIdentifier>{dff8313d-9aa3-4e60-ab83-66ba3af34299}</UniqueIdentifier>
     </Filter>
@@ -76,11 +65,20 @@
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{13da4362-146c-4732-87a2-fe893a4f8f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{859688a5-c8a8-4ac5-849b-6a04bc22299f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap2">
+      <UniqueIdentifier>{0dc860ee-aef8-4053-8ed3-75400c35ea13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainSource">
+      <UniqueIdentifier>{1f270c7b-233e-43ad-a662-9ae6ec36648d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLReader">
+      <UniqueIdentifier>{469cc896-68b7-47f8-b0c0-3452f5dd662c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Framework\GameObject</Filter>
     </ClCompile>
@@ -106,7 +104,7 @@
       <Filter>Framework\Utils</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SpriteManager.cpp">
       <Filter>Framework\Sprite</Filter>
@@ -118,7 +116,7 @@
       <Filter>GameSource\GameObjects\Goomba</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>GameSource\Scenes</Filter>
@@ -198,23 +196,38 @@
     <ClCompile Include="RectCollision.cpp">
       <Filter>GameSource\GameObjects\RectCollision</Filter>
     </ClCompile>
-    <ClCompile Include="XmlReader\tinystr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlReader\tinyxml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlReader\tinyxmlerror.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlReader\tinyxmlparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationSet.cpp">
       <Filter>Framework\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>MainSource</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap2.cpp">
+      <Filter>Framework\GameMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinystr.cpp">
+      <Filter>XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxml.cpp">
+      <Filter>XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxmlerror.cpp">
+      <Filter>XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader\tinyxmlparser.cpp">
+      <Filter>XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLayer.cpp">
+      <Filter>Framework\GameMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Framework\GameMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="RectF.cpp">
+      <Filter>Framework\GameMap2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,7 +256,7 @@
       <Filter>Framework\Utils</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SpriteManager.h">
       <Filter>Framework\Sprite</Filter>
@@ -255,7 +268,7 @@
       <Filter>GameSource\GameObjects\Goomba</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Koopas.h">
       <Filter>GameSource\GameObjects\Koopas</Filter>
@@ -344,15 +357,6 @@
     <ClInclude Include="PlayScene.h">
       <Filter>GameSource\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Const.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlReader\tinystr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlReader\tinyxml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animation</Filter>
     </ClInclude>
@@ -364,6 +368,27 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Framework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap2.h">
+      <Filter>Framework\GameMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlReader\tinyxml.h">
+      <Filter>XMLReader</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlReader\tinystr.h">
+      <Filter>XMLReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLayer.h">
+      <Filter>Framework\GameMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Framework\GameMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="RectF.h">
+      <Filter>Framework\GameMap2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -391,7 +416,7 @@
     <Image Include="Resources\world-1-1n.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Sprites\mario1.png">
+    <Image Include="Assets\Sprites\marioK.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

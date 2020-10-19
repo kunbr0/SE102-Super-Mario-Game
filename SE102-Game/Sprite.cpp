@@ -19,7 +19,9 @@ CSprite::CSprite(std::string id, int left, int top, int right, int bottom, LPDIR
 void CSprite::Draw(Vector2 finalPos, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->Draw(finalPos, texture, left, top, right, bottom, alpha);
+	RECT r;
+	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
+	game->Draw(finalPos, texture, r, alpha);
 }
 
 void CSprite::DrawWithScaling(float x, float y, D3DXVECTOR2 scalingCenter, D3DXVECTOR2 scale, int alpha)

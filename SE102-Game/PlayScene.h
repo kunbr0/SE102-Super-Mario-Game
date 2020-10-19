@@ -6,12 +6,15 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Mario.h"
+//#include "GameMap2.h"
 
 
 class CPlayScene : public CScene
 {
 protected:
-	
+	CMario* player; // Player controls the position of camera.
+	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> objects;
 
 	float standingY;
@@ -31,6 +34,8 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
+	CMario* GetPlayer() { return player; }
+	void SetPlayer(CMario* obj) { player = obj; }
 
 	//friend class CPlayScenceKeyHandler;
 };

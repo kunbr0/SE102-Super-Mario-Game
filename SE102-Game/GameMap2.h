@@ -1,45 +1,51 @@
-
 #pragma once
-#ifndef __GAME_MAP__
-#define __GAME_MAP__
-
-#include <d3dx9.h>
-#include <d3d9.h>
-#include <vector>
-#include "TextureManager.h"
-#include "Sprite.h"
-#include "MapReader/Tmx.h.in"
 #include "Utils.h"
-#include "GameObject.h"
-//#include "GameGlobal.h"
+#include "TileSet.h"
+#include "MapLayer.h"
+#include "./XmlReader/tinyxml.h"
+#include "./XmlReader/tinystr.h"
+#include<map>
 
-class GameMap
+
+class CGameMap
 {
+	int width;
+	int height;
+	int tileWidth;
+	int tileHeight;
+	Vector2 camPosition;
+	//shared_ptr<Camera> camera;
+
+	map<int, shared_ptr<CTileSet>> tilesets;
+	vector<shared_ptr<CMapLayer>> layers;
+
 public:
-    GameMap(const char* filePath, std::vector<LPGAMEOBJECT>* listObjects);
+	CGameMap();
+	CGameMap(int width, int height, int tileWidth, int tileHeight);
 
-    Tmx::Map* GetMap();
-    
-    int GetWidth();
-    int GetHeight();
-    int GetTileWidth();
-    int GetTileHeight();
+	//virtual shared_ptr<Camera> GetCamera() { return this->camera; }
 
-    
+	//virtual void SetCamera(shared_ptr<Camera> camera) { this->camera = camera; }
 
-    void Draw();
+	virtual Vector2 GetBound();
 
-    ~GameMap();
+	virtual shared_ptr<CTileSet> GetTileSetByTileID(int id);
 
-private:
-    void LoadMap(const char* filePath);
-    std::vector<LPGAMEOBJECT>* listObjects;
-    std::list<int> listNoCollision = {40 };
-    Tmx::Map* mMap;
-    std::vector<std::string> mListTilesetId;
-    bool hasLoaded = false;
-    bool isExistInList(int a);
+	virtual void AddTileSet(int firstgid, shared_ptr<CTileSet> tileSet);
+
+	virtual void AddLayer(shared_ptr<CMapLayer> layer);
+
+	void UpdateCamPosition(Vector2 newPos);
+	Vector2 ConvertToPositionInCam(Vector2 oldPos);
+
+	virtual void Update(int dt);
+
+	virtual void Render();
+
+
+
+	static shared_ptr<CGameMap> FromTMX(string filePath);
+	~CGameMap();
 };
 
-#endif
-
+typedef CGameMap* LPGameMap;

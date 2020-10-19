@@ -14,7 +14,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	
 	key_handler = new CPlayScenceKeyHandler(this);
-	senceCamera.SetCamPosition(Vector2(50,1000));
+	
 }
 
 /*
@@ -145,14 +145,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (senceCamera.GetPlayer() != NULL)
+		if (GetPlayer() != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
 		obj = new CMario(x, y);
 		//player = (CMario*)obj;
-		senceCamera.SetPlayer((CMario*)obj);
+		SetPlayer((CMario*)obj);
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
@@ -178,7 +178,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	obj->SetAnimationSet(ani_set);
 	CAnimationSet* a = CAnimationSets::GetInstance()->Get("mario");
-	senceCamera.GetPlayer()->SetAnimationSet(a);
+	GetPlayer()->SetAnimationSet(a);
 	objects.push_back(obj);
 }
 
@@ -186,59 +186,26 @@ void CPlayScene::Load()
 {
 	
 	CTextures::GetInstance()->Add("tex-mario", L"Assets/Sprites/mario.png", D3DCOLOR());
-	CSprites::GetInstance()->LoadSpriteFromFile("Assets/Sprites//SpriteDatabases/MarioDB.xml");
-	CAnimationSets::GetInstance()->LoadAnimationFromFile("Assets/Animations/MarioAnim.xml", "mario");
-	//CTextures::GetInstance()->Add(TEXTURE_MARIO, ToLPCWSTR(SPRITE_PATH + "mario.png"), D3DCOLOR_XRGB(255, 255, 255));
-	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
-
-	ifstream f;
-	f.open(sceneFilePath);
-
-	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;
-
-	char str[MAX_SCENE_LINE];
-	
-	while (f.getline(str, MAX_SCENE_LINE))
-	{
-		string line(str);
-
-		if (line[0] == '#') continue;	// skip comment lines	
-
-		if (line == "[TEXTURES]") { section = SCENE_SECTION_TEXTURES; continue; }
-		if (line == "[SPRITES]") {
-			section = SCENE_SECTION_SPRITES; continue;
-		}
-		if (line == "[ANIMATIONS]") {
-			section = SCENE_SECTION_ANIMATIONS; continue;
-		}
-		if (line == "[ANIMATION_SETS]") {
-			section = SCENE_SECTION_ANIMATION_SETS; continue;
-		}
-		if (line == "[OBJECTS]") {
-			section = SCENE_SECTION_OBJECTS; continue;
-		}
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
-
-		//
-		// data section
-		//
-		switch (section)
-		{
-		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
-		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
-		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
-		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
-		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-		}
-	}
-	
-	f.close();
-
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	senceCamera.LoadMap();
+	CSprites::GetInstance()->LoadSpriteFromFile("Assets/Sprites//SpriteDatabases/MarioDB.xml");
+	CAnimationSets::GetInstance()->LoadAnimationFromFile("Assets/Animations/MarioAnim.xml", "mario");
+	
+
+	
+	
+	CGameObject* obj = NULL;
+	obj = new CMario(800, 400);
+	SetPlayer((CMario*)obj);
+	objects.push_back(obj);
+	sceneCamera.InitPositionController(player);
+	sceneCamera.LoadMap();
+
+	
+	//kMap = CGameMap().FromTMX("Resources/new_world_1_1n.tmx");
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+	
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -248,34 +215,21 @@ void CPlayScene::Update(DWORD dt)
 	
 	
 
-	//vector<LPGAMEOBJECT> coObjects;
-	//for (size_t i = 1; i < objects.size(); i++)
-	//{
-	//	coObjects.push_back(objects[i]);
-	//}
+	vector<LPGAMEOBJECT> coObjects;
+	for (size_t i = 1; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects[i]);
+	}
 
-	//for (size_t i = 0; i < objects.size(); i++)
-	//{
-	//	objects[i]->Update(dt, &coObjects);
-	//}
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
 
-	//// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	//if (senceCamera.GetPlayer() == NULL) return;
 
-	//// Update camera to follow mario
-	//float cx, cy;
-	//senceCamera.GetPlayer()->GetPosition(cx, cy);
+	//kMap->Update(dt);
 
-	//CGame* game = CGame::GetInstance();
-	//cx -= game->GetScreenWidth() / 2;
-	//if (cx <= 0) cx = 0;
-	//cy = 1166 + 125 - game->GetScreenHeight();
-	//
-	//senceCamera.SetCamPosition(Vector2((int)cx, (int)cy));
-
-	//CGame::GetInstance()->SetCamPos((int)cx, (int)cy /*cy*/);
-	//CGame::GetInstance()->SetCamPos(50, 804 /*cy*/);
-	senceCamera.Update(dt);
+	sceneCamera.Update(dt); // Update Map in Camera
 
 }
 
@@ -293,7 +247,11 @@ void CPlayScene::Render()
 		+ "\nLevel: " + std::to_string(player->GetLevel());
 	 
 	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());*/
-	senceCamera.Render();
+
+	sceneCamera.Render();
+	Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
+	player->Render(a);
+	//kMap->Render();
 }
 
 /*
@@ -305,7 +263,7 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
-	senceCamera.SetPlayer(NULL);
+	SetPlayer(NULL);
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
@@ -314,7 +272,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetCamera()->GetPlayer();
+	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_X:
@@ -354,15 +312,15 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
-	//CGame* game = CGame::GetInstance();
-	//CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CGame* game = CGame::GetInstance();
+	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
 
-	//// disable control key when Mario die 
-	//if (mario->GetState() == MARIO_STATE_DIE) return;
-	//if (game->IsKeyDown(DIK_RIGHT))
-	//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	//else if (game->IsKeyDown(DIK_LEFT))
-	//	mario->SetState(MARIO_STATE_WALKING_LEFT);
-	//else
-	//	mario->SetState(MARIO_STATE_IDLE);
+	// disable control key when Mario die 
+	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_RIGHT))
+		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_LEFT))
+		mario->SetState(MARIO_STATE_WALKING_LEFT);
+	else
+		mario->SetState(MARIO_STATE_IDLE);
 }

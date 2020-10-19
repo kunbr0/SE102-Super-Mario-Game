@@ -161,10 +161,12 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GameMap2.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
     <ClCompile Include="MapReader\miniz.c" />
     <ClCompile Include="MapReader\tinyxml2.cpp" />
@@ -189,11 +191,13 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RectCollision.cpp" />
+    <ClCompile Include="RectF.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="XmlReader\tinystr.cpp" />
@@ -210,9 +214,11 @@
     <ClInclude Include="Const.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GameMap2.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
     <ClInclude Include="MapReader\TmxEllipse.h" />
@@ -242,18 +248,20 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RectCollision.h" />
+    <ClInclude Include="RectF.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TileSet.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="XmlReader\tinystr.h" />
     <ClInclude Include="XmlReader\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Sprites\mario1.png" />
+    <Image Include="Assets\Sprites\marioK.png" />
     <Image Include="Resources\1.png" />
     <Image Include="Resources\2.png" />
     <Image Include="Resources\goldbrick.png" />
