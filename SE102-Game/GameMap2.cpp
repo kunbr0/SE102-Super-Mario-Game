@@ -1,4 +1,6 @@
 #include "GameMap2.h"
+#include "Game.h"
+#include "RectCollision.h"
 
 CGameMap::CGameMap()
 {
@@ -49,24 +51,24 @@ void CGameMap::Update(int dt)
 
 void CGameMap::Render()
 {
-	/*int col = this->camera->Position.x / tileWidth;
-	int row = this->camera->Position.y / tileHeight;*/
-	int col = 18;
-	int row = 22;
+	int col = this->camPosition.x / tileWidth;
+	int row = this->camPosition.y / tileHeight;
+	/*int col = 18;
+	int row = 22;*/
 
 
 	if (col > 0) col--;
 	if (row > 0) row--;
 
-	Vector2 camSize = Vector2(640 / tileWidth, 640 / tileHeight);
+	Vector2 camSize = Vector2(CGame::GetInstance()->GetScreenWidth() / tileWidth, CGame::GetInstance()->GetScreenHeight() / tileHeight);
+	
+	for (int i = col; i < camSize.x + col + 4; i++) {
+		for (int j = row; j < camSize.y + row + 4; j++) {
 
-	for (int i = col; i < camSize.x + col + 2; i++) {
-		for (int j = row; j < camSize.y + row + 2; j++) {
-
-			/*int x = i * tileWidth - this->camera->Position.x;
-			int y = j * tileHeight - this->camera->Position.y;*/
-			int x = i * tileWidth - 50;
-			int y = j * tileHeight - 800;
+			int x = i * tileWidth;
+			int y = j * tileHeight;
+			/*int x = i * tileWidth - 50;
+			int y = j * tileHeight - 800;*/
 
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;
@@ -78,7 +80,7 @@ void CGameMap::Render()
 	}
 }
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath)
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objects)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -104,6 +106,20 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath)
 		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
 			shared_ptr<CMapLayer> layer = shared_ptr<CMapLayer>(new CMapLayer(node));
 			gameMap->AddLayer(layer);
+		}
+
+		// Load collision group objects
+		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
+			for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+				LPGAMEOBJECT obj = new RectCollision(
+					atoi(objNode->Attribute("x")),
+					atoi(objNode->Attribute("y")),
+					atoi(objNode->Attribute("width")),
+					atoi(objNode->Attribute("height"))
+				);
+				objects->push_back(obj);
+			}
+			
 		}
 
 		return gameMap;

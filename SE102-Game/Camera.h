@@ -23,7 +23,7 @@ public:
 
 	void UpdateCamPosition();
 
-	void LoadMap();
+	void LoadMap(vector<LPGAMEOBJECT>* objects);
 	void Update(DWORD dt);
 	void Render();
 };

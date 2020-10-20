@@ -195,11 +195,12 @@ void CPlayScene::Load()
 	
 	
 	CGameObject* obj = NULL;
-	obj = new CMario(800, 400);
+	obj = new CMario(50, 1100);
 	SetPlayer((CMario*)obj);
 	objects.push_back(obj);
+
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap();
+	sceneCamera.LoadMap(&objects);
 
 	
 	//kMap = CGameMap().FromTMX("Resources/new_world_1_1n.tmx");
@@ -249,8 +250,11 @@ void CPlayScene::Render()
 	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());*/
 
 	sceneCamera.Render();
-	Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
-	player->Render(a);
+	for (int i = 0; i < objects.size(); i++)
+		objects[i]->Render(sceneCamera.ConvertPosition(Vector2(objects[i]->x, objects[i]->y)));
+	/*Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
+	player->Render(a);*/
+
 	//kMap->Render();
 }
 

@@ -4,7 +4,7 @@
 class RectCollision : public CGameObject
 {
 private:
-	float width, height;
+	int width, height;
 public:
 	RectCollision(float x, float y, float width, float height);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

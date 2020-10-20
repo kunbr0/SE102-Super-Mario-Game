@@ -5,6 +5,7 @@
 #include "./XmlReader/tinyxml.h"
 #include "./XmlReader/tinystr.h"
 #include<map>
+#include "GameObject.h"
 
 
 class CGameMap
@@ -23,9 +24,6 @@ public:
 	CGameMap();
 	CGameMap(int width, int height, int tileWidth, int tileHeight);
 
-	//virtual shared_ptr<Camera> GetCamera() { return this->camera; }
-
-	//virtual void SetCamera(shared_ptr<Camera> camera) { this->camera = camera; }
 
 	virtual Vector2 GetBound();
 
@@ -44,7 +42,7 @@ public:
 
 
 
-	static shared_ptr<CGameMap> FromTMX(string filePath);
+	static shared_ptr<CGameMap> FromTMX(string filePath, vector<LPGAMEOBJECT>* objects);
 	~CGameMap();
 };
 

@@ -1,10 +1,11 @@
 #include "Camera.h"
+#include "Game.h"
 
 
 
 CCamera::CCamera() {
 	this->camPosition = Vector2(0, 0);
-	this->camSize = Vector2(640, 640);
+	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	//mMap = NULL;
 }
 CCamera::~CCamera() {
@@ -15,9 +16,9 @@ void CCamera::InitPositionController(CGameObject* player) {
 	this->positionController = player;
 }
 
-void CCamera::LoadMap() {
+void CCamera::LoadMap(vector<LPGAMEOBJECT>* objects) {
 	/*mMap = new GameMap("Resources/new_world_1_1n.tmx");*/
-	mMap = CGameMap().FromTMX("Resources/new_world_1_1n.tmx");
+	mMap = CGameMap().FromTMX("Resources/new_world_1_1n.tmx", objects);
 }
 
 Vector2 CCamera::GetCamPosition() {
@@ -25,10 +26,13 @@ Vector2 CCamera::GetCamPosition() {
 }
 
 void CCamera::SetCamPosition(Vector2 pos) {
+	if (pos.x < 0) pos.x = 0;
+	if (pos.y < 0) pos.y = 0;
 	camPosition = pos;
 }
 
 Vector2 CCamera::ConvertPosition(Vector2 pos) {
+	
 	return Vector2(pos.x - camPosition.x, pos.y - camPosition.y);
 }
 
@@ -36,7 +40,7 @@ void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom);
 
-	SetCamPosition(Vector2((int)(left+right-camSize.x)/2, (int)(top+bottom - camSize.y) / 2));
+	SetCamPosition(Vector2((int)(left+right-camSize.x)/2, (int)(top+bottom - 2*camSize.y + 150) / 2));
 }
 
 void CCamera::Update(DWORD dt) {
