@@ -1,5 +1,10 @@
 # id	file_path	transparent_color_r	g	b
 
+[TEXTURES]
+-100	Textures\\bbox.png	255	255	255
+tex-mario	Assets\Sprites\mario.png	
+
+
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba

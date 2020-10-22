@@ -9,11 +9,11 @@ class CScene
 protected:
 	CKeyEventHandler* key_handler;
 	int id;
-	LPCWSTR sceneFilePath;
+	std::string sceneFilePath;
 	CCamera sceneCamera;
 
 public:
-	CScene(int id, LPCWSTR filePath);
+	CScene(int id, std::string filePath);
 
 	CCamera* GetCamera() { return &sceneCamera; }
 

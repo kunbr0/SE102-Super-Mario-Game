@@ -19,20 +19,19 @@ protected:
 
 	float standingY;
 
-	void _ParseSection_TEXTURES(string line);
-	void _ParseSection_SPRITES(string line);
-	void _ParseSection_ANIMATIONS(string line);
-	void _ParseSection_ANIMATION_SETS(string line);
-	void _ParseSection_OBJECTS(string line);
-
 
 public:
-	CPlayScene(int id, LPCWSTR filePath);
+	CPlayScene(int id, std::string filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	virtual bool LoadDataFromFile();
+	/*virtual bool ParseTextures();
+	virtual bool ParseSprites();*/
+
 
 	CMario* GetPlayer() { return player; }
 	void SetPlayer(CMario* obj) { player = obj; }

@@ -24,11 +24,16 @@ void CSprite::Draw(Vector2 finalPos, int alpha)
 	game->Draw(finalPos, texture, r, alpha);
 }
 
-void CSprite::DrawWithScaling(float x, float y, D3DXVECTOR2 scalingCenter, D3DXVECTOR2 scale, int alpha)
+void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->DrawWithScaling(x, y, texture, left, top, right, bottom, scalingCenter, scale, 255);
+	RECT r;
+	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
+	
+	game->DrawFlipY(finalPos, Vector2(finalPos.x + (left+right)/2, finalPos.y + (top+bottom)/2), texture, r, alpha);
 }
+
+
 
 void CSprite::getSize(int& width, int& height) {
 	width = this->right - this->left;

@@ -52,11 +52,7 @@ public:
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
 	void Draw(Vector2 finalPos, LPDIRECT3DTEXTURE9 texture, RECT r, int alpha = 255);
-	void DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
-		int left, int top, int right, int bottom, 
-		D3DXVECTOR2 scalingCenter,
-		D3DXVECTOR2 scale = D3DXVECTOR2(1.0f, 1.0f), int alpha = 255);
-	
+	void DrawFlipY(Vector2 finalPos, Vector2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
 
 
 	int IsKeyDown(int KeyCode);

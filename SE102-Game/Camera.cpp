@@ -16,9 +16,8 @@ void CCamera::InitPositionController(CGameObject* player) {
 	this->positionController = player;
 }
 
-void CCamera::LoadMap(vector<LPGAMEOBJECT>* objects) {
-	/*mMap = new GameMap("Resources/new_world_1_1n.tmx");*/
-	mMap = CGameMap().FromTMX("Resources/new_world_1_1n.tmx", objects);
+void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* objects) {
+	mMap = CGameMap().FromTMX(mapFilePath, objects);
 }
 
 Vector2 CCamera::GetCamPosition() {
@@ -40,7 +39,8 @@ void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom);
 
-	SetCamPosition(Vector2((int)(left+right-camSize.x)/2, (int)(top+bottom - 2*camSize.y + 150) / 2));
+	//SetCamPosition(Vector2((int)(left+right-camSize.x)/2, (int)(top+bottom - 2*camSize.y + 150) / 2));
+	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, 710));
 }
 
 void CCamera::Update(DWORD dt) {

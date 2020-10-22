@@ -202,7 +202,7 @@ void CMario::Render(Vector2 finalPos)
 		a->Render(x, y, 255);*/
 	
 	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255);
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 }
 
 void CMario::SetState(int state)

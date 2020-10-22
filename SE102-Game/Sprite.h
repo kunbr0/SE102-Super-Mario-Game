@@ -21,7 +21,8 @@ public:
 	
 	void getSize(int &width, int &height);
 	void Draw(Vector2 finalPos, int alpha = 255);
-	void DrawWithScaling(float x, float y, D3DXVECTOR2 scalingCenter, D3DXVECTOR2 scale, int alpha = 255);
+	void DrawFlipY(Vector2 finalPos, int alpha);
+
 };
 
 typedef CSprite* LPSPRITE;

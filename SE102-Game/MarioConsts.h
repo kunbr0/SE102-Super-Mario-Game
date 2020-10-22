@@ -1,10 +1,10 @@
 #pragma once
 
-#define MARIO_WALKING_SPEED		0.22f 
+#define MARIO_WALKING_SPEED		0.28f 
 //0.1f
 #define MARIO_JUMP_SPEED_Y		1.25f
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_GRAVITY			0.005f
+#define MARIO_GRAVITY			0.0035f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
 
 #define MARIO_STATE_IDLE			0
