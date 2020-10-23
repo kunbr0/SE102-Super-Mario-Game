@@ -1,0 +1,5 @@
+<GameSettings>
+    <Scenes start="world1-1">
+        <Scene id="world1-1" path="MapData\World1-1.xml" />
+    </Scenes>
+</GameSettings>

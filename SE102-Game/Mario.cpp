@@ -128,6 +128,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	isBoostedSpeed = false;
+
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -195,13 +197,8 @@ void CMario::Render(Vector2 finalPos)
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	
-	/*CAnimation* a = CAnimations::GetInstance()->Get(ani);
-	if(nx>=0)
-		a->Render(x, y, 255);
-	else
-		a->Render(x, y, 255);*/
 	
-	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255);
+	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx>0));
 	//RenderBoundingBox(finalPos);
 }
 
@@ -211,12 +208,15 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
+	case MARIO_STATE_WALKING_BOOST:
+		isBoostedSpeed = true;
+		break;
 	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
+		vx = MARIO_WALKING_SPEED * ( 1 + (isBoostedSpeed ? 1 : 0) * MARIO_WALKING_BOOST_RATE);
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
-		vx = -MARIO_WALKING_SPEED;
+		vx = -MARIO_WALKING_SPEED * (1 + (isBoostedSpeed ? 1 : 0) * MARIO_WALKING_BOOST_RATE);
 		nx = -1;
 		break;
 	case MARIO_STATE_JUMP_X: 
@@ -239,7 +239,28 @@ void CMario::SetState(int state)
 	case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
 		break;
+	
 	}
+	
+}
+
+void CMario::SetLevel(int lv) {
+	if (lv < 1 || lv > 3) return;
+	float l1, t1, r1, b1;
+	GetBoundingBox(l1, t1, r1, b1);
+	level = lv;
+	float l2, t2, r2, b2;
+	GetBoundingBox(l2, t2, r2, b2);
+	y -= b2 - b1;
+}
+void CMario::SetType(int t) {
+	if (type < 1 || type > 4) return;
+	float l1, t1, r1, b1;
+	GetBoundingBox(l1, t1, r1, b1);
+	type = t;
+	float l2, t2, r2, b2;
+	GetBoundingBox(l2, t2, r2, b2);
+	y -= b2 - b1;
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)

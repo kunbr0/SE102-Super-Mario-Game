@@ -12,7 +12,7 @@
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, std::string filePath) :
+CPlayScene::CPlayScene(std::string id, std::string filePath) :
 	CScene(id, filePath)
 {
 	
@@ -147,7 +147,7 @@ void CPlayScene::Update(DWORD dt)
 	//kMap->Update(dt);
 
 	sceneCamera.Update(dt); // Update Map in Camera
-
+	
 }
 
 void CPlayScene::Render()
@@ -201,7 +201,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_S:
 		mario->SetState(MARIO_STATE_JUMP_S);
 		break;
-	case DIK_A:
+	case DIK_0:
 		mario->Reset();
 		break;
 
@@ -237,6 +237,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_A))
+		mario->SetState(MARIO_STATE_WALKING_BOOST);
 	if (game->IsKeyDown(DIK_RIGHT))
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))

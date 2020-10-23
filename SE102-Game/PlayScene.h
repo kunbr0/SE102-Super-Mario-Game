@@ -21,7 +21,7 @@ protected:
 
 
 public:
-	CPlayScene(int id, std::string filePath);
+	CPlayScene(std::string id, std::string filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);

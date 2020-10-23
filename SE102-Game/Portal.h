@@ -7,7 +7,7 @@
 */
 class CPortal : public CGameObject
 {
-	int scene_id;	// target scene to switch to 
+	std::string scene_id;	// target scene to switch to 
 
 	int width;
 	int height;
@@ -15,5 +15,5 @@ public:
 	CPortal(float l, float t, float r, float b, int scene_id);
 	virtual void Render(Vector2 finalPos);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-	int GetSceneId() { return scene_id; }
+	std::string GetSceneId() { return scene_id; }
 };

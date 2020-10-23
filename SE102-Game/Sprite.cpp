@@ -30,7 +30,7 @@ void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
 	RECT r;
 	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
 	
-	game->DrawFlipY(finalPos, Vector2(finalPos.x + (left+right)/2, finalPos.y + (top+bottom)/2), texture, r, alpha);
+	game->DrawFlipY(finalPos, Vector2((right-left), 0), texture, r, alpha);
 }
 
 

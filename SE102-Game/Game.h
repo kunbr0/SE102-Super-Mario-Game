@@ -41,11 +41,10 @@ class CGame
 	int screen_width;
 	int screen_height;
 
-	unordered_map<int, LPSCENE> scenes;
-	int current_scene;
+	unordered_map<std::string, LPSCENE> scenes;
+	std::string current_scene;
 
-	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);
+	
 
 public:
 	void InitKeyboard();
@@ -58,9 +57,9 @@ public:
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
 
-	void Load(LPCWSTR gameFile);
+	bool Load(std::string gameFile);
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
-	void SwitchScene(int scene_id);
+	void SwitchScene(std::string scene_id);
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }

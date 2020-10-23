@@ -6,7 +6,7 @@
 CCamera::CCamera() {
 	this->camPosition = Vector2(0, 0);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
-	//mMap = NULL;
+	
 }
 CCamera::~CCamera() {
 
@@ -39,7 +39,6 @@ void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom);
 
-	//SetCamPosition(Vector2((int)(left+right-camSize.x)/2, (int)(top+bottom - 2*camSize.y + 150) / 2));
 	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, 710));
 }
 

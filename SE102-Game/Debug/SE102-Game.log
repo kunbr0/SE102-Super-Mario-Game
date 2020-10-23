@@ -1,8 +1,2 @@
-﻿  Game.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(82,12): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(82,40): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(101,54): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(101,34): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(109,48): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Game.cpp(109,29): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+﻿  Mario.cpp
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

@@ -13,7 +13,7 @@ public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(std::string spriteId, DWORD time = 0);
 
-	void Render(Vector2 finalPos, int alpha = 255);
+	void Render(Vector2 finalPos, int alpha = 255, bool isFlipY = false);
 
 };
 
