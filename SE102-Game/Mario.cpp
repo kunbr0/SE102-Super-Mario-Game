@@ -18,7 +18,9 @@ CMario::CMario(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+	isShowingSpecialAni = "-1";
 	//SetAnimationSet(CAnimationSets::GetInstance()->Get("mario"));
+	
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -129,7 +131,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	isBoostedSpeed = false;
-
+	isFlying = false;
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -143,10 +145,17 @@ void CMario::Render(Vector2 finalPos)
 		if (type == 1) {
 			if (level == MARIO_LEVEL_RACCOON)
 			{
-				if (vx == 0)
-					ani = RACCOON_MARIO_ANI_BIG_IDLE;
+				if (vx == 0) {
+					if (isShowingSpecialAni != "-1") {
+						ani = isShowingSpecialAni;
+					}
+					else {
+						ani = RACCOON_MARIO_ANI_BIG_IDLE;
+					}
+					
+				}	
 				else
-					ani = RACCOON_MARIO_ANI_BIG_WALK;
+					ani = RACCOON_MARIO_ANI_BIG_ATTACK;
 
 
 			}
@@ -198,8 +207,13 @@ void CMario::Render(Vector2 finalPos)
 	if (untouchable) alpha = 128;
 	
 	
-	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx>0));
-	RenderBoundingBox(finalPos);
+	bool isFinishAni = CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx > 0));
+	if (isFinishAni) isShowingSpecialAni = "-1";
+	
+	
+	
+	
+	//RenderBoundingBox(finalPos);
 }
 
 void CMario::SetState(int state)
@@ -208,8 +222,14 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
-	case MARIO_STATE_WALKING_BOOST:
-		isBoostedSpeed = true;
+	case MARIO_STATE_PRESS_A:
+		if (vx == 0) {
+			isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_ATTACK;
+		}
+		else {
+			isBoostedSpeed = true;
+		}
+		
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		vx = MARIO_WALKING_SPEED * ( 1 + (isBoostedSpeed ? 1 : 0) * MARIO_WALKING_BOOST_RATE);
@@ -233,6 +253,12 @@ void CMario::SetState(int state)
 			status = STATUS_IS_JUMPING;
 			break;
 	}
+	case MARIO_STATE_RACCOON_FLY: {
+		vy = -MARIO_FLY_SPEED_Y*100;
+		isFlying = true;
+		break;
+	}
+		
 	case MARIO_STATE_IDLE:
 		vx = 0;
 		break;

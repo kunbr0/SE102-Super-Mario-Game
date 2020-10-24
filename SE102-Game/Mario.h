@@ -9,7 +9,7 @@ class CMario : public CGameObject
 	float start_y;
 
 	float ax, ay = 0;
-
+	std::string isShowingSpecialAni;
 	// Type
 	int type = 2; // 1: Red Mario, 2 Fire Mario
 	int level;
@@ -17,7 +17,8 @@ class CMario : public CGameObject
 	DWORD untouchable_start;
 	int status = 0;
 	
-	int isBoostedSpeed = false;
+	bool isBoostedSpeed = false;
+	bool isFlying = false;
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);

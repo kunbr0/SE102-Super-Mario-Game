@@ -4,15 +4,20 @@
 #define MARIO_WALKING_BOOST_RATE 0.7f
 //0.1f
 #define MARIO_JUMP_SPEED_Y		1.05f
+#define MARIO_FLY_SPEED_Y		0.45f
+
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
 
 #define MARIO_STATE_IDLE			0
 #define MARIO_STATE_WALKING_RIGHT	100
 #define MARIO_STATE_WALKING_LEFT	200
-#define MARIO_STATE_WALKING_BOOST	111
+#define MARIO_STATE_PRESS_A			111
+
 #define MARIO_STATE_JUMP_X			300
 #define MARIO_STATE_JUMP_S			301
+#define MARIO_STATE_RACCOON_FLY		302
+
 #define MARIO_STATE_DIE				400
 
 // STATUS
@@ -41,6 +46,7 @@
 #define RACCOON_MARIO_ANI_BIG_IDLE		"ani-raccoon-mario-idle"
 #define RACCOON_MARIO_ANI_BIG_WALK		"ani-raccoon-mario-walk"
 #define RACCOON_MARIO_ANI_BIG_JUMP		"ani-raccoon-mario-jump"
+#define RACCOON_MARIO_ANI_BIG_ATTACK	"ani-raccoon-mario-fly"
 
 
 // FIRE MARIO

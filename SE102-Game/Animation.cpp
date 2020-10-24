@@ -19,7 +19,7 @@ void CAnimation::Add(std::string spriteId, DWORD time)
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
 
-void CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
+bool CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -46,7 +46,8 @@ void CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
 	}
 	
 
-	
+	if (currentFrame == frames.size() - 1) return true;
+	return false;
 }
 
 
