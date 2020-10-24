@@ -6,7 +6,7 @@
 CCamera::CCamera() {
 	this->camPosition = Vector2(0, 0);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
-	
+	this->positionController = NULL;
 }
 CCamera::~CCamera() {
 
@@ -18,6 +18,8 @@ void CCamera::InitPositionController(CGameObject* player) {
 
 void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* objects) {
 	mMap = CGameMap().FromTMX(mapFilePath, objects);
+	mMap->GetMapSize(mapSize);
+	mapSize;
 }
 
 Vector2 CCamera::GetCamPosition() {
@@ -25,7 +27,8 @@ Vector2 CCamera::GetCamPosition() {
 }
 
 void CCamera::SetCamPosition(Vector2 pos) {
-	if (pos.x < 0) pos.x = 0;
+	if (pos.x < 0) pos.x = 0; // overflow left side
+	if (pos.x + camSize.x > mapSize.x) pos.x = (int)(mapSize.x - camSize.x); // overflow right side
 	if (pos.y < 0) pos.y = 0;
 	camPosition = pos;
 }

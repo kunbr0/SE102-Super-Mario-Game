@@ -128,6 +128,11 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 	throw "Load map that bai!!";
 }
 
+void CGameMap::GetMapSize(Vector2 &out) {
+	out.x = this->width * tileWidth;
+	out.y = this->height * tileHeight;
+}
+
 CGameMap::~CGameMap()
 {
 	layers.clear();

@@ -8,7 +8,8 @@ class CCamera {
 protected:
 	
 	Vector2 camPosition = Vector2(0.0f, 0.0f);
-	Vector2 camSize; // (width,height)
+	Vector2 camSize; // (width,height) px
+	Vector2 mapSize; // (width, height) px
 	CGameObject* positionController; // who controls the camera position
 	shared_ptr<CGameMap> mMap;
 public:

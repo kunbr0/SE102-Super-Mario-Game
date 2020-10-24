@@ -40,7 +40,7 @@ public:
 
 	virtual void Render();
 
-
+	virtual void GetMapSize(Vector2 &out);
 
 	static shared_ptr<CGameMap> FromTMX(string filePath, vector<LPGAMEOBJECT>* objects);
 	~CGameMap();

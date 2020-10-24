@@ -199,7 +199,7 @@ void CMario::Render(Vector2 finalPos)
 	
 	
 	CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx>0));
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 }
 
 void CMario::SetState(int state)
@@ -265,9 +265,9 @@ void CMario::SetType(int t) {
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	
 	left = x;
 	top = y;
-
 	if (type == 1) {
 		if (level == MARIO_LEVEL_RACCOON)
 		{
@@ -298,12 +298,13 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 			right = x + FROG_MARIO_BBOX_WIDTH_LIE;
 			bottom = y + FROG_MARIO_BBOX_HEIGHT_LIE;
 		}
-		else {
+		/*else {
 			right = x + FROG_MARIO_BBOX_WIDTH;
 			bottom = y + FROG_MARIO_BBOX_HEIGHT;
-		}
+		}*/
 		
 	}
+	
 }
 
 /*
