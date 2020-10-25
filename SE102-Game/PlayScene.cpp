@@ -101,6 +101,7 @@ bool CPlayScene::LoadDataFromFile() {
 			CMario* mar = new CFireMario(x, y);
 			player = mar;
 			//objects.push_back(mar);
+			
 		}
 	}
 	
@@ -215,6 +216,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
 	CMario* currentPlayer = ((CPlayScene*)scence)->GetPlayer();
+	
 	switch (KeyCode)
 	{
 	case DIK_X:
@@ -225,6 +227,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_Q:
 		currentPlayer->SetState(MARIO_STATE_RACCOON_FLY);
+		break;
+	case DIK_A:
+		
+		currentPlayer->SetState(MARIO_STATE_PRESS_A);
 		break;
 
 	case DIK_0:

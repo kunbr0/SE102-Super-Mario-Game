@@ -86,6 +86,9 @@
     <Filter Include="GameSource\GameObjects\Mario\FrogMario">
       <UniqueIdentifier>{4121f363-c45a-4caf-8a56-0b62c35cfe15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FireMario\FireBullet">
+      <UniqueIdentifier>{5bdeb1f4-322f-4b99-a3be-27465c40b414}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -243,6 +246,9 @@
     </ClCompile>
     <ClCompile Include="FireMario.cpp">
       <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBullet.cpp">
+      <Filter>GameSource\GameObjects\Mario\FireMario\FireBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="FireMario.h">
       <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBullet.h">
+      <Filter>GameSource\GameObjects\Mario\FireMario\FireBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -159,6 +159,7 @@
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="FireBullet.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />

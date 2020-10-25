@@ -96,6 +96,10 @@
 		<Sprite id="spr-raccoon-mario-roll-7" left="485" top="341"  width="20" height="21" frameTime="100"/>
 		<Sprite id="spr-fire-mario-map-???-0" left="124" top="115"  width="16" height="21" frameTime="100"/>
 		<Sprite id="spr-fire-mario-map-???-1" left="143" top="115"  width="16" height="21" frameTime="100"/>
+		<Sprite id="spr-fire-bullet-0" left="160" top="122"  width="11" height="11" frameTime="100"/>
+		<Sprite id="spr-fire-bullet-1" left="171" top="122"  width="11" height="11" frameTime="100"/>
+		<Sprite id="spr-fire-bullet-2" left="182" top="122"  width="11" height="11" frameTime="100"/>
+		<Sprite id="spr-fire-bullet-3" left="193" top="122"  width="11" height="11" frameTime="100"/>
 		<Sprite id="spr-fire-mario-idle-front-0" left="458" top="109"  width="16" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-idle-side-0" left="206" top="109"  width="14" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-walk-0" left="206" top="109"  width="14" height="27" frameTime="100"/>
