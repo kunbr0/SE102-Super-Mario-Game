@@ -247,5 +247,5 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 	else
-		mario->SetState(MARIO_STATE_IDLE);
+		mario->SetState(MARIO_STATE_NONE_PRESS_KEY);
 }

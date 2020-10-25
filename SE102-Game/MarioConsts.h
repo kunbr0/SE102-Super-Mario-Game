@@ -1,15 +1,9 @@
 #pragma once
 
-#define MARIO_WALKING_SPEED		0.22f 
-#define MARIO_WALKING_BOOST_RATE 0.7f
-//0.1f
-#define MARIO_JUMP_SPEED_Y		1.05f
-#define MARIO_FLY_SPEED_Y		0.45f
 
-#define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_DIE_DEFLECT_SPEED	 0.5f
 
 #define MARIO_STATE_IDLE			0
+#define MARIO_STATE_NONE_PRESS_KEY	1
 #define MARIO_STATE_WALKING_RIGHT	100
 #define MARIO_STATE_WALKING_LEFT	200
 #define MARIO_STATE_PRESS_A			111
@@ -33,6 +27,7 @@
 #define MARIO_ANI_SMALL_WALK			"ani-small-mario-walk"
 #define MARIO_ANI_SMALL_JUMP			"ani-small-mario-jump"
 #define MARIO_ANI_SMALL_FALL			"ani-small-mario-fall"
+#define MARIO_ANI_SMALL_SKID			"ani-small-mario-skid"
 
 
 //// Level = 2
@@ -40,13 +35,16 @@
 #define MARIO_ANI_BIG_WALK				"ani-big-mario-walk"
 #define MARIO_ANI_BIG_JUMP				"ani-big-mario-jump"
 #define MARIO_ANI_BIG_FALL				"ani-big-mario-fall"
+#define MARIO_ANI_BIG_SKID				"ani-big-mario-skid"
 
 
 //// Level = 3
 #define RACCOON_MARIO_ANI_BIG_IDLE		"ani-raccoon-mario-idle"
 #define RACCOON_MARIO_ANI_BIG_WALK		"ani-raccoon-mario-walk"
 #define RACCOON_MARIO_ANI_BIG_JUMP		"ani-raccoon-mario-jump"
-#define RACCOON_MARIO_ANI_BIG_ATTACK	"ani-raccoon-mario-fly"
+#define RACCOON_MARIO_ANI_BIG_ATTACK	"ani-raccoon-mario-spin"
+#define RACCOON_MARIO_ANI_BIG_FLY	    "ani-raccoon-mario-fly"
+#define RACCOON_MARIO_ANI_BIG_SKID		"ani-raccoon-mario-skid"
 
 
 // FIRE MARIO

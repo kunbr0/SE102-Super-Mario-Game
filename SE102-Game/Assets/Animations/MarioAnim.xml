@@ -19,6 +19,7 @@
 		</Animation>
 		<!-- Animation SKID-->
 		<Animation aniId="ani-small-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-small-mario-skid-0" left="287" top="8"  width="14" height="16" frameTime="200"/>
 			<Sprite id="spr-small-mario-skid-0" left="287" top="8"  width="14" height="16" frameTime="100"/>
 		</Animation>
 		<!-- Animation RUN-->
@@ -88,7 +89,9 @@
 		</Animation>
 		<!-- Animation SKID-->
 		<Animation aniId="ani-big-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-big-mario-skid-0" left="252" top="47"  width="16" height="28" frameTime="300"/>
 			<Sprite id="spr-big-mario-skid-0" left="252" top="47"  width="16" height="28" frameTime="100"/>
+
 		</Animation>
 		<!-- Animation RUN-->
 		<Animation aniId="ani-big-mario-run" frameTime="100" name="RUN">
@@ -171,6 +174,7 @@
 		</Animation>
 		<!-- Animation SKID-->
 		<Animation aniId="ani-raccoon-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-raccoon-mario-skid-0" left="155" top="140"  width="16" height="30" frameTime="300"/>
 			<Sprite id="spr-raccoon-mario-skid-0" left="155" top="140"  width="16" height="30" frameTime="100"/>
 		</Animation>
 		<!-- Animation SKID-->
@@ -269,6 +273,7 @@
 		</Animation>
 		<!-- Animation SKID -->
 		<Animation aniId="ani-fire-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-fire-mario-skid-0" left="261" top="108"  width="16" height="28" frameTime="200"/>
 			<Sprite id="spr-fire-mario-skid-0" left="261" top="108"  width="16" height="28" frameTime="100"/>
 		</Animation>
 		<!-- Animation THROW -->
@@ -352,6 +357,7 @@
 		</Animation>
 		<!-- Animation SKID -->
 		<Animation aniId="ani-hammer-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-hammer-mario-skid-0" left="267" top="208"  width="16" height="28" frameTime="200"/>
 			<Sprite id="spr-hammer-mario-skid-0" left="267" top="208"  width="16" height="28" frameTime="100"/>
 		</Animation>
 		<!-- Animation THROW -->
@@ -509,6 +515,7 @@
 		</Animation>
 		<!-- Animation SKID -->
 		<Animation aniId="ani-tanooki-mario-skid" frameTime="100" name="SKID">
+			<Sprite id="spr-tanooki-mario-skid-0" left="137" top="278"  width="16" height="29" frameTime="200"/>
 			<Sprite id="spr-tanooki-mario-skid-0" left="137" top="278"  width="16" height="29" frameTime="100"/>
 		</Animation>
 		<!-- Animation RUN -->

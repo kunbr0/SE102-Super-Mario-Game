@@ -1,6 +1,2 @@
-﻿  PlayScene.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(101,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(101,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(169,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(182,20): warning C4018: '<': signed/unsigned mismatch
-  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe
+﻿  main.cpp
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe

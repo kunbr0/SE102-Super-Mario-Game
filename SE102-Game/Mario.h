@@ -9,13 +9,14 @@ class CMario : public CGameObject
 	float start_y;
 
 	float ax, ay = 0;
+	float friction = 0;
 	std::string isShowingSpecialAni;
 	// Type
 	int type = 2; // 1: Red Mario, 2 Fire Mario
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
-	int status = 0;
+	int status = 0; // 0: isStandingInSomeThing
 	
 	bool isBoostedSpeed = false;
 	bool isFlying = false;

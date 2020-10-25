@@ -135,7 +135,7 @@ void CGameObject::RenderBoundingBox(Vector2 finalPos)
 }
 
 void CGameObject::applyGravity() {
-	vy += ACCELERATION_GRAVITY * dt;
+	vy += ACCELERATION_Y_GRAVITY * dt;
 }
 
 CGameObject::~CGameObject()
