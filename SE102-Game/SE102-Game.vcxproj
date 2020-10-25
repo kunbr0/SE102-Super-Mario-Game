@@ -159,6 +159,7 @@
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameMap2.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RectCollision.cpp" />
     <ClCompile Include="RectF.cpp" />
+    <ClCompile Include="RedMario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="FireMario.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameMap2.h" />
@@ -249,6 +252,7 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RectCollision.h" />
     <ClInclude Include="RectF.h" />
+    <ClInclude Include="RedMario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />

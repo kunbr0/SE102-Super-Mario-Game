@@ -77,6 +77,15 @@
     <Filter Include="XMLReader">
       <UniqueIdentifier>{469cc896-68b7-47f8-b0c0-3452f5dd662c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\RedMario">
+      <UniqueIdentifier>{1d5b88c5-fc89-4400-ae71-c829492686e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FireMario">
+      <UniqueIdentifier>{a68f682f-d6e1-4dca-a4b9-991b31f278cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FrogMario">
+      <UniqueIdentifier>{4121f363-c45a-4caf-8a56-0b62c35cfe15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -228,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="RectF.cpp">
       <Filter>Framework\GameMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMario.cpp">
+      <Filter>GameSource\GameObjects\Mario\RedMario</Filter>
+    </ClCompile>
+    <ClCompile Include="FireMario.cpp">
+      <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +404,12 @@
     </ClInclude>
     <ClInclude Include="RectF.h">
       <Filter>Framework\GameMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMario.h">
+      <Filter>GameSource\GameObjects\Mario\RedMario</Filter>
+    </ClInclude>
+    <ClInclude Include="FireMario.h">
+      <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

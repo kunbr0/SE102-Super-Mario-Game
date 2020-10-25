@@ -6,12 +6,15 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Koopas.h"
-#include "Mario.h"
+#include "RedMario.h"
+#include "FireMario.h"
+
 //#include "GameMap2.h"
 
 
 class CPlayScene : public CScene
 {
+
 protected:
 	CMario* player; // Player controls the position of camera.
 	//shared_ptr<CGameMap> kMap;
@@ -19,10 +22,12 @@ protected:
 
 	float standingY;
 
+	
+
 
 public:
 	CPlayScene(std::string id, std::string filePath);
-
+	void SwitchPlayer(CMario* newPlayer);
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

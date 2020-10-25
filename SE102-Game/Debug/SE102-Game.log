@@ -1,2 +1,77 @@
-﻿  main.cpp
+﻿  Brick.cpp
+  Camera.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(8,103): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(8,62): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(31,61): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(45,57): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+  FireMario.cpp
+  Game.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(82,12): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(82,40): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(101,54): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(101,34): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(109,48): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(109,29): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+  GameMap.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(37,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(78,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(86,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(100,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(102,34): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(148,27): warning C4244: 'argument': conversion from 'size_t' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(147,27): warning C4244: 'argument': conversion from 'size_t' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(154,93): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(154,76): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(156,90): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(156,73): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(171,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(177,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(180,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(181,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(182,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap.cpp(183,34): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  GameMap2.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(28,55): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(28,29): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(54,10): warning C4244: 'initializing': conversion from 'FLOAT' to 'int', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(55,10): warning C4244: 'initializing': conversion from 'FLOAT' to 'int', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(63,120): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(63,67): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(77,52): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(77,50): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(118,10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(117,10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(116,10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(115,10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(132,22): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\GameMap2.cpp(133,23): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
+  GameObject.cpp
+  Goomba.cpp
+  Koopas.cpp
+  Mario.cpp
+  PlayScene.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(101,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(101,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(170,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(184,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(202,20): warning C4018: '<': signed/unsigned mismatch
+  Portal.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Portal.cpp(9,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Portal.cpp(10,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  RectCollision.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\RectCollision.cpp(7,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\RectCollision.cpp(8,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  RedMario.cpp
+  Scene.cpp
+  Sprite.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Sprite.cpp(33,42): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+  TextureManager.cpp
+  TileSet.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\TileSet.cpp(68,39): warning C4244: '=': conversion from 'FLOAT' to 'LONG', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\TileSet.cpp(69,40): warning C4244: '=': conversion from 'FLOAT' to 'LONG', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\TileSet.cpp(70,19): warning C4244: '=': conversion from 'FLOAT' to 'LONG', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\TileSet.cpp(71,19): warning C4244: '=': conversion from 'FLOAT' to 'LONG', possible loss of data
+  main.cpp
+  Generating Code...
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Game.cpp(419): warning C4715: 'CGame::Load': not all control paths return a value
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe

@@ -98,9 +98,9 @@ bool CPlayScene::LoadDataFromFile() {
 			if (player != NULL) break;
 			int x = atoi(mario->Attribute("x"));
 			int y = atoi(mario->Attribute("y"));
-			CMario* mar = new CMario(x, y);
+			CMario* mar = new CFireMario(x, y);
 			player = mar;
-			objects.push_back(mar);
+			//objects.push_back(mar);
 		}
 	}
 	
@@ -131,18 +131,19 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	
 	
+	
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}
 
-	for (size_t i = 0; i < objects.size(); i++)
+	/*for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
-	}
-
+	}*/
+	player->Update(dt, &coObjects);
 
 	//kMap->Update(dt);
 
@@ -168,6 +169,7 @@ void CPlayScene::Render()
 	sceneCamera.Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render(sceneCamera.ConvertPosition(Vector2(objects[i]->x, objects[i]->y)));
+	player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
 	/*Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
 	player->Render(a);*/
 
@@ -188,43 +190,67 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
+void CPlayScene::SwitchPlayer(CMario* newPlayer) {
+	float oldLeft, oldTop, oldRight, oldBottom;
+	player->GetBoundingBox(oldLeft, oldTop, oldRight, oldBottom);
+	float newLeft, newTop, newRight, newBottom;
+	newPlayer->GetBoundingBox(newLeft, newTop, newRight, newBottom);
+	newPlayer->y -= newBottom - oldBottom;
+	newPlayer->x -= newRight - oldRight;
+	if (!newPlayer) return;
+	// Delete pointer of Old Mario in List Objects
+	for (int i = 0; i < objects.size(); i++) {
+		if (dynamic_cast<CMario*>(objects.at(i))) {
+			objects.erase(objects.begin()+i);
+		}
+	}
+	delete player;
+	player = newPlayer;
+	objects.push_back(newPlayer);
+	sceneCamera.InitPositionController(newPlayer);
+}
+
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* currentPlayer = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_X:
-		mario->SetState(MARIO_STATE_JUMP_X);
+		currentPlayer->SetState(MARIO_STATE_JUMP_X);
 		break;
 	case DIK_S:
-		mario->SetState(MARIO_STATE_JUMP_S);
+		currentPlayer->SetState(MARIO_STATE_JUMP_S);
 		break;
 	case DIK_Q:
-		mario->SetState(MARIO_STATE_RACCOON_FLY);
+		currentPlayer->SetState(MARIO_STATE_RACCOON_FLY);
 		break;
 
 	case DIK_0:
-		mario->Reset();
+		currentPlayer->Reset();
 		break;
-	case DIK_1:
-		mario->SetType(1);
+	case DIK_1: {
+		((CPlayScene*)scence)->SwitchPlayer(
+			new CRedMario(currentPlayer->x, currentPlayer->y)
+		);
+	}
 		break;
-	case DIK_2:
-		mario->SetType(2);
+	case DIK_2: {
+		((CPlayScene*)scence)->SwitchPlayer(
+			new CFireMario(currentPlayer->x, currentPlayer->y)
+		);
+	}
 		break;
 	case DIK_3:
-		mario->SetType(3);
 		break;
 	case DIK_4:
-		mario->SetType(4);
 		break;
 	case DIK_MINUS:
-		mario->SetLevel(mario->GetLevel()-1);
+		currentPlayer->SetLevel(currentPlayer->GetLevel()-1);
 		break;
 	case DIK_EQUALS:
-		mario->SetLevel(mario->GetLevel()+1);
+		currentPlayer->SetLevel(currentPlayer->GetLevel()+1);
 		break;
 
 	}

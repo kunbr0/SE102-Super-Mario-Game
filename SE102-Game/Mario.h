@@ -5,15 +5,16 @@
 
 class CMario : public CGameObject
 {
+protected:
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 
 	float ax, ay = 0;
 	float friction = 0;
 	std::string isShowingSpecialAni;
-	// Type
-	int type = 2; // 1: Red Mario, 2 Fire Mario
-	int level;
+
+
+	int level = 1;
 	int untouchable;
 	DWORD untouchable_start;
 	int status = 0; // 0: isStandingInSomeThing
@@ -28,8 +29,6 @@ public:
 
 	void SetState(int state);
 	
-	int GetType() { return type; }
-	void SetType(int t);
 
 	int GetLevel() { return level; }
 	void SetLevel(int l);

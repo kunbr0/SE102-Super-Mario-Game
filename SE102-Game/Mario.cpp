@@ -10,7 +10,7 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	type = 1;
+	
 	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
 
@@ -19,8 +19,6 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->x = x;
 	this->y = y;
 	isShowingSpecialAni = "-1";
-	//SetAnimationSet(CAnimationSets::GetInstance()->Get("mario"));
-
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -46,9 +44,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	if (vx * nx < 0 && abs(vx) > VELOCITY_X_MIN_FOR_SKID) {
 		vx = -nx * VELOCITY_X_AFTER_SKID;
-		if (type == 1 && level == 1) isShowingSpecialAni = MARIO_ANI_SMALL_SKID;
-		else if (type == 1 && level == 2) isShowingSpecialAni = MARIO_ANI_BIG_SKID;
-		else if (type == 1 && level == 3) isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_SKID;
+		if (level == 1) isShowingSpecialAni = MARIO_ANI_SMALL_SKID;
+		else if (level == 2) isShowingSpecialAni = MARIO_ANI_BIG_SKID;
+		else if (level == 3) isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_SKID;
 	}
 	
 	
@@ -171,88 +169,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void CMario::Render(Vector2 finalPos)
-{
-	string ani;
-	if (state == MARIO_STATE_DIE)
-		ani = MARIO_ANI_DIE;
-	else
-		if (type == 1) {
-			if (level == MARIO_LEVEL_RACCOON)
-			{
-				if (vx == 0) {
-					ani = RACCOON_MARIO_ANI_BIG_IDLE;
-				}
-				else
-					ani = RACCOON_MARIO_ANI_BIG_WALK;
-				if (isFlying) {
-					ani = RACCOON_MARIO_ANI_BIG_FLY;
-				}
-			}
-			else if (level == MARIO_LEVEL_BIG)
-			{
-				if (vx == 0)
-					ani = MARIO_ANI_BIG_IDLE;
-				else
-					ani = MARIO_ANI_BIG_WALK;
-				if (status == STATUS_IS_JUMPING)
-					ani = MARIO_ANI_BIG_JUMP;
-				if (status == STATUS_IS_FALLING)
-					ani = MARIO_ANI_BIG_FALL;
-			}
-			else if (level == MARIO_LEVEL_SMALL)
-			{
-				if (vx == 0)
-					ani = MARIO_ANI_SMALL_IDLE;
-				else
-					ani = MARIO_ANI_SMALL_WALK;
-			}
-		}
-		else if (type == 2) {
-			if (vx == 0)
-				ani = FIRE_MARIO_ANI_IDLE;
-			else
-				ani = FIRE_MARIO_ANI_WALK;
-			if (status == STATUS_IS_JUMPING)
-				ani = FIRE_MARIO_ANI_JUMP;
-		}
-		else if (type == 3) {
-			if (vx == 0)
-				ani = HAMMER_MARIO_ANI_IDLE;
-			else
-				ani = HAMMER_MARIO_ANI_WALK;
-			if (status == STATUS_IS_JUMPING)
-				ani = HAMMER_MARIO_ANI_JUMP;
-		}
-		else if (type == 4) {
-			if (vx == 0)
-				ani = FROG_MARIO_ANI_IDLE;
-			else
-				ani = FROG_MARIO_ANI_WALK;
-			if (status == STATUS_IS_JUMPING)
-				ani = FROG_MARIO_ANI_JUMP;
-		}
-		
-		SHORT exceptionalNX = 1;
+void CMario::Render(Vector2 finalPos) {};
 
-		if (isShowingSpecialAni != "-1") {
-			ani = isShowingSpecialAni;
-			if (ani == MARIO_ANI_BIG_SKID || ani == MARIO_ANI_SMALL_SKID || ani == RACCOON_MARIO_ANI_BIG_SKID)
-				exceptionalNX = -1;
-		}
+void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 
-		int alpha = 255;
-		if (untouchable) alpha = 128;
-
-
-		bool isFinishAni = CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx*exceptionalNX > 0));
-		if (isFinishAni) isShowingSpecialAni = "-1";
-
-
-
-
-	//RenderBoundingBox(finalPos);
-}
 
 void CMario::SetState(int state)
 {
@@ -261,7 +181,7 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_PRESS_A:
-		if (vx == 0 && level == 3 && type == 1) {
+		if (vx == 0 && level == 3 ) {
 			isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_ATTACK;
 		}
 		else {
@@ -325,59 +245,7 @@ void CMario::SetLevel(int lv) {
 	GetBoundingBox(l2, t2, r2, b2);
 	y -= b2 - b1;
 }
-void CMario::SetType(int t) {
-	if (type < 1 || type > 4) return;
-	float l1, t1, r1, b1;
-	GetBoundingBox(l1, t1, r1, b1);
-	type = t;
-	float l2, t2, r2, b2;
-	GetBoundingBox(l2, t2, r2, b2);
-	y -= b2 - b1;
-}
 
-void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-
-	left = x;
-	top = y;
-	if (type == 1) {
-		if (level == MARIO_LEVEL_RACCOON)
-		{
-			right = x + RACCOON_MARIO_BIG_BBOX_WIDTH;
-			bottom = y + RACCOON_MARIO_BIG_BBOX_HEIGHT;
-		}
-		else if (level == MARIO_LEVEL_BIG)
-		{
-			right = x + MARIO_BIG_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_BBOX_HEIGHT;
-		}
-		else
-		{
-			right = x + MARIO_SMALL_BBOX_WIDTH;
-			bottom = y + MARIO_SMALL_BBOX_HEIGHT;
-		}
-	}
-	else if (type == 2) {
-		right = x + FIRE_MARIO_BBOX_WIDTH;
-		bottom = y + FIRE_MARIO_BBOX_HEIGHT;
-	}
-	else if (type == 3) {
-		right = x + HAMMER_MARIO_BBOX_WIDTH;
-		bottom = y + HAMMER_MARIO_BBOX_HEIGHT;
-	}
-	else if (type == 4) {
-		if (status == STATUS_IS_IDLING_IN_SOMETHING) {
-			right = x + FROG_MARIO_BBOX_WIDTH_LIE;
-			bottom = y + FROG_MARIO_BBOX_HEIGHT_LIE;
-		}
-		/*else {
-			right = x + FROG_MARIO_BBOX_WIDTH;
-			bottom = y + FROG_MARIO_BBOX_HEIGHT;
-		}*/
-
-	}
-
-}
 
 /*
 	Reset Mario status to the beginning state of a scene
