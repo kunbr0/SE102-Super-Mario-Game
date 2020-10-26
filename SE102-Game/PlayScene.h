@@ -18,8 +18,8 @@ class CPlayScene : public CScene
 protected:
 	CMario* player; // Player controls the position of camera.
 	//shared_ptr<CGameMap> kMap;
-	vector<LPGAMEOBJECT> objects;
-
+	vector<LPGAMEOBJECT> staticObjects;
+	vector<LPGAMEOBJECT> dynamicObjects;
 	float standingY;
 
 	

@@ -9,8 +9,6 @@ protected:
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 
-	float ax, ay = 0;
-	float friction = 0;
 	std::string isShowingSpecialAni;
 
 

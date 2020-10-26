@@ -5,7 +5,7 @@
 class CFireMario : public CMario
 {
 private:
-	vector<CFireBullet> shootedBullets;
+	vector<CFireBullet*> bullets;
 
 public:
 	CFireMario(float x = 0.0f, float y = 0.0f);
@@ -15,7 +15,9 @@ public:
 
 	void SetState(int state);
 
-	void AddShootedBullet();
+	CFireBullet* GetBullet(int index) { return bullets.at(index); }
+
+	bool ShootBullet();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
 

@@ -98,16 +98,17 @@ bool CPlayScene::LoadDataFromFile() {
 			if (player != NULL) break;
 			int x = atoi(mario->Attribute("x"));
 			int y = atoi(mario->Attribute("y"));
-			CMario* mar = new CFireMario(x, y);
-			player = mar;
-			//objects.push_back(mar);
+			
+			SwitchPlayer(new CFireMario(x, y));
+			
+			
 			
 		}
 	}
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath, &objects);
+	sceneCamera.LoadMap(mapFilePath, &staticObjects);
 	return true;
 }
 
@@ -135,16 +136,16 @@ void CPlayScene::Update(DWORD dt)
 	
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < staticObjects.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		coObjects.push_back(staticObjects[i]);
 	}
 
-	/*for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < dynamicObjects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
-	}*/
-	player->Update(dt, &coObjects);
+		dynamicObjects[i]->Update(dt, &coObjects);
+	}
+	/*player->Update(dt, &coObjects);*/
 
 	//kMap->Update(dt);
 
@@ -154,23 +155,23 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	/*for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
-	float pX, pY, pVX, pVY;
-	player->GetPosition(pX, pY);
-	player->GetSpeed(pVX, pVY);
-	
-	std::string txDetails = 
-		"(" + std::to_string((int)pX) + "," + std::to_string((int)(pY)) + ")" + "\n" +
-		"Type: " + std::to_string(player->GetType()) 
-		+ "\nLevel: " + std::to_string(player->GetLevel());
-	 
-	CGame::GetInstance()->KDrawBoardDetails(10, 10, txDetails.c_str());*/
+	Vector2 camSize = sceneCamera.GetCamSize();
 
 	sceneCamera.Render();
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render(sceneCamera.ConvertPosition(Vector2(objects[i]->x, objects[i]->y)));
-	player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
+	for (int i = 0; i < staticObjects.size(); i++)
+		staticObjects[i]->Render(sceneCamera.ConvertPosition(Vector2(staticObjects[i]->x, staticObjects[i]->y)));
+	
+	for (int i = 0; i < dynamicObjects.size(); i++)
+		if (!dynamicObjects[i]->isDisable) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y));
+			if (finalPos.x > 0 && finalPos.x < camSize.x && finalPos.y > 0 && finalPos.y < camSize.y)
+				dynamicObjects[i]->Render(finalPos);
+			else
+				dynamicObjects[i]->isDisable = true;
+		}
+			
+
+	//player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
 	/*Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
 	player->Render(a);*/
 
@@ -182,32 +183,43 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
+	for (int i = 0; i < staticObjects.size(); i++)
+		delete staticObjects[i];
 
-	objects.clear();
+	staticObjects.clear();
 	SetPlayer(NULL);
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
 void CPlayScene::SwitchPlayer(CMario* newPlayer) {
-	float oldLeft, oldTop, oldRight, oldBottom;
-	player->GetBoundingBox(oldLeft, oldTop, oldRight, oldBottom);
-	float newLeft, newTop, newRight, newBottom;
-	newPlayer->GetBoundingBox(newLeft, newTop, newRight, newBottom);
-	newPlayer->y -= newBottom - oldBottom;
-	newPlayer->x -= newRight - oldRight;
 	if (!newPlayer) return;
-	// Delete pointer of Old Mario in List Objects
-	for (int i = 0; i < objects.size(); i++) {
-		if (dynamic_cast<CMario*>(objects.at(i))) {
-			objects.erase(objects.begin()+i);
-		}
+
+	if (player != NULL) {
+		float oldLeft, oldTop, oldRight, oldBottom;
+		player->GetBoundingBox(oldLeft, oldTop, oldRight, oldBottom);
+		float newLeft, newTop, newRight, newBottom;
+		newPlayer->GetBoundingBox(newLeft, newTop, newRight, newBottom);
+		newPlayer->y -= newBottom - oldBottom;
+		newPlayer->x -= newRight - oldRight;
 	}
-	delete player;
+	
+	
+	// Delete pointer of Old Mario in List Objects
+	
+	while (dynamicObjects.size() > 0) {
+		delete dynamicObjects.at(0);
+		dynamicObjects.erase(dynamicObjects.begin());
+	}
+	
 	player = newPlayer;
-	objects.push_back(newPlayer);
+	dynamicObjects.push_back(newPlayer);
+	// Add Fire Bullet
+	if (dynamic_cast<CFireMario*>(newPlayer)) {
+		dynamicObjects.push_back(((CFireMario*)newPlayer)->GetBullet(0));
+		dynamicObjects.push_back(((CFireMario*)newPlayer)->GetBullet(1));
+	}
+
 	sceneCamera.InitPositionController(newPlayer);
 }
 
@@ -229,8 +241,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		currentPlayer->SetState(MARIO_STATE_RACCOON_FLY);
 		break;
 	case DIK_A:
-		
 		currentPlayer->SetState(MARIO_STATE_PRESS_A);
+		break;
+	case DIK_Z:
+		currentPlayer->SetState(MARIO_STATE_PRESS_Z);
 		break;
 
 	case DIK_0:

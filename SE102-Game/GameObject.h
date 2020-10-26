@@ -70,6 +70,8 @@ public:
 
 	LPANIMATION_SET animation_set;
 
+	bool isDisable = false;
+
 public:
 	// Con/Destructor
 	CGameObject();

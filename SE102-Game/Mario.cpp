@@ -30,13 +30,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (abs(vx) < VELOCITY_X_MAX) vx += ax;
 	if (vx > 0) {
-		friction = -ACCELERATION_FRICTION;
-		vx += friction;
+		vx += -ACCELERATION_FRICTION;
 		if (vx < 0) vx = 0;
 	}
 	if (vx < 0) {
-		friction = ACCELERATION_FRICTION;
-		vx += friction;
+		vx += ACCELERATION_FRICTION;
 		if (vx > 0) vx = 0;
 	}
 	

@@ -17,6 +17,7 @@ public:
 	CCamera();
 	~CCamera();
 	Vector2 GetCamPosition();
+	Vector2 GetCamSize() { return camSize; }
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
 	

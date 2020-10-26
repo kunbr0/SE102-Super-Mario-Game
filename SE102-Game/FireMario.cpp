@@ -3,12 +3,21 @@
 CFireMario::CFireMario(float x, float y) : CMario(x, y) {
 	this->x = x;
 	this->y = y;
-	
+	bullets.push_back(new CFireBullet(0.0f, 0.0f, 1));
+	bullets.push_back(new CFireBullet(0.0f, 0.0f, 1));
 }
 
-void CFireMario::AddShootedBullet() {
-	int deltaX = nx == 1 ? 35 : -20;
-	shootedBullets.push_back(CFireBullet(x + deltaX, y, nx));
+bool CFireMario::ShootBullet() {
+	for (int i = 0; i < bullets.size(); i++) {
+		// Dang aanr thi dc ban
+		if (bullets.at(i)->isDisable) {
+			bullets.at(i)->PrepareForShooting();
+			bullets.at(i)->UpdatePos(Vector2(this->x, this->y));
+			bullets.at(i)->isDisable = false;
+			return true;
+		}
+	}
+	return false;
 }
 
 void CFireMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -17,13 +26,11 @@ void CFireMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (abs(vx) < VELOCITY_X_MAX) vx += ax;
 	if (vx > 0) {
-		friction = -ACCELERATION_FRICTION;
-		vx += friction;
+		vx += -ACCELERATION_FRICTION;
 		if (vx < 0) vx = 0;
 	}
 	if (vx < 0) {
-		friction = ACCELERATION_FRICTION;
-		vx += friction;
+		vx += ACCELERATION_FRICTION;
 		if (vx > 0) vx = 0;
 	}
 
@@ -155,10 +162,7 @@ void CFireMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 
-	for (size_t i = 0; i < shootedBullets.size(); i++)
-	{
-		shootedBullets.at(i).Update(dt, NULL);
-	}
+	
 }
 
 void CFireMario::Render(Vector2 finalPos)
@@ -191,9 +195,7 @@ void CFireMario::Render(Vector2 finalPos)
 	bool isFinishAni = CAnimations::GetInstance()->Get(ani)->Render(finalPos, 255, !(nx * exceptionalNX > 0));
 	if (isFinishAni) isShowingSpecialAni = "-1";
 	
-	for (CFireBullet bullet : shootedBullets) {
-		bullet.Render(Vector2(finalPos.x + (bullet.x - x), finalPos.y + (bullet.y - y)));
-	}
+	
 	//RenderBoundingBox(finalPos);
 }
 
@@ -210,8 +212,8 @@ void CFireMario::SetState(int state)
 
 	switch (state)
 	{
-	case MARIO_STATE_PRESS_A:
-		AddShootedBullet();
+	case MARIO_STATE_PRESS_Z:
+		ShootBullet();
 		break;
 
 	case MARIO_STATE_WALKING_RIGHT:

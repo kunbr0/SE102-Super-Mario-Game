@@ -10,11 +10,15 @@ class CFireBullet : public CGameObject
 {
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	
+	
 
 public:
 	CFireBullet(float x, float y, int nx);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render(Vector2 finalPos);
+
+	void PrepareForShooting();
+	void UpdatePos(Vector2 pos);
 
 
 };
