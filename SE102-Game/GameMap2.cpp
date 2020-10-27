@@ -1,6 +1,7 @@
 #include "GameMap2.h"
 #include "Game.h"
 #include "RectCollision.h"
+#include "RectPlatform.h"
 
 CGameMap::CGameMap()
 {
@@ -110,15 +111,30 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 
 		// Load collision group objects
 		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
-			for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
-				LPGAMEOBJECT obj = new RectCollision(
-					atoi(objNode->Attribute("x")),
-					atoi(objNode->Attribute("y")),
-					atoi(objNode->Attribute("width")),
-					atoi(objNode->Attribute("height"))
-				);
-				objects->push_back(obj);
+			if (std::string(objGroupNode->Attribute("name")) == "RectCollision") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CRectCollision(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objects->push_back(obj);
+				}
 			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CRectPlatform(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objects->push_back(obj);
+				}
+			}
+			
 			
 		}
 

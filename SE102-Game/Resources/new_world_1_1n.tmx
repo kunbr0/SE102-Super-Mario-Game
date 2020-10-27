@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="14" nextobjectid="37">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="49">
  <editorsettings>
   <export target="Resources/world-1-1-mapn.xml" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1n.png" width="1392" height="1440"/>
  </tileset>
- <objectgroup id="13" name="Collision">
+ <objectgroup id="13" name="RectCollision">
   <object id="8" x="0" y="1248" width="1872" height="48"/>
   <object id="9" x="1056" y="1104" width="96" height="144"/>
   <object id="10" x="1872" y="1200" width="1392" height="96"/>
@@ -36,6 +36,20 @@
   <object id="34" x="0" y="0" width="5" height="1296"/>
   <object id="35" x="0" y="0" width="8448" height="5"/>
   <object id="36" x="8443" y="0" width="5" height="1296"/>
+ </objectgroup>
+ <objectgroup id="14" name="RectPlatform">
+  <object id="37" x="1200" y="1104" width="240" height="144"/>
+  <object id="38" x="1392" y="1008" width="192" height="240"/>
+  <object id="39" x="1536" y="912" width="192" height="336"/>
+  <object id="40" x="1536" y="1152" width="288" height="96"/>
+  <object id="41" x="720" y="1104" width="144" height="144"/>
+  <object id="42" x="816" y="1008" width="144" height="240"/>
+  <object id="43" x="3888" y="432" width="192" height="96"/>
+  <object id="44" x="3744" y="1152" width="336" height="96"/>
+  <object id="45" x="3840" y="1056" width="336" height="192"/>
+  <object id="46" x="3936" y="960" width="336" height="288"/>
+  <object id="47" x="6384" y="1104" width="144" height="144"/>
+  <object id="48" x="6480" y="816" width="144" height="432"/>
  </objectgroup>
  <layer id="9" name="Background-black" width="176" height="41">
   <data encoding="csv">

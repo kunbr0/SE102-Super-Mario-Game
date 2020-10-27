@@ -31,9 +31,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (abs(vx) < vxmax)
 		vx += ax * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
 
-	if (isBoostedSpeed) {
-		int aa = 5;
-	}
 
 	if (vx > 0) {
 		vx += -ACCELERATION_FRICTION;
@@ -71,7 +68,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
-		if (dy > 0) {
+		if (dy > 7) {
 			ChangeAction(MarioAction::FALL);
 		}
 	}
@@ -238,11 +235,6 @@ void CMario::SetState(int state)
 		ChangeAction(MarioAction::JUMP);
 		break;
 
-	case MARIO_STATE_RACCOON_FLY: 
-		vy = -MARIO_FLY_SPEED_Y;
-		ChangeAction(MarioAction::JUMP);
-		break;
-
 	case MARIO_STATE_IDLE:
 		vx = 0;
 		break;
@@ -337,7 +329,6 @@ void CMario::ChangeAction(MarioAction newAction) {
 	switch (newAction)
 	{
 	case CMario::MarioAction::IDLE:
-		if (action == MarioAction::WALK || action == MarioAction::FALL || action == MarioAction::JUMP) 
 			action = newAction;
 		break;
 
@@ -357,7 +348,7 @@ void CMario::ChangeAction(MarioAction newAction) {
 		break;
 
 	case CMario::MarioAction::FLY:
-		if (action == MarioAction::IDLE) action = newAction;
+		action = newAction;
 		break;
 
 	case CMario::MarioAction::FALL:

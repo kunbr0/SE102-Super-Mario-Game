@@ -15,6 +15,6 @@
         </animations>
 
         <objects>
-            <mario x="150" y="800" />
+            <mario x="150" y="850" />
         </objects>
     </mapdata>

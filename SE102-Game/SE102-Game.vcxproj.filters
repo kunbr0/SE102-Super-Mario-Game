@@ -95,6 +95,9 @@
     <Filter Include="GameSource\GameObjects\Mario\RedBigMario">
       <UniqueIdentifier>{1d5b88c5-fc89-4400-ae71-c829492686e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\RectPlatform">
+      <UniqueIdentifier>{f594ef79-8eb4-47fe-b6be-aa3883acc435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -261,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="RedBigMario.cpp">
       <Filter>GameSource\GameObjects\Mario\RedBigMario</Filter>
+    </ClCompile>
+    <ClCompile Include="RectPlatform.cpp">
+      <Filter>GameSource\GameObjects\RectPlatform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +443,9 @@
     </ClInclude>
     <ClInclude Include="RedBigMario.h">
       <Filter>GameSource\GameObjects\Mario\RedBigMario</Filter>
+    </ClInclude>
+    <ClInclude Include="RectPlatform.h">
+      <Filter>GameSource\GameObjects\RectPlatform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

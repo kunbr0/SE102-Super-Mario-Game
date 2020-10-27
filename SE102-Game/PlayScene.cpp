@@ -167,7 +167,8 @@ void CPlayScene::Render()
 			if (finalPos.x > 0 && finalPos.x < camSize.x && finalPos.y > 0 && finalPos.y < camSize.y)
 				dynamicObjects[i]->Render(finalPos);
 			else
-				dynamicObjects[i]->isDisable = true;
+				if(!dynamic_cast<CMario*>(dynamicObjects[i]))
+					dynamicObjects[i]->isDisable = true;
 		}
 			
 

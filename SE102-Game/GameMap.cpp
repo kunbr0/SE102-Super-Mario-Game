@@ -181,7 +181,7 @@ void GameMap::Draw()
                     float y = kObject->GetY();
                     float width = kObject->GetWidth();
                     float height = kObject->GetHeight();
-                    LPGAMEOBJECT rectCollision = new RectCollision(x, y, width, height);
+                    LPGAMEOBJECT rectCollision = new CRectCollision(x, y, width, height);
                     //listObjects->push_back(rectCollision);
 
 

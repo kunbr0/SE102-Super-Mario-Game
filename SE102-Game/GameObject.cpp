@@ -6,7 +6,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "GameObject.h"
-
+#include "RectPlatform.h"
 
 CGameObject::CGameObject()
 {
@@ -101,7 +101,13 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			if (dynamic_cast<CRectPlatform*>(coEvents[i]->obj)) {
+				// Do not thing ( allow Mario go in X-direction )
+			}
+			else {
+				min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			}
+			
 		}
 
 		if (c->t < min_ty && c->ny != 0) {

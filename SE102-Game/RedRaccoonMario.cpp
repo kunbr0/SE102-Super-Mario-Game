@@ -23,6 +23,12 @@ void CRedRaccoonMario::SetState(int state)
 				isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_ATTACK;
 				isBoostedSpeed = false;
 			}
+			break;
+
+		case MARIO_STATE_RACCOON_FLY:
+			vy = -MARIO_FLY_SPEED_Y;
+			ChangeAction(MarioAction::FLY);
+			break;
 	}
 
 }
