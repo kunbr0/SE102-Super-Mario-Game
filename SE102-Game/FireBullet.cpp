@@ -1,7 +1,8 @@
 #include "FireBullet.h"
-#define VELOCITY_X_FIRE_BULLET			0.420f 
-#define VELOCITY_Y_FIRE_BULLET			0.20f 
-#define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.40f 
+#define VELOCITY_X_FIRE_BULLET			0.370f 
+#define VELOCITY_Y_FIRE_BULLET			0.14f 
+#define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.39f 
+#define INITIAL_DELTA_Y_FIRE_BULLET		10
 
 #define DELTA_WIDTH_IN_LEFT_SIDE	80
 
@@ -13,18 +14,19 @@ CFireBullet::CFireBullet(float x, float y, int nx) {
 }
 
 void CFireBullet::PrepareForShooting() {
-	vy = -VELOCITY_Y_FIRE_BULLET;
+	vy = VELOCITY_Y_FIRE_BULLET;
 }
 
-void CFireBullet::UpdatePos(Vector2 pos) {
+void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 	this->x = pos.x;
-	this->y = pos.y;
+	this->y = pos.y + INITIAL_DELTA_Y_FIRE_BULLET;
+	this->nx = nx;
 }
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	dt = 20;
 
-	vx = VELOCITY_X_FIRE_BULLET;
+	vx = VELOCITY_X_FIRE_BULLET*nx;
 	
 
 	// Calculate dx, dy 

@@ -19,7 +19,8 @@
 #define STATUS_IS_IDLING_IN_SOMETHING		0
 #define STATUS_IS_WALKING					1
 #define STATUS_IS_JUMPING					2
-#define STATUS_IS_FALLING					3
+#define STATUS_IS_FLYING					3
+#define STATUS_IS_FALLING					4
 
 
 // RED MARIO
@@ -53,6 +54,8 @@
 #define FIRE_MARIO_ANI_IDLE				"ani-fire-mario-idle"
 #define FIRE_MARIO_ANI_WALK				"ani-fire-mario-walk"
 #define FIRE_MARIO_ANI_JUMP				"ani-fire-mario-jump"
+#define FIRE_MARIO_ANI_SKID				"ani-fire-mario-skid"
+
 
 // HAMMER MARIO
 //// Level = 1
@@ -100,3 +103,25 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 5000
+
+
+
+
+// Types of Mario
+#define TYPE_RED_MARIO_SMALL	0512
+#define TYPE_RED_MARIO_BIG		0513
+#define TYPE_RACCOON_MARIO		0514
+#define TYPE_FIRE_MARIO			0515
+
+// Actions
+#define ACTION_IDLE				0612
+#define ACTION_WALK				0613
+#define ACTION_RUN				0614
+#define ACTION_JUMP				0615
+#define ACTION_FALL				0616
+#define ACTION_SKID				0617
+
+
+
+
+

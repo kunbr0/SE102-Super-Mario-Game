@@ -231,47 +231,48 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	
 	switch (KeyCode)
 	{
-	case DIK_X:
-		currentPlayer->SetState(MARIO_STATE_JUMP_X);
-		break;
-	case DIK_S:
-		currentPlayer->SetState(MARIO_STATE_JUMP_S);
-		break;
-	case DIK_Q:
-		currentPlayer->SetState(MARIO_STATE_RACCOON_FLY);
-		break;
-	case DIK_A:
-		currentPlayer->SetState(MARIO_STATE_PRESS_A);
-		break;
-	case DIK_Z:
-		currentPlayer->SetState(MARIO_STATE_PRESS_Z);
-		break;
+		case DIK_X:
+			currentPlayer->SetState(MARIO_STATE_JUMP_X);
+			break;
+		case DIK_S:
+			currentPlayer->SetState(MARIO_STATE_JUMP_S);
+			break;
+		case DIK_Q:
+			currentPlayer->SetState(MARIO_STATE_RACCOON_FLY);
+			break;
+		case DIK_A:
+			currentPlayer->SetState(MARIO_STATE_PRESS_A);
+			break;
+		case DIK_Z:
+			currentPlayer->SetState(MARIO_STATE_PRESS_Z);
+			break;
 
-	case DIK_0:
-		currentPlayer->Reset();
-		break;
-	case DIK_1: {
-		((CPlayScene*)scence)->SwitchPlayer(
-			new CRedMario(currentPlayer->x, currentPlayer->y)
-		);
-	}
-		break;
-	case DIK_2: {
-		((CPlayScene*)scence)->SwitchPlayer(
-			new CFireMario(currentPlayer->x, currentPlayer->y)
-		);
-	}
-		break;
-	case DIK_3:
-		break;
-	case DIK_4:
-		break;
-	case DIK_MINUS:
-		currentPlayer->SetLevel(currentPlayer->GetLevel()-1);
-		break;
-	case DIK_EQUALS:
-		currentPlayer->SetLevel(currentPlayer->GetLevel()+1);
-		break;
+		case DIK_0:
+			currentPlayer->Reset();
+			break;
+		case DIK_1: {
+			((CPlayScene*)scence)->SwitchPlayer(
+				new CRedSmallMario(currentPlayer->x, currentPlayer->y)
+			);
+		}	break;
+
+		case DIK_2: {
+			((CPlayScene*)scence)->SwitchPlayer(
+				new CRedBigMario(currentPlayer->x, currentPlayer->y)
+			);
+		}	break;
+
+		case DIK_3: {
+			((CPlayScene*)scence)->SwitchPlayer(
+				new CRedRaccoonMario(currentPlayer->x, currentPlayer->y)
+			);
+		}	break;
+	
+		case DIK_4: {
+			((CPlayScene*)scence)->SwitchPlayer(
+				new CFireMario(currentPlayer->x, currentPlayer->y)
+			);
+		}	break;
 
 	}
 

@@ -18,7 +18,7 @@ public:
 	void Render(Vector2 finalPos);
 
 	void PrepareForShooting();
-	void UpdatePos(Vector2 pos);
+	void UpdatePos(Vector2 pos, int nx=1);
 
 
 };

@@ -194,7 +194,9 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RectCollision.cpp" />
     <ClCompile Include="RectF.cpp" />
-    <ClCompile Include="RedMario.cpp" />
+    <ClCompile Include="RedBigMario.cpp" />
+    <ClCompile Include="RedRaccoonMario.cpp" />
+    <ClCompile Include="RedSmallMario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -254,7 +256,9 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RectCollision.h" />
     <ClInclude Include="RectF.h" />
-    <ClInclude Include="RedMario.h" />
+    <ClInclude Include="RedBigMario.h" />
+    <ClInclude Include="RedRaccoonMario.h" />
+    <ClInclude Include="RedSmallMario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
