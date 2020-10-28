@@ -3,18 +3,23 @@
     <mapdata mapFilePath="Resources/new_world_1_1n.tmx">
         <textures>
             <texture id="tex-mario" filePath="Assets\Sprites\mario.png" />
+            <texture id="tex-enemy" filePath="Assets\Sprites\enemy.png" />
             <texture id="-100" filePath="Textures\\bbox.png" transColor="255,255,255" />
         </textures>
 
         <sprites>
             <sprite idTex="tex-mairio" filePath="Assets\Sprites\SpriteDatabases\MarioDB.xml" />
+            <sprite idTex="tex-enemy" filePath="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
         </sprites>
 
         <animations>
             <animation idSet="mario" filePath="Assets/Animations/MarioAnim.xml" />
+            <animation idSet="enemy" filePath="Assets/Animations/EnemyAnim.xml" />
         </animations>
 
         <objects>
-            <mario x="150" y="850" />
+            <!--Type: red-small / red-big / red-raccoon / fire -->
+            <mario type="red-small" x="50" y="850" />
+            <goomba x="600" y="1050" />
         </objects>
     </mapdata>

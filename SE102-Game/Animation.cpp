@@ -1,10 +1,19 @@
 #include "Animation.h"
 #include "SpriteManager.h"
+#include "XmlReader/tinyxml.h"
+
+
+CAnimation::CAnimation(int defaultTime) {
+	if (defaultTime > 0) this->defaultTime = defaultTime;
+	else this->defaultTime = 100;
+	lastFrameTime = -1; 
+	currentFrame = -1; 
+}
 
 void CAnimation::Add(std::string spriteId, DWORD time)
 {
 	int t = time;
-	if (time == 0) t = this->defaultTime;
+	if (!(time > 0)) t = this->defaultTime;
 
 	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
 
@@ -18,6 +27,60 @@ void CAnimation::Add(std::string spriteId, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
+
+
+
+bool CAnimations::LoadAnimationsFromFile(std::string filePath, std::string setId) {
+	OutputDebugStringW(ToLPCWSTR(filePath.c_str()));
+	TiXmlDocument document(filePath.c_str());
+	if (!document.LoadFile())
+	{
+		OutputDebugStringW(ToLPCWSTR(document.ErrorDesc()));
+		return false;
+	}
+
+	TiXmlElement* root = document.RootElement();
+	TiXmlElement* info = root->FirstChildElement();
+
+	string gameObjectID = info->Attribute("gameObjectId");
+	string textureID = info->Attribute("textureId");
+
+	OutputDebugStringW(ToLPCWSTR("Gameobject id: " + gameObjectID + '\n'));
+	OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
+
+	for (TiXmlElement* node = info->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+	{
+		string aniId = node->Attribute("aniId");
+		float frameTime;
+		node->QueryFloatAttribute("frameTime", &frameTime);
+		OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + '\n'));
+		if(!(frameTime > 0)) frameTime = 100;
+		CAnimation* animation = new CAnimation(frameTime);
+
+		// Sprite ref
+		for (TiXmlElement* sprNode = node->FirstChildElement(); sprNode != nullptr; sprNode = sprNode->NextSiblingElement())
+		{
+			string spriteId = sprNode->Attribute("id");
+
+			float detailFrameTime;
+			sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
+			if (!(detailFrameTime > 0)) detailFrameTime = frameTime;
+			animation->Add(spriteId, detailFrameTime);
+
+			//OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime) + '\n'));
+		}
+
+		CAnimations::GetInstance()->Add(aniId, animation);
+		
+
+	}
+
+
+	return true;
+}
+
+
+
 
 bool CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
 {

@@ -51,7 +51,7 @@ bool CSprites::LoadSpriteFromFile(std::string filePath) {
 	TiXmlElement* root = document.RootElement();
 	TiXmlElement* texture = root->FirstChildElement();
 
-	string textureID = texture->Attribute("id");
+	string textureID = texture->Attribute("textureId");
 	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(textureID);
 
 	if (tex != nullptr)

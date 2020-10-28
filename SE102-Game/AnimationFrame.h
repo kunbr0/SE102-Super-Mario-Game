@@ -9,7 +9,7 @@ class CAnimationFrame
 	DWORD time;
 
 public:
-	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
+	CAnimationFrame(LPSPRITE sprite, int time=100) { this->sprite = sprite; this->time = time; }
 	DWORD GetTime() { return time; }
 	LPSPRITE GetSprite() { return sprite; }
 };

@@ -24,88 +24,31 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	dt = 20;
 
-
 	float vxmax = isBoostedSpeed ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
 	
 	// Increase velocity if in limit
 	if (abs(vx) < vxmax)
 		vx += ax * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
 
+	applyFriction();
+	applyGravity();
 
-	if (vx > 0) {
-		vx += -ACCELERATION_FRICTION;
-		if (vx < 0) vx = 0;
-	}
-	if (vx < 0) {
-		vx += ACCELERATION_FRICTION;
-		if (vx > 0) vx = 0;
-	}
-	
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	// Simple fall down
-	applyGravity();
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	// turn off collision when die 
-	if (state != MARIO_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
-
-	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
-	{
-		untouchable_start = 0;
-		untouchable = 0;
-	}
-
+	SCollisionResult result = calcCollision(coObjects);
+	
 	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-		if (dy > 7) {
-			ChangeAction(MarioAction::FALL);
-		}
+	if (!result.isCollided && dy > 7) {
+		ChangeAction(MarioAction::FALL);
 	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
+	else {
+		if(result.ny < 0) ChangeAction(MarioAction::IDLE);
 
-		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
-
-		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0) vx = 0;
-
-		// Co va cham theo chieu Y
-		if (ny != 0) {
-			vy = 0;
-			if (ny < 0) ChangeAction(MarioAction::IDLE);
-		}
-
-
-
-		//
 		// Collision logic with other objects
-		//
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < result.coEventsResult.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
+			LPCOLLISIONEVENT e = result.coEventsResult[i];
 
 			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
 			{
@@ -144,11 +87,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-
 	
 	
 	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	cleanAfterCalcCollision(result);
 
 	if (vx != 0) {
 		if(abs(vx) < VELOCITY_X_MIN_FOR_RUN)
@@ -164,6 +106,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	ResetTempValues(); // Set all temp values to initial value;
 }
+
+
+
 
 void CMario::Render(Vector2 finalPos) {
 	if (state == MARIO_STATE_DIE)

@@ -4,11 +4,18 @@
 #include "PlayScene.h"
 #include "Utils.h"
 #include "TextureManager.h"
-#include "AnimationSet.h"
+#include "Animation.h"
 #include "Portal.h"
 #include "Const.h"
 #include "XmlReader/tinyxml.h"
 
+#include "Brick.h"
+#include "Goomba.h"
+#include "Koopas.h"
+#include "RedSmallMario.h"
+#include "RedBigMario.h"
+#include "RedRaccoonMario.h"
+#include "FireMario.h"
 
 using namespace std;
 
@@ -87,22 +94,33 @@ bool CPlayScene::LoadDataFromFile() {
 		for (TiXmlElement* animation = animations->FirstChildElement("animation"); animation != nullptr; animation = animation->NextSiblingElement("animation")) {
 			std::string idSet = animation->Attribute("idSet");
 			std::string filePath = animation->Attribute("filePath");
-			CAnimationSets::GetInstance()->LoadAnimationFromFile(filePath, idSet);
+			CAnimations::GetInstance()->LoadAnimationsFromFile(filePath, idSet);
 
 		}
 	}
 
 	// Load Objects
 	for (TiXmlElement* objs = root->FirstChildElement("objects"); objs != nullptr; objs = objs->NextSiblingElement("objects")) {
+		// Mario
 		for (TiXmlElement* mario = objs->FirstChildElement("mario"); mario != nullptr; mario = mario->NextSiblingElement("mario")) {
 			if (player != NULL) break;
 			int x = atoi(mario->Attribute("x"));
 			int y = atoi(mario->Attribute("y"));
-			
-			SwitchPlayer(new CFireMario(x, y));
-			
-			
-			
+			std::string type = std::string(mario->Attribute("type"));
+			if(type == "red-small")	SwitchPlayer(new CRedSmallMario(x, y));
+			else if (type == "red-big")	SwitchPlayer(new CRedBigMario(x, y));
+			else if (type == "red-raccoon")	SwitchPlayer(new CRedRaccoonMario(x, y));
+			else if (type == "red-big")	SwitchPlayer(new CFireMario(x, y));
+			// Default
+			else SwitchPlayer(new CRedSmallMario(x, y));
+		}
+		
+		// Goomba
+		for (TiXmlElement* goomba = objs->FirstChildElement("goomba"); goomba != nullptr; goomba = goomba->NextSiblingElement("goomba")) {
+			int x = atoi(goomba->Attribute("x"));
+			int y = atoi(goomba->Attribute("y"));
+			LPGAMEOBJECT a = new CGoomba(x, y);
+			dynamicObjects.push_back(a);
 		}
 	}
 	
@@ -193,7 +211,7 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void CPlayScene::SwitchPlayer(CMario* newPlayer) {
+void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 	if (!newPlayer) return;
 
 	if (player != NULL) {
@@ -228,7 +246,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* currentPlayer = ((CPlayScene*)scence)->GetPlayer();
+	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 	
 	switch (KeyCode)
 	{
@@ -284,7 +302,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* mario = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;

@@ -1,6 +1,5 @@
 #pragma once
 #include "Animation.h"
-#include "XmlReader/tinyxml.h"
 #include "SpriteManager.h"
 
 class CAnimationSets
@@ -14,7 +13,7 @@ public:
 	void Add(std::string id, LPANIMATION_SET ani);
 	LPANIMATION_SET Get(std::string id);
 
-	bool LoadAnimationFromFile(std::string filePath, std::string setId);
+	
 
 	static CAnimationSets* GetInstance();
 };

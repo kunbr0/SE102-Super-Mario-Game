@@ -40,6 +40,13 @@ struct CCollisionEvent
 	}
 };
 
+struct SCollisionResult {
+	bool isCollided;
+	float nx, ny;
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+};
 
 class CGameObject
 {
@@ -111,8 +118,9 @@ public:
 
 	// Physics
 	void applyGravity();
-
-
+	void applyFriction();
+	SCollisionResult calcCollision(vector<LPGAMEOBJECT>* coObjects);
+	void cleanAfterCalcCollision(SCollisionResult result);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 

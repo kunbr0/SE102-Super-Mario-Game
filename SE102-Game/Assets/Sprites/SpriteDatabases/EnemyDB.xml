@@ -7,7 +7,7 @@
 		    <Sprite id="spr-goomba-die-0" left="54" top="18"  width="16" height="9"/>
 		    <Sprite id="spr-red-goomba-idle-0" left="104" top="70"  width="16" height="16"/>
 			<Sprite id="spr-red-goomba-idle-1" left="125" top="70"  width="16" height="16"/>
-		<   <Sprite id="spr-red-goomba-walk-0" left="104" top="70"  width="16" height="16"/>
+		   	<Sprite id="spr-red-goomba-walk-0" left="104" top="70"  width="16" height="16"/>
 			<Sprite id="spr-red-goomba-walk-1" left="125" top="70"  width="16" height="16"/>
 		    <Sprite id="spr-red-goomba-die-0" left="145" top="77"  width="16" height="9"/>
 		    <Sprite id="spr-tan-para-goomba-idle-0" left="125" top="11"  width="20" height="19"/>

@@ -142,6 +142,70 @@ void CGameObject::RenderBoundingBox(Vector2 finalPos)
 
 void CGameObject::applyGravity() {
 	vy += ACCELERATION_Y_GRAVITY * dt;
+
+}
+
+void CGameObject::applyFriction() {
+	if (vx > 0) {
+		vx += -ACCELERATION_FRICTION;
+		if (vx < 0) vx = 0;
+	}
+	if (vx < 0) {
+		vx += ACCELERATION_FRICTION;
+		if (vx > 0) vx = 0;
+	}
+}
+
+SCollisionResult CGameObject::calcCollision(vector<LPGAMEOBJECT>* coObjects) {
+	SCollisionResult result;
+	
+	//vector<LPCOLLISIONEVENT> coEventsResult;
+	
+
+	result.coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, result.coEvents);
+	if (result.coEvents.size() == 0)
+	{
+		result.isCollided = false;
+		x += dx;
+		y += dy;
+		
+	}
+	else
+	{
+		result.isCollided = true;
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(result.coEvents, result.coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		result.nx = nx;
+		result.ny = ny;
+
+		// block every object first!
+		x += min_tx * dx + nx * 0.4f;
+
+		y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+
+		if (ny != 0) {
+			vy = 0;
+		}
+
+		
+
+	}
+
+	
+	return result;
+}
+
+void CGameObject::cleanAfterCalcCollision(SCollisionResult result) {
+	for (UINT i = 0; i < result.coEvents.size(); i++) delete result.coEvents[i];
 }
 
 CGameObject::~CGameObject()

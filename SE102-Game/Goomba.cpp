@@ -1,6 +1,8 @@
 #include "Goomba.h"
-CGoomba::CGoomba()
-{
+CGoomba::CGoomba(float x, float y)
+{	
+	this->x = x;
+	this->y = y;
 	SetState(GOOMBA_STATE_WALKING);
 }
 
@@ -19,21 +21,8 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-	
-	x += dx;
-	y += dy;
-
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
-	}
-
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
-	}
+	applyGravity();
+	cleanAfterCalcCollision(calcCollision(coObjects));
 }
 
 void CGoomba::Render(Vector2 finalPos)
@@ -43,9 +32,10 @@ void CGoomba::Render(Vector2 finalPos)
 		ani = GOOMBA_ANI_DIE;
 	}
 
-	animation_set->at(ani)->Render(finalPos, 255);
+	LPANIMATION a = CAnimations::GetInstance()->Get("ani-goomba-walk");
+	a->Render(finalPos, 255);
 
-	//RenderBoundingBox();
+	RenderBoundingBox(finalPos);
 }
 
 void CGoomba::SetState(int state)

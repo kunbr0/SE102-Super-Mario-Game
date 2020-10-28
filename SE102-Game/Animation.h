@@ -10,7 +10,7 @@ class CAnimation
 	int defaultTime;
 	vector<LPANIMATION_FRAME> frames;
 public:
-	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime = 100);
 	void Add(std::string spriteId, DWORD time = 0);
 
 	bool Render(Vector2 finalPos, int alpha = 255, bool isFlipY = false);
@@ -27,6 +27,8 @@ class CAnimations
 
 public:
 	void Add(std::string id, LPANIMATION ani);
+	bool LoadAnimationsFromFile(std::string filePath, std::string setId);
+
 	LPANIMATION Get(std::string id);
 	void Clear();
 

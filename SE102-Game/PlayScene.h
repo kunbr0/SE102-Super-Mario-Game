@@ -3,14 +3,7 @@
 #include "TextureManager.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "Brick.h"
-#include "Goomba.h"
-#include "Koopas.h"
-#include "RedSmallMario.h"
-#include "RedBigMario.h"
-#include "RedRaccoonMario.h"
 
-#include "FireMario.h"
 
 //#include "GameMap2.h"
 
@@ -19,7 +12,7 @@ class CPlayScene : public CScene
 {
 
 protected:
-	CMario* player; // Player controls the position of camera.
+	LPGAMEOBJECT player; // Player controls the position of camera.
 	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> staticObjects;
 	vector<LPGAMEOBJECT> dynamicObjects;
@@ -30,7 +23,7 @@ protected:
 
 public:
 	CPlayScene(std::string id, std::string filePath);
-	void SwitchPlayer(CMario* newPlayer);
+	void SwitchPlayer(LPGAMEOBJECT newPlayer);
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
@@ -41,8 +34,8 @@ public:
 	virtual bool ParseSprites();*/
 
 
-	CMario* GetPlayer() { return player; }
-	void SetPlayer(CMario* obj) { player = obj; }
+	LPGAMEOBJECT GetPlayer() { return player; }
+	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
 
 	//friend class CPlayScenceKeyHandler;
 };

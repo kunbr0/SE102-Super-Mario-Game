@@ -3,8 +3,8 @@
 
 #define GOOMBA_WALKING_SPEED 0.05f;
 
-#define GOOMBA_BBOX_WIDTH 16
-#define GOOMBA_BBOX_HEIGHT 15
+#define GOOMBA_BBOX_WIDTH 48
+#define GOOMBA_BBOX_HEIGHT 45
 #define GOOMBA_BBOX_HEIGHT_DIE 9
 
 #define GOOMBA_STATE_WALKING 100
@@ -21,6 +21,6 @@ class CGoomba : public CGameObject
 	virtual void Render(Vector2 finalPos);
 
 public:
-	CGoomba();
+	CGoomba(float x, float y);
 	virtual void SetState(int state);
 };
