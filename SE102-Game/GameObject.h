@@ -41,8 +41,8 @@ struct CCollisionEvent
 };
 
 struct SCollisionResult {
-	bool isCollided;
-	float nx, ny;
+	bool isCollided = false;
+	float nx, ny = 0.0f;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -67,6 +67,8 @@ public:
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
+	float powerX = 0;
+	int powerXLevel = 0;
 	// Direction of Object ( Left , Right )
 	int nx;
 

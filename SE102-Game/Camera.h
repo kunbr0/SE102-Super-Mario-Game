@@ -28,4 +28,5 @@ public:
 	void LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* objects);
 	void Update(DWORD dt);
 	void Render();
+	void RenderDetailBoard();
 };

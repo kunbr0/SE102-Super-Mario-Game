@@ -20,6 +20,7 @@ public:
 	CSprite(std::string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	
 	void getSize(int &width, int &height);
+	Vector2 getSize();
 	void Draw(Vector2 finalPos, int alpha = 255);
 	void DrawFlipY(Vector2 finalPos, int alpha);
 

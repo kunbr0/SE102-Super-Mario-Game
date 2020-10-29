@@ -3,6 +3,9 @@
 #include "RectCollision.h"
 #include "RectPlatform.h"
 
+#define marginXWindow	96
+#define	marginYWindow	72
+
 CGameMap::CGameMap()
 {
 
@@ -50,26 +53,20 @@ void CGameMap::Update(int dt)
 {
 }
 
-void CGameMap::Render()
+void CGameMap::Render(float bottomMargin)
 {
 	int col = this->camPosition.x / tileWidth;
 	int row = this->camPosition.y / tileHeight;
-	/*int col = 18;
-	int row = 22;*/
 
-
-	if (col > 0) col--;
-	if (row > 0) row--;
-
-	Vector2 camSize = Vector2(CGame::GetInstance()->GetScreenWidth() / tileWidth, CGame::GetInstance()->GetScreenHeight() / tileHeight);
+	float screenWidth = CGame::GetInstance()->GetScreenWidth() + marginXWindow;
+	float screenHeight = CGame::GetInstance()->GetScreenHeight() + marginYWindow - bottomMargin;
+	Vector2 drawingSize = Vector2(screenWidth / tileWidth, screenHeight / tileHeight);
 	
-	for (int i = col; i < camSize.x + col + 4; i++) {
-		for (int j = row; j < camSize.y + row + 4; j++) {
+	for (int i = col; i < drawingSize.x + col; i++) {
+		for (int j = row; j < drawingSize.y + row; j++) {
 
 			int x = i * tileWidth;
 			int y = j * tileHeight;
-			/*int x = i * tileWidth - 50;
-			int y = j * tileHeight - 800;*/
 
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;

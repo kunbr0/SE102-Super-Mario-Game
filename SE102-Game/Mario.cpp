@@ -25,7 +25,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	dt = 20;
 
 	float vxmax = isBoostedSpeed ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
-	
+	auto zzz = action;
 	// Increase velocity if in limit
 	if (abs(vx) < vxmax)
 		vx += ax * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
@@ -102,6 +102,23 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (vx * nx < 0 && abs(vx) > VELOCITY_X_MIN_FOR_SKID) {
 		vx = -nx * VELOCITY_X_AFTER_SKID;
 		isShowingSpecialAni = GetAnimationId(MarioAction::SKID);
+	}
+
+	if (powerXLevel < 6 && abs(vx) > VELOCITY_X_MIN_FOR_RUN) {
+		powerX += abs(dx);
+		if (powerX > 75) {
+			powerXLevel++;
+			powerX = 0;
+		}
+	}
+	if (powerXLevel > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN) {
+		powerX -= abs(dx);
+		if (vx == 0) powerX -= 5;
+		if (powerX < 0) {
+			powerXLevel--;
+			powerX = 75;
+		}
+		
 	}
 
 	ResetTempValues(); // Set all temp values to initial value;

@@ -33,7 +33,12 @@ void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
 	game->DrawFlipY(finalPos, Vector2((right-left), 0), texture, r, alpha);
 }
 
-
+Vector2 CSprite::getSize() {
+	return Vector2(
+		this->right - this->left,
+		this->bottom - this->top
+	);
+}
 
 void CSprite::getSize(int& width, int& height) {
 	width = this->right - this->left;

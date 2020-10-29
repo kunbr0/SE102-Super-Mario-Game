@@ -38,7 +38,7 @@ public:
 
 	virtual void Update(int dt);
 
-	virtual void Render();
+	virtual void Render(float bottomMargin = 0);
 
 	virtual void GetMapSize(Vector2 &out);
 

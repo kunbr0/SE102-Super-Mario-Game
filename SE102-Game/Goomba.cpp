@@ -35,7 +35,7 @@ void CGoomba::Render(Vector2 finalPos)
 	LPANIMATION a = CAnimations::GetInstance()->Get("ani-goomba-walk");
 	a->Render(finalPos, 255);
 
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 }
 
 void CGoomba::SetState(int state)

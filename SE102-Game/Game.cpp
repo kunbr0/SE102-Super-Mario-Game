@@ -35,6 +35,8 @@ void CGame::Init(HWND hWnd)
 
 	RECT r;
 	GetClientRect(hWnd, &r);	// retrieve Window width & height 
+	
+	
 
 	d3dpp.BackBufferHeight = r.bottom + 1;
 	d3dpp.BackBufferWidth = r.right + 1;
