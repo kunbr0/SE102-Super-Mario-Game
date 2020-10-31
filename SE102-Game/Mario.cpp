@@ -21,14 +21,14 @@ CMario::CMario(float x, float y) : CGameObject()
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
-	dt = 20;
 
 	float vxmax = isBoostedSpeed ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
 	
 	// Increase velocity if in limit
 	if (abs(vx) < vxmax)
-		vx += ax * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
+		vx += ax * dt * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
+
+	DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
 
 	applyFriction();
 	applyGravity();
@@ -119,7 +119,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			powerX -= 3;
 	}
 	
-	DebugOut(ToWSTR(std::to_string(powerX) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(powerX) + "\n").c_str());
 	
 
 	ResetTempValues(); // Set all temp values to initial value;
@@ -319,8 +319,8 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 	state.timeAction = timeAction;
 }
 
-void CMario::ChangeAction(MarioAction newAction) {
-	if (GetTickCount() < state.beginAction + state.timeAction) return;
+bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
+	if (GetTickCount() < state.beginAction + state.timeAction) return false;
 	state.timeAction = 0;
 
 	switch (newAction)
@@ -375,7 +375,7 @@ void CMario::ChangeAction(MarioAction newAction) {
 			&& state.action != MarioAction::CROUCH) {
 			vx = -nx * VELOCITY_X_AFTER_SKID;
 
-			SetAction(newAction, 300);
+			SetAction(newAction, timeAction == 0 ? 300 : timeAction);
 		}
 			
 		break;
@@ -383,11 +383,12 @@ void CMario::ChangeAction(MarioAction newAction) {
 	case MarioAction::ATTACK:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK
 			|| state.action == MarioAction::RUN) {
-			SetAction(newAction, 300);
+			SetAction(newAction, timeAction == 0 ? 300 : timeAction);
 		}
 		break;
 
 	default:
-		break;
+		return false;
 	}
+	return true;
 }

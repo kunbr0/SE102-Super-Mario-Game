@@ -1,5 +1,5 @@
 #include "FireBullet.h"
-#define VELOCITY_X_FIRE_BULLET			0.370f 
+#define VELOCITY_X_FIRE_BULLET			0.023125f 
 #define VELOCITY_Y_FIRE_BULLET			0.14f 
 #define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.39f 
 #define INITIAL_DELTA_Y_FIRE_BULLET		10
@@ -24,9 +24,9 @@ void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 }
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	dt = 20;
 
-	vx = VELOCITY_X_FIRE_BULLET*nx;
+
+	vx = VELOCITY_X_FIRE_BULLET*nx*dt;
 	
 
 	// Calculate dx, dy 

@@ -66,7 +66,7 @@ public:
 
 
 	virtual void SetAction(MarioAction newAction, DWORD timeAction = 0);
-	virtual void ChangeAction(MarioAction newAction);
+	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);
 
 
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }

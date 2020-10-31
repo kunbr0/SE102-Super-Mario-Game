@@ -147,11 +147,11 @@ void CGameObject::applyGravity() {
 
 void CGameObject::applyFriction() {
 	if (vx > 0) {
-		vx += -ACCELERATION_FRICTION;
+		vx += -ACCELERATION_FRICTION*dt;
 		if (vx < 0) vx = 0;
 	}
 	if (vx < 0) {
-		vx += ACCELERATION_FRICTION;
+		vx += ACCELERATION_FRICTION*dt;
 		if (vx > 0) vx = 0;
 	}
 }
