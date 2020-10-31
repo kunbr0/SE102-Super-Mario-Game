@@ -16,6 +16,12 @@ using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
 
+
+struct SKeyboardEvent {
+	int key;
+	bool isHold;
+};
+
 class CGame
 {
 	static CGame* __instance;
@@ -90,10 +96,9 @@ public:
 
 	// Sprite Handler
 	LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
-	/*D3DXMATRIX initialTransform;
+	
+	SKeyboardEvent GenerateKeyboardEvent(int key, bool isHold = false);
 
-	void ResetTransform();
-	void SetNewTransform(D3DXMATRIX newTransform);*/
 	~CGame();
 };
 

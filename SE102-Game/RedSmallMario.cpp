@@ -11,9 +11,3 @@ void CRedSmallMario::Render(Vector2 finalPos)
 
 }
 
-void CRedSmallMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	left = x;
-	top = y;
-	right = x + MARIO_SMALL_BBOX_WIDTH;
-	bottom = y + MARIO_SMALL_BBOX_HEIGHT;
-}

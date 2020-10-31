@@ -1,2 +1,29 @@
-﻿  Mario.cpp
-  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe
+﻿  FireMario.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\FireMario.cpp(11,20): warning C4018: '<': signed/unsigned mismatch
+  Mario.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(115,23): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  PlayScene.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(110,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(110,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(111,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(111,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(112,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(112,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(113,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(113,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(115,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(115,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(122,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(122,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(179,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(182,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(205,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(296,21): warning C4018: '<': signed/unsigned mismatch
+  RedBigMario.cpp
+  RedRaccoonMario.cpp
+  RedSmallMario.cpp
+  main.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\main.cpp(188,64): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\main.cpp(188,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

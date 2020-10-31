@@ -208,6 +208,23 @@ void CGameObject::cleanAfterCalcCollision(SCollisionResult result) {
 	for (UINT i = 0; i < result.coEvents.size(); i++) delete result.coEvents[i];
 }
 
+
+void CGameObject::ResetRenderAnimation() {
+	renderAnimation.AnimationID = "";
+	renderAnimation.isFlipY = false;
+}
+
+void CGameObject::ChangeRenderAnimation(std::string newRenderAnimationID) {
+	// Completed rendering last animation 
+	ResetRenderAnimation();
+	renderAnimation.AnimationID = newRenderAnimationID;
+}
+
+void CGameObject::ChangeRenderAnimation(SRenderAnimation newRenderAnimation) {
+	// Completed rendering last animation 
+	renderAnimation = newRenderAnimation;
+}
+
 CGameObject::~CGameObject()
 {
 

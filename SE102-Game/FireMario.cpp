@@ -34,24 +34,10 @@ void CFireMario::Render(Vector2 finalPos)
 	CMario::Render(finalPos);
 }
 
-void CFireMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	left = x;
-	top = y;
-	right = x + FIRE_MARIO_BBOX_WIDTH;
-	bottom = y + FIRE_MARIO_BBOX_HEIGHT;
-}
-
-void CFireMario::SetState(int state)
+void CFireMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
-	CMario::SetState(state);
-
-	switch (state)
-	{
-		case MARIO_STATE_PRESS_Z:
-			if(ShootBullet()) isShowingSpecialAni = GetAnimationId(MarioAction::THROW);;
-			break;
+	CMario::ProcessKeyboard(kEvent);
 
 	
-	}
 
 }

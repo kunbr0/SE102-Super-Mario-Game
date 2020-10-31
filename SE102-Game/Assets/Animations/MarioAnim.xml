@@ -108,9 +108,9 @@
 			<Sprite id="spr-big-mario-high-jump-0" left="357" top="49"  width="19" height="26" frameTime="100"/>
 		</Animation>
 		<!-- Animation FALL-->
-		<Animation aniId="ani-big-mario-fall" frameTime="100" name="FALL">
-			<Sprite id="spr-big-mario-fall-0" left="699" top="147"  width="16" height="26" frameTime="100"/>
-		</Animation>
+    <Animation aniId="ani-big-mario-fall" frameTime="100" name="FALL">
+      <Sprite id="spr-big-mario-fall-0" left="699" top="147"  width="16" height="26" frameTime="100"/>
+    </Animation>
 		<!-- Animation CROUCH-->
 		<Animation aniId="ani-big-mario-crouch" frameTime="100" name="CROUCH">
 			<Sprite id="spr-big-mario-crouch-0" left="379" top="57"  width="14" height="18" frameTime="100"/>
@@ -172,13 +172,25 @@
 			<Sprite id="spr-raccoon-mario-walk-1" left="104" top="142"  width="22" height="28" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-walk-2" left="129" top="143"  width="23" height="27" frameTime="100"/>
 		</Animation>
+    <!-- Animation WALK-->
+    <Animation aniId="ani-raccoon-mario-walk" frameTime="100" name="WALK">
+      <Sprite id="spr-raccoon-mario-walk-0" left="80" top="142"  width="21" height="28" frameTime="100"/>
+      <Sprite id="spr-raccoon-mario-walk-1" left="104" top="142"  width="22" height="28" frameTime="100"/>
+      <Sprite id="spr-raccoon-mario-walk-2" left="129" top="143"  width="23" height="27" frameTime="100"/>
+    </Animation>
+    <!-- Animation RUN-->
+    <Animation aniId="ani-raccoon-mario-run" frameTime="50" name="WALK">
+      <Sprite id="spr-raccoon-mario-walk-0" left="80" top="142"  width="21" height="28" frameTime="50"/>
+      <Sprite id="spr-raccoon-mario-walk-1" left="104" top="142"  width="22" height="28" frameTime="50"/>
+      <Sprite id="spr-raccoon-mario-walk-2" left="129" top="143"  width="23" height="27" frameTime="50"/>
+    </Animation>
 		<!-- Animation SKID-->
 		<Animation aniId="ani-raccoon-mario-skid" frameTime="100" name="SKID">
 			<Sprite id="spr-raccoon-mario-skid-0" left="155" top="140"  width="16" height="30" frameTime="300"/>
 			<Sprite id="spr-raccoon-mario-skid-0" left="155" top="140"  width="16" height="30" frameTime="100"/>
 		</Animation>
-		<!-- Animation SKID-->
-		<Animation aniId="ani-raccoon-mario-run" frameTime="100" name="RUN">
+		<!-- Animation FALL-SLIGHTLY-->
+		<Animation aniId="ani-raccoon-mario-fall-slightly" frameTime="100" name="RUN">
 			<Sprite id="spr-raccoon-mario-run-0" left="283" top="143"  width="23" height="27" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-run-1" left="309" top="143"  width="23" height="27" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-run-2" left="335" top="142"  width="22" height="28" frameTime="100"/>
@@ -204,7 +216,7 @@
 			<Sprite id="spr-raccoon-mario-fly-2" left="495" top="142"  width="24" height="28" frameTime="100"/>
 		</Animation>
 		<!-- Animation SPIN-->
-		<Animation aniId="ani-raccoon-mario-spin" frameTime="100" name="SPIN">
+		<Animation aniId="ani-raccoon-mario-attack" frameTime="100" name="SPIN">
 			<Sprite id="spr-raccoon-mario-spin-0" left="174" top="142"  width="16" height="28" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-spin-1" left="193" top="142"  width="23" height="28" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-spin-2" left="219" top="142"  width="16" height="28" frameTime="100"/>

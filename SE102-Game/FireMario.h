@@ -13,11 +13,10 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render(Vector2 finalPos);
 
-	void SetState(int state);
+	void ProcessKeyboard(SKeyboardEvent kEvent);
 
 	CFireBullet* GetBullet(int index) { return bullets.at(index); }
 
 	bool ShootBullet();
-	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
 

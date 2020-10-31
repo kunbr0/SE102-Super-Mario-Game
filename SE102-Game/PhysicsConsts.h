@@ -21,7 +21,7 @@
 #define MARIO_WALKING_BOOST_RATE		0.7f
 //0.1f
 #define MARIO_JUMP_SPEED_Y				0.62f
-#define MARIO_FLY_SPEED_Y				0.25f
+#define MARIO_FLY_SPEED_Y				0.35f
 
 #define MARIO_JUMP_DEFLECT_SPEED		0.2f
 #define MARIO_DIE_DEFLECT_SPEED			0.5f

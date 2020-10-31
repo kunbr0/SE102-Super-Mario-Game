@@ -11,10 +11,10 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 	top = y;
 	right = x + KOOPAS_BBOX_WIDTH;
 
-	if (state == KOOPAS_STATE_DIE)
+	/*if (state == KOOPAS_STATE_DIE)
 		bottom = y + KOOPAS_BBOX_HEIGHT_DIE;
-	else
-		bottom = y + KOOPAS_BBOX_HEIGHT;
+	else*/
+	bottom = y + KOOPAS_BBOX_HEIGHT;
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -40,10 +40,10 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CKoopas::Render(Vector2 finalPos)
 {
 	int ani = KOOPAS_ANI_WALKING_LEFT;
-	if (state == KOOPAS_STATE_DIE) {
+	/*if (state == KOOPAS_STATE_DIE) {
 		ani = KOOPAS_ANI_DIE;
-	}
-	else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
+	}*/
+	if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
 	else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
 
 	animation_set->at(ani)->Render(finalPos,255);
@@ -53,7 +53,7 @@ void CKoopas::Render(Vector2 finalPos)
 
 void CKoopas::SetState(int state)
 {
-	CGameObject::SetState(state);
+	/*CGameObject::SetState(state);*/
 	switch (state)
 	{
 	case KOOPAS_STATE_DIE:

@@ -12,31 +12,20 @@ void CRedRaccoonMario::Render(Vector2 finalPos)
 }
 
 
-void CRedRaccoonMario::SetState(int state)
+void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
-	CMario::SetState(state);
+	CMario::ProcessKeyboard(kEvent);
 
-	switch (state)
+	switch (kEvent.key)
 	{
-		case MARIO_STATE_PRESS_A:
-			if (type == MarioType::RED_RACCON) {
-				isShowingSpecialAni = RACCOON_MARIO_ANI_BIG_ATTACK;
-				isBoostedSpeed = false;
-			}
-			break;
+	case DIK_A:
+		if (!kEvent.isHold) ChangeAction(MarioAction::ATTACK);
+		break;
 
-		case MARIO_STATE_RACCOON_FLY:
-			vy = -MARIO_FLY_SPEED_Y;
-			ChangeAction(MarioAction::FLY);
-			break;
+	case DIK_S:
+		if (!kEvent.isHold && powerX >= 6000) ChangeAction(MarioAction::FLY);
+		break;
 	}
-
 }
 
 
-void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	left = x;
-	top = y;
-	right = x + RACCOON_MARIO_BIG_BBOX_WIDTH;
-	bottom = y + RACCOON_MARIO_BIG_BBOX_HEIGHT;
-}

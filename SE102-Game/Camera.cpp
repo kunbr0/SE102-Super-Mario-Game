@@ -61,7 +61,7 @@ void CCamera::RenderDetailBoard() {
 	LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
 	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
 	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
-	Vector2 beginPos = Vector2(0, camSize.y + hud->getSize().y - DetailsBoardHeight - 40);
+	Vector2 beginPos = Vector2(0, camSize.y + hud->getSize().y - DetailsBoardHeight - 20);
 	hud->Draw(beginPos);
 	Mchar->Draw(Vector2(beginPos.x+12, beginPos.y+45));
 	Onechar->Draw(Vector2(beginPos.x + 115, beginPos.y + 25));
@@ -76,7 +76,7 @@ void CCamera::RenderDetailBoard() {
 	}
 	for (int i = 0; i < 7; i++) {
 		LPSPRITE Zerochar;
-		if (i < positionController->powerXLevel) {
+		if (i < positionController->powerX/1000) {
 			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
 		}
 		else {

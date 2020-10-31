@@ -23,7 +23,7 @@
 
         <objects>
             <!--Type: red-small / red-big / red-raccoon / fire -->
-            <mario type="red-small" x="50" y="850" />
+            <mario type="red-raccoon" x="50" y="850" />
             <goomba x="600" y="1150" />
             <goomba x="750" y="1150" />
             <goomba x="900" y="1150" />

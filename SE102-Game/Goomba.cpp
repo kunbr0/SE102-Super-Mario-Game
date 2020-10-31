@@ -12,10 +12,10 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 	top = y;
 	right = x + GOOMBA_BBOX_WIDTH;
 
-	if (state == GOOMBA_STATE_DIE)
+	/*if (state == GOOMBA_STATE_DIE)
 		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
-	else
-		bottom = y + GOOMBA_BBOX_HEIGHT;
+	else*/
+	bottom = y + GOOMBA_BBOX_HEIGHT;
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -28,9 +28,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CGoomba::Render(Vector2 finalPos)
 {
 	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
+	/*if (state == GOOMBA_STATE_DIE) {
 		ani = GOOMBA_ANI_DIE;
-	}
+	}*/
 
 	LPANIMATION a = CAnimations::GetInstance()->Get("ani-goomba-walk");
 	a->Render(finalPos, 255);
@@ -40,7 +40,7 @@ void CGoomba::Render(Vector2 finalPos)
 
 void CGoomba::SetState(int state)
 {
-	CGameObject::SetState(state);
+	/*CGameObject::SetState(state);*/
 	switch (state)
 	{
 	case GOOMBA_STATE_DIE:

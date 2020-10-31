@@ -48,6 +48,15 @@ struct SCollisionResult {
 	vector<LPCOLLISIONEVENT> coEventsResult;
 };
 
+struct SPrevBoundingBox {
+	float left, top, right, bottom = 0;
+};
+
+struct SRenderAnimation {
+	std::string AnimationID;
+	bool isFlipY = false;
+};
+
 class CGameObject
 {
 public:
@@ -67,19 +76,19 @@ public:
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
-	float powerX = 0;
-	int powerXLevel = 0;
+	int powerX = 0;
 	// Direction of Object ( Left , Right )
 	int nx;
 
-	// State
-	int state;
 
 	DWORD dt;
 
 	LPANIMATION_SET animation_set;
 
 	bool isDisable = false;
+
+	SRenderAnimation renderAnimation;
+	SPrevBoundingBox prevBoundingBox;
 
 public:
 	// Con/Destructor
@@ -94,9 +103,11 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	
-	// State
-	int GetState() { return this->state; }
-	virtual void SetState(int state) { this->state = state; }
+	
+
+	void ResetRenderAnimation();
+	virtual void ChangeRenderAnimation(std::string newRenderAnimationID);
+	virtual void ChangeRenderAnimation(SRenderAnimation newRenderAnimation);
 
 	// BoundingBox
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
@@ -126,6 +137,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
-
+	
 };
 
