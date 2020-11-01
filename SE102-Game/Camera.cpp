@@ -39,9 +39,10 @@ Vector2 CCamera::ConvertPosition(Vector2 pos) {
 	return Vector2(pos.x - camPosition.x, pos.y - camPosition.y);
 }
 
-bool CCamera::IsInCamera(Vector2 realPos) {
+bool CCamera::IsInCamera(Vector2 realPos, int outsideCam) {
 	Vector2 finalPos = ConvertPosition((realPos));
-	if (finalPos.x > 0 && finalPos.x < camSize.x && finalPos.y > 0 && finalPos.y < camSize.y)
+	if (finalPos.x > 0 - outsideCam && finalPos.x < camSize.x + outsideCam 
+		&& finalPos.y > 0 - outsideCam && finalPos.y < camSize.y + outsideCam)
 		return true;
 	return false;
 }

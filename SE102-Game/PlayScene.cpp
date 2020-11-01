@@ -172,8 +172,8 @@ void CPlayScene::Update(DWORD dt)
 	{
 		if (sceneCamera.IsInCamera(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y)))
 			dynamicObjects[i]->Update(dt, &coObjects);
-		else
-			dynamicObjects[i]->isDisable = true;
+		/*else
+			dynamicObjects[i]->isDisable = true;*/
 		
 	}
 	
@@ -187,7 +187,8 @@ void CPlayScene::Update(DWORD dt)
 		if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
 			mainObjects[i]->Update(dt, &coObjects);
 		else
-			mainObjects[i]->isDisable = true;
+			if(!dynamic_cast<CMario*>(mainObjects[i]))
+				mainObjects[i]->isDisable = true;
 
 	}
 	

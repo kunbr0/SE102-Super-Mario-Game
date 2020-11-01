@@ -43,13 +43,15 @@ void CMario::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
 			((CKoopas*)e->obj)->Kill();
+			vy -= VELOCITY_Y_AFTER_COLLIDE_TOP_ENEMY;
 		}
 	}
 }
 void CMario::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {}
 void CMario::CollideBottom(vector<LPCOLLISIONEVENT> coEvents) {}
-void CMario::Collided() {
-	if(vy > 0) ChangeAction(MarioAction::FALL);
+void CMario::Collided() {}
+void CMario::NoCollided() {
+	if (vy > 0) ChangeAction(MarioAction::FALL);
 }
 
 
@@ -141,7 +143,7 @@ void CMario::Render(Vector2 finalPos) {
 	}
 
 	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));	
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 
 	
 };

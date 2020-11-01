@@ -133,7 +133,7 @@ public:
 	virtual void CollideRight(vector<LPCOLLISIONEVENT>) {};
 	virtual void CollideBottom(vector<LPCOLLISIONEVENT>) {};
 	virtual void Collided() {};
-
+	virtual void NoCollided() {};
 
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();

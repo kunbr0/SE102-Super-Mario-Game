@@ -78,7 +78,7 @@ public:
 	virtual void CollideRight(vector<LPCOLLISIONEVENT>);
 	virtual void CollideBottom(vector<LPCOLLISIONEVENT>);
 	virtual void Collided();
-
+	virtual void NoCollided();
 	virtual void SetAction(MarioAction newAction, DWORD timeAction = 0);
 	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);
 

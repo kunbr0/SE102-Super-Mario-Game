@@ -174,6 +174,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	{
 		x += dx;
 		y += dy;
+		NoCollided();
 		
 	}
 	else

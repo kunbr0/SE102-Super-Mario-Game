@@ -1,26 +1,2 @@
-﻿  Koopas.cpp
-  PlayScene.cpp
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Koopas.h(7,1): warning C4005: 'GOOMBA_BBOX_HEIGHT': macro redefinition
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Goomba.h(7): message : see previous definition of 'GOOMBA_BBOX_HEIGHT'
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(111,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(111,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(112,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(112,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(113,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(113,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(114,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(114,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(116,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(116,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(123,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(123,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(131,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(131,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(202,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(205,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(213,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(228,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(320,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\PlayScene.cpp(326,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  FireBullet.cpp
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe

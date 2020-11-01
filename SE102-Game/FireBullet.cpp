@@ -1,7 +1,8 @@
 #include "FireBullet.h"
-#define VELOCITY_X_FIRE_BULLET			0.023125f 
+#include "Koopas.h"
+#define VELOCITY_X_FIRE_BULLET			0.028125f 
 #define VELOCITY_Y_FIRE_BULLET			0.14f 
-#define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.39f 
+#define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.485f 
 #define INITIAL_DELTA_Y_FIRE_BULLET		10
 
 #define DELTA_WIDTH_IN_LEFT_SIDE	80
@@ -23,86 +24,44 @@ void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 	this->nx = nx;
 }
 
+
+void CFireBullet::CollideLeft(vector<LPCOLLISIONEVENT> coEvents) {
+	this->isDisable = true;
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
+		{
+			((CKoopas*)e->obj)->Kill();
+			
+		}
+	}
+}
+
+void CFireBullet::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {
+	this->isDisable = true;
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
+		{
+			((CKoopas*)e->obj)->Kill();
+
+		}
+	}
+}
+
+void CFireBullet::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
+	vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
+}
+
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 	vx = VELOCITY_X_FIRE_BULLET*nx*dt;
-	
-
-	// Calculate dx, dy 
-	CGameObject::Update(dt);
-
-	// Simple fall down
 	applyGravity();
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	// turn off collision when die 
-	
-	CalcPotentialCollisions(coObjects, coEvents);
-
-	
-	
-	
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-
-		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
-
-		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0) {
-			vx = 0;
-			isDisable = true;
-		}
-
-		// Co va cham theo chieu Y
-		if (ny != 0) {
-			vy = 0;
-			vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
-		}
-
-
-
-		//
-		// Collision logic with other objects
-		//
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			/*if (dynamic_cast<CPortal*>(e->obj))
-			{
-				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CGame::GetInstance()->SwitchScene(p->GetSceneId());
-			}*/
-		}
-	}
-
-	
-	
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
+	CGameObject::Update(dt, coObjects);
+	UpdateWithCollision(coObjects);
 	
 }
 

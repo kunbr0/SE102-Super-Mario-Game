@@ -25,7 +25,7 @@
             <!--Type: red-small / red-big / red-raccoon / fire -->
             <mario type="red-raccoon" x="50" y="850" />
             <koopas x="400" y="1150" />
-            <goomba x="750" y="1150" />
-            
+            <koopas x="1200" y="1150" />
+            <koopas x="1600" y="1050" />
         </objects>
     </mapdata>
