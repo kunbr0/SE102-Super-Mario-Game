@@ -90,15 +90,16 @@ void CGame::KDrawBoardDetails(float x, float y, LPCSTR text) {
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(Vector2 finalPos, LPDIRECT3DTEXTURE9 texture, RECT r, int alpha)
+void CGame::Draw(Vector2 finalPos, D3DXVECTOR2 pivot, LPDIRECT3DTEXTURE9 texture, RECT r, int alpha)
 {
-	D3DXVECTOR3 p(finalPos.x, finalPos.y, 0);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	Vector3 pInt((int)(finalPos.x - pivot.x), (int)(finalPos.y - pivot.y), 0);
+	spriteHandler->Draw(texture, &r, NULL, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
 }
 
-void CGame::DrawFlipY(Vector2 finalPos, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+void CGame::DrawFlipY(Vector2 finalPos, D3DXVECTOR2 pointCenter, D3DXVECTOR2 pivot, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
 {
+
 	Vector3 p(finalPos.x, finalPos.y, 0);
 	Vector3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	Vector2 pScale(-1, 1);

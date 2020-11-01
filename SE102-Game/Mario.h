@@ -22,17 +22,19 @@ enum class MarioAction
 	RUN,
 	SPEEDUP,
 	JUMP,
+	HIGH_JUMP,
 	CROUCH,
 	FLY,
 	FALL,
+	FALL_SLIGHTLY,
 	SKID,
 	ATTACK
 };
 
 struct SMarioState {
 	MarioAction action = MarioAction::IDLE;
-	DWORD beginAction = 0;
-	DWORD timeAction = 0; // How long the state is.
+	int beginAction = 0;
+	int timeAction = 0; // How long the state is.
 };
 
 class CMario : public CGameObject

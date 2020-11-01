@@ -290,15 +290,25 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	CGame* gameInstance = CGame::GetInstance();
 	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 
-	std::vector<int> ProcessKey = { DIK_A, DIK_RIGHT, DIK_LEFT, DIK_DOWN };
+	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S };
+	std::vector<int> OrderProcessKey = { DIK_RIGHT, DIK_LEFT, DIK_DOWN };
 	
-	if (ProcessKey.size() > 0)
-		for (int i = 0; i < ProcessKey.size(); i++) {
-			if(gameInstance->IsKeyDown(ProcessKey[i]))
-				currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(ProcessKey[i], true));
+
+	for (int i = 0; i < UnOrderProcessKey.size(); i++) {
+		if (gameInstance->IsKeyDown(UnOrderProcessKey[i])) {
+			currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(UnOrderProcessKey[i], true));
 		}
-	//else
-		//currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(ProcessKey[i], true));
+	}
+
+	for (int i = 0; i < OrderProcessKey.size(); i++) {
+		if (gameInstance->IsKeyDown(OrderProcessKey[i])) {
+			currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(OrderProcessKey[i], true));
+			return;
+		}
+				
+	}
+	currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(-1, true));
+	
 	
 	
 }

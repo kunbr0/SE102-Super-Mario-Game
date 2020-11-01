@@ -28,7 +28,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (abs(vx) < vxmax)
 		vx += ax * dt * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
 
-	DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
 
 	applyFriction();
 	applyGravity();
@@ -39,7 +39,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	SCollisionResult result = calcCollision(coObjects);
 	
 	// No collision occured, proceed normally
-	if (!result.isCollided && dy > 7) {
+	if (!result.isCollided && vy > 0) {
 		ChangeAction(MarioAction::FALL);
 	}
 	else {
@@ -97,29 +97,33 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	cleanAfterCalcCollision(result);
 
 	if (vx != 0) {
-		if(abs(vx) < VELOCITY_X_MIN_FOR_RUN && state.action != MarioAction::CROUCH)
+		if (abs(vx) < VELOCITY_X_MIN_FOR_RUN && state.action != MarioAction::CROUCH) {
 			ChangeAction(MarioAction::WALK);
-		else
-			if(powerX < 6000)
+		}
+		else {
+			
+			if (powerX < POWER_X_MIN_FOR_SPEEDUP) {
+				powerX += abs(dx) * 10;
 				ChangeAction(MarioAction::RUN);
-			else
+			}
+			else {
+				powerX = 8000;
 				ChangeAction(MarioAction::SPEEDUP);
+			}
+				
+		}
+			
 	}
+
 	// SKID
 	if (vx * nx < 0 && abs(vx) > VELOCITY_X_MIN_FOR_SKID) {
 		ChangeAction(MarioAction::SKID);
 		
 	}
 
-	if (powerX + abs(dx) * 75 < 7000 && abs(vx) > VELOCITY_X_MIN_FOR_RUN) {
-		powerX += abs(dx)*10;
-	}
-	else {
-		if(powerX-3 > 0)
-			powerX -= 3;
-	}
+	if(powerX > 0) powerX -= 10;
 	
-	//DebugOut(ToWSTR(std::to_string(powerX) + "\n").c_str());
+	DebugOut(ToWSTR(std::to_string((int)state.action) + "\n").c_str());
 	
 
 	ResetTempValues(); // Set all temp values to initial value;
@@ -129,36 +133,27 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 void CMario::Render(Vector2 finalPos) {
+	std::vector<MarioAction> animationFlipY = {MarioAction::SKID};
 	
-	if (state.action == MarioAction::SKID) {
-		SRenderAnimation ani;
-		ani.AnimationID = GetAnimationId(state.action);
-		ani.isFlipY = true;
-		ChangeRenderAnimation(ani);
+	ChangeRenderAnimation(GetAnimationId(state.action));
+
+	for (int i = 0; i < animationFlipY.size(); i++) {
+		if (state.action == animationFlipY[i]) {
+			SRenderAnimation ani;
+			ani.AnimationID = GetAnimationId(state.action);
+			ani.isFlipY = true;
+			ChangeRenderAnimation(ani);
+		}
 	}
-	else {
-		ChangeRenderAnimation(GetAnimationId(state.action));
-	}
-	
 
-	
-
-	int alpha = 255;
-	if (untouchable) alpha = 128;
-
-	//
-	RenderBoundingBox(finalPos);
-	if (type == MarioType::RED_RACCON && nx == 1) finalPos.x -= 15;
-	
-	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));
-	
-
+	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));	
+	//RenderBoundingBox(finalPos);
 
 	
 };
 
 Vector2 CMario::GetBoundingBoxSize(MarioType mType, MarioAction mAction) {
-	if(mAction == MarioAction::CROUCH) return Vector2(MARIO_SMALL_BBOX_WIDTH, MARIO_SMALL_BBOX_HEIGHT);
+	if(mAction == MarioAction::CROUCH) return Vector2(MARIO_SMALL_BBOX_WIDTH, MARIO_SMALL_BBOX_HEIGHT+10);
 	switch (mType)
 	{
 	case MarioType::RED_SMALL:
@@ -190,7 +185,8 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if(kEvent.isHold) isBoostedSpeed = true;
+		if(kEvent.isHold) 
+			isBoostedSpeed = true;
 		break;
 	case DIK_LEFT:
 		ax = -ACCELERATION_X_WALK;
@@ -203,24 +199,28 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 		break;
 
 	case DIK_DOWN:
-		ChangeAction(MarioAction::CROUCH);
+		if (kEvent.isHold) ChangeAction(MarioAction::CROUCH);
 		break;
 
-	case DIK_X:
-		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		if (this->state.action == MarioAction::IDLE || this->state.action == MarioAction::WALK) {
-			vy = -MARIO_JUMP_SPEED_Y;
-			ChangeAction(MarioAction::JUMP);
-		}
-		break;
+	//case DIK_X:
+	//	// TODO: need to check if Mario is *current* on a platform before allowing to jump again
+	//	if (this->state.action == MarioAction::IDLE || this->state.action == MarioAction::WALK) {
+	//		vy = -MARIO_JUMP_SPEED_Y;
+	//		ChangeAction(MarioAction::JUMP);
+	//	}
+	//	break;
 		
 	case DIK_S:
-		if(!kEvent.isHold && powerX < 6000) ChangeAction(MarioAction::JUMP);
+		if(!kEvent.isHold) 
+			ChangeAction(MarioAction::JUMP);
+		else
+			ChangeAction(MarioAction::HIGH_JUMP);
 		break;
 
 
 	default:
-		if (this->state.action == MarioAction::CROUCH) ChangeAction(MarioAction::IDLE);
+		if (this->state.action == MarioAction::CROUCH) 
+			ChangeAction(MarioAction::IDLE);
 		break;
 	}
 
@@ -267,11 +267,17 @@ std::string CMario::GetAnimationId(MarioAction action) {
 	case MarioAction::JUMP:
 		actionId = "jump";
 		break;
+	case MarioAction::HIGH_JUMP:
+		actionId = "jump";
+		break;
 	case MarioAction::CROUCH:
 		actionId = "crouch";
 		break;
 	case MarioAction::FLY:
 		actionId = "fly";
+		break;
+	case MarioAction::FALL_SLIGHTLY:
+		actionId = "fall-slightly";
 		break;
 	case MarioAction::FALL:
 		actionId = "fall";
@@ -309,19 +315,21 @@ void CMario::ResetTempValues() {
 
 
 void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
+	
+	if (GetTickCount64() < state.beginAction + state.timeAction) return ;
+
 	Vector2 oldBBox = GetBoundingBoxSize(type, state.action);
 	Vector2 newBBox = GetBoundingBoxSize(type, newAction);
 	x -= newBBox.x - oldBBox.x;
 	y -= newBBox.y - oldBBox.y;
 	
 	state.action = newAction;
-	state.beginAction = GetTickCount();
+	state.beginAction = GetTickCount64();
 	state.timeAction = timeAction;
 }
 
 bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
-	if (GetTickCount() < state.beginAction + state.timeAction) return false;
-	state.timeAction = 0;
+	
 
 	switch (newAction)
 	{
@@ -333,49 +341,68 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::WALK:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::RUN || state.action == MarioAction::CROUCH) 
-			SetAction(newAction);
+			SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::RUN:
-		if (state.action == MarioAction::IDLE) SetAction(newAction);
+		if (state.action == MarioAction::IDLE) SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::SPEEDUP:
-		if (state.action == MarioAction::IDLE || state.action == MarioAction::RUN) SetAction(newAction);
+		if (state.action == MarioAction::IDLE || state.action == MarioAction::RUN) SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::JUMP:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN
-				|| state.action == MarioAction::CROUCH) {
-
-			vy = -MARIO_JUMP_SPEED_Y * 1.20f;
-			if(state.action != MarioAction::CROUCH) SetAction(newAction);
+				|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
+			vy = -MARIO_JUMP_SPEED_Y;
+			SetAction(newAction, timeAction);
+			if(state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
 		}
 		break;
+
+	case MarioAction::HIGH_JUMP:
+		if (state.action == MarioAction::JUMP && vy > -MARIO_JUMP_SPEED_Y * 0.3f && vy < -MARIO_JUMP_SPEED_Y * 0.25) {
+
+			vy = -MARIO_JUMP_SPEED_Y;
+			SetAction(newAction, timeAction);
+		}
+		break;
+
 	case MarioAction::CROUCH:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN)
-			SetAction(newAction);
+			SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::FLY:
 		if (powerX > 6000) {
-			vy = -MARIO_FLY_SPEED_Y;
-			SetAction(newAction);
+			if(vy > -MARIO_FLY_SPEED_Y)
+				vy = -MARIO_FLY_SPEED_Y;
+			SetAction(newAction, timeAction);
 		}	
 		break;
 
 	case MarioAction::FALL:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::RUN || state.action == MarioAction::WALK
-			|| state.action == MarioAction::FLY || state.action == MarioAction::JUMP)
-			SetAction(newAction);
+			|| state.action == MarioAction::FLY || state.action == MarioAction::JUMP || state.action == MarioAction::FALL_SLIGHTLY
+			|| state.action == MarioAction::HIGH_JUMP)
+			SetAction(newAction, timeAction);
+		break;
+
+	case MarioAction::FALL_SLIGHTLY:
+		if (state.action == MarioAction::FALL || state.action == MarioAction::FALL_SLIGHTLY) {
+			if(vy > 0) vy = 0;
+			SetAction(newAction, timeAction);
+		}
+			
 		break;
 
 	case MarioAction::SKID:
-		if ((state.action == MarioAction::RUN || state.action == MarioAction::WALK) && state.action != MarioAction::FLY && state.action != MarioAction::JUMP
+		if ((state.action == MarioAction::RUN || state.action == MarioAction::WALK || state.action == MarioAction::SPEEDUP) && state.action != MarioAction::FLY && state.action != MarioAction::JUMP
 			&& state.action != MarioAction::CROUCH) {
 			vx = -nx * VELOCITY_X_AFTER_SKID;
 
-			SetAction(newAction, timeAction == 0 ? 300 : timeAction);
+			SetAction(newAction, timeAction);
 		}
 			
 		break;
@@ -383,7 +410,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	case MarioAction::ATTACK:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK
 			|| state.action == MarioAction::RUN) {
-			SetAction(newAction, timeAction == 0 ? 300 : timeAction);
+			SetAction(newAction, timeAction);
 		}
 		break;
 

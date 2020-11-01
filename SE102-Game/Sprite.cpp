@@ -9,6 +9,20 @@ CSprite::CSprite(std::string id, int left, int top, int right, int bottom, LPDIR
 	this->top = top;
 	this->right = right;
 	this->bottom = bottom;
+	pivot.x = 0;
+	pivot.y = 0;
+	this->texture = tex;
+}
+
+
+CSprite::CSprite(std::string id, int left, int top, int right, int bottom, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 tex)
+{
+	this->id = id;
+	this->left = left;
+	this->top = top;
+	this->right = right;
+	this->bottom = bottom;
+	pivot = Vector2(xPivot, yPivot);
 	this->texture = tex;
 }
 
@@ -21,7 +35,7 @@ void CSprite::Draw(Vector2 finalPos, int alpha)
 	CGame* game = CGame::GetInstance();
 	RECT r;
 	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
-	game->Draw(finalPos, texture, r, alpha);
+	game->Draw(finalPos, pivot, texture, r, alpha);
 }
 
 void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
@@ -30,7 +44,7 @@ void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
 	RECT r;
 	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
 	
-	game->DrawFlipY(finalPos, Vector2((right-left), 0), texture, r, alpha);
+	game->DrawFlipY(finalPos, Vector2((right-left), 0), pivot, texture, r, alpha);
 }
 
 Vector2 CSprite::getSize() {

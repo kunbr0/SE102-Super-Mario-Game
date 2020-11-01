@@ -13,7 +13,7 @@ class CSprites
 	unordered_map<std::string, LPSPRITE> sprites;
 
 public:
-	void Add(std::string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void Add(std::string id, int left, int top, int right, int bottom, int xPivot=0, int yPivot=0, LPDIRECT3DTEXTURE9 tex=NULL);
 	LPSPRITE Get(std::string id);
 	void Clear();
 

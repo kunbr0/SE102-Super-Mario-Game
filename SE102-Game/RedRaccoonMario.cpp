@@ -19,11 +19,12 @@ void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if (!kEvent.isHold) ChangeAction(MarioAction::ATTACK);
+		if (!kEvent.isHold) ChangeAction(MarioAction::ATTACK, 550);
 		break;
 
 	case DIK_S:
-		if (!kEvent.isHold && powerX >= 6000) ChangeAction(MarioAction::FLY);
+		if (!kEvent.isHold) ChangeAction(MarioAction::FLY, 350);
+		if (!kEvent.isHold) ChangeAction(MarioAction::FALL_SLIGHTLY, 350);
 		break;
 	}
 }

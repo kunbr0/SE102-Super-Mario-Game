@@ -70,7 +70,7 @@ void CTileSet::Draw(int gid, Vector2 finalPos)
 	r.bottom = r.top + tileSize.y;
 	r.right = r.left + tileSize.x;
 
-	CGame::GetInstance()->Draw(finalPos, texture, r, 255);
+	CGame::GetInstance()->Draw(finalPos, Vector2(0,0), texture, r, 255);
 }
 
 CTileSet::~CTileSet()
