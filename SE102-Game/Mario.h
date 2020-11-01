@@ -31,10 +31,17 @@ enum class MarioAction
 	ATTACK
 };
 
+enum class EMovementX {
+	WALK,
+	RUN,
+	SPEEDUP
+};
+
 struct SMarioState {
 	MarioAction action = MarioAction::IDLE;
 	int beginAction = 0;
 	int timeAction = 0; // How long the state is.
+	EMovementX movementX = EMovementX::WALK;
 };
 
 class CMario : public CGameObject
@@ -54,7 +61,7 @@ protected:
 
 	SMarioState state; // 0: isStandingInSomeThing
 	
-	bool isBoostedSpeed = false;
+	//bool isBoostedSpeed = false;
 	bool isFlying = false;
 	
 
@@ -66,6 +73,11 @@ public:
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 
+	virtual void CollideLeft(vector<LPCOLLISIONEVENT>);
+	virtual void CollideTop(vector<LPCOLLISIONEVENT>);
+	virtual void CollideRight(vector<LPCOLLISIONEVENT>);
+	virtual void CollideBottom(vector<LPCOLLISIONEVENT>);
+	virtual void Collided();
 
 	virtual void SetAction(MarioAction newAction, DWORD timeAction = 0);
 	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);

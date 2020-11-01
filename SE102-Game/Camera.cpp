@@ -39,6 +39,13 @@ Vector2 CCamera::ConvertPosition(Vector2 pos) {
 	return Vector2(pos.x - camPosition.x, pos.y - camPosition.y);
 }
 
+bool CCamera::IsInCamera(Vector2 realPos) {
+	Vector2 finalPos = ConvertPosition((realPos));
+	if (finalPos.x > 0 && finalPos.x < camSize.x && finalPos.y > 0 && finalPos.y < camSize.y)
+		return true;
+	return false;
+}
+
 void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom);

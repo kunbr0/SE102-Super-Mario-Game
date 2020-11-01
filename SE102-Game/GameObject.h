@@ -40,14 +40,6 @@ struct CCollisionEvent
 	}
 };
 
-struct SCollisionResult {
-	bool isCollided = false;
-	float nx, ny = 0.0f;
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-};
-
 struct SPrevBoundingBox {
 	float left, top, right, bottom = 0;
 };
@@ -132,11 +124,19 @@ public:
 	// Physics
 	void applyGravity();
 	void applyFriction();
-	SCollisionResult calcCollision(vector<LPGAMEOBJECT>* coObjects);
-	void cleanAfterCalcCollision(SCollisionResult result);
+	
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
+	virtual void CollideLeft(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollideTop(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollideRight(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollideBottom(vector<LPCOLLISIONEVENT>) {};
+	virtual void Collided() {};
+
+
+	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
+	void UpdateNoCollision();
 	
 };
 

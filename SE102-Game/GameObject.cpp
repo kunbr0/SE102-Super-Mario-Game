@@ -156,57 +156,63 @@ void CGameObject::applyFriction() {
 	}
 }
 
-SCollisionResult CGameObject::calcCollision(vector<LPGAMEOBJECT>* coObjects) {
-	SCollisionResult result;
+void CGameObject::UpdateNoCollision() {
+	x += dx;
+	y += dy;
+}
+
+void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	
-	//vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 	
 
-	result.coEvents.clear();
+	coEvents.clear();
 
-	CalcPotentialCollisions(coObjects, result.coEvents);
-	if (result.coEvents.size() == 0)
+	CalcPotentialCollisions(coObjects, coEvents);
+	if (coEvents.size() == 0)
 	{
-		result.isCollided = false;
 		x += dx;
 		y += dy;
 		
 	}
 	else
 	{
-		result.isCollided = true;
+		Collided();
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
 		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(result.coEvents, result.coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		result.nx = nx;
-		result.ny = ny;
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
+		if (nx != 0) { 
+			vx = 0; 
+			if (nx > 0) CollideRight(coEventsResult);
+			else CollideLeft(coEventsResult);
+		}
 
 		if (ny != 0) {
 			vy = 0;
+			if (ny > 0) CollideBottom(coEventsResult);
+			else CollideTop(coEventsResult);
 		}
 
 		
 
 	}
 
-	
-	return result;
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 }
 
-void CGameObject::cleanAfterCalcCollision(SCollisionResult result) {
-	for (UINT i = 0; i < result.coEvents.size(); i++) delete result.coEvents[i];
-}
+
 
 
 void CGameObject::ResetRenderAnimation() {

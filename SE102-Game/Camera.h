@@ -20,6 +20,8 @@ public:
 	Vector2 GetCamSize() { return camSize; }
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
+
+	bool IsInCamera(Vector2 realPos);
 	
 	void InitPositionController(CGameObject* a);
 

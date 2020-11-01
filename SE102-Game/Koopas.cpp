@@ -1,68 +1,53 @@
 #include "Koopas.h"
-
-CKoopas::CKoopas()
+CKoopas::CKoopas(float x, float y)
 {
-	SetState(KOOPAS_STATE_WALKING);
+	this->x = x;
+	this->y = y;
+	SetState(GOOMBA_STATE_WALKING);
 }
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + KOOPAS_BBOX_WIDTH;
+	right = x + GOOMBA_BBOX_WIDTH;
+	bottom = y + GOOMBA_BBOX_HEIGHT;
+}
 
-	/*if (state == KOOPAS_STATE_DIE)
-		bottom = y + KOOPAS_BBOX_HEIGHT_DIE;
-	else*/
-	bottom = y + KOOPAS_BBOX_HEIGHT;
+void CKoopas::Kill() {
+	this->state = GOOMBA_STATE_CROUCHING;
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	applyGravity();
 	CGameObject::Update(dt, coObjects);
-
-	//
-	// TO-DO: make sure Koopas can interact with the world and to each of them too!
-	// 
-
-	x += dx;
-	y += dy;
-
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
-	}
-
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
-	}
+	UpdateWithCollision(coObjects);
+	
 }
 
 void CKoopas::Render(Vector2 finalPos)
 {
-	int ani = KOOPAS_ANI_WALKING_LEFT;
-	/*if (state == KOOPAS_STATE_DIE) {
-		ani = KOOPAS_ANI_DIE;
-	}*/
-	if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
-	else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
+	renderAnimation.AnimationID = state == GOOMBA_STATE_WALKING ? KOOPAS_ANI_WALKING : KOOPAS_ANI_CROUCH;
 
-	animation_set->at(ani)->Render(finalPos,255);
+	LPANIMATION a = CAnimations::GetInstance()->Get(renderAnimation.AnimationID);
+	a->Render(finalPos, 255, (nx == 1 ? false : true));
 
 	RenderBoundingBox(finalPos);
 }
 
 void CKoopas::SetState(int state)
 {
+	this->state = state;
 	/*CGameObject::SetState(state);*/
 	switch (state)
 	{
-	case KOOPAS_STATE_DIE:
-		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
+	case GOOMBA_STATE_CROUCHING:
+		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
 		vx = 0;
 		vy = 0;
 		break;
-	case KOOPAS_STATE_WALKING:
-		vx = KOOPAS_WALKING_SPEED;
+	case GOOMBA_STATE_WALKING:
+		vx = -GOOMBA_WALKING_SPEED;
 	}
-
 }

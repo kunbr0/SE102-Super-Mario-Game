@@ -22,15 +22,10 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 	applyGravity();
-	cleanAfterCalcCollision(calcCollision(coObjects));
 }
 
 void CGoomba::Render(Vector2 finalPos)
 {
-	int ani = GOOMBA_ANI_WALKING;
-	/*if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
-	}*/
 
 	LPANIMATION a = CAnimations::GetInstance()->Get("ani-goomba-walk");
 	a->Render(finalPos, 255);

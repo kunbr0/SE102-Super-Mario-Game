@@ -16,6 +16,7 @@
 #include "RedBigMario.h"
 #include "RedRaccoonMario.h"
 #include "FireMario.h"
+#include "RectCollision.h"
 
 using namespace std;
 
@@ -122,6 +123,14 @@ bool CPlayScene::LoadDataFromFile() {
 			LPGAMEOBJECT a = new CGoomba(x, y);
 			dynamicObjects.push_back(a);
 		}
+
+		// Koopas
+		for (TiXmlElement* goomba = objs->FirstChildElement("koopas"); goomba != nullptr; goomba = goomba->NextSiblingElement("koopas")) {
+			int x = atoi(goomba->Attribute("x"));
+			int y = atoi(goomba->Attribute("y"));
+			LPGAMEOBJECT a = new CKoopas(x, y);
+			dynamicObjects.push_back(a);
+		}
 	}
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
@@ -150,7 +159,7 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	
-	
+	sceneCamera.Update(dt); // Update Map in Camera
 	
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -161,13 +170,27 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < dynamicObjects.size(); i++)
 	{
-		dynamicObjects[i]->Update(dt, &coObjects);
+		if (sceneCamera.IsInCamera(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y)))
+			dynamicObjects[i]->Update(dt, &coObjects);
+		else
+			dynamicObjects[i]->isDisable = true;
+		
 	}
-	/*player->Update(dt, &coObjects);*/
+	
+	for (size_t i = 0; i < dynamicObjects.size(); i++)
+	{
+		coObjects.push_back(dynamicObjects[i]);
+	}
 
-	//kMap->Update(dt);
+	for (size_t i = 0; i < mainObjects.size(); i++)
+	{
+		if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
+			mainObjects[i]->Update(dt, &coObjects);
+		else
+			mainObjects[i]->isDisable = true;
 
-	sceneCamera.Update(dt); // Update Map in Camera
+	}
+	
 	
 }
 
@@ -182,19 +205,19 @@ void CPlayScene::Render()
 	for (int i = 0; i < dynamicObjects.size(); i++)
 		if (!dynamicObjects[i]->isDisable) {
 			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y));
-			if (finalPos.x > 0 && finalPos.x < camSize.x && finalPos.y > 0 && finalPos.y < camSize.y)
+			if (sceneCamera.IsInCamera(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y)))
 				dynamicObjects[i]->Render(finalPos);
-			else
-				if(!dynamic_cast<CMario*>(dynamicObjects[i]))
-					dynamicObjects[i]->isDisable = true;
+
 		}
-			
 
-	//player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
-	/*Vector2 a = sceneCamera.ConvertPosition(Vector2(player->x, player->y));
-	player->Render(a);*/
+	for (int i = 0; i < mainObjects.size(); i++)
+		if (!mainObjects[i]->isDisable) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(mainObjects[i]->x, mainObjects[i]->y));
+			if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
+				mainObjects[i]->Render(finalPos);
 
-	//kMap->Render();
+		}
+	
 }
 
 /*
@@ -226,17 +249,17 @@ void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 	
 	// Delete pointer of Old Mario in List Objects
 	
-	while (dynamicObjects.size() > 0) {
-		delete dynamicObjects.at(0);
-		dynamicObjects.erase(dynamicObjects.begin());
+	while (mainObjects.size() > 0) {
+		delete mainObjects.at(0);
+		mainObjects.erase(mainObjects.begin());
 	}
 	
 	player = newPlayer;
-	dynamicObjects.push_back(newPlayer);
+	mainObjects.push_back(newPlayer);
 	// Add Fire Bullet
 	if (dynamic_cast<CFireMario*>(newPlayer)) {
-		dynamicObjects.push_back(((CFireMario*)newPlayer)->GetBullet(0));
-		dynamicObjects.push_back(((CFireMario*)newPlayer)->GetBullet(1));
+		mainObjects.push_back(((CFireMario*)newPlayer)->GetBullet(0));
+		mainObjects.push_back(((CFireMario*)newPlayer)->GetBullet(1));
 	}
 
 	sceneCamera.InitPositionController(newPlayer);

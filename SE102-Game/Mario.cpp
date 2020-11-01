@@ -6,6 +6,7 @@
 #include "Game.h"
 
 #include "Goomba.h"
+#include "Koopas.h"
 #include "Portal.h"
 
 CMario::CMario(float x, float y) : CGameObject()
@@ -19,14 +20,62 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
+void CMario::CollideLeft(vector<LPCOLLISIONEVENT> coEvents){
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+
+		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
+		{
+			DebugOut(ToWSTR("Koopas - Left\n").c_str());
+		}
+	}
+}
+void CMario::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
+	if (state.action != MarioAction::CROUCH) {
+		ChangeAction(MarioAction::IDLE);
+		if (powerX > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN)
+			powerX -= POWER_X_LOSE_IN_GROUND;
+	}
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
+		{
+			((CKoopas*)e->obj)->Kill();
+		}
+	}
+}
+void CMario::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {}
+void CMario::CollideBottom(vector<LPCOLLISIONEVENT> coEvents) {}
+void CMario::Collided() {
+	if(vy > 0) ChangeAction(MarioAction::FALL);
+}
+
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	float vxmax = isBoostedSpeed ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
+	
+	float vxmax = 0;
+	switch (state.movementX)
+	{
+	case EMovementX::WALK:
+		vxmax = VELOCITY_X_MAX_WALK;
+		break;
+	case EMovementX::RUN:
+		vxmax = VELOCITY_X_MAX_RUN;
+		break;
+	case EMovementX::SPEEDUP:
+		vxmax = VELOCITY_X_MAX_SPEEDUP;
+		break;
+	default:
+		vxmax = VELOCITY_X_MAX_WALK;
+		break;
+	}
 	
 	// Increase velocity if in limit
 	if (abs(vx) < vxmax)
-		vx += ax * dt * ( isBoostedSpeed ? ACCELERATION_X_RUN_RATIO : 1);
+		vx += ax * dt;
 
 	//DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
 
@@ -36,65 +85,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	SCollisionResult result = calcCollision(coObjects);
-	
-	// No collision occured, proceed normally
-	if (!result.isCollided && vy > 0) {
-		ChangeAction(MarioAction::FALL);
-	}
-	else {
-		if (result.ny < 0 && state.action != MarioAction::CROUCH) {
-			ChangeAction(MarioAction::IDLE);
-			if (powerX - 100 > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN)
-				powerX -= 100;
-		} 
-
-		// Collision logic with other objects
-		for (UINT i = 0; i < result.coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = result.coEventsResult[i];
-
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
-			{
-				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
-				{
-					/*if (goomba->GetState() != GOOMBA_STATE_DIE)
-					{
-						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
-					}*/
-				}
-				else if (e->nx != 0)
-				{
-					if (untouchable == 0)
-					{
-						/*if (goomba->GetState() != GOOMBA_STATE_DIE)
-						{
-							if (level > MARIO_LEVEL_SMALL)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(MARIO_STATE_DIE);
-						}*/
-					}
-				}
-			} // if Goomba
-			else if (dynamic_cast<CPortal*>(e->obj))
-			{
-				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CGame::GetInstance()->SwitchScene(p->GetSceneId());
-			}
-		}
-	}
+	UpdateWithCollision(coObjects);
 	
 	
-	// clean up collision events
-	cleanAfterCalcCollision(result);
 
 	if (vx != 0) {
 		if (abs(vx) < VELOCITY_X_MIN_FOR_RUN && state.action != MarioAction::CROUCH) {
@@ -107,7 +100,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				ChangeAction(MarioAction::RUN);
 			}
 			else {
-				powerX = 8000;
+				powerX = POWER_X_WHEN_GETTING_SPEEDUP;
 				ChangeAction(MarioAction::SPEEDUP);
 			}
 				
@@ -123,11 +116,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if(powerX > 0) powerX -= 10;
 	
-	DebugOut(ToWSTR(std::to_string((int)state.action) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((float)vxmax) + "\n").c_str());
 	
 
 	ResetTempValues(); // Set all temp values to initial value;
 }
+
 
 
 
@@ -147,7 +141,7 @@ void CMario::Render(Vector2 finalPos) {
 	}
 
 	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));	
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 
 	
 };
@@ -185,8 +179,8 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if(kEvent.isHold) 
-			isBoostedSpeed = true;
+		if (kEvent.isHold)
+			state.movementX = EMovementX::RUN;
 		break;
 	case DIK_LEFT:
 		ax = -ACCELERATION_X_WALK;
@@ -309,7 +303,7 @@ void CMario::Reset()
 }
 
 void CMario::ResetTempValues() {
-	isBoostedSpeed = false;
+	state.movementX = EMovementX::WALK;
 	ax = 0;
 }
 
@@ -362,7 +356,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 		break;
 
 	case MarioAction::HIGH_JUMP:
-		if (state.action == MarioAction::JUMP && vy > -MARIO_JUMP_SPEED_Y * 0.3f && vy < -MARIO_JUMP_SPEED_Y * 0.25) {
+		if (state.action == MarioAction::JUMP && vy > -MARIO_JUMP_SPEED_Y * 0.6f && vy < -MARIO_JUMP_SPEED_Y * 0.55) {
 
 			vy = -MARIO_JUMP_SPEED_Y;
 			SetAction(newAction, timeAction);
