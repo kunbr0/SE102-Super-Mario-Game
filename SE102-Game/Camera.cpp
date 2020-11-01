@@ -2,6 +2,7 @@
 #include "Game.h"
 
 #define DetailsBoardHeight		200
+#define YGROUND					710
 
 
 CCamera::CCamera() {
@@ -51,7 +52,7 @@ void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom);
 
-	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, 710));
+	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, YGROUND));
 }
 
 void CCamera::Update(DWORD dt) {

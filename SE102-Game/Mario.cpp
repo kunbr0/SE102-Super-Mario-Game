@@ -98,7 +98,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else {
 			
 			if (powerX < POWER_X_MIN_FOR_SPEEDUP) {
-				powerX += abs(dx) * 10;
+				powerX += abs(dx) * POWER_X_RATIO_GAIN;
 				ChangeAction(MarioAction::RUN);
 			}
 			else {
@@ -116,7 +116,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 	}
 
-	if(powerX > 0) powerX -= 10;
+	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
 	
 	//DebugOut(ToWSTR(std::to_string((float)vxmax) + "\n").c_str());
 	
@@ -332,7 +332,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	case MarioAction::IDLE:
 		/*if (action == MarioAction::IDLE || action == MarioAction::RUN || action == MarioAction::WALK
 			|| action == MarioAction::FALL || action == MarioAction::CROUCH)*/
-		SetAction(newAction);
+		SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::WALK:
@@ -341,7 +341,8 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 		break;
 
 	case MarioAction::RUN:
-		if (state.action == MarioAction::IDLE) SetAction(newAction, timeAction);
+		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::SPEEDUP) 
+			SetAction(newAction, timeAction);
 		break;
 
 	case MarioAction::SPEEDUP:
