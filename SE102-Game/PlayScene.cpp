@@ -17,6 +17,7 @@
 #include "RedRaccoonMario.h"
 #include "FireMario.h"
 #include "RectCollision.h"
+#include "QuestionBox.h"
 
 using namespace std;
 
@@ -143,6 +144,14 @@ bool CPlayScene::LoadDataFromFile() {
 			int y = atoi(goomba->Attribute("y"));
 			LPGAMEOBJECT a = new CKoopas(x, y);
 			dynamicObjects.push_back(a);
+		}
+
+		// Question Box
+		for (TiXmlElement* questionBox = objs->FirstChildElement("questionbox"); questionBox != nullptr; questionBox = questionBox->NextSiblingElement("questionbox")) {
+			int x = atoi(questionBox->Attribute("x"));
+			int y = atoi(questionBox->Attribute("y"));
+			LPGAMEOBJECT a = new CQuestionBox(Vector2(x, y));
+			staticObjects.push_back(a);
 		}
 	}
 	

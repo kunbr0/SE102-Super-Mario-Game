@@ -192,6 +192,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="QuestionBox.cpp" />
     <ClCompile Include="RectCollision.cpp" />
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="PhysicsConsts.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="QuestionBox.h" />
     <ClInclude Include="RectCollision.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="RectPlatform.h" />

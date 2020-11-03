@@ -3,7 +3,7 @@
 
 class CRectCollision : public CGameObject
 {
-private:
+protected:
 	int width, height;
 public:
 	CRectCollision(float x, float y, float width, float height);

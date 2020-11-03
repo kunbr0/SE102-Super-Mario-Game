@@ -5,6 +5,7 @@
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
             <texture id="tex-enemy" filePath="Assets\Textures\enemy.png" />
             <texture id="tex-ui" filePath="Assets\Textures\UI.png" />
+            <texture id="tex-misc" filePath="Assets\Textures\misc.png" />
             <texture id="-100" filePath="Textures\\bbox.png" transColor="255,255,255" />
         </textures>
 
@@ -12,6 +13,7 @@
             <sprite idTex="tex-mairio" filePath="Assets\Sprites\SpriteDatabases\MarioDB.xml" />
             <sprite idTex="tex-enemy" filePath="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
             <sprite idTex="tex-ui" filePath="Assets\Sprites\SpriteDatabases\UIDB.xml" />
+            <sprite idTex="tex-ui" filePath="Assets\Sprites\SpriteDatabases\MiscDB.xml" />
 
         </sprites>
 
@@ -19,13 +21,19 @@
             <animation idSet="mario" filePath="Assets/Animations/MarioAnim.xml" />
             <animation idSet="enemy" filePath="Assets/Animations/EnemyAnim.xml" />
             <animation idSet="ui" filePath="Assets/Animations/UIAnim.xml" />
+             <animation idSet="ui" filePath="Assets/Animations/MiscAnim.xml" />
         </animations>
 
         <objects>
-            <!--Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
+        <!-- Static Objects -->
+            <questionbox x="50" y="850" />
+        
+        <!-- Dynamic Objects -->
+            <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <mario type="2" x="50" y="850" />
             <koopas x="400" y="1150" />
             <koopas x="1200" y="1150" />
             <koopas x="1600" y="1050" />
+            
         </objects>
     </mapdata>

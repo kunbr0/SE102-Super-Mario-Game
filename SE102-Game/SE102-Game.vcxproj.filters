@@ -101,6 +101,9 @@
     <Filter Include="GameSource\GameObjects\CollisionBox\RectPlatform">
       <UniqueIdentifier>{f594ef79-8eb4-47fe-b6be-aa3883acc435}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox">
+      <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -270,6 +273,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>GameSource\GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBox.cpp">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>GameSource\GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBox.h">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
