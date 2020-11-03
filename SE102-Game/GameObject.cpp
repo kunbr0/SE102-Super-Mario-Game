@@ -195,14 +195,14 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		if (nx != 0) { 
 			vx = 0; 
-			if (nx > 0) CollideRight(coEventsResult);
-			else CollideLeft(coEventsResult);
+			if (nx > 0) CollidedRight(coEventsResult);
+			else CollidedLeft(coEventsResult);
 		}
 
 		if (ny != 0) {
 			vy = 0;
-			if (ny > 0) CollideBottom(coEventsResult);
-			else CollideTop(coEventsResult);
+			if (ny > 0) CollidedBottom(coEventsResult);
+			else CollidedTop(coEventsResult);
 		}
 
 		

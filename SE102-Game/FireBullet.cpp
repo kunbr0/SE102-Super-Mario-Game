@@ -12,6 +12,7 @@ CFireBullet::CFireBullet(float x, float y, int nx) {
 	this->y = y;
 	this->nx = nx;
 	this->isDisable = true;
+	tag = ETag::BULLET;
 }
 
 void CFireBullet::PrepareForShooting() {
@@ -25,33 +26,33 @@ void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 }
 
 
-void CFireBullet::CollideLeft(vector<LPCOLLISIONEVENT> coEvents) {
+void CFireBullet::CollidedLeft(vector<LPCOLLISIONEVENT> coEvents) {
 	this->isDisable = true;
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
-			((CKoopas*)e->obj)->Kill();
+			((CKoopas*)e->obj)->BeingCollided(tag);
 			
 		}
 	}
 }
 
-void CFireBullet::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {
+void CFireBullet::CollidedRight(vector<LPCOLLISIONEVENT> coEvents) {
 	this->isDisable = true;
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
-			((CKoopas*)e->obj)->Kill();
+			((CKoopas*)e->obj)->BeingCollided(tag);
 
 		}
 	}
 }
 
-void CFireBullet::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
+void CFireBullet::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
 	vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
 }
 

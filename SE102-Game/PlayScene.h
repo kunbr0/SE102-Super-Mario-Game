@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include "Scene.h"
 #include "GameObject.h"
-
+#include "Mario.h"
 
 //#include "GameMap2.h"
 
@@ -37,6 +37,8 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
+
+	CMario* GenerateMario(MarioType, Vector2);
 
 	//friend class CPlayScenceKeyHandler;
 };

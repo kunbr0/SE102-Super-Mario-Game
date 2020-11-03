@@ -11,7 +11,7 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-
+	tag = ETag::MARIO;
 	untouchable = 0;
 
 	start_x = x;
@@ -20,18 +20,32 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
-void CMario::CollideLeft(vector<LPCOLLISIONEVENT> coEvents){
+void CMario::CollidedLeftRight(vector<LPCOLLISIONEVENT> coEvents){
+	if (state.action == MarioAction::DIE) return;
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
-			DebugOut(ToWSTR("Koopas - Left\n").c_str());
+			DebugOut(ToWSTR("Koopas - Left or Right\n").c_str());
+			if (((CKoopas*)(e->obj))->GetState() == EEnemyState::LIVE) {
+				SetAction(MarioAction::DIE);
+			}
+			else {
+				if (e->nx < 0)
+					((CKoopas*)e->obj)->BeingCollidedLeft(tag);
+				else
+					((CKoopas*)e->obj)->BeingCollidedRight(tag);
+			}
+			
+			
 		}
 	}
 }
-void CMario::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
+
+void CMario::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
+	if (state.action == MarioAction::DIE) return;
 	if (state.action != MarioAction::CROUCH) {
 		ChangeAction(MarioAction::IDLE);
 		if (powerX > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN)
@@ -41,14 +55,27 @@ void CMario::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
-		{
-			((CKoopas*)e->obj)->Kill();
+		{	
 			vy -= VELOCITY_Y_AFTER_COLLIDE_TOP_ENEMY;
+
+			DebugOut(ToWSTR("Koopas - Top\n").c_str());
+			if (((CKoopas*)e->obj)->GetState() == EEnemyState::LIVE) {
+				((CKoopas*)e->obj)->BeingCollidedTop(tag);
+				
+			}
+			else {
+				float eLeft, eTop, eRight, eBottom;
+				((CKoopas*)e->obj)->GetBoundingBox(eLeft, eTop, eRight, eBottom);
+				if(this->x < (eRight+eLeft)/2)
+					((CKoopas*)e->obj)->BeingCollidedLeft(tag);
+				else
+					((CKoopas*)e->obj)->BeingCollidedRight(tag);
+			}
+			
 		}
 	}
 }
-void CMario::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {}
-void CMario::CollideBottom(vector<LPCOLLISIONEVENT> coEvents) {}
+
 void CMario::Collided() {}
 void CMario::NoCollided() {
 	if (vy > 0) ChangeAction(MarioAction::FALL);
@@ -57,7 +84,8 @@ void CMario::NoCollided() {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+	if (state.action == MarioAction::DIE) return;
+
 	float vxmax = 0;
 	switch (state.movementX)
 	{
@@ -129,6 +157,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 void CMario::Render(Vector2 finalPos) {
+	if (state.action == MarioAction::DIE) return;
+
 	std::vector<MarioAction> animationFlipY = {MarioAction::SKID};
 	
 	ChangeRenderAnimation(GetAnimationId(state.action));
@@ -326,6 +356,7 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 
 bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	
+	if (state.action == MarioAction::DIE) return false;
 
 	switch (newAction)
 	{
@@ -367,7 +398,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 		break;
 
 	case MarioAction::CROUCH:
-		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN)
+		if ((state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN) && type != MarioType::RED_SMALL)
 			SetAction(newAction, timeAction);
 		break;
 

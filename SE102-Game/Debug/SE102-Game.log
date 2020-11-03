@@ -1,6 +1,9 @@
-﻿  Camera.cpp
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(10,103): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(10,62): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(33,61): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Camera.cpp(55,57): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe
+﻿  Mario.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(7,1): warning C4005: 'GOOMBA_BBOX_HEIGHT': macro redefinition
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(7): message : see previous definition of 'GOOMBA_BBOX_HEIGHT'
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(129,43): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(166,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(353,36): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

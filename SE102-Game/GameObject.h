@@ -12,6 +12,7 @@
 
 #define ID_TEX_BBOX "-100"		// special texture to draw object bounding box
 
+
 class CGameObject;
 typedef CGameObject* LPGAMEOBJECT;
 
@@ -49,9 +50,18 @@ struct SRenderAnimation {
 	bool isFlipY = false;
 };
 
+enum class ETag {
+	MARIO,
+	ENEMY,
+	BULLET
+};
+
 class CGameObject
 {
+
 public:
+	ETag tag;
+
 	// Position
 	float x;
 	float y;
@@ -128,10 +138,11 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
-	virtual void CollideLeft(vector<LPCOLLISIONEVENT>) {};
-	virtual void CollideTop(vector<LPCOLLISIONEVENT>) {};
-	virtual void CollideRight(vector<LPCOLLISIONEVENT>) {};
-	virtual void CollideBottom(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollidedLeft(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollidedRight(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
 	virtual void Collided() {};
 	virtual void NoCollided() {};
 

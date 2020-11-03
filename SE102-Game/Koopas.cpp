@@ -5,30 +5,55 @@ CKoopas::CKoopas(float x, float y)
 	this->x = x;
 	this->y = y;
 	this->nx = -1;
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(EEnemyState::LIVE);
 }
 
 
+std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
+	switch (type)
+	{
+	case EEnemyState::LIVE:
+		return KOOPAS_ANI_WALKING;
+	case EEnemyState::WILL_DIE:
+		return KOOPAS_ANI_CROUCH;
+	case EEnemyState::DIE:
+		return KOOPAS_ANI_CROUCH;
+	default:
+		break;
+	}
+}
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	if (state == GOOMBA_STATE_WALKING) {
+	if (state.type == EEnemyState::LIVE) {
 		right = x + GOOMBA_BBOX_WIDTH;
 		bottom = y + GOOMBA_BBOX_HEIGHT;
-	}
+	} 
 	else {
 		right = x + GOOMBA_BBOX_CROUCH_WIDTH;
 		bottom = y + GOOMBA_BBOX_CROUCH_HEIGHT;
 	}
-		
+
+}
+void CKoopas::BeingCollided(ETag eTag) {
+	SetState(EEnemyState::WILL_DIE);
 }
 
-void CKoopas::Kill() {
-	
-	SetState(GOOMBA_STATE_CROUCHING);
+void CKoopas::BeingCollidedLeft(ETag eTag) {
+	vx = 0.74;
 }
+
+void CKoopas::BeingCollidedRight(ETag eTag) {
+	vx = -0.74;
+}
+
+
+void CKoopas::BeingCollidedTop(ETag eTag) {
+	SetState(EEnemyState::WILL_DIE);
+}
+
 
 void CKoopas::ChangeDirection() {
 	vx *= -1;
@@ -37,14 +62,14 @@ void CKoopas::ChangeDirection() {
 	vx = nx*GOOMBA_WALKING_SPEED;
 }
 
-void CKoopas::CollideLeft(vector<LPCOLLISIONEVENT> coEvents){
+void CKoopas::CollidedLeft(vector<LPCOLLISIONEVENT> coEvents){
 	ChangeDirection();
 }
-void CKoopas::CollideRight(vector<LPCOLLISIONEVENT> coEvents) {
+void CKoopas::CollidedRight(vector<LPCOLLISIONEVENT> coEvents) {
 	ChangeDirection();
 }
 
-void CKoopas::CollideTop(vector<LPCOLLISIONEVENT> coEvents) {
+void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
 	if (standingObject == NULL) {
 		for (UINT i = 0; i < coEvents.size(); i++)
 		{
@@ -74,26 +99,22 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CKoopas::Render(Vector2 finalPos)
 {
-	renderAnimation.AnimationID = state == GOOMBA_STATE_WALKING ? KOOPAS_ANI_WALKING : KOOPAS_ANI_CROUCH;
-
-	LPANIMATION a = CAnimations::GetInstance()->Get(renderAnimation.AnimationID);
-	a->Render(finalPos, 255, (nx == -1 ? false : true));
-
-	//RenderBoundingBox(finalPos);
+	CEnemy::Render(finalPos);
+	RenderBoundingBox(finalPos);
 }
 
-void CKoopas::SetState(int state)
+void CKoopas::SetState(EEnemyState newState)
 {
-	this->state = state;
-	/*CGameObject::SetState(state);*/
-	switch (state)
+	state.type = newState;
+	
+	switch (newState)
 	{
-	case GOOMBA_STATE_CROUCHING:
+	case EEnemyState::WILL_DIE:
 		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_CROUCH_HEIGHT - 1;
 		vx = 0;
 		vy = 0;
 		break;
-	case GOOMBA_STATE_WALKING:
+	case EEnemyState::LIVE:
 		vx = -nx*GOOMBA_WALKING_SPEED;
 	}
 }

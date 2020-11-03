@@ -28,7 +28,8 @@ enum class MarioAction
 	FALL,
 	FALL_SLIGHTLY,
 	SKID,
-	ATTACK
+	ATTACK,
+	DIE,
 };
 
 enum class EMovementX {
@@ -56,13 +57,13 @@ protected:
 
 	MarioType type;
 
-	int untouchable;
+	bool untouchable;
 	DWORD untouchable_start;
 
 	SMarioState state; // 0: isStandingInSomeThing
 	
 	//bool isBoostedSpeed = false;
-	bool isFlying = false;
+	
 	
 
 
@@ -73,13 +74,16 @@ public:
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 
-	virtual void CollideLeft(vector<LPCOLLISIONEVENT>);
-	virtual void CollideTop(vector<LPCOLLISIONEVENT>);
-	virtual void CollideRight(vector<LPCOLLISIONEVENT>);
-	virtual void CollideBottom(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
+
 	virtual void Collided();
 	virtual void NoCollided();
+
+	virtual MarioType GetType() { return type; }
+
 	virtual void SetAction(MarioAction newAction, DWORD timeAction = 0);
+	virtual MarioAction GetAction() { return state.action; }
 	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);
 
 

@@ -50,6 +50,22 @@ CPlayScene::CPlayScene(std::string id, std::string filePath) :
 #define MAX_SCENE_LINE 1024
 
 
+CMario* CPlayScene::GenerateMario(MarioType mType, Vector2 pos) {
+	switch (mType)
+	{
+	case MarioType::RED_SMALL:
+		return new CRedSmallMario(pos.x, pos.y);
+	case MarioType::RED_BIG:
+		return new CRedBigMario(pos.x, pos.y);
+	case MarioType::RED_RACCON:
+		return new CRedRaccoonMario(pos.x, pos.y);
+	case MarioType::FIRE:
+		return new CFireMario(pos.x, pos.y);
+	default:
+		return new CRedSmallMario(pos.x, pos.y);
+	}
+	
+}
 
 
 bool CPlayScene::LoadDataFromFile() {
@@ -107,13 +123,10 @@ bool CPlayScene::LoadDataFromFile() {
 			if (player != NULL) break;
 			int x = atoi(mario->Attribute("x"));
 			int y = atoi(mario->Attribute("y"));
-			std::string type = std::string(mario->Attribute("type"));
-			if(type == "red-small")	SwitchPlayer(new CRedSmallMario(x, y));
-			else if (type == "red-big")	SwitchPlayer(new CRedBigMario(x, y));
-			else if (type == "red-raccoon")	SwitchPlayer(new CRedRaccoonMario(x, y));
-			else if (type == "red-big")	SwitchPlayer(new CFireMario(x, y));
-			// Default
-			else SwitchPlayer(new CRedSmallMario(x, y));
+			int iType = 0; 
+			mario->QueryIntAttribute("type", &iType);
+			SwitchPlayer(GenerateMario((MarioType)iType, Vector2(x,y)));
+			
 		}
 		
 		// Goomba
@@ -180,6 +193,13 @@ void CPlayScene::Update(DWORD dt)
 	for (size_t i = 0; i < dynamicObjects.size(); i++)
 	{
 		coObjects.push_back(dynamicObjects[i]);
+	}
+
+	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
+		
+		SwitchPlayer(GenerateMario(
+		(MarioType)((int)(((CMario*)player)->GetType())-1), 
+		Vector2(player->x, player->y)));
 	}
 
 	for (size_t i = 0; i < mainObjects.size(); i++)
