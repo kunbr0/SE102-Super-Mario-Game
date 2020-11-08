@@ -21,7 +21,7 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-	applyGravity();
+	ApplyGravity();
 }
 
 void CGoomba::Render(Vector2 finalPos)

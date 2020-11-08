@@ -60,7 +60,7 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 	vx = VELOCITY_X_FIRE_BULLET*nx*dt;
-	applyGravity();
+	ApplyGravity();
 	CGameObject::Update(dt, coObjects);
 	UpdateWithCollision(coObjects);
 	

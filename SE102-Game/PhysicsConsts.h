@@ -1,6 +1,6 @@
 #pragma once
 // ACCELERATION
-#define ACCELERATION_Y_GRAVITY			0.0021f
+#define ACCELERATION_Y_GRAVITY			0.0019f
 #define ACCELERATION_X_WALK				0.000625f
 #define ACCELERATION_X_RUN_RATIO		1.3f // Run compare to Walk
 
@@ -24,7 +24,7 @@
 // RATIO
 #define MARIO_WALKING_BOOST_RATE		0.7f
 //0.1f
-#define MARIO_JUMP_SPEED_Y				0.72f
+#define MARIO_JUMP_SPEED_Y				0.62f
 #define MARIO_FLY_SPEED_Y				0.35f
 
 #define MARIO_JUMP_DEFLECT_SPEED		0.2f

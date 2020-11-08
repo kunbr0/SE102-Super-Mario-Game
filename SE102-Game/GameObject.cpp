@@ -164,12 +164,12 @@ void CGameObject::RenderBoundingBox(Vector2 finalPos)
 	
 }
 
-void CGameObject::applyGravity() {
+void CGameObject::ApplyGravity() {
 	vy += ACCELERATION_Y_GRAVITY * dt;
 
 }
 
-void CGameObject::applyFriction() {
+void CGameObject::ApplyFriction() {
 	if (vx > 0) {
 		vx += -ACCELERATION_FRICTION*dt;
 		if (vx < 0) vx = 0;
@@ -180,16 +180,16 @@ void CGameObject::applyFriction() {
 	}
 }
 
-void CGameObject::CollidedLeftRight(vector<LPCOLLISIONEVENT> e) {};
-void CGameObject::CollidedLeft(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
-void CGameObject::CollidedRight(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
-void CGameObject::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
-	for (UINT i = 0; i < coEvents.size(); i++)
-		coEvents[i]->obj->BeingCollidedTop(tag, Vector2(x, y));
+void CGameObject::CollidedLeftRight(vector<LPCOLLISIONEVENT>* e) {};
+void CGameObject::CollidedLeft(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(e); };
+void CGameObject::CollidedRight(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(e); };
+void CGameObject::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
+	for (UINT i = 0; i < coEvents->size(); i++)
+		coEvents->at(i)->obj->BeingCollidedTop(tag, Vector2(x, y));
 };
-void CGameObject::CollidedBottom(vector<LPCOLLISIONEVENT> coEvents) {
-	for (UINT i = 0; i < coEvents.size(); i++)
-		coEvents[i]->obj->BeingCollidedBottom(tag, Vector2(x, y));
+void CGameObject::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
+	for (UINT i = 0; i < coEvents->size(); i++)
+		coEvents->at(i)->obj->BeingCollidedBottom(tag, Vector2(x, y));
 };
 void CGameObject::UpdateNoCollision() {
 	x += dx;
@@ -230,15 +230,15 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		if (nx != 0) { 
 			vx = 0; 
-			if (nx > 0) CollidedRight(coEventsResult);
-			else CollidedLeft(coEventsResult);
+			if (nx > 0) CollidedRight(&coEventsResult);
+			else CollidedLeft(&coEventsResult);
 		}
 
 		else if (ny != 0) {
 			vy = 0;
-			if (ny > 0) CollidedBottom(coEventsResult);
+			if (ny > 0) CollidedBottom(&coEventsResult);
 			else 
-				CollidedTop(coEventsResult);
+				CollidedTop(&coEventsResult);
 		}
 
 		

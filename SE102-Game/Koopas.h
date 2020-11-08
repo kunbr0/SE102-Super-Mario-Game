@@ -21,24 +21,22 @@
 class CKoopas : public CEnemy
 {
 
-	LPGAMEOBJECT standingObject = NULL;
-	Vector2 stadingScope;
 
 
 public:
 	CKoopas(float x, float y);
-	void SetState(EEnemyState state);
+	
 	void ChangeState(EEnemyState newState);
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render(Vector2 finalPos);
+	Vector2 GetBoundingBoxSize() override;
+	
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	void CollidedLeft(vector<LPCOLLISIONEVENT>);
-	void CollidedTop(vector<LPCOLLISIONEVENT>);
-	void CollidedRight(vector<LPCOLLISIONEVENT>);
-	void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
-	void Collided() {};
+	void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
+	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
+	void CollidedRight(vector<LPCOLLISIONEVENT>*) override;
+	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {} ;
+	void Collided() override {};
 
 	//void BeingCollided(ETag, Vector2);
 	void BeingCollidedTop(ETag, Vector2);
@@ -49,7 +47,6 @@ public:
 	std::string GetRenderAnimationId(EEnemyState);
 
 
-	void ChangeDirection();
 	void Kick(Vector2 pos);
 	
 };

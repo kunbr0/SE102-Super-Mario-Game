@@ -132,17 +132,17 @@ public:
 		float& rdy);
 
 	// Physics
-	void applyGravity();
-	void applyFriction();
+	void ApplyGravity();
+	void ApplyFriction();
 	
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*);
 	virtual void Collided() {};
 	virtual void NoCollided() {};
 

@@ -74,9 +74,9 @@ public:
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*);
 
 	virtual void Collided();
 	virtual void NoCollided();

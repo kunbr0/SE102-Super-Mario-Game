@@ -20,19 +20,19 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
-void CMario::CollidedLeftRight(vector<LPCOLLISIONEVENT> coEvents){
+void CMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents){
 	if (state.action == MarioAction::DIE) return;
-	for (UINT i = 0; i < coEvents.size(); i++) {
-		if (dynamic_cast<CEnemy*>(coEvents[i]->obj)) {
-			if (((CEnemy*)(coEvents[i]->obj))->GetState() == EEnemyState::LIVE)
+	for (UINT i = 0; i < coEvents->size(); i++) {
+		if (dynamic_cast<CEnemy*>(coEvents->at(i)->obj)) {
+			if (((CEnemy*)(coEvents->at(i)->obj))->GetState() == EEnemyState::LIVE)
 				SetAction(MarioAction::DIE);
 		}
-		coEvents[i]->obj->BeingCollidedLeftRight(tag, Vector2(x, y));
+		coEvents->at(i)->obj->BeingCollidedLeftRight(tag, Vector2(x, y));
 	}
 		
 }
 
-void CMario::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
+void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
 	if (state.action != MarioAction::CROUCH) {
 		ChangeAction(MarioAction::IDLE);
@@ -43,7 +43,7 @@ void CMario::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
 	CGameObject::CollidedTop(coEvents);
 
 }
-void CMario::CollidedBottom(vector<LPCOLLISIONEVENT> coEvents) {
+void CMario::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
 	CGameObject::CollidedBottom(coEvents);
 }
@@ -82,8 +82,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	//DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
 
-	applyFriction();
-	applyGravity();
+	ApplyFriction();
+	ApplyGravity();
 
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
