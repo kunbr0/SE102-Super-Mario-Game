@@ -138,13 +138,19 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>) {};
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>) {};
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedRight(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>);
 	virtual void Collided() {};
 	virtual void NoCollided() {};
+
+	virtual void BeingCollidedLeftRight(ETag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollidedLeft(ETag eTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eTag); };
+	virtual void BeingCollidedTop(ETag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollidedRight(ETag eTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eTag); };
+	virtual void BeingCollidedBottom(ETag, Vector2 collidePos = Vector2(0, 0)) {};
 
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();

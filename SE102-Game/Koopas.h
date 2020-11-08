@@ -21,32 +21,35 @@
 class CKoopas : public CEnemy
 {
 
-	
-
 	LPGAMEOBJECT standingObject = NULL;
 	Vector2 stadingScope;
 
+
 public:
 	CKoopas(float x, float y);
-	virtual void SetState(EEnemyState state);
+	void SetState(EEnemyState state);
+	void ChangeState(EEnemyState newState);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render(Vector2 finalPos);
 
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
-	virtual void Collided() {};
+	void CollidedLeft(vector<LPCOLLISIONEVENT>);
+	void CollidedTop(vector<LPCOLLISIONEVENT>);
+	void CollidedRight(vector<LPCOLLISIONEVENT>);
+	void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
+	void Collided() {};
+
+	//void BeingCollided(ETag, Vector2);
+	void BeingCollidedTop(ETag, Vector2);
+	void BeingCollidedLeftRight(ETag, Vector2);
+	//void BeingCollidedRight(ETag, Vector2);
+
 
 	std::string GetRenderAnimationId(EEnemyState);
 
 
 	void ChangeDirection();
-
-	void BeingCollided(ETag);
-	void BeingCollidedTop(ETag);
-	void BeingCollidedLeft(ETag);
-	void BeingCollidedRight(ETag);
+	void Kick(Vector2 pos);
+	
 };

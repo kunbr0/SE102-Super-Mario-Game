@@ -76,6 +76,7 @@ public:
 
 	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>);
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>);
 
 	virtual void Collided();
 	virtual void NoCollided();
@@ -89,7 +90,7 @@ public:
 
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
-	std::string GetAnimationId(MarioAction action);
+	std::string GetAnimationIdFromState();
 
 	void Reset();
 

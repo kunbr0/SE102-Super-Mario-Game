@@ -33,7 +33,7 @@ void CFireBullet::CollidedLeft(vector<LPCOLLISIONEVENT> coEvents) {
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
-			((CKoopas*)e->obj)->BeingCollided(tag);
+			//((CKoopas*)e->obj)->BeingCollided(tag, Vector2(x,y));
 			
 		}
 	}
@@ -46,7 +46,7 @@ void CFireBullet::CollidedRight(vector<LPCOLLISIONEVENT> coEvents) {
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (dynamic_cast<CKoopas*>(e->obj)) // if e->obj is Goomba 
 		{
-			((CKoopas*)e->obj)->BeingCollided(tag);
+			//((CKoopas*)e->obj)->BeingCollided(tag, Vector2(x,y));
 
 		}
 	}

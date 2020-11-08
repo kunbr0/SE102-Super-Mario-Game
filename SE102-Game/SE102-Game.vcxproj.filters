@@ -274,7 +274,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>GameSource\GameObjects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="QuestionBox.cpp">
+    <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
     </ClCompile>
   </ItemGroup>
@@ -456,7 +456,7 @@
     <ClInclude Include="Enemy.h">
       <Filter>GameSource\GameObjects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="QuestionBox.h">
+    <ClInclude Include="QuestionBlock.h">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
     </ClInclude>
   </ItemGroup>

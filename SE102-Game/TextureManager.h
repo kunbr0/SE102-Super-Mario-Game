@@ -2,7 +2,6 @@
 #include <unordered_map>
 #include <d3dx9.h>
 
-using namespace std;
 
 /*
 	Manage texture database
@@ -11,7 +10,7 @@ class CTextures
 {
 	static CTextures* __instance;
 
-	unordered_map<std::string, LPDIRECT3DTEXTURE9> textures;
+	std::unordered_map<std::string, LPDIRECT3DTEXTURE9> textures;
 
 public:
 	CTextures();

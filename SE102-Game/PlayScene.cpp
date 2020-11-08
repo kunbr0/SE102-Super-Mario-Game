@@ -17,7 +17,7 @@
 #include "RedRaccoonMario.h"
 #include "FireMario.h"
 #include "RectCollision.h"
-#include "QuestionBox.h"
+#include "QuestionBlock.h"
 
 using namespace std;
 
@@ -150,7 +150,7 @@ bool CPlayScene::LoadDataFromFile() {
 		for (TiXmlElement* questionBox = objs->FirstChildElement("questionbox"); questionBox != nullptr; questionBox = questionBox->NextSiblingElement("questionbox")) {
 			int x = atoi(questionBox->Attribute("x"));
 			int y = atoi(questionBox->Attribute("y"));
-			LPGAMEOBJECT a = new CQuestionBox(Vector2(x, y));
+			LPGAMEOBJECT a = new CQuestionBlock(Vector2(x, y));
 			staticObjects.push_back(a);
 		}
 	}

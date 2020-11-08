@@ -4,8 +4,6 @@
 #include <unordered_map>
 #include "Transform.h"
 
-using namespace std;
-
 class CSprite
 {
 	std::string id;				// Sprite ID in the sprite database

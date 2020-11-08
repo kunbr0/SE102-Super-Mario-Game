@@ -15,12 +15,15 @@ CGameObject::CGameObject()
 	nx = 1;
 }
 
+
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
 }
+
+
 
 /*
 	Extension of original SweptAABB to deal with two moving objects
@@ -69,12 +72,33 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		//// Bounding Box of GameObject
+		//float oLeft, oTop, oRight, oBottom;
+		//this->GetBoundingBox(oLeft, oTop, oRight, oBottom);
+
+		//// Bounding Box cua TargetObject
+		//float tLeft, tTop, tRight, tBottom;
+		//coObjects->at(i)->GetBoundingBox(tLeft, tTop, tRight, tBottom);
+
+		//if (
+		//	(oLeft >= tLeft && oLeft <= tRight) &&
+		//	(oTop >= tTop && oTop <= oBottom) &&
+		//	(oRight > oLeft && oBottom > oTop) // ensure that this object has collision box != 0,0,0,0
+		//)
+		//{
+		//}
+		//else {
+		//	
+		//}
+
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else
 			delete e;
+
+		
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
@@ -156,6 +180,17 @@ void CGameObject::applyFriction() {
 	}
 }
 
+void CGameObject::CollidedLeftRight(vector<LPCOLLISIONEVENT> e) {};
+void CGameObject::CollidedLeft(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
+void CGameObject::CollidedRight(vector<LPCOLLISIONEVENT> e) { CollidedLeftRight(e); };
+void CGameObject::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
+	for (UINT i = 0; i < coEvents.size(); i++)
+		coEvents[i]->obj->BeingCollidedTop(tag, Vector2(x, y));
+};
+void CGameObject::CollidedBottom(vector<LPCOLLISIONEVENT> coEvents) {
+	for (UINT i = 0; i < coEvents.size(); i++)
+		coEvents[i]->obj->BeingCollidedBottom(tag, Vector2(x, y));
+};
 void CGameObject::UpdateNoCollision() {
 	x += dx;
 	y += dy;
@@ -199,10 +234,11 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 			else CollidedLeft(coEventsResult);
 		}
 
-		if (ny != 0) {
+		else if (ny != 0) {
 			vy = 0;
 			if (ny > 0) CollidedBottom(coEventsResult);
-			else CollidedTop(coEventsResult);
+			else 
+				CollidedTop(coEventsResult);
 		}
 
 		

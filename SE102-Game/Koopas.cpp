@@ -37,21 +37,18 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 	}
 
 }
-void CKoopas::BeingCollided(ETag eTag) {
-	SetState(EEnemyState::WILL_DIE);
+
+
+void CKoopas::BeingCollidedLeftRight(ETag eTag, Vector2 collidePos) {
+	if (state.type != EEnemyState::LIVE)
+		Kick(collidePos);		
 }
 
-void CKoopas::BeingCollidedLeft(ETag eTag) {
-	vx = 0.74;
-}
-
-void CKoopas::BeingCollidedRight(ETag eTag) {
-	vx = -0.74;
-}
-
-
-void CKoopas::BeingCollidedTop(ETag eTag) {
-	SetState(EEnemyState::WILL_DIE);
+void CKoopas::BeingCollidedTop(ETag eTag, Vector2 collidePos) {
+	if (state.type == EEnemyState::LIVE)
+		ChangeState(EEnemyState::WILL_DIE);
+	else
+		Kick(collidePos);
 }
 
 
@@ -86,6 +83,16 @@ void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT> coEvents) {
 	}
 }
 
+
+void CKoopas::Kick(Vector2 pos) {
+	float left, top, right, bottom;
+	this->GetBoundingBox(left, top, right, bottom);
+	if (pos.x < (left + right) / 2)
+		vx = 0.74;
+	else
+		vx = -0.74;
+}
+
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	applyGravity();
@@ -116,5 +123,25 @@ void CKoopas::SetState(EEnemyState newState)
 		break;
 	case EEnemyState::LIVE:
 		vx = -nx*GOOMBA_WALKING_SPEED;
+	}
+}
+
+void CKoopas::ChangeState(EEnemyState newState)
+{
+	switch (newState)
+	{
+	case EEnemyState::DIE:
+		if (state.type == EEnemyState::WILL_DIE)
+			SetState(newState);
+		break;
+	case EEnemyState::WILL_DIE:
+		if (state.type == EEnemyState::LIVE)
+			SetState(newState);
+		break;
+	case EEnemyState::LIVE:
+			SetState(newState);
+		break;
+	default:
+		break;
 	}
 }

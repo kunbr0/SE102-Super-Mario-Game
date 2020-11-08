@@ -24,13 +24,10 @@ public:
 	virtual void Render(Vector2);
 	
 	virtual void SetState(EEnemyState state) {};
+	virtual void ChangeState(EEnemyState newState) {};
 	virtual EEnemyState GetState() { return state.type; };
 
-	virtual void BeingCollidedLeftRight(ETag) {};
-	virtual void BeingCollidedLeft(ETag eTag) { BeingCollidedLeftRight(eTag); };
-	virtual void BeingCollidedTop(ETag) {};
-	virtual void BeingCollidedRight(ETag eTag) { BeingCollidedLeftRight(eTag); };
-	virtual void BeingCollidedBottom(ETag) {};
+	
 	
 	virtual void BeingCollided(ETag) {};
 
