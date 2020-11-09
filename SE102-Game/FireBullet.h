@@ -21,10 +21,10 @@ public:
 	void UpdatePos(Vector2 pos, int nx=1);
 
 
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>) ;
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>);
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT>) ;
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>) {};
-	virtual void Collided() {};
+	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
+	virtual void Collided() override {};
 };
 

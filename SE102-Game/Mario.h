@@ -69,17 +69,17 @@ protected:
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
-	virtual void Render(Vector2 finalPos);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL) override;
+	virtual void Render(Vector2 finalPos) override;
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
 
-	virtual void Collided();
-	virtual void NoCollided();
+	virtual void Collided() override;
+	virtual void NoCollided() override;
 
 	virtual MarioType GetType() { return type; }
 

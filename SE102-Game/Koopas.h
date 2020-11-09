@@ -32,9 +32,8 @@ public:
 	
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
+	void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
-	void CollidedRight(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {} ;
 	void Collided() override {};
 

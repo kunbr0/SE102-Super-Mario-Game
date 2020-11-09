@@ -56,10 +56,7 @@ void CKoopas::BeingCollidedTop(ETag eTag, Vector2 collidePos) {
 
 
 
-void CKoopas::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents){
-	ChangeDirection();
-}
-void CKoopas::CollidedRight(vector<LPCOLLISIONEVENT>* coEvents) {
+void CKoopas::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents){
 	ChangeDirection();
 }
 
