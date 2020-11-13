@@ -56,6 +56,10 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 		);
 
+	if (((ml + (mr-ml) >= sl) && (sl + (sr-sl) >= ml) && (st + (mr-ml) >= (sb-st)) && ((sb-st) + (sr-sl) >= (mb-mt)))) {
+		coO->OnHasCollided(this);
+	}
+
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
 }
@@ -185,11 +189,11 @@ void CGameObject::CollidedLeft(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(
 void CGameObject::CollidedRight(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(e); };
 void CGameObject::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	for (UINT i = 0; i < coEvents->size(); i++)
-		coEvents->at(i)->obj->BeingCollidedTop(tag, Vector2(x, y));
+		coEvents->at(i)->obj->BeingCollidedTop(EActionTag::MARIO_DEFAULT, Vector2(x, y));
 };
 void CGameObject::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
 	for (UINT i = 0; i < coEvents->size(); i++)
-		coEvents->at(i)->obj->BeingCollidedBottom(tag, Vector2(x, y));
+		coEvents->at(i)->obj->BeingCollidedBottom(EActionTag::MARIO_DEFAULT, Vector2(x, y));
 };
 void CGameObject::UpdateNoCollision() {
 	x += dx;

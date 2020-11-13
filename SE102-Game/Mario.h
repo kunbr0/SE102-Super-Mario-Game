@@ -35,7 +35,6 @@ enum class MarioAction
 enum class EMovementX {
 	WALK,
 	RUN,
-	SPEEDUP
 };
 
 struct SMarioState {
@@ -52,7 +51,8 @@ protected:
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 	
-
+	float vxmax;
+	float vymax;
 	
 
 	MarioType type;
@@ -96,7 +96,7 @@ public:
 
 	void ResetTempValues();
 
-	Vector2 GetBoundingBoxSize(MarioType mType, MarioAction mAction);
+	virtual Vector2 GetBoundingBoxSize(MarioType mType, MarioAction mAction);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

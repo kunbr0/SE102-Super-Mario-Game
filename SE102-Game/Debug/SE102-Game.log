@@ -1,5 +1,5 @@
-﻿  Koopas.cpp
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Koopas.cpp(72,12): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Koopas.cpp(74,13): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\SE102-Game\Koopas.cpp(25): warning C4715: 'CKoopas::GetRenderAnimationId': not all control paths return a value
-  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game\Debug\SE102-Game.exe
+﻿  RedRaccoonMario.cpp
+  RedSmallMario.cpp
+  Scene.cpp
+  Generating Code...
+  SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

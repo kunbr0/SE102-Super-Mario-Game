@@ -12,7 +12,6 @@ CFireBullet::CFireBullet(float x, float y, int nx) {
 	this->y = y;
 	this->nx = nx;
 	this->isDisable = true;
-	tag = ETag::BULLET;
 }
 
 void CFireBullet::PrepareForShooting() {

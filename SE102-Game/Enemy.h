@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 enum class EEnemyState {
+	ONESHOTDIE,
 	DIE,
 	WILL_DIE,
 	LIVE,
@@ -38,7 +39,8 @@ public:
 
 	virtual void ChangeDirection();
 	virtual void ChangeDirectionAfterAxisCollide();
-	virtual void BeingCollided(ETag) {};
+	virtual void BeingCollided(EActionTag) override {};
 
+	virtual void OnHasCollided(LPGAMEOBJECT) override;
 };
 

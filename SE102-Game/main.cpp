@@ -161,9 +161,12 @@ int Run()
 
 		if (dt >= tickPerFrame)
 		{
+			// 
+			dt = 20;
 			frameStart = now;
 
 			game->ProcessKeyboard();
+			
 
 			Update(dt);
 			Render();

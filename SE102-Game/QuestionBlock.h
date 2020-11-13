@@ -21,7 +21,7 @@ public:
 	void ChangeState(EBlockState newState);
 	std::string GetAnimationIdFromState();
 
-	void BeingCollidedBottom(ETag, Vector2);
+	void BeingCollidedBottom(EActionTag, Vector2) override;
 };
 
 

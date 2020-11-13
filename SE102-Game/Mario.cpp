@@ -11,7 +11,7 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	tag = ETag::MARIO;
+
 	untouchable = 0;
 
 	start_x = x;
@@ -27,7 +27,7 @@ void CMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents){
 			if (((CEnemy*)(coEvents->at(i)->obj))->GetState() == EEnemyState::LIVE)
 				SetAction(MarioAction::DIE);
 		}
-		coEvents->at(i)->obj->BeingCollidedLeftRight(tag, Vector2(x, y));
+		
 	}
 		
 }
@@ -57,30 +57,13 @@ void CMario::NoCollided() {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state.action == MarioAction::DIE) return;
-
-	float vxmax = 0;
-	switch (state.movementX)
-	{
-	case EMovementX::WALK:
-		vxmax = VELOCITY_X_MAX_WALK;
-		break;
-	case EMovementX::RUN:
-		vxmax = VELOCITY_X_MAX_RUN;
-		break;
-	case EMovementX::SPEEDUP:
-		vxmax = VELOCITY_X_MAX_SPEEDUP;
-		break;
-	default:
-		vxmax = VELOCITY_X_MAX_WALK;
-		break;
-	}
 	
+	if (state.action == MarioAction::DIE) return;
 	// Increase velocity if in limit
 	if (abs(vx) < vxmax)
 		vx += ax * dt;
 
-	//DebugOut(ToWSTR(std::to_string(dt) + "\n").c_str());
+	DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 
 	ApplyFriction();
 	ApplyGravity();
@@ -113,7 +96,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// SKID
 	if (vx * nx < 0 && abs(vx) > VELOCITY_X_MIN_FOR_SKID) {
-		ChangeAction(MarioAction::SKID);
+		ChangeAction(MarioAction::SKID, 250);
 		
 	}
 
@@ -142,7 +125,12 @@ void CMario::Render(Vector2 finalPos) {
 	}
 
 	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));	
-	//RenderBoundingBox(finalPos);
+	
+	float l, t, r, b;
+
+	GetBoundingBox(l, t, r, b);
+
+	RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
 
 	
 };
@@ -180,16 +168,18 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if (kEvent.isHold)
+		if (kEvent.isHold) {
 			state.movementX = EMovementX::RUN;
+			vxmax = VELOCITY_X_MAX_RUN;
+		}
 		break;
 	case DIK_LEFT:
-		ax = -ACCELERATION_X_WALK;
+		ax = -ACCELERATION_X_WALK * ( 1 + (int)state.movementX*ACCELERATION_X_RUN_GREATER_RATIO);
 		nx = -1;
 		break;
 
 	case DIK_RIGHT:
-		ax = ACCELERATION_X_WALK;
+		ax = ACCELERATION_X_WALK * (1 + (int)state.movementX * ACCELERATION_X_RUN_GREATER_RATIO);
 		nx = 1;
 		break;
 
@@ -303,6 +293,7 @@ void CMario::Reset()
 void CMario::ResetTempValues() {
 	state.movementX = EMovementX::WALK;
 	ax = 0;
+	vxmax = VELOCITY_X_MAX_WALK;
 }
 
 
@@ -349,7 +340,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	case MarioAction::JUMP:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN
 				|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
-			vy = -MARIO_JUMP_SPEED_Y;
+			vy = -MARIO_JUMP_SPEED_Y * (1 + (vx > VELOCITY_X_MAX_WALK ? vx : 0));
 			SetAction(newAction, timeAction);
 			if(state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
 		}
@@ -370,7 +361,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::FLY:
 		if (powerX > 6000) {
-			if(vy > -MARIO_FLY_SPEED_Y)
+			if(state.action == MarioAction::FLY)
 				vy = -MARIO_FLY_SPEED_Y;
 			SetAction(newAction, timeAction);
 		}	
@@ -385,7 +376,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::FALL_SLIGHTLY:
 		if (state.action == MarioAction::FALL || state.action == MarioAction::FALL_SLIGHTLY) {
-			if(vy > 0) vy = 0;
+			vy = 0;
 			SetAction(newAction, timeAction);
 		}
 			

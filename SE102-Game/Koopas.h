@@ -38,8 +38,8 @@ public:
 	void Collided() override {};
 
 	//void BeingCollided(ETag, Vector2);
-	void BeingCollidedTop(ETag, Vector2);
-	void BeingCollidedLeftRight(ETag, Vector2);
+	void BeingCollidedTop(EActionTag, Vector2) override;
+	void BeingCollidedLeftRight(EActionTag, Vector2) override;
 	//void BeingCollidedRight(ETag, Vector2);
 
 

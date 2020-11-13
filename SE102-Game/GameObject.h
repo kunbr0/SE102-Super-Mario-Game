@@ -50,17 +50,16 @@ struct SRenderAnimation {
 	bool isFlipY = false;
 };
 
-enum class ETag {
-	MARIO,
-	ENEMY,
-	BULLET
+enum class EActionTag {
+	MARIO_DEFAULT,
+	MARIO_ATTACK,
 };
 
 class CGameObject
 {
 
 public:
-	ETag tag;
+
 
 	// Position
 	float x;
@@ -99,6 +98,7 @@ public:
 
 	// Position 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
+	Vector2 GetPosition() { return Vector2(this->x, this->y); }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 
 	// Speed
@@ -138,6 +138,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
+	virtual void OnHasCollided(LPGAMEOBJECT) {};
+
 	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
@@ -146,11 +148,12 @@ public:
 	virtual void Collided() {};
 	virtual void NoCollided() {};
 
-	virtual void BeingCollidedLeftRight(ETag, Vector2 collidePos = Vector2(0, 0)) {};
-	virtual void BeingCollidedLeft(ETag eTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eTag); };
-	virtual void BeingCollidedTop(ETag, Vector2 collidePos = Vector2(0, 0)) {};
-	virtual void BeingCollidedRight(ETag eTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eTag); };
-	virtual void BeingCollidedBottom(ETag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollided(EActionTag) {};
+	virtual void BeingCollidedLeftRight(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollidedLeft(EActionTag eActionTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eActionTag); };
+	virtual void BeingCollidedTop(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollidedRight(EActionTag eActionTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eActionTag); };
+	virtual void BeingCollidedBottom(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
 
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();

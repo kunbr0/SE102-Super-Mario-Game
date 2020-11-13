@@ -1,7 +1,9 @@
 #include "Enemy.h"
+#include "Mario.h"
+
+
 
 CEnemy::CEnemy() {
-	tag = ETag::ENEMY;
 	walkingSpeed = 0;
 	walkingScope = Vector2(0, 0);
 }
@@ -37,10 +39,16 @@ void CEnemy::ChangeDirectionAfterAxisCollide() {
 
 void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + GetBoundingBoxSize().x;
-	bottom = y + GetBoundingBoxSize().y;
+	if (GetBoundingBoxSize().x == 0 && GetBoundingBoxSize().y == 0) {
+		left = top = right = bottom = 0;
+	}
+	else {
+		left = x;
+		top = y;
+		right = x + GetBoundingBoxSize().x;
+		bottom = y + GetBoundingBoxSize().y;
+	}
+	
 }
 
 
@@ -58,3 +66,12 @@ void CEnemy::Render(Vector2 finalPos) {
 	RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetRenderAnimationId(state.type))->Render(finalPos, 255, nx == 1 ? true : false);
 }
+
+void CEnemy::OnHasCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) {
+			this->BeingCollidedLeftRight(EActionTag::MARIO_ATTACK, ((CMario*)(obj))->GetPosition());
+		}
+	}
+	
+};

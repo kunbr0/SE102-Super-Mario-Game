@@ -5,12 +5,14 @@ CQuestionBlock::CQuestionBlock(Vector2 initPos) :
 	state = EBlockState::DEFAULT;
 }
 
-void CQuestionBlock::BeingCollidedBottom(ETag tag, Vector2 pos) {
+void CQuestionBlock::BeingCollidedBottom(EActionTag tag, Vector2 pos) {
 	ChangeState(EBlockState::OPENED);
 }
 
 void CQuestionBlock::Render(Vector2 finalPos) {
+	
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(Vector2(finalPos));
+	RenderBoundingBox(finalPos);
 }
 
 std::string CQuestionBlock::GetAnimationIdFromState() {

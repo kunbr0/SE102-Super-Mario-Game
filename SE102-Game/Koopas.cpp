@@ -20,7 +20,7 @@ std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
 	case EEnemyState::DIE:
 		return KOOPAS_ANI_CROUCH;
 	default:
-		break;
+		return KOOPAS_ANI_WALKING;
 	}
 }
 
@@ -32,6 +32,7 @@ Vector2 CKoopas::GetBoundingBoxSize() {
 	case EEnemyState::WILL_DIE:
 		return Vector2(GOOMBA_BBOX_CROUCH_WIDTH, GOOMBA_BBOX_CROUCH_WIDTH);
 	case EEnemyState::DIE:
+	case EEnemyState::ONESHOTDIE:
 		return Vector2(0, 0);
 	default:
 		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_HEIGHT);
@@ -41,12 +42,22 @@ Vector2 CKoopas::GetBoundingBoxSize() {
 
 
 
-void CKoopas::BeingCollidedLeftRight(ETag eTag, Vector2 collidePos) {
+void CKoopas::BeingCollidedLeftRight(EActionTag eActionTag, Vector2 collidePos) {
 	if (state.type != EEnemyState::LIVE)
 		Kick(collidePos);	
+	switch (eActionTag)
+	{
+	case EActionTag::MARIO_DEFAULT:
+		break;
+	case EActionTag::MARIO_ATTACK:
+		ChangeState(EEnemyState::ONESHOTDIE);
+		break;
+	default:
+		break;
+	}
 }
 
-void CKoopas::BeingCollidedTop(ETag eTag, Vector2 collidePos) {
+void CKoopas::BeingCollidedTop(EActionTag eActionTag, Vector2 collidePos) {
 	if (state.type == EEnemyState::LIVE)
 		ChangeState(EEnemyState::WILL_DIE);
 	else
@@ -96,7 +107,7 @@ void CKoopas::ChangeState(EEnemyState newState)
 		break;
 	case EEnemyState::WILL_DIE:
 		if (state.type == EEnemyState::LIVE) {
-			y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_CROUCH_HEIGHT;
+			y -= GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_CROUCH_HEIGHT;
 			walkingSpeed = 0;
 			SetState(newState);
 		}
@@ -104,6 +115,10 @@ void CKoopas::ChangeState(EEnemyState newState)
 	case EEnemyState::LIVE:
 		walkingSpeed = GOOMBA_WALKING_SPEED;
 		SetState(newState);
+		break;
+	case EEnemyState::ONESHOTDIE:
+			vy = -0.7f;
+			SetState(newState);
 		break;
 	default:
 		break;
