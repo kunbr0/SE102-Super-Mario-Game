@@ -50,10 +50,6 @@ struct SRenderAnimation {
 	bool isFlipY = false;
 };
 
-enum class EActionTag {
-	MARIO_DEFAULT,
-	MARIO_ATTACK,
-};
 
 class CGameObject
 {
@@ -138,7 +134,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render(Vector2 finalPos) = 0;
 
-	virtual void OnHasCollided(LPGAMEOBJECT) {};
+	virtual void OnHadCollided(LPGAMEOBJECT) {};
 
 	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*);
@@ -148,12 +144,12 @@ public:
 	virtual void Collided() {};
 	virtual void NoCollided() {};
 
-	virtual void BeingCollided(EActionTag) {};
-	virtual void BeingCollidedLeftRight(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
-	virtual void BeingCollidedLeft(EActionTag eActionTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eActionTag); };
-	virtual void BeingCollidedTop(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
-	virtual void BeingCollidedRight(EActionTag eActionTag, Vector2 collidePos = Vector2(0, 0)) { BeingCollidedLeftRight(eActionTag); };
-	virtual void BeingCollidedBottom(EActionTag, Vector2 collidePos = Vector2(0, 0)) {};
+	virtual void BeingCollided(LPGAMEOBJECT) {};
+	virtual void BeingCollidedLeftRight(LPGAMEOBJECT obj) { BeingCollided(obj); }
+	virtual void BeingCollidedLeft(LPGAMEOBJECT obj) { BeingCollidedLeftRight(obj); }
+	virtual void BeingCollidedTop(LPGAMEOBJECT obj) { BeingCollided(obj); }
+	virtual void BeingCollidedRight(LPGAMEOBJECT obj) { BeingCollidedLeftRight(obj); }
+	virtual void BeingCollidedBottom(LPGAMEOBJECT obj) { BeingCollided(obj); }
 
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();

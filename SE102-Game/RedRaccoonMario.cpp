@@ -14,7 +14,7 @@ void CRedRaccoonMario::Render(Vector2 finalPos)
 void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 	if (state.action == MarioAction::ATTACK) {
 		left = x - 20;
-		top = y;
+		top = y + 50;
 		right = x + GetBoundingBoxSize(type, state.action).x + 20;
 		bottom = y + GetBoundingBoxSize(type, state.action).y;
 	}
@@ -27,8 +27,7 @@ void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, flo
 void CRedRaccoonMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
 	for (UINT i = 0; i < coEvents->size(); i++) {
-		EActionTag tag = state.action == MarioAction::ATTACK ? EActionTag::MARIO_ATTACK : EActionTag::MARIO_DEFAULT;
-		coEvents->at(i)->obj->BeingCollidedLeftRight(tag, Vector2(x, y));
+		coEvents->at(i)->obj->BeingCollidedLeftRight(this);
 	}
 	CMario::CollidedLeftRight(coEvents);
 }

@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Mario.h"
 
 
 
@@ -53,8 +52,13 @@ void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 
 void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
+	Vector2 currentSize = GetBoundingBoxSize();
+	Vector2 newSize = GetBoundingBoxSize(newState);
 	state.type = newState;
 	state.time = timeState;
+	if (newSize.x == 0 && newSize.y == 0) return;
+	this->y -= (newSize.y - currentSize.y);
+	this->x -= (newSize.x - currentSize.x);
 }
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -67,11 +71,61 @@ void CEnemy::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(GetRenderAnimationId(state.type))->Render(finalPos, 255, nx == 1 ? true : false);
 }
 
-void CEnemy::OnHasCollided(LPGAMEOBJECT obj) {
-	if (dynamic_cast<CMario*>(obj)) {
-		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) {
-			this->BeingCollidedLeftRight(EActionTag::MARIO_ATTACK, ((CMario*)(obj))->GetPosition());
-		}
-	}
-	
+void CEnemy::OnHadCollided(LPGAMEOBJECT obj) {
+	this->BeingCollided(obj);
 };
+
+void CEnemy::BeingCollidedTop(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		((CMario*)(obj))->BeingBouncedAfterJumpInTopEnemy();
+	}
+};
+
+
+void CEnemy::BeingKicked(Vector2 pos) {
+	float left, top, right, bottom;
+	this->GetBoundingBox(left, top, right, bottom);
+	if (pos.x < (left + right) / 2)
+		nx = 1;
+	else
+		nx = -1;
+	walkingSpeed = 0.74;
+	ChangeState(EEnemyState::BEING_KICKED);
+}
+
+void CEnemy::KillMario(CMario* mario) {
+	mario->BeingKilled();
+}
+
+
+void CEnemy::ChangeState(EEnemyState newState)
+{
+	switch (newState)
+	{
+	case EEnemyState::DIE:
+		if (state.type == EEnemyState::WILL_DIE)
+			SetState(newState);
+		break;
+	case EEnemyState::WILL_DIE:
+		if (state.type == EEnemyState::LIVE) {
+			walkingSpeed = 0;
+			SetState(newState);
+		}
+		break;
+	case EEnemyState::BEING_KICKED:
+		if (state.type == EEnemyState::WILL_DIE) {
+			SetState(newState);
+		}
+		break;
+	case EEnemyState::LIVE:
+		walkingSpeed = GetDefaultWalkingSpeed();
+		SetState(newState);
+		break;
+	case EEnemyState::ONESHOTDIE:
+		vy = -0.7f;
+		SetState(newState);
+		break;
+	default:
+		break;
+	}
+}

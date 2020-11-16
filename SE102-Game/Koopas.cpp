@@ -16,6 +16,7 @@ std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
 	case EEnemyState::LIVE:
 		return KOOPAS_ANI_WALKING;
 	case EEnemyState::WILL_DIE:
+	case EEnemyState::BEING_KICKED:
 		return KOOPAS_ANI_CROUCH;
 	case EEnemyState::DIE:
 		return KOOPAS_ANI_CROUCH;
@@ -24,12 +25,13 @@ std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
 	}
 }
 
-Vector2 CKoopas::GetBoundingBoxSize() {
-	switch (state.type)
+Vector2 CKoopas::GetBoundingBoxSize(EEnemyState st) {
+	switch (st)
 	{
 	case EEnemyState::LIVE:
 		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_HEIGHT);
 	case EEnemyState::WILL_DIE:
+	case EEnemyState::BEING_KICKED:
 		return Vector2(GOOMBA_BBOX_CROUCH_WIDTH, GOOMBA_BBOX_CROUCH_WIDTH);
 	case EEnemyState::DIE:
 	case EEnemyState::ONESHOTDIE:
@@ -39,29 +41,48 @@ Vector2 CKoopas::GetBoundingBoxSize() {
 	}
 }
 
-
-
-
-void CKoopas::BeingCollidedLeftRight(EActionTag eActionTag, Vector2 collidePos) {
-	if (state.type != EEnemyState::LIVE)
-		Kick(collidePos);	
-	switch (eActionTag)
-	{
-	case EActionTag::MARIO_DEFAULT:
-		break;
-	case EActionTag::MARIO_ATTACK:
+void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		MarioAction objAction = ((CMario*)(obj))->GetAction();
+		if (objAction == MarioAction::ATTACK) {
+			ChangeState(EEnemyState::ONESHOTDIE);
+		}
+	}
+	else if (dynamic_cast<CFireBullet*>(obj)) {
 		ChangeState(EEnemyState::ONESHOTDIE);
-		break;
-	default:
-		break;
 	}
 }
 
-void CKoopas::BeingCollidedTop(EActionTag eActionTag, Vector2 collidePos) {
-	if (state.type == EEnemyState::LIVE)
-		ChangeState(EEnemyState::WILL_DIE);
-	else
-		Kick(collidePos);
+
+void CKoopas::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+	BeingCollided(obj);
+	if (dynamic_cast<CMario*>(obj)) {
+		switch (state.type)
+		{
+		case EEnemyState::LIVE:
+		case EEnemyState::BEING_KICKED:
+			KillMario((CMario*)obj);
+			break;
+		case EEnemyState::WILL_DIE:
+			BeingKicked(obj->GetPosition());
+			break;
+		case EEnemyState::DIE:
+			break;
+		}
+	}
+	
+}
+
+void CKoopas::BeingCollidedTop(LPGAMEOBJECT obj) {
+	BeingCollided(obj);
+	CEnemy::BeingCollidedTop(obj);
+	if (dynamic_cast<CMario*>(obj)) {
+		if (state.type == EEnemyState::LIVE)
+			ChangeState(EEnemyState::WILL_DIE);
+		else
+			BeingKicked(obj->GetPosition());
+	}
+	
 }
 
 
@@ -76,51 +97,16 @@ void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 }
 
 
-void CKoopas::Kick(Vector2 pos) {
-	float left, top, right, bottom;
-	this->GetBoundingBox(left, top, right, bottom);
-	if (pos.x < (left + right) / 2)
-		vx = 0.74;
-	else
-		vx = -0.74;
-}
+
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	ApplyGravity();
 	CEnemy::Update(dt, coObjects);
+	DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 	ChangeDirectionAfterAxisCollide();
 	UpdateWithCollision(coObjects);
 }
 
 
 
-
-
-void CKoopas::ChangeState(EEnemyState newState)
-{
-	switch (newState)
-	{
-	case EEnemyState::DIE:
-		if (state.type == EEnemyState::WILL_DIE)
-			SetState(newState);
-		break;
-	case EEnemyState::WILL_DIE:
-		if (state.type == EEnemyState::LIVE) {
-			y -= GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_CROUCH_HEIGHT;
-			walkingSpeed = 0;
-			SetState(newState);
-		}
-		break;
-	case EEnemyState::LIVE:
-		walkingSpeed = GOOMBA_WALKING_SPEED;
-		SetState(newState);
-		break;
-	case EEnemyState::ONESHOTDIE:
-			vy = -0.7f;
-			SetState(newState);
-		break;
-	default:
-		break;
-	}
-}

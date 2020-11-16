@@ -20,17 +20,14 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
-void CMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents){
-	if (state.action == MarioAction::DIE) return;
-	for (UINT i = 0; i < coEvents->size(); i++) {
-		if (dynamic_cast<CEnemy*>(coEvents->at(i)->obj)) {
-			if (((CEnemy*)(coEvents->at(i)->obj))->GetState() == EEnemyState::LIVE)
-				SetAction(MarioAction::DIE);
-		}
-		
-	}
-		
+void CMario::BeingBouncedAfterJumpInTopEnemy() {
+	vy = -VELOCITY_X_BEING_BOUNCED;
 }
+
+void CMario::BeingKilled() {
+	SetAction(MarioAction::DIE);
+}
+
 
 void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
@@ -63,7 +60,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (abs(vx) < vxmax)
 		vx += ax * dt;
 
-	DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 
 	ApplyFriction();
 	ApplyGravity();
@@ -130,7 +127,7 @@ void CMario::Render(Vector2 finalPos) {
 
 	GetBoundingBox(l, t, r, b);
 
-	RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
+	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
 
 	
 };

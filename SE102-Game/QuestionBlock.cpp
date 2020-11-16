@@ -5,7 +5,7 @@ CQuestionBlock::CQuestionBlock(Vector2 initPos) :
 	state = EBlockState::DEFAULT;
 }
 
-void CQuestionBlock::BeingCollidedBottom(EActionTag tag, Vector2 pos) {
+void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
 	ChangeState(EBlockState::OPENED);
 }
 
