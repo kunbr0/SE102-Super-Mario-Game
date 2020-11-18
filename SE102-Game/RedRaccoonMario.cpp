@@ -14,7 +14,7 @@ void CRedRaccoonMario::Render(Vector2 finalPos)
 void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 	if (state.action == MarioAction::ATTACK) {
 		left = x - 20;
-		top = y;
+		top = y + 20;
 		right = x + GetBoundingBoxSize(type, state.action).x + 20;
 		bottom = y + GetBoundingBoxSize(type, state.action).y;
 	}

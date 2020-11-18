@@ -126,7 +126,8 @@ bool CPlayScene::LoadDataFromFile() {
 			int y = atoi(mario->Attribute("y"));
 			int iType = 0; 
 			mario->QueryIntAttribute("type", &iType);
-			SwitchPlayer(GenerateMario((MarioType)iType, Vector2(x,y)));
+			playerLevel = iType;
+			SwitchPlayer(GenerateMario((MarioType)playerLevel, Vector2(x,y)));
 			
 		}
 		
@@ -205,22 +206,34 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
-		
+		if (playerLevel - 1 >= 0) playerLevel--;
+
 		SwitchPlayer(GenerateMario(
-		(MarioType)((int)(((CMario*)player)->GetType())-1), 
+		(MarioType)(playerLevel),
 		Vector2(player->x, player->y)));
 	}
 
 	for (size_t i = 0; i < mainObjects.size(); i++)
 	{
-		if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
-			mainObjects[i]->Update(dt, &coObjects);
+		if(!(dynamic_cast<CMario*>(mainObjects[i])) && !sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
+			mainObjects[i]->isDisable = true;
 		else
-			if(!dynamic_cast<CMario*>(mainObjects[i]))
-				mainObjects[i]->isDisable = true;
+			mainObjects[i]->Update(dt, &coObjects);
+	}
+
+	for (size_t i = 0; i < mainObjects.size(); i++)
+	{
+		coObjects.push_back(mainObjects[i]);
+	}
+	for (size_t i = 0; i < priorityObjects1.size(); i++)
+	{
+		if (sceneCamera.IsInCamera(Vector2(priorityObjects1[i]->x, priorityObjects1[i]->y)))
+			priorityObjects1[i]->Update(dt, &coObjects);
+		else
+			if (!dynamic_cast<CMario*>(priorityObjects1[i]))
+				priorityObjects1[i]->isDisable = true;
 
 	}
-	
 	
 }
 

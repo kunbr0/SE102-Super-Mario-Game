@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <vector>
 
-
 using namespace std;
 
 void DebugOut(const wchar_t* fmt, ...);

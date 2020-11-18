@@ -13,10 +13,12 @@ class CPlayScene : public CScene
 
 protected:
 	LPGAMEOBJECT player; // Player controls the position of camera.
+	int playerLevel = 1;
 	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> staticObjects;
 	vector<LPGAMEOBJECT> dynamicObjects;
 	vector<LPGAMEOBJECT> mainObjects;
+	vector<LPGAMEOBJECT> priorityObjects1;
 	float standingY;
 
 	
