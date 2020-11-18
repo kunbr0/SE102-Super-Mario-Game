@@ -26,9 +26,9 @@ class CKoopas : public CEnemy
 public:
 	CKoopas(float x, float y);
 	
-	void ChangeState(EEnemyState newState);
+	float GetDefaultWalkingSpeed() override { return GOOMBA_WALKING_SPEED; }
 
-	Vector2 GetBoundingBoxSize() override;
+	Vector2 GetBoundingBoxSize(EEnemyState) override;
 	
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
@@ -38,14 +38,14 @@ public:
 	void Collided() override {};
 
 	//void BeingCollided(ETag, Vector2);
-	void BeingCollidedTop(EActionTag, Vector2) override;
-	void BeingCollidedLeftRight(EActionTag, Vector2) override;
+	void BeingCollidedTop(LPGAMEOBJECT) override;
+	void BeingCollidedLeftRight(LPGAMEOBJECT) override;
+	void BeingCollided(LPGAMEOBJECT) override;
 	//void BeingCollidedRight(ETag, Vector2);
 
 
 	std::string GetRenderAnimationId(EEnemyState);
 
 
-	void Kick(Vector2 pos);
 	
 };

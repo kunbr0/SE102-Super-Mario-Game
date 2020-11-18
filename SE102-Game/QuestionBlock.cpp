@@ -9,7 +9,7 @@ CQuestionBlock::CQuestionBlock(Vector2 initPos) :
 	startOpen = 0;
 }
 
-void CQuestionBlock::BeingCollidedBottom(EActionTag tag, Vector2 pos) {
+void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
 	ChangeState(EBlockState::OPENED);
 	
 }

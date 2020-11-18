@@ -27,8 +27,9 @@ public:
 	void Render(Vector2 finalPos);
 	void ChangeState(EBlockState newState);
 	std::string GetAnimationIdFromState();
-	
-	void BeingCollidedBottom(EActionTag, Vector2) override;
+
+
+	void BeingCollidedBottom(LPGAMEOBJECT) override;
 };
 
 

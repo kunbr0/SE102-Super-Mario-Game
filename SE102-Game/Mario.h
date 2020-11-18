@@ -74,12 +74,17 @@ public:
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
-
 	virtual void Collided() override;
+	
+
 	virtual void NoCollided() override;
+
+
+	virtual void BeingKilled();
+	virtual void BeingBouncedAfterJumpInTopEnemy();
+
 
 	virtual MarioType GetType() { return type; }
 
