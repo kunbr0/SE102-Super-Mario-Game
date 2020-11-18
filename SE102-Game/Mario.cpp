@@ -28,6 +28,9 @@ void CMario::BeingKilled() {
 	SetAction(MarioAction::DIE);
 }
 
+void CMario::TriggerLifeCycleOfActions() {
+	
+}
 
 void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
@@ -120,16 +123,17 @@ void CMario::Render(Vector2 finalPos) {
 			ChangeRenderAnimation(ani);
 		}
 	}
-
-	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, 255, renderAnimation.isFlipY ? !(nx == 1 ? false : true) : (nx == 1 ? false : true));	
+	
 	
 	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
 
-	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
+	RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
 
-	
+	if (boost.type == MarioBoost::UNTOUCHABLE && GetTickCount64() % 100 > 50) return;
+	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, Vector2(nx*(renderAnimation.isFlipY ? -1 : 1),ny), 255);
+
 };
 
 Vector2 CMario::GetBoundingBoxSize(MarioType mType, MarioAction mAction) {
@@ -162,6 +166,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
+	if (state.action == MarioAction::EXPLODE) return;
 	switch (kEvent.key)
 	{
 	case DIK_A:
@@ -270,6 +275,10 @@ std::string CMario::GetAnimationIdFromState() {
 	case MarioAction::ATTACK:
 		actionId = "attack";
 		break;
+	case MarioAction::EXPLODE:
+		typeId = "ani-mario";
+		actionId = "damaged";
+		break;
 
 	default:
 		actionId = "idle";
@@ -293,6 +302,12 @@ void CMario::ResetTempValues() {
 	vxmax = VELOCITY_X_MAX_WALK;
 }
 
+void CMario::SetBoost(MarioBoost boostType, int beginBoost, int timeBoost) {
+	if (GetTickCount64() < boost.beginBoost + boost.timeBoost) return;
+	boost.type = boostType;
+	boost.beginBoost = beginBoost;
+	boost.timeBoost = timeBoost;
+}
 
 void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 	
@@ -306,6 +321,12 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 	state.action = newAction;
 	state.beginAction = GetTickCount64();
 	state.timeAction = timeAction;
+	if (state.action == MarioAction::EXPLODE) {
+		SetBoost(MarioBoost::UNTOUCHABLE, state.beginAction, timeAction * 3);
+	}
+	else {
+		SetBoost(); // SetBoost to default.
+	}
 }
 
 bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
@@ -388,7 +409,9 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 		}
 			
 		break;
-
+	case MarioAction::EXPLODE:
+		SetAction(newAction, 1000);
+		break;
 	case MarioAction::ATTACK:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK
 			|| state.action == MarioAction::RUN) {

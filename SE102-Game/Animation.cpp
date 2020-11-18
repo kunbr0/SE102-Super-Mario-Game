@@ -82,7 +82,7 @@ bool CAnimations::LoadAnimationsFromFile(std::string filePath, std::string setId
 
 
 
-void CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
+void CAnimation::Render(Vector2 finalPos, Vector2 scale, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -101,12 +101,9 @@ void CAnimation::Render(Vector2 finalPos, int alpha, bool isFlipY)
 		}
 	}
 
-	if (isFlipY) {
-		frames[currentFrame]->GetSprite()->DrawFlipY(finalPos, alpha);
-	}
-	else {
-		frames[currentFrame]->GetSprite()->Draw(finalPos, alpha);
-	}
+	
+	frames[currentFrame]->GetSprite()->DrawWithScaling(finalPos, scale, alpha);
+
 	
 }
 

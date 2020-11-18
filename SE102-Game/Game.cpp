@@ -115,7 +115,23 @@ void CGame::DrawFlipY(Vector2 finalPos, D3DXVECTOR2 pointCenter, D3DXVECTOR2 piv
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
+void CGame::DrawWithScaling(Vector2 finalPos, D3DXVECTOR2 pointCenter, D3DXVECTOR2 pivot, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, Vector2 scale)
+{
 
+	Vector3 p(finalPos.x, finalPos.y, 0);
+	Vector3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
+	
+	D3DXMATRIX oldMatrix, newMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+
+	D3DXMatrixTransformation2D(&newMatrix, &pointCenter, 0.0f, &scale, NULL, 0.0f, NULL);
+	spriteHandler->SetTransform(&newMatrix);
+
+	Vector3 pInt((int)(finalPos.x), (int)(finalPos.y), 0);
+	if (scale.x == -1) pivot.x = 0;
+	spriteHandler->Draw(texture, &rect, &Vector3(pivot.x, pivot.y,0), &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
+}
 
 //void CGame::DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,
 //	int left, int top, int right, int bottom, 

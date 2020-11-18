@@ -14,6 +14,11 @@ enum class MarioType
 	FIRE
 };
 
+enum class MarioBoost {
+	NONE,
+	UNTOUCHABLE
+};
+
 enum class MarioAction
 
 {
@@ -30,6 +35,8 @@ enum class MarioAction
 	SKID,
 	ATTACK,
 	DIE,
+	EXPLODE,
+	
 };
 
 enum class EMovementX {
@@ -42,6 +49,12 @@ struct SMarioState {
 	int beginAction = 0;
 	int timeAction = 0; // How long the state is.
 	EMovementX movementX = EMovementX::WALK;
+};
+
+struct SMarioBoost {
+	MarioBoost type;
+	int beginBoost = 0;
+	int timeBoost = 0;
 };
 
 class CMario : public CGameObject
@@ -61,7 +74,7 @@ protected:
 	DWORD untouchable_start;
 
 	SMarioState state; // 0: isStandingInSomeThing
-	
+	SMarioBoost boost;
 	//bool isBoostedSpeed = false;
 	
 	
@@ -98,6 +111,8 @@ public:
 	std::string GetAnimationIdFromState();
 
 	void Reset();
+	void SetBoost(MarioBoost = MarioBoost::NONE, int = 0, int = 0);
+	void TriggerLifeCycleOfActions();
 
 	void ResetTempValues();
 

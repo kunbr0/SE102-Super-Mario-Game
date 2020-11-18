@@ -75,8 +75,8 @@ public:
 
 	int powerX = 0;
 	// Direction of Object ( Left , Right )
-	int nx;
-
+	int nx = 1;
+	int ny = 1;
 
 	DWORD dt;
 
@@ -147,9 +147,10 @@ public:
 	virtual void BeingCollided(LPGAMEOBJECT) {};
 	virtual void BeingCollidedLeftRight(LPGAMEOBJECT obj) { BeingCollided(obj); }
 	virtual void BeingCollidedLeft(LPGAMEOBJECT obj) { BeingCollidedLeftRight(obj); }
-	virtual void BeingCollidedTop(LPGAMEOBJECT obj) { BeingCollided(obj); }
+	virtual void BeingCollidedTopBottom(LPGAMEOBJECT obj) { BeingCollided(obj); }
+	virtual void BeingCollidedTop(LPGAMEOBJECT obj) { BeingCollidedTopBottom(obj); }
 	virtual void BeingCollidedRight(LPGAMEOBJECT obj) { BeingCollidedLeftRight(obj); }
-	virtual void BeingCollidedBottom(LPGAMEOBJECT obj) { BeingCollided(obj); }
+	virtual void BeingCollidedBottom(LPGAMEOBJECT obj) { BeingCollidedTopBottom(obj); }
 
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();

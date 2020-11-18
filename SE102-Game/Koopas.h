@@ -39,6 +39,8 @@ public:
 
 	//void BeingCollided(ETag, Vector2);
 	void BeingCollidedTop(LPGAMEOBJECT) override;
+	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
+	
 	void BeingCollidedLeftRight(LPGAMEOBJECT) override;
 	void BeingCollided(LPGAMEOBJECT) override;
 	//void BeingCollidedRight(ETag, Vector2);

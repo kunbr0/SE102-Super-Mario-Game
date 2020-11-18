@@ -38,13 +38,13 @@ void CSprite::Draw(Vector2 finalPos, int alpha)
 	game->Draw(finalPos, pivot, texture, r, alpha);
 }
 
-void CSprite::DrawFlipY(Vector2 finalPos, int alpha)
+void CSprite::DrawWithScaling(Vector2 finalPos, Vector2 scale, int alpha)
 {
 	CGame* game = CGame::GetInstance();
 	RECT r;
 	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
 	
-	game->DrawFlipY(finalPos, Vector2((right-left), 0), pivot, texture, r, alpha);
+	game->DrawWithScaling(finalPos, Vector2(finalPos.x + (right-left)/2, finalPos.y), pivot, texture, r, alpha, scale);
 }
 
 Vector2 CSprite::getSize() {

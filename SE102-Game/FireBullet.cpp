@@ -63,6 +63,6 @@ void CFireBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void CFireBullet::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(ANI_FIRE_BULLET)
-		->Render(finalPos, 255, !(nx > 0));
+		->Render(finalPos, Vector2(nx,ny), 255);
 
 }

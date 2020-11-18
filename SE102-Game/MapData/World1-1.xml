@@ -6,6 +6,7 @@
             <texture id="tex-enemy" filePath="Assets\Textures\enemy.png" />
             <texture id="tex-ui" filePath="Assets\Textures\UI.png" />
             <texture id="tex-misc" filePath="Assets\Textures\misc.png" />
+            <texture id="tex-effect" filePath="Assets\Textures\effect.png" transColor="68,145,190"/>
             <texture id="-100" filePath="Textures\\bbox.png" transColor="255,255,255" />
         </textures>
 
@@ -14,6 +15,7 @@
             <sprite idTex="tex-enemy" filePath="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
             <sprite idTex="tex-ui" filePath="Assets\Sprites\SpriteDatabases\UIDB.xml" />
             <sprite idTex="tex-ui" filePath="Assets\Sprites\SpriteDatabases\MiscDB.xml" />
+            <sprite idTex="tex-effect" filePath="Assets\Sprites\SpriteDatabases\EffectDB.xml" />
 
         </sprites>
 
@@ -21,7 +23,8 @@
             <animation idSet="mario" filePath="Assets/Animations/MarioAnim.xml" />
             <animation idSet="enemy" filePath="Assets/Animations/EnemyAnim.xml" />
             <animation idSet="ui" filePath="Assets/Animations/UIAnim.xml" />
-             <animation idSet="ui" filePath="Assets/Animations/MiscAnim.xml" />
+            <animation idSet="misc" filePath="Assets/Animations/MiscAnim.xml" />
+            <animation idSet="effect" filePath="Assets/Animations/EffectAnim.xml" />
         </animations>
 
         <objects>

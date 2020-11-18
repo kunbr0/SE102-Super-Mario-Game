@@ -45,7 +45,9 @@ void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
 	if (dynamic_cast<CMario*>(obj)) {
 		MarioAction objAction = ((CMario*)(obj))->GetAction();
 		if (objAction == MarioAction::ATTACK) {
-			ChangeState(EEnemyState::ONESHOTDIE);
+			vy = -0.9f;
+			SwitchToDamageEffect();
+			ChangeState(EEnemyState::WILL_DIE);
 		}
 	}
 	else if (dynamic_cast<CFireBullet*>(obj)) {
@@ -57,6 +59,7 @@ void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
 void CKoopas::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 	BeingCollided(obj);
 	if (dynamic_cast<CMario*>(obj)) {
+		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
 		switch (state.type)
 		{
 		case EEnemyState::LIVE:
@@ -74,6 +77,10 @@ void CKoopas::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 }
 
 void CKoopas::BeingCollidedTop(LPGAMEOBJECT obj) {
+	this->BeingCollidedTopBottom(obj);
+}
+
+void CKoopas::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
 	BeingCollided(obj);
 	CEnemy::BeingCollidedTop(obj);
 	if (dynamic_cast<CMario*>(obj)) {

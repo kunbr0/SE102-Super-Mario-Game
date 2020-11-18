@@ -208,9 +208,11 @@ void CPlayScene::Update(DWORD dt)
 	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
 		if (playerLevel - 1 >= 0) playerLevel--;
 
-		SwitchPlayer(GenerateMario(
+		CMario* newMario = GenerateMario(
 		(MarioType)(playerLevel),
-		Vector2(player->x, player->y)));
+			Vector2(player->x, player->y));
+		newMario->ChangeAction(MarioAction::EXPLODE);
+		SwitchPlayer(newMario);
 	}
 
 	for (size_t i = 0; i < mainObjects.size(); i++)
