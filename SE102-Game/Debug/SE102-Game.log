@@ -1,43 +1,11 @@
-﻿  Enemy.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(59,34): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(84,98): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(84,93): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(88,17): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(88,12): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(110,21): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Enemy.cpp(125,35): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-  FireBullet.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\FireBullet.cpp(66,33): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\FireBullet.cpp(66,30): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-  Goomba.cpp
-  Koopas.cpp
-  Mario.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(85,43): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(118,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(135,127): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(135,91): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Mario.cpp(322,36): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-  PlayScene.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(7,1): warning C4005: 'GOOMBA_BBOX_HEIGHT': macro redefinition
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(7): message : see previous definition of 'GOOMBA_BBOX_HEIGHT'
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,65): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,63): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,51): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,48): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(247,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(250,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(258,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(273,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(365,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(371,20): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\main.cpp(191,64): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\main.cpp(191,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  Generating Code...
+﻿  QuestionBlock.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(25,17): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(31,78): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(31,30): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(73,108): warning C4244: 'argument': conversion from 'ULONGLONG' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(74,128): warning C4244: 'argument': conversion from 'ULONGLONG' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(80,25): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(81,13): warning C4244: 'initializing': conversion from 'DWORD' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(92,35): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(60): warning C4715: 'CQuestionBlock::GetAnimationIdFromState': not all control paths return a value
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#define ENEMY_ANIMATION_BEING_DAMAGE		"ani-enemy-damaged"
 
 
 CEnemy::CEnemy() {
@@ -64,26 +63,18 @@ void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vx = walkingSpeed * nx;
-	ChangeEffect(EEnemyEffect::NONE);
+	ChangeEffect(EExtraEffect::NONE);
 	CGameObject::Update(dt, coObjects);
 }
 
-std::string CEnemy::GetRenderAnimationId(EEnemyEffect effctType) {
-	switch (effctType)
-	{
-	case EEnemyEffect::BEING_DAMAGED:
-			return ENEMY_ANIMATION_BEING_DAMAGE;
-	default:
-
-		return ENEMY_ANIMATION_BEING_DAMAGE;
-	}
-}
 
 void CEnemy::Render(Vector2 finalPos) {
 	RenderBoundingBox(finalPos);
+	
 	CAnimations::GetInstance()->Get(GetRenderAnimationId(state.type))->Render(finalPos,Vector2(-nx, ny) , 255);
-	if(effect.type != EEnemyEffect::NONE)
-		CAnimations::GetInstance()->Get(GetRenderAnimationId(effect.type))->Render(
+
+	if(effect.type != EExtraEffect::NONE)
+		CAnimations::GetInstance()->Get(CGameObject::GetRenderAnimationId(effect.type))->Render(
 			Vector2(finalPos.x +(effect.initPosition.x - this->x), finalPos.y + (effect.initPosition.y - this->y)), 
 			Vector2(-nx, ny), 255);
 }
@@ -115,18 +106,7 @@ void CEnemy::KillMario(CMario* mario) {
 	mario->BeingKilled();
 }
 
-void CEnemy::SwitchToDamageEffect() {
-	ChangeEffect(EEnemyEffect::BEING_DAMAGED, 500);
-	effect.initPosition = Vector2(this->x, this->y);
-}
 
-void CEnemy::ChangeEffect(EEnemyEffect newEffect, DWORD timeEffect) {
-	if (GetTickCount64() < effect.timeEffect + effect.timeBegin) return;
-	effect.timeBegin = GetTickCount64();
-	effect.timeEffect = timeEffect;
-	effect.type = newEffect;
-}
-	
 
 void CEnemy::ChangeState(EEnemyState newState)
 {

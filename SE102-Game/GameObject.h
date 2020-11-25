@@ -50,12 +50,27 @@ struct SRenderAnimation {
 	bool isFlipY = false;
 };
 
+enum class EExtraEffect {
+	NONE,
+	BEING_DAMAGED
+};
+
+struct SExtraEffect {
+	EExtraEffect type = EExtraEffect::NONE;
+	int timeBegin = 0;
+	int timeEffect = 0;
+	Vector2 initPosition = Vector2(0, 0);
+};
+
+
+
 
 class CGameObject
 {
 
 public:
 
+	SExtraEffect effect;
 
 	// Position
 	float x;
@@ -83,7 +98,7 @@ public:
 	LPANIMATION_SET animation_set;
 
 	bool isDisable = false;
-
+	bool isTemp = false;
 	SRenderAnimation renderAnimation;
 	SPrevBoundingBox prevBoundingBox;
 
@@ -95,13 +110,19 @@ public:
 	// Position 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	Vector2 GetPosition() { return Vector2(this->x, this->y); }
+
+	
+
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 
 	// Speed
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	
-	
+	virtual std::string GetRenderAnimationId(EExtraEffect);
+
+	virtual void ChangeEffect(EExtraEffect = EExtraEffect::NONE, DWORD = 0);
+	virtual void SwitchToDamageEffect();
 
 	void ResetRenderAnimation();
 	virtual void ChangeRenderAnimation(std::string newRenderAnimationID);
@@ -110,6 +131,8 @@ public:
 	// BoundingBox
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	void RenderBoundingBox(Vector2 finalPos);
+
+	void RenderMotionableAnimation(int);
 
 	// AnimationSet
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }

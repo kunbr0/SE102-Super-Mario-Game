@@ -18,8 +18,6 @@ std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
 	case EEnemyState::WILL_DIE:
 	case EEnemyState::BEING_KICKED:
 		return KOOPAS_ANI_CROUCH;
-	case EEnemyState::DIE:
-		return KOOPAS_ANI_CROUCH;
 	default:
 		return KOOPAS_ANI_WALKING;
 	}
@@ -110,7 +108,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	ApplyGravity();
 	CEnemy::Update(dt, coObjects);
-	DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 	ChangeDirectionAfterAxisCollide();
 	UpdateWithCollision(coObjects);
 }

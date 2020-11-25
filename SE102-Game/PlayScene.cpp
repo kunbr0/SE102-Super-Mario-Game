@@ -19,14 +19,14 @@
 #include "RectCollision.h"
 #include "QuestionBlock.h"
 
-using namespace std;
+
 
 CPlayScene::CPlayScene(std::string id, std::string filePath) :
 	CScene(id, filePath)
 {
 	
 	key_handler = new CPlayScenceKeyHandler(this);
-	
+	timeScale = DEFAULT_TIME_SCALE;
 }
 
 /*
@@ -182,8 +182,16 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	
-	sceneCamera.Update(dt); // Update Map in Camera
 	
+
+	if ( ((CMario*)(player))->GetAction() == MarioAction::EXPLODE ) {
+		timeScale = 0;
+	}
+	else {
+		timeScale = DEFAULT_TIME_SCALE;
+	}
+	
+	dt = dt * timeScale;
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 0; i < staticObjects.size(); i++)
@@ -227,16 +235,20 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(mainObjects[i]);
 	}
-	for (size_t i = 0; i < priorityObjects1.size(); i++)
+	for (size_t i = 0; i < tempObjects.size(); i++)
 	{
-		if (sceneCamera.IsInCamera(Vector2(priorityObjects1[i]->x, priorityObjects1[i]->y)))
-			priorityObjects1[i]->Update(dt, &coObjects);
+		if (!tempObjects[i]->isTemp) {
+			tempObjects.erase(tempObjects.begin() + i);
+		}
+		else if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y)))
+			tempObjects[i]->Update(dt, &coObjects);
 		else
-			if (!dynamic_cast<CMario*>(priorityObjects1[i]))
-				priorityObjects1[i]->isDisable = true;
+			if (!dynamic_cast<CMario*>(tempObjects[i]))
+				tempObjects[i]->isDisable = true;
 
 	}
 	
+	sceneCamera.Update(dt); // Update Map in Camera
 }
 
 void CPlayScene::Render()

@@ -3,10 +3,6 @@
 #include "Mario.h"
 #include "FireBullet.h"
 
-enum class EEnemyEffect {
-	NONE,
-	BEING_DAMAGED
-};
 
 enum class EEnemyState {
 	ONESHOTDIE,
@@ -22,21 +18,13 @@ struct SEnemyState {
 	int timeState = 0;
 };
 
-struct SEnemyEffect {
-	EEnemyEffect type = EEnemyEffect::NONE;
-	int timeBegin = 0;
-	int timeEffect = 0;
-	Vector2 initPosition = Vector2(0,0);
-};
-
-
 
 
 class CEnemy : public CGameObject
 {
 protected:
 	SEnemyState state;
-	SEnemyEffect effect;
+	
 	Vector2 walkingScope;
 	float walkingSpeed;
 public:
@@ -45,13 +33,14 @@ public:
 
 	void InitWtandingScope(vector<LPCOLLISIONEVENT>*);
 
+
 	virtual std::string GetRenderAnimationId(EEnemyState) { return ""; };
-	virtual std::string GetRenderAnimationId(EEnemyEffect);
+
 	virtual Vector2 GetBoundingBoxSize() { return GetBoundingBoxSize(this->state.type); }
 	virtual Vector2 GetBoundingBoxSize(EEnemyState) { return Vector2(0, 0); }
 
-	virtual void ChangeEffect(EEnemyEffect = EEnemyEffect::NONE, DWORD = 0);
-	void SwitchToDamageEffect();
+	
+
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 
 	virtual void Update(DWORD, vector<LPGAMEOBJECT>*);

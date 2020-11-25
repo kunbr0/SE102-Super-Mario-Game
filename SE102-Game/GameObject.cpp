@@ -8,6 +8,9 @@
 #include "GameObject.h"
 #include "RectPlatform.h"
 
+#define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
+
+
 CGameObject::CGameObject()
 {
 	x = y = 0;
@@ -148,6 +151,9 @@ void CGameObject::FilterCollision(
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
+void CGameObject::RenderMotionableAnimation(int totalStep) {
+
+}
 
 void CGameObject::RenderBoundingBox(Vector2 finalPos)
 {
@@ -280,4 +286,30 @@ void CGameObject::ChangeRenderAnimation(SRenderAnimation newRenderAnimation) {
 CGameObject::~CGameObject()
 {
 
+}
+
+
+void CGameObject::SwitchToDamageEffect() {
+	ChangeEffect(EExtraEffect::BEING_DAMAGED, 500);
+	effect.initPosition = Vector2(this->x, this->y);
+}
+
+void CGameObject::ChangeEffect(EExtraEffect newEffect, DWORD timeEffect) {
+	if (GetTickCount64() < effect.timeEffect + effect.timeBegin) return;
+	effect.timeBegin = GetTickCount64();
+	effect.timeEffect = timeEffect;
+	effect.type = newEffect;
+}
+
+
+
+std::string CGameObject::GetRenderAnimationId(EExtraEffect effctType) {
+	switch (effctType)
+	{
+	case EExtraEffect::BEING_DAMAGED:
+		return ANIMATIONID_BEING_DAMAGE;
+	default:
+
+		return ANIMATIONID_BEING_DAMAGE;
+	}
 }
