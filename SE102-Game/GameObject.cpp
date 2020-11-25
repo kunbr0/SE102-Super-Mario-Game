@@ -171,8 +171,9 @@ void CGameObject::RenderBoundingBox(Vector2 finalPos)
 	rect.bottom = (int)b - (int)t;
 
 	
-	CGame::GetInstance()->Draw(finalPos, Vector2(0,0), bbox, rect, 222);
-	
+	//CGame::GetInstance()->Draw(finalPos, Vector2(0,0), bbox, rect, 222);
+	CGame::GetInstance()-> DrawWithScaling(finalPos, Vector2(0,0), bbox, rect, 222);
+
 }
 
 void CGameObject::ApplyGravity() {

@@ -56,9 +56,9 @@ public:
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
-	void Draw(Vector2 finalPos, Vector2 pivot = Vector2(0,0), LPDIRECT3DTEXTURE9 texture = NULL, RECT r = RECT(), int alpha = 255);
-	void DrawFlipY(Vector2 finalPos, Vector2 pointCenter, Vector2 pivot = Vector2(0, 0), LPDIRECT3DTEXTURE9 texture = NULL, RECT rect = RECT(), int alpha = 255);
-	void DrawWithScaling(Vector2 finalPos, Vector2 pointCenter, Vector2 pivot = Vector2(0, 0), LPDIRECT3DTEXTURE9 texture = NULL, RECT rect = RECT(), int alpha = 255, Vector2 scale = Vector2(1,1));
+	/*void Draw(Vector2 finalPos, Vector2 pivot = Vector2(0,0), LPDIRECT3DTEXTURE9 texture = NULL, RECT r = RECT(), int alpha = 255);
+	void DrawFlipY(Vector2 finalPos, Vector2 pointCenter, Vector2 pivot = Vector2(0, 0), LPDIRECT3DTEXTURE9 texture = NULL, RECT rect = RECT(), int alpha = 255);*/
+	void DrawWithScaling(Vector2 finalPos, Vector2 pivot = Vector2(0, 0), LPDIRECT3DTEXTURE9 texture = NULL, RECT rect = RECT(), int alpha = 255, Vector2 scale = Vector2(1,1));
 
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();

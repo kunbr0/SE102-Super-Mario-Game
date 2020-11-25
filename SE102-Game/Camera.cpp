@@ -66,38 +66,38 @@ void CCamera::Update(DWORD dt) {
 }
 
 void CCamera::RenderDetailBoard() {
-	LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
-	LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
-	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
-	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
-	Vector2 beginPos = Vector2(0, camSize.y + hud->getSize().y - DetailsBoardHeight - 20);
-	hud->Draw(beginPos);
-	Mchar->Draw(Vector2(beginPos.x+12, beginPos.y+45));
-	Onechar->Draw(Vector2(beginPos.x + 115, beginPos.y + 25));
-	Fourchar->Draw(Vector2(beginPos.x + 115, beginPos.y + 50));
-	// Point
-	Vector2 beginScorePos = Vector2(beginPos.x + 145, beginPos.y + 50);
-	int distance = 26;
-	for (int i = 0; i < 7; i++) {
-		LPSPRITE Zerochar = CSprites::GetInstance()->Get("spr-font-0");
-		Zerochar->Draw(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
+	//LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
+	//LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
+	//LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
+	//LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
+	//Vector2 beginPos = Vector2(0, camSize.y + hud->getSize().y - DetailsBoardHeight - 20);
+	//hud->Draw(beginPos);
+	//Mchar->Draw(Vector2(beginPos.x+12, beginPos.y+45));
+	//Onechar->Draw(Vector2(beginPos.x + 115, beginPos.y + 25));
+	//Fourchar->Draw(Vector2(beginPos.x + 115, beginPos.y + 50));
+	//// Point
+	//Vector2 beginScorePos = Vector2(beginPos.x + 145, beginPos.y + 50);
+	//int distance = 26;
+	//for (int i = 0; i < 7; i++) {
+	//	LPSPRITE Zerochar = CSprites::GetInstance()->Get("spr-font-0");
+	//	Zerochar->Draw(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
 
-	}
-	for (int i = 0; i < 7; i++) {
-		LPSPRITE Zerochar;
-		if (i < positionController->powerX/1000) {
-			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
-		}
-		else {
-			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-1");
-		}
-		
-		if (i == 7 - 1) {
-			Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
-		}
-		Zerochar->Draw(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
+	//}
+	//for (int i = 0; i < 7; i++) {
+	//	LPSPRITE Zerochar;
+	//	if (i < positionController->powerX/1000) {
+	//		Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
+	//	}
+	//	else {
+	//		Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-1");
+	//	}
+	//	
+	//	if (i == 7 - 1) {
+	//		Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
+	//	}
+	//	Zerochar->Draw(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
 
-	}
+	//}
 	
 }
 

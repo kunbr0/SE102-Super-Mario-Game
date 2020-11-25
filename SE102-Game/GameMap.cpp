@@ -153,8 +153,9 @@ void GameMap::Draw()
                     //CSprite(0, sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID)).Draw(17, 100, 0);
                     auto aaa = ConvertToPositionInCam(Vector2((int)position.x, (int)position.y));
                     CSprite az = CSprite("0", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom, CTextures::GetInstance()->Get(kID));
-                    az.Draw(ConvertToPositionInCam(Vector2((int)position.x, (int)position.y)), 255);
-
+                    
+                    //az.Draw(ConvertToPositionInCam(Vector2((int)position.x, (int)position.y)), 255);
+                    az.DrawWithScaling(ConvertToPositionInCam(Vector2((int)position.x, (int)position.y)));
 
 
 

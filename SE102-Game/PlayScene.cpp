@@ -299,8 +299,8 @@ void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 		player->GetBoundingBox(oldLeft, oldTop, oldRight, oldBottom);
 		float newLeft, newTop, newRight, newBottom;
 		newPlayer->GetBoundingBox(newLeft, newTop, newRight, newBottom);
-		newPlayer->y -= newBottom - oldBottom;
-		newPlayer->x -= newRight - oldRight;
+		newPlayer->y -= (newBottom - oldBottom);
+		newPlayer->x -= (newRight - oldRight);
 	}
 	
 	

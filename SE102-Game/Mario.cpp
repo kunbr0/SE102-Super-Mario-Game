@@ -103,7 +103,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
 	
-	//DebugOut(ToWSTR(std::to_string((float)vxmax) + "\n").c_str());
+	DebugOut(ToWSTR(std::to_string((float)x) + "\n").c_str());
 	
 
 	ResetTempValues(); // Set all temp values to initial value;
@@ -131,6 +131,7 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
+	RenderBoundingBox(finalPos);
 
 	if (boost.type == MarioBoost::UNTOUCHABLE && GetTickCount64() % 100 > 50) return;
 	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, Vector2(nx*(renderAnimation.isFlipY ? -1 : 1),ny), 255);
@@ -158,10 +159,10 @@ Vector2 CMario::GetBoundingBoxSize(MarioType mType, MarioAction mAction) {
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	left = x;
-	top = y;
-	right = x + GetBoundingBoxSize(type, state.action).x;
-	bottom = y + GetBoundingBoxSize(type, state.action).y;
+	left = x - GetBoundingBoxSize(type, state.action).x /2;
+	top = y - GetBoundingBoxSize(type, state.action).y /2;
+	right = x + GetBoundingBoxSize(type, state.action).x /2;
+	bottom = y + GetBoundingBoxSize(type, state.action).y /2;
 }
 
 
@@ -316,8 +317,8 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 
 	Vector2 oldBBox = GetBoundingBoxSize(type, state.action);
 	Vector2 newBBox = GetBoundingBoxSize(type, newAction);
-	x -= newBBox.x - oldBBox.x;
-	y -= newBBox.y - oldBBox.y;
+	x -= (newBBox.x - oldBBox.x);
+	y -= (newBBox.y - oldBBox.y);
 	
 	state.action = newAction;
 	state.beginAction = GetTickCount64();

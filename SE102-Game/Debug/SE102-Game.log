@@ -1,11 +1,20 @@
-﻿  QuestionBlock.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(25,17): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(31,78): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(31,30): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(73,108): warning C4244: 'argument': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(74,128): warning C4244: 'argument': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(80,25): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(81,13): warning C4244: 'initializing': conversion from 'DWORD' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(92,35): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\QuestionBlock.cpp(60): warning C4715: 'CQuestionBlock::GetAnimationIdFromState': not all control paths return a value
+﻿  PlayScene.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(7,1): warning C4005: 'GOOMBA_BBOX_HEIGHT': macro redefinition
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(7): message : see previous definition of 'GOOMBA_BBOX_HEIGHT'
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,65): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,63): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,51): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,48): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(259,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(270,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(285,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(377,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(383,20): warning C4018: '<': signed/unsigned mismatch
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

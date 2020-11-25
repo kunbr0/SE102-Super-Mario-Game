@@ -65,8 +65,8 @@ void CGameMap::Render(float bottomMargin)
 	for (int i = col; i < drawingSize.x + col; i++) {
 		for (int j = row; j < drawingSize.y + row; j++) {
 
-			int x = i * tileWidth;
-			int y = j * tileHeight;
+			int x = i * tileWidth + tileWidth / 2;
+			int y = j * tileHeight + tileHeight / 2;
 
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;
@@ -111,8 +111,8 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 			if (std::string(objGroupNode->Attribute("name")) == "RectCollision") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CRectCollision(
-						atoi(objNode->Attribute("x")),
-						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2,
+						atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2,
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);

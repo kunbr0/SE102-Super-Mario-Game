@@ -17,7 +17,7 @@ void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
 void CQuestionBlock::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(Vector2(finalPos.x + deltaRender.x, finalPos.y+deltaRender.y));
 	if (extra_animations.size() > 0) RenderExtraAnimations();
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 }
 
 void CQuestionBlock::RenderExtraAnimations() {
@@ -70,8 +70,8 @@ MotionableAnimation CQuestionBlock::CreateMotionableAnimation(std::string id, Ve
 }
 
 void CQuestionBlock::CreateBoundingCoinAnimation(Vector2 initPos) {
-	extra_animations.push_back(CreateMotionableAnimation("ani-coin", initPos, Vector2(0, -200), GetTickCount64(), 1000));
-	extra_animations.push_back(CreateMotionableAnimation("ani-coin", initPos + Vector2(0, -200), Vector2(0, 200), GetTickCount64()+1000, 1000));
+	extra_animations.push_back(CreateMotionableAnimation("ani-coin", initPos + Vector2(0, -48), Vector2(0, -200), GetTickCount64(), 1000));
+	extra_animations.push_back(CreateMotionableAnimation("ani-coin", initPos + Vector2(0, -248), Vector2(0, 200), GetTickCount64() + 1000, 1000));
 
 }
 
@@ -107,7 +107,7 @@ void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
 				((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushTempObjects(this);
 				isTemp = true;
 			}
-			CreateBoundingCoinAnimation(GetPosition());
+			CreateBoundingCoinAnimation(GetPosition() + Vector2(3,0));
 			SetState(newState, newTimeState);
 		}
 			
