@@ -110,6 +110,9 @@
     <Filter Include="GameSource\GameObjects\Items\Leaf">
       <UniqueIdentifier>{0575dfe1-5883-4e5e-98ab-09f6e1916d2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemy\Venus">
+      <UniqueIdentifier>{1630d702-5aaf-4e56-bb8c-a7285d70ebb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -288,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="Leaf.cpp">
       <Filter>GameSource\GameObjects\Items\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +482,9 @@
     </ClInclude>
     <ClInclude Include="Leaf.h">
       <Filter>GameSource\GameObjects\Items\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

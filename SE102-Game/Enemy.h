@@ -34,7 +34,7 @@ public:
 	void InitWtandingScope(vector<LPCOLLISIONEVENT>*);
 
 
-	virtual std::string GetRenderAnimationId(EEnemyState) { return ""; };
+	virtual std::string GetAnimationIdFromState() = 0;
 
 	virtual Vector2 GetBoundingBoxSize() { return GetBoundingBoxSize(this->state.type); }
 	virtual Vector2 GetBoundingBoxSize(EEnemyState) { return Vector2(0, 0); }
@@ -45,6 +45,7 @@ public:
 
 	virtual void Update(DWORD, vector<LPGAMEOBJECT>*);
 	virtual void Render(Vector2);
+	virtual void RenderExtraAnimations(Vector2);
 	
 	virtual float GetDefaultWalkingSpeed() { return 0.0f; }
 

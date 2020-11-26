@@ -103,7 +103,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
 	
-	DebugOut(ToWSTR(std::to_string((float)x) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((float)x) + "\n").c_str());
 	
 
 	ResetTempValues(); // Set all temp values to initial value;

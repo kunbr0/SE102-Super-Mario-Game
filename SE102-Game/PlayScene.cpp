@@ -158,7 +158,7 @@ bool CPlayScene::LoadDataFromFile() {
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath, &staticObjects);
+	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap);
 	return true;
 }
 
@@ -207,10 +207,24 @@ void CPlayScene::Update(DWORD dt)
 			dynamicObjects[i]->isDisable = true;*/
 		
 	}
+
+	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
+	{
+		if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
+			dynamicObjectsBehindMap[i]->Update(dt, &coObjects);
+		/*else
+			dynamicObjects[i]->isDisable = true;*/
+
+	}
 	
 	for (size_t i = 0; i < dynamicObjects.size(); i++)
 	{
 		coObjects.push_back(dynamicObjects[i]);
+	}
+
+	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
+	{
+		coObjects.push_back(dynamicObjectsBehindMap[i]);
 	}
 
 	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
@@ -254,6 +268,14 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	Vector2 camSize = sceneCamera.GetCamSize();
+
+	for (int i = 0; i < dynamicObjectsBehindMap.size(); i++)
+		if (!dynamicObjectsBehindMap[i]->isDisable) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y));
+			if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
+				dynamicObjectsBehindMap[i]->Render(finalPos);
+
+		}
 
 	sceneCamera.Render();
 	for (int i = 0; i < staticObjects.size(); i++)

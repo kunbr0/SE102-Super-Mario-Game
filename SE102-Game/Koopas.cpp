@@ -10,8 +10,8 @@ CKoopas::CKoopas(float x, float y)
 }
 
 
-std::string CKoopas::GetRenderAnimationId(EEnemyState type) {
-	switch (type)
+std::string CKoopas::GetAnimationIdFromState() {
+	switch (state.type)
 	{
 	case EEnemyState::LIVE:
 		return KOOPAS_ANI_WALKING;

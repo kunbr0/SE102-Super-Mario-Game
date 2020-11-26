@@ -17,6 +17,7 @@ protected:
 	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> staticObjects;
 	vector<LPGAMEOBJECT> dynamicObjects;
+	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
 	vector<LPGAMEOBJECT> tempObjects;
 	float standingY;

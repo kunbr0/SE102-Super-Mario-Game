@@ -18,8 +18,8 @@ void CCamera::InitPositionController(CGameObject* player) {
 	this->positionController = player;
 }
 
-void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* objects) {
-	mMap = CGameMap().FromTMX(mapFilePath, objects);
+void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap) {
+	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap);
 	mMap->GetMapSize(mapSize);
 	mapSize;
 }

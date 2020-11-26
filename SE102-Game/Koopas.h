@@ -46,7 +46,7 @@ public:
 	//void BeingCollidedRight(ETag, Vector2);
 
 
-	std::string GetRenderAnimationId(EEnemyState);
+	std::string GetAnimationIdFromState() override;
 
 
 	

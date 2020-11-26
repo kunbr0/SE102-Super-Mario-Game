@@ -67,17 +67,20 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CGameObject::Update(dt, coObjects);
 }
 
+void CEnemy::RenderExtraAnimations(Vector2 finalPos) {
+	if (effect.type != EExtraEffect::NONE)
+		CAnimations::GetInstance()->Get(CGameObject::GetRenderAnimationId(effect.type))->Render(
+			Vector2(finalPos.x + (effect.initPosition.x - this->x), finalPos.y + (effect.initPosition.y - this->y)),
+			Vector2(-nx, ny), 255);
+}
 
 void CEnemy::Render(Vector2 finalPos) {
 	RenderBoundingBox(finalPos);
+	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos,Vector2(-nx, ny) , 255);
+	RenderExtraAnimations(finalPos);
 	
-	CAnimations::GetInstance()->Get(GetRenderAnimationId(state.type))->Render(finalPos,Vector2(-nx, ny) , 255);
-
-	if(effect.type != EExtraEffect::NONE)
-		CAnimations::GetInstance()->Get(CGameObject::GetRenderAnimationId(effect.type))->Render(
-			Vector2(finalPos.x +(effect.initPosition.x - this->x), finalPos.y + (effect.initPosition.y - this->y)), 
-			Vector2(-nx, ny), 255);
 }
+
 
 void CEnemy::OnHadCollided(LPGAMEOBJECT obj) {
 	this->BeingCollided(obj);

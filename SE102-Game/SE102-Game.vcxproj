@@ -209,6 +209,7 @@
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Venus.cpp" />
     <ClCompile Include="XmlReader\tinystr.cpp" />
     <ClCompile Include="XmlReader\tinyxml.cpp" />
     <ClCompile Include="XmlReader\tinyxmlerror.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Venus.h" />
     <ClInclude Include="XmlReader\tinystr.h" />
     <ClInclude Include="XmlReader\tinyxml.h" />
   </ItemGroup>
