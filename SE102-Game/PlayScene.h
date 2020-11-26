@@ -39,6 +39,7 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
+	void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
 
 	CMario* GenerateMario(MarioType, Vector2);

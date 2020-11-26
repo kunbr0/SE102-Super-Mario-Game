@@ -167,6 +167,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
+    <ClCompile Include="QuestionBlockItem.cpp" />
     <ClCompile Include="RectCollision.cpp" />
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
@@ -227,6 +229,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
@@ -257,6 +260,7 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
+    <ClInclude Include="QuestionBlockItem.h" />
     <ClInclude Include="RectCollision.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="RectPlatform.h" />

@@ -317,8 +317,8 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 
 	Vector2 oldBBox = GetBoundingBoxSize(type, state.action);
 	Vector2 newBBox = GetBoundingBoxSize(type, newAction);
-	x -= (newBBox.x - oldBBox.x);
-	y -= (newBBox.y - oldBBox.y);
+	x -= (newBBox.x - oldBBox.x) / 2;
+	y -= (newBBox.y - oldBBox.y) / 2;
 	
 	state.action = newAction;
 	state.beginAction = GetTickCount64();

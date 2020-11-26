@@ -127,7 +127,7 @@ void CGame::DrawWithScaling(Vector2 finalPos, Vector2 pivot, LPDIRECT3DTEXTURE9 
 	
 	//if (scale.x == -1) pivot.x = 10;
 	
-	spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x, deltaToCenter.y,0), &Vector3(finalPos.x, finalPos.y,0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y,0), &Vector3(finalPos.x, finalPos.y,0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
 }
 

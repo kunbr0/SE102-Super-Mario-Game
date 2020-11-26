@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "RectCollision.h"
 #include "RectPlatform.h"
+#include "QuestionBlock.h"
+#include "QuestionBlockItem.h"
 
 #define marginXWindow	96
 #define	marginYWindow	72
@@ -128,6 +130,28 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
+					objects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CQuestionBlock(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
+					objects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Item") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CQuestionBlockItem(
+						Vector2(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
 					objects->push_back(obj);
 				}
 			}

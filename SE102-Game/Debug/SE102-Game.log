@@ -1,20 +1,4 @@
-﻿  PlayScene.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Koopas.h(7,1): warning C4005: 'GOOMBA_BBOX_HEIGHT': macro redefinition
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Goomba.h(7): message : see previous definition of 'GOOMBA_BBOX_HEIGHT'
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,65): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(130,63): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(138,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(146,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,51): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(154,48): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(259,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(270,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(285,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(377,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\PlayScene.cpp(383,20): warning C4018: '<': signed/unsigned mismatch
+﻿  Leaf.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Leaf.cpp(22,87): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Leaf.cpp(22,82): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

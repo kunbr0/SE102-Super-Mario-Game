@@ -43,12 +43,14 @@ public:
 	
 
 	CQuestionBlock(Vector2 initPos);
-	void Render(Vector2 finalPos);
+	virtual void Render(Vector2 finalPos);
 	void RenderExtraAnimations();
+
 	void Update(DWORD, vector<LPGAMEOBJECT>* ) override;
 	void ChangeState(EBlockState, DWORD = 0);
 	void SetState(EBlockState, DWORD = 0);
-	void OpeningBox();
+	virtual void OpenBox();
+	void ProcessOpeningBox();
 	
 	std::string GetAnimationIdFromState();
 	MotionableAnimation CreateMotionableAnimation(std::string, Vector2, Vector2, int, int);

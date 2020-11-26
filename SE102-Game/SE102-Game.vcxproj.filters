@@ -104,6 +104,12 @@
     <Filter Include="GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox">
       <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Items">
+      <UniqueIdentifier>{322bd420-ee50-46a5-a469-0db9d2ff5a8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Leaf">
+      <UniqueIdentifier>{0575dfe1-5883-4e5e-98ab-09f6e1916d2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -276,6 +282,12 @@
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlockItem.cpp">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>GameSource\GameObjects\Items\Leaf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +470,12 @@
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlockItem.h">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>GameSource\GameObjects\Items\Leaf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
