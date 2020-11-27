@@ -158,6 +158,7 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -208,6 +209,7 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIDrawer.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="XmlReader\tinystr.cpp" />
@@ -220,6 +222,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FireBullet.h" />
@@ -275,6 +278,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIDrawer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="XmlReader\tinystr.h" />

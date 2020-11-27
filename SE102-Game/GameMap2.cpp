@@ -5,6 +5,8 @@
 #include "QuestionBlock.h"
 #include "QuestionBlockItem.h"
 #include "Venus.h"
+#include "Coin.h"
+
 
 #define marginXWindow	96
 #define	marginYWindow	72
@@ -74,8 +76,7 @@ void CGameMap::Render(float bottomMargin)
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;
 				int id = layer->GetTileID(i % width, j % height);
-				auto abc = this->GetTileSetByTileID(id);
-				abc->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
+				this->GetTileSetByTileID(id)->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
 			}
 		}
 	}
@@ -151,6 +152,17 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* st
 					LPGAMEOBJECT obj = new CQuestionBlockItem(
 						Vector2(
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CCoin(
+						Vector2(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
 					staticObjects->push_back(obj);

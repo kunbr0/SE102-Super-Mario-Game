@@ -113,6 +113,12 @@
     <Filter Include="GameSource\GameObjects\Enemy\Venus">
       <UniqueIdentifier>{1630d702-5aaf-4e56-bb8c-a7285d70ebb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\UIDrawer">
+      <UniqueIdentifier>{61a5d9c4-9c3f-44f8-9520-fc31ab192da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Coin">
+      <UniqueIdentifier>{68119fe2-2528-4a39-beaf-4197e30b1668}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -294,6 +300,12 @@
     </ClCompile>
     <ClCompile Include="Venus.cpp">
       <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDrawer.cpp">
+      <Filter>GameSource\GameObjects\UIDrawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameSource\GameObjects\Items\Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,6 +497,12 @@
     </ClInclude>
     <ClInclude Include="Venus.h">
       <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDrawer.h">
+      <Filter>GameSource\GameObjects\UIDrawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameSource\GameObjects\Items\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

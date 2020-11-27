@@ -118,17 +118,22 @@ void CGame::KDrawBoardDetails(float x, float y, LPCSTR text) {
 void CGame::DrawWithScaling(Vector2 finalPos, Vector2 pivot, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, Vector2 scale)
 {
 	Vector2 deltaToCenter = Vector2((rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2);
-	D3DXMATRIX oldMatrix, newMatrix;
-	spriteHandler->GetTransform(&oldMatrix);
+	
+	if (scale.x == 1 && scale.y == 1) {
+		spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y, 0), &Vector3(finalPos.x, finalPos.y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	}
+	else {
+		D3DXMATRIX oldMatrix, newMatrix;
+		spriteHandler->GetTransform(&oldMatrix);
 
-	D3DXMatrixTransformation2D(&newMatrix, &(finalPos), 0.0f, &scale, &finalPos, 0.0f, NULL);
-	spriteHandler->SetTransform(&newMatrix);
+		D3DXMatrixTransformation2D(&newMatrix, &(finalPos), 0.0f, &scale, &finalPos, 0.0f, NULL);
+		spriteHandler->SetTransform(&newMatrix);
+
+		spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y, 0), &Vector3(finalPos.x, finalPos.y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		spriteHandler->SetTransform(&oldMatrix);
+	}
 
 	
-	//if (scale.x == -1) pivot.x = 10;
-	
-	spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y,0), &Vector3(finalPos.x, finalPos.y,0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	spriteHandler->SetTransform(&oldMatrix);
 }
 
 //void CGame::DrawWithScaling(float x, float y, LPDIRECT3DTEXTURE9 texture,

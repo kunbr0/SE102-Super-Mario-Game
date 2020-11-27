@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "Game.h"
+#include "UIDrawer.h"
+#include <iomanip>
 
 #define DetailsBoardHeight		200
 #define YGROUND					710
@@ -9,6 +11,7 @@ CCamera::CCamera() {
 	this->camPosition = Vector2(0, 0);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	this->positionController = NULL;
+	mapData.timeRemaining = 300 * 1000;
 }
 CCamera::~CCamera() {
 
@@ -26,6 +29,22 @@ void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjec
 
 Vector2 CCamera::GetCamPosition() {
 	return camPosition;
+}
+
+void CCamera::SetMapData(int newTimeRemaning, int newScore, int playerLife) {
+	if (newTimeRemaning != -1) mapData.timeRemaining = newTimeRemaning;
+	if (newScore != -1) mapData.score = newScore;
+	if (playerLife != -1) mapData.playerLife = playerLife;
+}
+
+void CCamera::AdjustTimeRemaining(int deltaTime) {
+	mapData.timeRemaining += deltaTime;
+	if (mapData.timeRemaining < 0) mapData.timeRemaining = 0;
+}
+
+void CCamera::AdjustScore(int deltaScore) {
+	mapData.score += deltaScore;
+	if (mapData.score < 0) mapData.score = 0;
 }
 
 void CCamera::SetCamPosition(Vector2 pos) {
@@ -66,39 +85,43 @@ void CCamera::Update(DWORD dt) {
 }
 
 void CCamera::RenderDetailBoard() {
-	//LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
-	//LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
-	//LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
-	//LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
-	//Vector2 beginPos = Vector2(0, camSize.y + hud->getSize().y - DetailsBoardHeight - 20);
-	//hud->Draw(beginPos);
-	//Mchar->Draw(Vector2(beginPos.x+12, beginPos.y+45));
-	//Onechar->Draw(Vector2(beginPos.x + 115, beginPos.y + 25));
-	//Fourchar->Draw(Vector2(beginPos.x + 115, beginPos.y + 50));
-	//// Point
-	//Vector2 beginScorePos = Vector2(beginPos.x + 145, beginPos.y + 50);
-	//int distance = 26;
-	//for (int i = 0; i < 7; i++) {
-	//	LPSPRITE Zerochar = CSprites::GetInstance()->Get("spr-font-0");
-	//	Zerochar->Draw(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
-
-	//}
-	//for (int i = 0; i < 7; i++) {
-	//	LPSPRITE Zerochar;
-	//	if (i < positionController->powerX/1000) {
-	//		Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
-	//	}
-	//	else {
-	//		Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-1");
-	//	}
-	//	
-	//	if (i == 7 - 1) {
-	//		Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
-	//	}
-	//	Zerochar->Draw(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
-
-	//}
+	LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
+	LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
+	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
+	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
+	Vector2 beginPos = Vector2(240, camSize.y + hud->getSize().y - DetailsBoardHeight + 20);
+	hud->DrawWithScaling(beginPos);
+	Mchar->DrawWithScaling(Vector2(beginPos.x-190, beginPos.y+14));
+	Onechar->DrawWithScaling(Vector2(beginPos.x - 100, beginPos.y - 10));
+	Fourchar->DrawWithScaling(Vector2(beginPos.x - 100, beginPos.y + 15));
 	
+	Vector2 beginScorePos = Vector2(beginPos.x - 65, beginPos.y + 15);
+	int distance = 26;
+	/*for (int i = 0; i < 7; i++) {
+		LPSPRITE Zerochar = CSprites::GetInstance()->Get("spr-font-0");
+		Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
+
+	}*/
+	CUIDrawer::GetInstance()->Draw(to_string(mapData.score), beginScorePos);
+
+	for (int i = 0; i < 7; i++) {
+		LPSPRITE Zerochar;
+		if (i < positionController->powerX/1000) {
+			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
+		}
+		else {
+			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-1");
+		}
+		
+		if (i == 7 - 1) {
+			Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
+			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance + 15, beginScorePos.y - 25));
+		}
+		else
+			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
+
+	}
+	CUIDrawer::GetInstance()->Draw(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(224,0));
 }
 
 void CCamera::Render() {

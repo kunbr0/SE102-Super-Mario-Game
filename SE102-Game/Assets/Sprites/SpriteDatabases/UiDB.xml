@@ -2,15 +2,17 @@
 <Textures>
 	<Textures textureId="tex-ui">
         <Sprite id="spr-font-0" left="31" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-1" left="54" top="24"  width="7" height="7"/>
+        <Sprite id="spr-font-1" left="52" top="24"  width="9" height="8"/>
         <Sprite id="spr-font-2" left="71" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-3" left="90" top="24"  width="8" height="7"/>
-        <Sprite id="spr-font-4" left="108" top="24"  width="8" height="7"/>
-        <Sprite id="spr-font-5" left="127" top="24"  width="8" height="8"/>
-        <Sprite id="spr-font-6" left="145" top="24"  width="8" height="7"/>
-        <Sprite id="spr-font-7" left="162" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-3" left="90" top="24"  width="9" height="8"/>
+        <Sprite id="spr-font-4" left="108" top="24"  width="9" height="8"/>
+        <Sprite id="spr-font-5" left="127" top="24"  width="9" height="8"/>
+        <Sprite id="spr-font-6" left="145" top="24"  width="9" height="8"/>
+        <Sprite id="spr-font-7" left="162" top="24"  width="9" height="8"/>
         <Sprite id="spr-font-8" left="179" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-9" left="197" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-9" left="197" top="24"  width="9" height="8"/>
+
+
         <Sprite id="spr-font-A" left="215" top="24"  width="8" height="8"/>
         <Sprite id="spr-font-B" left="234" top="24"  width="9" height="8"/>
         <Sprite id="spr-font-C" left="31" top="39"  width="9" height="8"/>

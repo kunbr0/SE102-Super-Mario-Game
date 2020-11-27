@@ -44,6 +44,11 @@
 		</Animation>
 
 		<!-- POINTS IN LEVEL -->
+		<Animation aniId="ani-100" frameTime="100">
+			<Sprite id="spr-points-in-level-100" left="60" top="88"  width="12" height="9"/>
+		</Animation>
+
+
 		<Animation aniId="ani-points-in-level" frameTime="100">
 			<Sprite id="spr-points-in-level-100" left="60" top="88"  width="12" height="9"/>
 			<Sprite id="spr-points-in-level-200" left="74" top="88"  width="13" height="9"/>

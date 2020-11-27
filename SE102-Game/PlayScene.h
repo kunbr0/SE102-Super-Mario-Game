@@ -7,7 +7,6 @@
 
 //#include "GameMap2.h"
 
-
 class CPlayScene : public CScene
 {
 
@@ -22,8 +21,6 @@ protected:
 	vector<LPGAMEOBJECT> tempObjects;
 	float standingY;
 
-	
-
 
 public:
 	CPlayScene(std::string id, std::string filePath);
@@ -37,6 +34,7 @@ public:
 	/*virtual bool ParseTextures();
 	virtual bool ParseSprites();*/
 
+	
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }

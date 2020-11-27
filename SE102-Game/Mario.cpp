@@ -364,6 +364,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 			SetAction(newAction, timeAction);
 			if(state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
 		}
+		
 		break;
 
 	case MarioAction::HIGH_JUMP:
