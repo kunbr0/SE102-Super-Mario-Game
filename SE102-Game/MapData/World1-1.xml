@@ -29,12 +29,7 @@
 
         <objects>
         <!-- Static Objects -->
-            <questionbox x="528" y="1056" />
-            <questionbox x="576" y="1056" />
-
-            <questionbox x="672" y="912" />
-            <questionbox x="720" y="912" />
-        
+            
         <!-- Dynamic Objects -->
             <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <mario type="2" x="50" y="850" />

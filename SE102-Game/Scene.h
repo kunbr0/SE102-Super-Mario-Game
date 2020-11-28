@@ -3,6 +3,8 @@
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
 #include "Camera.h"
+#define DEFAULT_TIME_SCALE		1
+
 
 class CScene
 {
@@ -11,6 +13,7 @@ protected:
 	std::string id;
 	std::string sceneFilePath;
 	CCamera sceneCamera;
+	unsigned long timeScale;
 
 public:
 	CScene(std::string id, std::string filePath);

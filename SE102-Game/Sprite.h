@@ -21,7 +21,7 @@ public:
 	
 	void getSize(int &width, int &height);
 	Vector2 getSize();
-	void Draw(Vector2 finalPos, int alpha = 255);
+	//void Draw(Vector2 finalPos, int alpha = 255);
 	void DrawWithScaling(Vector2 finalPos, Vector2 = Vector2(1,1), int alpha = 255);
 
 };

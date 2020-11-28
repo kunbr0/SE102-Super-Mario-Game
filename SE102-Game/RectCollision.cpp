@@ -9,15 +9,15 @@ CRectCollision::CRectCollision(float x, float y, float width, float height) {
 
 void CRectCollision::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + this->width;
-	bottom = y + this->height;
+	left = x - width / 2;
+	top = y - height / 2;
+	right = x + width / 2;
+	bottom = y + height /2;
 
 }
 
 void CRectCollision::Render(Vector2 finalPos) {
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 	
 }
 

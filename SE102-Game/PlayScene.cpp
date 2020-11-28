@@ -19,13 +19,14 @@
 #include "RectCollision.h"
 #include "QuestionBlock.h"
 
-using namespace std;
+
 
 CPlayScene::CPlayScene(std::string id, std::string filePath) :
 	CScene(id, filePath)
 {
 	
 	key_handler = new CPlayScenceKeyHandler(this);
+	timeScale = DEFAULT_TIME_SCALE;
 	
 }
 
@@ -158,7 +159,7 @@ bool CPlayScene::LoadDataFromFile() {
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath, &staticObjects);
+	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap);
 	return true;
 }
 
@@ -181,9 +182,17 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+
 	
-	sceneCamera.Update(dt); // Update Map in Camera
+
+	if ( ((CMario*)(player))->GetAction() == MarioAction::EXPLODE ) {
+		timeScale = 0;
+	}
+	else {
+		timeScale = DEFAULT_TIME_SCALE;
+	}
 	
+	dt = dt * timeScale;
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 0; i < staticObjects.size(); i++)
@@ -199,10 +208,24 @@ void CPlayScene::Update(DWORD dt)
 			dynamicObjects[i]->isDisable = true;*/
 		
 	}
+
+	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
+	{
+		if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
+			dynamicObjectsBehindMap[i]->Update(dt, &coObjects);
+		/*else
+			dynamicObjects[i]->isDisable = true;*/
+
+	}
 	
 	for (size_t i = 0; i < dynamicObjects.size(); i++)
 	{
 		coObjects.push_back(dynamicObjects[i]);
+	}
+
+	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
+	{
+		coObjects.push_back(dynamicObjectsBehindMap[i]);
 	}
 
 	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
@@ -227,21 +250,36 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(mainObjects[i]);
 	}
-	for (size_t i = 0; i < priorityObjects1.size(); i++)
+	for (size_t i = 0; i < tempObjects.size(); i++)
 	{
-		if (sceneCamera.IsInCamera(Vector2(priorityObjects1[i]->x, priorityObjects1[i]->y)))
-			priorityObjects1[i]->Update(dt, &coObjects);
+		if (!tempObjects[i]->isTemp) {
+			tempObjects.erase(tempObjects.begin() + i);
+		}
+		else if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y)))
+			tempObjects[i]->Update(dt, &coObjects);
 		else
-			if (!dynamic_cast<CMario*>(priorityObjects1[i]))
-				priorityObjects1[i]->isDisable = true;
+			if (!dynamic_cast<CMario*>(tempObjects[i]))
+				tempObjects[i]->isDisable = true;
 
 	}
+
+
+	sceneCamera.AdjustTimeRemaining(dt*-1);
 	
+	sceneCamera.Update(dt); // Update Map in Camera
 }
 
 void CPlayScene::Render()
 {
 	Vector2 camSize = sceneCamera.GetCamSize();
+
+	for (int i = 0; i < dynamicObjectsBehindMap.size(); i++)
+		if (!dynamicObjectsBehindMap[i]->isDisable) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y));
+			if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
+				dynamicObjectsBehindMap[i]->Render(finalPos);
+
+		}
 
 	sceneCamera.Render();
 	for (int i = 0; i < staticObjects.size(); i++)
@@ -287,8 +325,8 @@ void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 		player->GetBoundingBox(oldLeft, oldTop, oldRight, oldBottom);
 		float newLeft, newTop, newRight, newBottom;
 		newPlayer->GetBoundingBox(newLeft, newTop, newRight, newBottom);
-		newPlayer->y -= newBottom - oldBottom;
-		newPlayer->x -= newRight - oldRight;
+		newPlayer->y -= (newBottom - oldBottom);
+		newPlayer->x -= (newRight - oldRight);
 	}
 	
 	

@@ -13,10 +13,10 @@ void CRedRaccoonMario::Render(Vector2 finalPos)
 
 void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 	if (state.action == MarioAction::ATTACK) {
-		left = x - 20;
-		top = y + 50;
-		right = x + GetBoundingBoxSize(type, state.action).x + 20;
-		bottom = y + GetBoundingBoxSize(type, state.action).y;
+		left = x - GetBoundingBoxSize(type, state.action).x / 2 - 10;
+		top = y - GetBoundingBoxSize(type, state.action).x /2 + 25;
+		right = x + GetBoundingBoxSize(type, state.action).x / 2 + 10;
+		bottom = y + GetBoundingBoxSize(type, state.action).y / 2;
 	}
 	else {
 		CMario::GetBoundingBox(left, top, right, bottom);

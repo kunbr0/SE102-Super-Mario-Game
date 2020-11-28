@@ -30,13 +30,13 @@ CSprite::CSprite(std::string id, int left, int top, int right, int bottom, int x
 
 
 
-void CSprite::Draw(Vector2 finalPos, int alpha)
-{
-	CGame* game = CGame::GetInstance();
-	RECT r;
-	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
-	game->Draw(finalPos, pivot, texture, r, alpha);
-}
+//void CSprite::Draw(Vector2 finalPos, int alpha)
+//{
+//	CGame* game = CGame::GetInstance();
+//	RECT r;
+//	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
+//	game->Draw(finalPos, pivot, texture, r, alpha);
+//}
 
 void CSprite::DrawWithScaling(Vector2 finalPos, Vector2 scale, int alpha)
 {
@@ -44,7 +44,9 @@ void CSprite::DrawWithScaling(Vector2 finalPos, Vector2 scale, int alpha)
 	RECT r;
 	r.left = left; r.right = right; r.top = top; r.bottom = bottom;
 	
-	game->DrawWithScaling(finalPos, Vector2(finalPos.x + (right-left)/2, finalPos.y), pivot, texture, r, alpha, scale);
+	
+
+	game->DrawWithScaling(finalPos, pivot, texture, r, alpha, scale);
 }
 
 Vector2 CSprite::getSize() {

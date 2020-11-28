@@ -104,6 +104,21 @@
     <Filter Include="GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox">
       <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Items">
+      <UniqueIdentifier>{322bd420-ee50-46a5-a469-0db9d2ff5a8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Leaf">
+      <UniqueIdentifier>{0575dfe1-5883-4e5e-98ab-09f6e1916d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Enemy\Venus">
+      <UniqueIdentifier>{1630d702-5aaf-4e56-bb8c-a7285d70ebb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\UIDrawer">
+      <UniqueIdentifier>{61a5d9c4-9c3f-44f8-9520-fc31ab192da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Coin">
+      <UniqueIdentifier>{68119fe2-2528-4a39-beaf-4197e30b1668}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -276,6 +291,21 @@
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlockItem.cpp">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>GameSource\GameObjects\Items\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDrawer.cpp">
+      <Filter>GameSource\GameObjects\UIDrawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameSource\GameObjects\Items\Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +488,21 @@
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlockItem.h">
+      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>GameSource\GameObjects\Items\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>GameSource\GameObjects\Enemy\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDrawer.h">
+      <Filter>GameSource\GameObjects\UIDrawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameSource\GameObjects\Items\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

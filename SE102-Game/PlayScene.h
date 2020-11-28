@@ -7,7 +7,6 @@
 
 //#include "GameMap2.h"
 
-
 class CPlayScene : public CScene
 {
 
@@ -17,11 +16,10 @@ protected:
 	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> staticObjects;
 	vector<LPGAMEOBJECT> dynamicObjects;
+	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
-	vector<LPGAMEOBJECT> priorityObjects1;
+	vector<LPGAMEOBJECT> tempObjects;
 	float standingY;
-
-	
 
 
 public:
@@ -36,11 +34,16 @@ public:
 	/*virtual bool ParseTextures();
 	virtual bool ParseSprites();*/
 
+	
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
+	void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
+	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
 
 	CMario* GenerateMario(MarioType, Vector2);
+
+
 
 	//friend class CPlayScenceKeyHandler;
 };

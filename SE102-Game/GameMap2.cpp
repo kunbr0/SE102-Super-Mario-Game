@@ -2,6 +2,11 @@
 #include "Game.h"
 #include "RectCollision.h"
 #include "RectPlatform.h"
+#include "QuestionBlock.h"
+#include "QuestionBlockItem.h"
+#include "Venus.h"
+#include "Coin.h"
+
 
 #define marginXWindow	96
 #define	marginYWindow	72
@@ -65,20 +70,19 @@ void CGameMap::Render(float bottomMargin)
 	for (int i = col; i < drawingSize.x + col; i++) {
 		for (int j = row; j < drawingSize.y + row; j++) {
 
-			int x = i * tileWidth;
-			int y = j * tileHeight;
+			int x = i * tileWidth + tileWidth / 2;
+			int y = j * tileHeight + tileHeight / 2;
 
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;
 				int id = layer->GetTileID(i % width, j % height);
-				auto abc = this->GetTileSetByTileID(id);
-				abc->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
+				this->GetTileSetByTileID(id)->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
 			}
 		}
 	}
 }
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objects)
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -111,12 +115,12 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 			if (std::string(objGroupNode->Attribute("name")) == "RectCollision") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CRectCollision(
-						atoi(objNode->Attribute("x")),
-						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2,
+						atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2,
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objects->push_back(obj);
+					staticObjects->push_back(obj);
 				}
 			}
 
@@ -128,7 +132,56 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objects->push_back(obj);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CQuestionBlock(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Item") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CQuestionBlockItem(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CCoin(
+						Vector2(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+						);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "Venus") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CVenus(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+						), 
+						Vector2(
+							(int)atoi(objNode->Attribute("width")),
+							(int)atoi(objNode->Attribute("height"))
+						)
+					);
+					dynamicObjectsBehindMap->push_back(obj);
 				}
 			}
 			
