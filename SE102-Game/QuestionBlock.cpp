@@ -10,22 +10,28 @@ CQuestionBlock::CQuestionBlock(Vector2 initPos) :
 }
 
 void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
-	ChangeState(EBlockState::OPENING, 200);
+	ChangeState(EBlockState::OPENING);
 }
 
 void CQuestionBlock::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(Vector2(finalPos.x + deltaRender.x, finalPos.y+deltaRender.y));
 	
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 }
 
 
 
 void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	
 	if (state.type == EBlockState::OPENING) {
-		ChangeState(EBlockState::OPENED);
+		deltaRenderSpeed.y += 2.6f;
+		deltaRender.y += deltaRenderSpeed.y;
+		if (deltaRender.y > 0) {
+			deltaRender.y = 0;
+			deltaRenderSpeed.y = 0;
+			ChangeState(EBlockState::OPENED);
+		}
 	}
+
 }
 
 
@@ -49,8 +55,7 @@ std::string CQuestionBlock::GetAnimationIdFromState() {
 
 
 void CQuestionBlock::OpenBox() {
-	
-	
+	deltaRenderSpeed.y = -15.5f;
 }
 
 
@@ -58,11 +63,13 @@ void CQuestionBlock::OpenBox() {
 
 void CQuestionBlock::SetState(EBlockState newState, DWORD newTimeState) {
 	state.type = newState;
+	state.beginState = GetTickCount64();
+	state.timeState = newTimeState;
 }
 
 
 void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
-	
+	if (GetTickCount64() < state.timeState + state.beginState) return;
 	switch (newState)
 	{
 	case EBlockState::DEFAULT:

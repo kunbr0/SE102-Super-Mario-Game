@@ -16,6 +16,8 @@ enum class EBlockState {
 
 struct SBlockState {
 	EBlockState type = EBlockState::DEFAULT;
+	DWORD beginState = 0;
+	DWORD timeState = 0;
 };
 
 class CQuestionBlock : public CRectCollision
@@ -23,6 +25,7 @@ class CQuestionBlock : public CRectCollision
 private:
 	SBlockState state;
 	Vector2 deltaRender;
+	Vector2 deltaRenderSpeed;
 
 public:
 	
