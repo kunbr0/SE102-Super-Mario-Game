@@ -13,4 +13,5 @@ public:
 	static CUIDrawer* GetInstance();
 
 	void Draw(std::string, Vector2);
+	void DrawFixedLengthNumber(std::string, Vector2, char, int = 99);
 };

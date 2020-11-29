@@ -1,6 +1,31 @@
-﻿  Camera.cpp
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Camera.cpp(12,103): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Camera.cpp(12,62): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Camera.cpp(52,61): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\KuN\Desktop\SE102-Game\SE102-Game\Camera.cpp(74,57): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+﻿  GameMap2.cpp
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(38,55): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(38,29): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(64,10): warning C4244: 'initializing': conversion from 'FLOAT' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(65,10): warning C4244: 'initializing': conversion from 'FLOAT' to 'int', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(67,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(80,77): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(80,75): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(122,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(121,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(120,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(119,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(134,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(133,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(132,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(131,11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(145,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(144,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(156,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(155,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(167,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(166,43): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(178,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(177,44): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(182,17): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(181,17): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(194,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(193,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(210,22): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\SE102-Game\SE102-Game\GameMap2.cpp(211,23): warning C4244: '=': conversion from 'int' to 'FLOAT', possible loss of data
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\SE102-Game\Debug\SE102-Game.exe

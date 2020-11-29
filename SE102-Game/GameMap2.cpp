@@ -6,6 +6,7 @@
 #include "QuestionBlockItem.h"
 #include "Venus.h"
 #include "Coin.h"
+#include "Goomba.h"
 
 
 #define marginXWindow	96
@@ -182,6 +183,17 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* st
 						)
 					);
 					dynamicObjectsBehindMap->push_back(obj);
+				}
+			}
+
+
+			if (std::string(objGroupNode->Attribute("name")) == "Goomba") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CGoomba(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					);
+					dynamicObjects->push_back(obj);
 				}
 			}
 			

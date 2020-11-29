@@ -77,7 +77,7 @@ void CQuestionBlock::CreateBoundingCoinAnimation(Vector2 initPos) {
 
 void CQuestionBlock::OpenBox() {
 	CreateBoundingCoinAnimation(GetPosition() + Vector2(3, 0));
-	CGame::GetInstance()->GetCurrentScene()->GetCamera()->AdjustScore(100);
+	
 }
 
 void CQuestionBlock::ProcessOpeningBox() {
@@ -120,6 +120,7 @@ void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
 
 	case EBlockState::OPENED:
 		SetState(newState, newTimeState);
+		CGame::GetInstance()->GetCurrentScene()->GetCamera()->AdjustScore(100);
 		break;
 
 	default:
