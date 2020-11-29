@@ -102,7 +102,7 @@ void CCamera::RenderDetailBoard() {
 		Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
 
 	}*/
-	CUIDrawer::GetInstance()->Draw(to_string(mapData.score), beginScorePos);
+	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.score), beginScorePos, '0', 7);
 
 	for (int i = 0; i < 7; i++) {
 		LPSPRITE Zerochar;
@@ -121,7 +121,7 @@ void CCamera::RenderDetailBoard() {
 			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
 
 	}
-	CUIDrawer::GetInstance()->Draw(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(224,0));
+	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(224,0), '0', 3);
 }
 
 void CCamera::Render() {
