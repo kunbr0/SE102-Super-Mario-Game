@@ -20,7 +20,6 @@
 #include "QuestionBlock.h"
 
 
-
 CPlayScene::CPlayScene(std::string id, std::string filePath) :
 	CScene(id, filePath)
 {
@@ -264,7 +263,15 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 
-	
+	for (size_t i = 0; i < effects.size(); i++)
+	{
+		if (!effects[i]->GetActiveState()) {
+			effects.erase(effects.begin() + i);
+			i--;
+		}
+		else
+			effects[i]->Update(dt);
+	}
 	
 	sceneCamera.Update(dt); // Update Map in Camera
 }
@@ -300,6 +307,12 @@ void CPlayScene::Render()
 				mainObjects[i]->Render(finalPos);
 
 		}
+
+	for (size_t i = 0; i < effects.size(); i++)
+	{
+		Vector2 finalPos = sceneCamera.ConvertPosition(effects[i]->GetCurrentPosition());
+		effects[i]->Render(finalPos);
+	}
 	
 }
 

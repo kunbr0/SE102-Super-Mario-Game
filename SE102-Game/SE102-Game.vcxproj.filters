@@ -119,6 +119,15 @@
     <Filter Include="GameSource\GameObjects\Items\QuestionBox">
       <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Effect">
+      <UniqueIdentifier>{ad952857-94c6-4eea-ba4e-449f75e883e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Effect\BoundingCoinEffect">
+      <UniqueIdentifier>{3901df5e-9e16-47b2-ba93-0d53493a2884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Effect\AddingPointEffect">
+      <UniqueIdentifier>{e334cfef-c005-43e3-9755-8652ae033c0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -306,6 +315,15 @@
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>GameSource\GameObjects\Items\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>GameSource\GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="AddingPointEffect.cpp">
+      <Filter>GameSource\GameObjects\Effect\AddingPointEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingCoinEffect.cpp">
+      <Filter>GameSource\GameObjects\Effect\BoundingCoinEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,6 +521,15 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>GameSource\GameObjects\Items\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>GameSource\GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="AddingPointEffect.h">
+      <Filter>GameSource\GameObjects\Effect\AddingPointEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingCoinEffect.h">
+      <Filter>GameSource\GameObjects\Effect\BoundingCoinEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

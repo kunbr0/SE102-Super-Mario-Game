@@ -1,5 +1,7 @@
 #include "QuestionBlock.h"
 #include "PlayScene.h"
+#include "BoundingCoinEffect.h"
+
 #define DELTA_POSITION_STEP_OPENING			7
 
 CQuestionBlock::CQuestionBlock(Vector2 initPos) :
@@ -56,6 +58,7 @@ std::string CQuestionBlock::GetAnimationIdFromState() {
 
 void CQuestionBlock::OpenBox() {
 	deltaRenderSpeed.y = -15.5f;
+	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CBoundingCoinEffect(Vector2(x,y-48*1.5), Vector2(0, -0.55)));
 }
 
 
@@ -89,7 +92,7 @@ void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
 
 	case EBlockState::OPENED:
 		SetState(newState, newTimeState);
-		CGame::GetInstance()->GetCurrentScene()->GetCamera()->AdjustScore(100);
+		
 		break;
 
 	default:

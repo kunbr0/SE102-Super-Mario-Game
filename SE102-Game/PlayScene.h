@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Mario.h"
+#include "Effect.h"
 
 //#include "GameMap2.h"
 
@@ -19,6 +20,8 @@ protected:
 	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
 	vector<LPGAMEOBJECT> tempObjects;
+
+	vector<CEffect*> effects;
 	float standingY;
 
 
@@ -40,6 +43,7 @@ public:
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
 	void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
+	void PushEffects(CEffect* eff) { effects.push_back(eff); }
 
 	CMario* GenerateMario(MarioType, Vector2);
 

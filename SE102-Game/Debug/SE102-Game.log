@@ -1,4 +1,10 @@
-﻿  QuestionBlock.cpp
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(66,35): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(52): warning C4715: 'CQuestionBlock::GetAnimationIdFromState': not all control paths return a value
+﻿  AddingPointEffect.cpp
+  BoundingCoinEffect.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\BoundingCoinEffect.cpp(13,128): warning C4305: 'argument': truncation from 'double' to 'FLOAT'
+  QuestionBlock.cpp
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(61,107): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(61,133): warning C4305: 'argument': truncation from 'double' to 'FLOAT'
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(69,35): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+  Generating Code...
+C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\SE102-Game\QuestionBlock.cpp(54): warning C4715: 'CQuestionBlock::GetAnimationIdFromState': not all control paths return a value
   SE102-Game.vcxproj -> C:\Users\KuN\Desktop\UIT\SE102\SE102-Game BK 2020-11-29\Debug\SE102-Game.exe
