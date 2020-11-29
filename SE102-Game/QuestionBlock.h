@@ -12,30 +12,16 @@ enum class EBlockState {
 	OPENED
 };
 
-struct MotionableAnimation {
-	std::string animationId;
-	Vector2 initialPosition;
-	Vector2 deltaPosition;
-	DWORD timeBegin;
-	DWORD timeAni;
-};
 
-struct MotionableAnimations {
-	
-};
 
 struct SBlockState {
 	EBlockState type = EBlockState::DEFAULT;
-	DWORD beginState = 0;
-	DWORD timeState = 0;
 };
 
 class CQuestionBlock : public CRectCollision
 {
 private:
 	SBlockState state;
-	vector<MotionableAnimation> extra_animations;
-
 	Vector2 deltaRender;
 
 public:
@@ -44,17 +30,17 @@ public:
 
 	CQuestionBlock(Vector2 initPos);
 	virtual void Render(Vector2 finalPos);
-	void RenderExtraAnimations();
+
 
 	void Update(DWORD, vector<LPGAMEOBJECT>* ) override;
 	void ChangeState(EBlockState, DWORD = 0);
 	void SetState(EBlockState, DWORD = 0);
 	virtual void OpenBox();
-	void ProcessOpeningBox();
+
 	
 	std::string GetAnimationIdFromState();
-	MotionableAnimation CreateMotionableAnimation(std::string, Vector2, Vector2, int, int);
-	void CreateBoundingCoinAnimation(Vector2);
+	
+
 	void BeingCollidedBottom(LPGAMEOBJECT) override;
 };
 

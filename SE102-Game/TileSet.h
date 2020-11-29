@@ -4,7 +4,7 @@
 #include "./XmlReader/tinyxml.h"
 #include "./XmlReader/tinystr.h"
 #include "RectF.h"
-#include <memory>
+
 #include <unordered_map>
 
 
@@ -20,15 +20,15 @@ class CTileSet
 
 	LPDIRECT3DTEXTURE9 texture;
 
-	unordered_map<int, std::shared_ptr<RectF>> blocks;
+	
 
 public:
 	CTileSet(int firstgid, Vector2 tileSize, int tileCount, int columns, string imgPath);
 	CTileSet(TiXmlElement* data, string xmlPath);
 
-	int GetFirstGID();
+	Vector2 GetRangeId();
 
-	std::shared_ptr<RectF> GetBlockBoundingBox(int id);
+	
 
 	void Draw(int gid, Vector2 finalPos);
 

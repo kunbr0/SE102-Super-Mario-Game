@@ -4,9 +4,12 @@
 #include "MapLayer.h"
 #include "./XmlReader/tinyxml.h"
 #include "./XmlReader/tinystr.h"
-#include<map>
 #include "GameObject.h"
 
+struct kTilesetRender {
+	CTileSet* tileset;
+	Vector2 rangeId = Vector2(0, 0);
+};
 
 class CGameMap
 {
@@ -15,10 +18,12 @@ class CGameMap
 	int tileWidth;
 	int tileHeight;
 	Vector2 camPosition;
-	//shared_ptr<Camera> camera;
+	
 
-	map<int, shared_ptr<CTileSet>> tilesets;
-	vector<shared_ptr<CMapLayer>> layers;
+	vector<CTileSet*> tilesets;
+	kTilesetRender kRender;
+
+	vector<CMapLayer*> layers;
 
 public:
 	CGameMap();
@@ -27,11 +32,11 @@ public:
 
 	virtual Vector2 GetBound();
 
-	virtual shared_ptr<CTileSet> GetTileSetByTileID(int id);
+	virtual CTileSet* GetTileSetByTileID(int id);
 
-	virtual void AddTileSet(int firstgid, shared_ptr<CTileSet> tileSet);
+	virtual void AddTileSet(int firstgid, CTileSet* tileSet);
 
-	virtual void AddLayer(shared_ptr<CMapLayer> layer);
+	virtual void AddLayer(CMapLayer* layer);
 
 	void UpdateCamPosition(Vector2 newPos);
 	Vector2 ConvertToPositionInCam(Vector2 oldPos);
@@ -42,7 +47,7 @@ public:
 
 	virtual void GetMapSize(Vector2 &out);
 
-	static shared_ptr<CGameMap> FromTMX(string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	static CGameMap* FromTMX(string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
 	~CGameMap();
 };
 

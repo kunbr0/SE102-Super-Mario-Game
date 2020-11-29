@@ -38,19 +38,33 @@ Vector2 CGameMap::GetBound()
 	return Vector2(this->width * tileWidth, this->height * tileHeight);
 }
 
-shared_ptr<CTileSet> CGameMap::GetTileSetByTileID(int id)
-{
-	/*return floor_entry(tilesets, id).second;*/
 
-	return tilesets[1];
+
+CTileSet* CGameMap::GetTileSetByTileID(int id)
+{
+	
+	
+	if(!(id >= kRender.rangeId.x && id <= kRender.rangeId.y)) {
+		for (int i = 0; i < tilesets.size(); i++) {
+			Vector2 tilesetRangeId = tilesets[i]->GetRangeId();
+			if (id >= tilesetRangeId.x && id <= tilesetRangeId.y) {
+				kRender.rangeId.x = tilesetRangeId.x;
+				kRender.rangeId.y = tilesetRangeId.y;
+				kRender.tileset = tilesets[i];
+			}
+		}
+	}
+	
+
+	return kRender.tileset;
 }
 
-void CGameMap::AddTileSet(int firstgid, shared_ptr<CTileSet> tileSet)
+void CGameMap::AddTileSet(int firstgid, CTileSet* tileSet)
 {
 	this->tilesets[firstgid] = tileSet;
 }
 
-void CGameMap::AddLayer(shared_ptr<CMapLayer> layer)
+void CGameMap::AddLayer(CMapLayer* layer)
 {
 	this->layers.push_back(layer);
 }
@@ -74,23 +88,30 @@ void CGameMap::Render(float bottomMargin)
 			int x = i * tileWidth + tileWidth / 2;
 			int y = j * tileHeight + tileHeight / 2;
 
-			for (shared_ptr<CMapLayer> layer : layers) {
+
+			
+
+			for (CMapLayer* layer : layers) {
 				if (layer->Hidden) continue;
 				int id = layer->GetTileID(i % width, j % height);
-				this->GetTileSetByTileID(id)->Draw(id, ConvertToPositionInCam(Vector2(x,y)));
+				if (id > 0) {
+					this->GetTileSetByTileID(id)->Draw(id, ConvertToPositionInCam(Vector2(x, y)));
+				}
+				
+				
 			}
 		}
 	}
 }
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap)
+CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
 
 	if (doc.LoadFile()) {
 		TiXmlElement* root = doc.RootElement();
-		shared_ptr<CGameMap> gameMap = shared_ptr<CGameMap>(new CGameMap());
+		CGameMap* gameMap = new CGameMap();
 
 		root->QueryIntAttribute("width", &gameMap->width);
 		root->QueryIntAttribute("height", &gameMap->height);
@@ -101,13 +122,13 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* st
 		
 		for (TiXmlElement* node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset")) {
 			CTileSet* tileSet = new CTileSet(node, filePath);
-			auto abc = tileSet->GetFirstGID();
-			gameMap->tilesets[tileSet->GetFirstGID()] = shared_ptr<CTileSet>(tileSet);
+			
+			gameMap->tilesets.push_back(tileSet);
 		}
 
 		//Load layer
 		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
-			shared_ptr<CMapLayer> layer = shared_ptr<CMapLayer>(new CMapLayer(node));
+			CMapLayer* layer = new CMapLayer(node);
 			gameMap->AddLayer(layer);
 		}
 

@@ -182,8 +182,8 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
 	
+	if (player == NULL) return;
 
 	if ( ((CMario*)(player))->GetAction() == MarioAction::EXPLODE ) {
 		timeScale = 0;
@@ -264,7 +264,7 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 
-	sceneCamera.AdjustTimeRemaining(dt*-1);
+	
 	
 	sceneCamera.Update(dt); // Update Map in Camera
 }
@@ -395,7 +395,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* gameInstance = CGame::GetInstance();
 	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
-
+	if (currentPlayer == NULL)return;
 	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S };
 	std::vector<int> OrderProcessKey = { DIK_RIGHT, DIK_LEFT, DIK_DOWN };
 	

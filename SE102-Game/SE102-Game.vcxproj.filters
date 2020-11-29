@@ -101,9 +101,6 @@
     <Filter Include="GameSource\GameObjects\CollisionBox\RectPlatform">
       <UniqueIdentifier>{f594ef79-8eb4-47fe-b6be-aa3883acc435}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox">
-      <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource\GameObjects\Items">
       <UniqueIdentifier>{322bd420-ee50-46a5-a469-0db9d2ff5a8c}</UniqueIdentifier>
     </Filter>
@@ -118,6 +115,9 @@
     </Filter>
     <Filter Include="GameSource\GameObjects\Items\Coin">
       <UniqueIdentifier>{68119fe2-2528-4a39-beaf-4197e30b1668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\QuestionBox">
+      <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -290,10 +290,10 @@
       <Filter>GameSource\GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
-      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+      <Filter>GameSource\GameObjects\Items\QuestionBox</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlockItem.cpp">
-      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+      <Filter>GameSource\GameObjects\Items\QuestionBox</Filter>
     </ClCompile>
     <ClCompile Include="Leaf.cpp">
       <Filter>GameSource\GameObjects\Items\Leaf</Filter>
@@ -487,10 +487,10 @@
       <Filter>GameSource\GameObjects\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
-      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+      <Filter>GameSource\GameObjects\Items\QuestionBox</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlockItem.h">
-      <Filter>GameSource\GameObjects\CollisionBox\RectCollision\QuestionBox</Filter>
+      <Filter>GameSource\GameObjects\Items\QuestionBox</Filter>
     </ClInclude>
     <ClInclude Include="Leaf.h">
       <Filter>GameSource\GameObjects\Items\Leaf</Filter>

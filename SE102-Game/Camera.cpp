@@ -38,7 +38,7 @@ void CCamera::SetMapData(int newTimeRemaning, int newScore, int playerLife) {
 }
 
 void CCamera::AdjustTimeRemaining(int deltaTime) {
-	mapData.timeRemaining += deltaTime;
+	mapData.timeRemaining -= deltaTime;
 	if (mapData.timeRemaining < 0) mapData.timeRemaining = 0;
 }
 
@@ -79,7 +79,7 @@ void CCamera::Update(DWORD dt) {
 	//CGame* game = CGame::GetInstance();
 	UpdateCamPosition();
 	mMap->UpdateCamPosition(camPosition);
-	
+	AdjustTimeRemaining(dt);
 	
 	
 }

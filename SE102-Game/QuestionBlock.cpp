@@ -15,29 +15,16 @@ void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
 
 void CQuestionBlock::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(Vector2(finalPos.x + deltaRender.x, finalPos.y+deltaRender.y));
-	if (extra_animations.size() > 0) RenderExtraAnimations();
+	
 	RenderBoundingBox(finalPos);
 }
 
-void CQuestionBlock::RenderExtraAnimations() {
-	for (MotionableAnimation mA : extra_animations) {
-		DWORD curTime = GetTickCount64();
-		if (curTime > mA.timeBegin && curTime < mA.timeBegin + mA.timeAni) {
-			float ratio = (curTime * 1.0f - mA.timeBegin * 1.0f) / (mA.timeAni * 1.0f);
-			Vector2 finalPos = CGame::GetInstance()->GetCurrentScene()->GetCamera()->ConvertPosition(mA.initialPosition);
-			
-			CAnimations::GetInstance()->Get(mA.animationId)->Render(
-				Vector2((int)(finalPos.x + mA.deltaPosition.x * ratio), (int)(finalPos.y + mA.deltaPosition.y * ratio))
-			);
-		}
-	}
-}
+
 
 void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	
 	if (state.type == EBlockState::OPENING) {
 		ChangeState(EBlockState::OPENED);
-		ProcessOpeningBox();
 	}
 }
 
@@ -58,49 +45,24 @@ std::string CQuestionBlock::GetAnimationIdFromState() {
 	}
 }
 
-MotionableAnimation CQuestionBlock::CreateMotionableAnimation(std::string id, Vector2 initPos, Vector2 deltaPos, int begin, int timeAni) {
-	MotionableAnimation a;
-	a.animationId = id;
-	a.initialPosition = initPos;
-	a.deltaPosition = deltaPos;
-	a.timeBegin = begin;
-	a.timeAni = timeAni;
-	return a;
-}
 
-void CQuestionBlock::CreateBoundingCoinAnimation(Vector2 initPos) {
-	extra_animations.push_back(CreateMotionableAnimation("ani-coin-in-question-block", initPos + Vector2(0, -48), Vector2(0, -200), GetTickCount64(), 300));
-	extra_animations.push_back(CreateMotionableAnimation("ani-coin-in-question-block", initPos + Vector2(0, -248), Vector2(0, 200), GetTickCount64() + 300, 300));
-	extra_animations.push_back(CreateMotionableAnimation("ani-100", initPos + Vector2(0, -48), Vector2(0, -100), GetTickCount64() + 2*300, 300));
 
-}
 
 void CQuestionBlock::OpenBox() {
-	CreateBoundingCoinAnimation(GetPosition() + Vector2(3, 0));
+	
 	
 }
 
-void CQuestionBlock::ProcessOpeningBox() {
-	if (state.type != EBlockState::OPENING) return;
-	int currentTimeInState = GetTickCount64() - state.beginState;
-	float step = ((currentTimeInState*10 / (state.timeState+1))) + 1;
-	DebugOut(ToWSTR(std::to_string(step) + "\n").c_str());
-	if (step <= 5) deltaRender.y = -DELTA_POSITION_STEP_OPENING * step;
-	else deltaRender.y = -DELTA_POSITION_STEP_OPENING * (10 - step);
-
-}
 
 
 
 void CQuestionBlock::SetState(EBlockState newState, DWORD newTimeState) {
 	state.type = newState;
-	state.beginState = GetTickCount64();
-	state.timeState = newTimeState;
 }
 
 
 void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
-	if (GetTickCount64() < state.timeState + state.beginState) return;
+	
 	switch (newState)
 	{
 	case EBlockState::DEFAULT:

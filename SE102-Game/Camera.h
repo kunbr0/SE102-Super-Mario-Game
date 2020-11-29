@@ -1,7 +1,6 @@
 #pragma once
 #include "Transform.h"
 #include "GameObject.h"
-
 #include "GameMap2.h"
 
 struct MapData
@@ -20,7 +19,7 @@ protected:
 	Vector2 camSize; // (width,height) px
 	Vector2 mapSize; // (width, height) px
 	CGameObject* positionController; // who controls the camera position
-	shared_ptr<CGameMap> mMap;
+	CGameMap* mMap;
 	MapData	mapData;
 	
 
