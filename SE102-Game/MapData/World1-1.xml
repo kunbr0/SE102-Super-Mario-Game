@@ -7,7 +7,7 @@
             <texture id="tex-ui" filePath="Assets\Textures\UI.png" />
             <texture id="tex-misc" filePath="Assets\Textures\misc.png" />
             <texture id="tex-effect" filePath="Assets\Textures\effect.png" transColor="68,145,190"/>
-            <texture id="-100" filePath="Textures\\bbox.png" transColor="255,255,255" />
+            <texture id="-100" filePath="Assets\Textures\bbox.png" transColor="255,255,255" />
         </textures>
 
         <sprites>

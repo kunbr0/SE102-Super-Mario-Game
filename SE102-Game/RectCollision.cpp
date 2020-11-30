@@ -17,7 +17,7 @@ void CRectCollision::GetBoundingBox(float& left, float& top, float& right, float
 }
 
 void CRectCollision::Render(Vector2 finalPos) {
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 	
 }
 

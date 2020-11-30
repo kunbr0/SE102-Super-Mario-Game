@@ -44,12 +44,6 @@
     <Filter Include="GameSource\GameObjects\Portal">
       <UniqueIdentifier>{09a84a80-d79a-4a28-aeb3-0caea2d0a78b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\GameMap">
-      <UniqueIdentifier>{3325abc5-af94-4b3f-9875-4ba221792599}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Utils\MapReader">
-      <UniqueIdentifier>{3e9a9f20-27b3-4120-b771-762693b0e9a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{13da4362-146c-4732-87a2-fe893a4f8f28}</UniqueIdentifier>
     </Filter>
@@ -177,69 +171,6 @@
     </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>GameSource\GameObjects\Portal</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>Framework\GameMap</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\base64.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\miniz.c">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\tinyxml2.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxEllipse.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxImage.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxImageLayer.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxLayer.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxMap.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxObject.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxObjectGroup.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPolygon.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPolyline.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPropertySet.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTerrain.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTerrainArray.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTile.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileLayer.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileOffset.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileset.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxUtil.cpp">
-      <Filter>Framework\Utils\MapReader</Filter>
     </ClCompile>
     <ClCompile Include="RectCollision.cpp">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision</Filter>
@@ -372,78 +303,6 @@
     <ClInclude Include="Portal.h">
       <Filter>GameSource\GameObjects\Portal</Filter>
     </ClInclude>
-    <ClInclude Include="GameMap.h">
-      <Filter>Framework\GameMap</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\base64.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\tinyxml2.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxEllipse.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxImage.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxImageLayer.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxLayer.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxMap.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxMapTile.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxObject.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxObjectGroup.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPoint.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPolygon.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPolyline.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPropertySet.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTerrain.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTerrainArray.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTile.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileLayer.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileOffset.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileset.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxUtil.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\zconf.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\zlib.h">
-      <Filter>Framework\Utils\MapReader</Filter>
-    </ClInclude>
     <ClInclude Include="RectCollision.h">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision</Filter>
     </ClInclude>
@@ -533,46 +392,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\misc.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\goldbrick.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\loctho.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\normalbrick.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\tileset-platformer.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\world-1-1n.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\marioK.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MapReader\Tmx.h.in" />
-    <None Include="Resources\new_world_1_1.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\untitled.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\world_1_1.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\world_1_1_1017.tmx" />
     <None Include="Resources\world-1-1n.tsx">
       <Filter>Resource Files</Filter>
     </None>
