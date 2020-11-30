@@ -1,49 +1,115 @@
 #include "Goomba.h"
+
 CGoomba::CGoomba(float x, float y)
-{	
+{
 	this->x = x;
 	this->y = y;
-	SetState(GOOMBA_STATE_WALKING);
+	this->nx = -1;
+
+	ChangeState(EEnemyState::LIVE);
 }
 
-void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = x;
-	top = y;
-	right = x + GOOMBA_BBOX_WIDTH;
 
-	/*if (state == GOOMBA_STATE_DIE)
-		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
-	else*/
-	bottom = y + GOOMBA_BBOX_HEIGHT;
+std::string CGoomba::GetAnimationIdFromState() {
+	switch (state.type)
+	{
+	case EEnemyState::LIVE:
+		return GOOMBA_ANI_WALKING;
+	case EEnemyState::WILL_DIE:
+		return GOOMBA_ANI_WALKING;
+	default:
+		return GOOMBA_ANI_WALKING;
+	}
 }
+
+Vector2 CGoomba::GetBoundingBoxSize(EEnemyState st) {
+	switch (st)
+	{
+	case EEnemyState::LIVE:
+		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_HEIGHT);
+	case EEnemyState::WILL_DIE:
+		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_WIDTH);
+	case EEnemyState::DIE:
+	case EEnemyState::ONESHOTDIE:
+		return Vector2(0, 0);
+	default:
+		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_WIDTH);
+	}
+}
+
+void CGoomba::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		MarioAction objAction = ((CMario*)(obj))->GetAction();
+		if (objAction == MarioAction::ATTACK) {
+			vy = -0.9f;
+			SwitchEffect(EExtraEffect::BEING_DAMAGED);
+			ChangeState(EEnemyState::WILL_DIE);
+		}
+	}
+	else if (dynamic_cast<CFireBullet*>(obj)) {
+		ChangeState(EEnemyState::ONESHOTDIE);
+	}
+}
+
+
+void CGoomba::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+	BeingCollided(obj);
+	if (dynamic_cast<CMario*>(obj)) {
+		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
+		switch (state.type)
+		{
+		case EEnemyState::LIVE:
+		case EEnemyState::BEING_KICKED:
+			KillMario((CMario*)obj);
+			break;
+		case EEnemyState::WILL_DIE:
+			BeingKicked(obj->GetPosition());
+			break;
+		case EEnemyState::DIE:
+			break;
+		}
+	}
+
+}
+
+void CGoomba::BeingCollidedTop(LPGAMEOBJECT obj) {
+	this->BeingCollidedTopBottom(obj);
+}
+
+void CGoomba::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
+	BeingCollided(obj);
+	CEnemy::BeingCollidedTop(obj);
+	if (dynamic_cast<CMario*>(obj)) {
+		if (state.type == EEnemyState::LIVE)
+			ChangeState(EEnemyState::WILL_DIE);
+		else
+			BeingKicked(obj->GetPosition());
+	}
+
+}
+
+
+
+
+void CGoomba::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+	ChangeDirection();
+}
+
+void CGoomba::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
+	InitWtandingScope(coEvents);
+}
+
+
+
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
 	ApplyGravity();
+	CEnemy::Update(dt, coObjects);
+	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
+	ChangeDirectionAfterAxisCollide();
+	UpdateWithCollision(coObjects);
 }
 
-void CGoomba::Render(Vector2 finalPos)
-{
 
-	LPANIMATION a = CAnimations::GetInstance()->Get("ani-goomba-walk");
-	a->Render(finalPos);
 
-	//RenderBoundingBox(finalPos);
-}
-
-void CGoomba::SetState(int state)
-{
-	/*CGameObject::SetState(state);*/
-	switch (state)
-	{
-	case GOOMBA_STATE_DIE:
-		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
-		vx = 0;
-		vy = 0;
-		break;
-	case GOOMBA_STATE_WALKING:
-		vx = -GOOMBA_WALKING_SPEED;
-	}
-}

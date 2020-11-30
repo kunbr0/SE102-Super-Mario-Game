@@ -33,9 +33,6 @@
         <!-- Dynamic Objects -->
             <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <mario type="2" x="50" y="850" />
-            <koopas x="400" y="1150" />
-            <koopas x="1200" y="1150" />
-            <koopas x="1600" y="1050" />
-            
+
         </objects>
     </mapdata>

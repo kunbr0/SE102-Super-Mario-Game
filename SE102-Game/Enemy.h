@@ -45,7 +45,7 @@ public:
 
 	virtual void Update(DWORD, vector<LPGAMEOBJECT>*);
 	virtual void Render(Vector2);
-	virtual void RenderExtraAnimations(Vector2);
+	
 	
 	virtual float GetDefaultWalkingSpeed() { return 0.0f; }
 
@@ -54,7 +54,6 @@ public:
 	virtual EEnemyState GetState() { return state.type; };
 
 	virtual void BeingKicked(Vector2 pos);
-
 
 	virtual void ChangeDirection();
 	virtual void ChangeDirectionAfterAxisCollide();

@@ -52,7 +52,8 @@ struct SRenderAnimation {
 
 enum class EExtraEffect {
 	NONE,
-	BEING_DAMAGED
+	BEING_DAMAGED,
+	BONUS,
 };
 
 struct SExtraEffect {
@@ -121,8 +122,10 @@ public:
 	
 	virtual std::string GetRenderAnimationId(EExtraEffect);
 
-	virtual void ChangeEffect(EExtraEffect = EExtraEffect::NONE, DWORD = 0);
-	virtual void SwitchToDamageEffect();
+	virtual void SetEffect(EExtraEffect = EExtraEffect::NONE, DWORD = 0);
+	virtual void SwitchEffect(EExtraEffect = EExtraEffect::NONE);
+	virtual void RenderExtraEffect(Vector2);
+
 
 	void ResetRenderAnimation();
 	virtual void ChangeRenderAnimation(std::string newRenderAnimationID);

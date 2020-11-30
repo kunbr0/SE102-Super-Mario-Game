@@ -7,8 +7,9 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "RectPlatform.h"
-
+#include "Coin.h"
 #define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
+#define ANIMATIONID_BONUS				"ani-mario-damaged"
 
 
 CGameObject::CGameObject()
@@ -217,7 +218,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 	
-
+	
 	coEvents.clear();
 
 	CalcPotentialCollisions(coObjects, coEvents);
@@ -226,10 +227,22 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		x += dx;
 		y += dy;
 		NoCollided();
-		
+
+		if (dynamic_cast<CCoin*>(this)) {
+			auto aa = this;
+			int a = 9;
+
+		}
 	}
 	else
 	{
+		
+		if (dynamic_cast<CCoin*>(this)) {
+			auto aa = this;
+			int a = 9;
+
+		}
+
 		Collided();
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
@@ -266,7 +279,12 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 }
 
 
-
+void CGameObject::RenderExtraEffect(Vector2 finalPos) {
+	if (effect.type != EExtraEffect::NONE)
+		CAnimations::GetInstance()->Get(CGameObject::GetRenderAnimationId(effect.type))->Render(
+			Vector2(finalPos.x + (effect.initPosition.x - this->x), finalPos.y + (effect.initPosition.y - this->y)),
+			Vector2(-nx, ny), 255);
+}
 
 void CGameObject::ResetRenderAnimation() {
 	renderAnimation.AnimationID = "";
@@ -290,12 +308,13 @@ CGameObject::~CGameObject()
 }
 
 
-void CGameObject::SwitchToDamageEffect() {
-	ChangeEffect(EExtraEffect::BEING_DAMAGED, 500);
+
+void CGameObject::SwitchEffect(EExtraEffect eff) {
+	SetEffect(eff, 500);
 	effect.initPosition = Vector2(this->x, this->y);
 }
 
-void CGameObject::ChangeEffect(EExtraEffect newEffect, DWORD timeEffect) {
+void CGameObject::SetEffect(EExtraEffect newEffect, DWORD timeEffect) {
 	if (GetTickCount64() < effect.timeEffect + effect.timeBegin) return;
 	effect.timeBegin = GetTickCount64();
 	effect.timeEffect = timeEffect;
@@ -309,6 +328,8 @@ std::string CGameObject::GetRenderAnimationId(EExtraEffect effctType) {
 	{
 	case EExtraEffect::BEING_DAMAGED:
 		return ANIMATIONID_BEING_DAMAGE;
+	case EExtraEffect::BONUS:
+		return ANIMATIONID_BONUS;
 	default:
 
 		return ANIMATIONID_BEING_DAMAGE;

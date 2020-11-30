@@ -43,7 +43,7 @@ public:
 	void UpdateCamPosition();
 	
 
-	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
 	void Update(DWORD dt);
 	void Render();
 	void RenderDetailBoard();

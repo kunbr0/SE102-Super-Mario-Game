@@ -25,7 +25,7 @@ void CQuestionBlock::Render(Vector2 finalPos) {
 
 void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (state.type == EBlockState::OPENING) {
-		deltaRenderSpeed.y += 2.6f;
+		deltaRenderSpeed.y += 2.2f;
 		deltaRender.y += deltaRenderSpeed.y;
 		if (deltaRender.y > 0) {
 			deltaRender.y = 0;
@@ -58,7 +58,7 @@ std::string CQuestionBlock::GetAnimationIdFromState() {
 
 void CQuestionBlock::OpenBox() {
 	deltaRenderSpeed.y = -15.5f;
-	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CBoundingCoinEffect(Vector2(x,y-48*1.5), Vector2(0, -0.55)));
+	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CBoundingCoinEffect(Vector2(x,y-48*1.5), Vector2(0, -0.50)));
 }
 
 
@@ -92,7 +92,7 @@ void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
 
 	case EBlockState::OPENED:
 		SetState(newState, newTimeState);
-		
+		isTemp = false;
 		break;
 
 	default:

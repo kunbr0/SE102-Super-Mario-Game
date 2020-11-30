@@ -7,6 +7,7 @@
 #include "Venus.h"
 #include "Coin.h"
 #include "Goomba.h"
+#include "Koopas.h"
 
 
 #define marginXWindow	96
@@ -104,7 +105,7 @@ void CGameMap::Render(float bottomMargin)
 	}
 }
 
-CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap)
+CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -180,6 +181,8 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
+			
+
 			if (std::string(objGroupNode->Attribute("name")) == "Coin") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CCoin(
@@ -187,7 +190,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					staticObjects->push_back(obj);
+					tempObjects->push_back(obj);
 				}
 			}
 
@@ -211,6 +214,16 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 			if (std::string(objGroupNode->Attribute("name")) == "Goomba") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CGoomba(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					);
+					dynamicObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "Koopas") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CKoopas(
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 					);

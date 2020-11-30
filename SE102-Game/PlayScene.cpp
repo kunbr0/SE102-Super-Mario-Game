@@ -131,34 +131,11 @@ bool CPlayScene::LoadDataFromFile() {
 			
 		}
 		
-		// Goomba
-		for (TiXmlElement* goomba = objs->FirstChildElement("goomba"); goomba != nullptr; goomba = goomba->NextSiblingElement("goomba")) {
-			int x = atoi(goomba->Attribute("x"));
-			int y = atoi(goomba->Attribute("y"));
-			LPGAMEOBJECT a = new CGoomba(x, y);
-			dynamicObjects.push_back(a);
-		}
-
-		// Koopas
-		for (TiXmlElement* goomba = objs->FirstChildElement("koopas"); goomba != nullptr; goomba = goomba->NextSiblingElement("koopas")) {
-			int x = atoi(goomba->Attribute("x"));
-			int y = atoi(goomba->Attribute("y"));
-			LPGAMEOBJECT a = new CKoopas(x, y);
-			dynamicObjects.push_back(a);
-		}
-
-		// Question Box
-		for (TiXmlElement* questionBox = objs->FirstChildElement("questionbox"); questionBox != nullptr; questionBox = questionBox->NextSiblingElement("questionbox")) {
-			int x = atoi(questionBox->Attribute("x"));
-			int y = atoi(questionBox->Attribute("y"));
-			LPGAMEOBJECT a = new CQuestionBlock(Vector2(x, y));
-			staticObjects.push_back(a);
-		}
 	}
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap);
+	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap, &tempObjects);
 	return true;
 }
 
@@ -245,20 +222,18 @@ void CPlayScene::Update(DWORD dt)
 			mainObjects[i]->Update(dt, &coObjects);
 	}
 
-	for (size_t i = 0; i < mainObjects.size(); i++)
-	{
-		coObjects.push_back(mainObjects[i]);
-	}
+	
 	for (size_t i = 0; i < tempObjects.size(); i++)
 	{
 		if (!tempObjects[i]->isTemp) {
 			tempObjects.erase(tempObjects.begin() + i);
 		}
 		else if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y)))
-			tempObjects[i]->Update(dt, &coObjects);
+			tempObjects[i]->Update(dt, &mainObjects);
 		else
 			if (!dynamic_cast<CMario*>(tempObjects[i]))
 				tempObjects[i]->isDisable = true;
+		
 
 	}
 
@@ -302,11 +277,23 @@ void CPlayScene::Render()
 
 	for (int i = 0; i < mainObjects.size(); i++)
 		if (!mainObjects[i]->isDisable) {
-			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(mainObjects[i]->x, mainObjects[i]->y));
-			if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
+			if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y))) {
+				Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(mainObjects[i]->x, mainObjects[i]->y));
 				mainObjects[i]->Render(finalPos);
-
+			}
 		}
+
+	for (int i = 0; i < tempObjects.size(); i++) {
+		if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y))) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(tempObjects[i]->x, tempObjects[i]->y));
+			tempObjects[i]->Render(finalPos);
+		}
+			
+	}
+		
+			
+
+
 
 	for (size_t i = 0; i < effects.size(); i++)
 	{

@@ -10,5 +10,5 @@ std::string CBoundingCoinEffect::GetAnimationId() {
 }
 
 void CBoundingCoinEffect::OnFinish() {
-	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(initialPosition, Vector2(0, -0.44)));
+	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(initialPosition, Vector2(0, -0.11)));
 }

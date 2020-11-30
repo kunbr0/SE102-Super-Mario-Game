@@ -21,8 +21,8 @@ void CCamera::InitPositionController(CGameObject* player) {
 	this->positionController = player;
 }
 
-void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap) {
-	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap);
+void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
+	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
 	mMap->GetMapSize(mapSize);
 	mapSize;
 }
@@ -102,6 +102,7 @@ void CCamera::RenderDetailBoard() {
 		Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i* distance, beginScorePos.y));
 
 	}*/
+
 	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.score), beginScorePos, '0', 7);
 
 	for (int i = 0; i < 7; i++) {
@@ -121,7 +122,7 @@ void CCamera::RenderDetailBoard() {
 			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
 
 	}
-	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(224,0), '0', 3);
+	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(221,0), '0', 3);
 }
 
 void CCamera::Render() {

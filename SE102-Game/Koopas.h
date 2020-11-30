@@ -1,12 +1,12 @@
 #pragma once
 #include "Enemy.h"
 
-#define GOOMBA_WALKING_SPEED		0.09f;
+#define KOOPAS_WALKING_SPEED		0.09f;
 
-#define GOOMBA_BBOX_WIDTH			48
-#define GOOMBA_BBOX_HEIGHT			77
-#define GOOMBA_BBOX_CROUCH_WIDTH	48
-#define GOOMBA_BBOX_CROUCH_HEIGHT	40
+#define KOOPAS_BBOX_WIDTH			48
+#define KOOPAS_BBOX_HEIGHT			77
+#define KOOPAS_BBOX_CROUCH_WIDTH	48
+#define KOOPAS_BBOX_CROUCH_HEIGHT	40
 
 #define GOOMBA_STATE_WALKING		100
 #define GOOMBA_STATE_CROUCHING		200
@@ -26,7 +26,7 @@ class CKoopas : public CEnemy
 public:
 	CKoopas(float x, float y);
 	
-	float GetDefaultWalkingSpeed() override { return GOOMBA_WALKING_SPEED; }
+	float GetDefaultWalkingSpeed() override { return KOOPAS_WALKING_SPEED; }
 
 	Vector2 GetBoundingBoxSize(EEnemyState) override;
 	

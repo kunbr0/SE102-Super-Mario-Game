@@ -47,7 +47,7 @@ public:
 
 	virtual void GetMapSize(Vector2 &out);
 
-	static CGameMap* FromTMX(string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	static CGameMap* FromTMX(string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
 	~CGameMap();
 };
 

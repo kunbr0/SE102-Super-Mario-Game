@@ -1,5 +1,6 @@
 #include "Enemy.h"
-
+#include "PlayScene.h"
+#include "AddingPointEffect.h"
 
 CEnemy::CEnemy() {
 	walkingSpeed = 0;
@@ -63,21 +64,15 @@ void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vx = walkingSpeed * nx;
-	ChangeEffect(EExtraEffect::NONE);
+	SetEffect(EExtraEffect::NONE);
 	CGameObject::Update(dt, coObjects);
 }
 
-void CEnemy::RenderExtraAnimations(Vector2 finalPos) {
-	if (effect.type != EExtraEffect::NONE)
-		CAnimations::GetInstance()->Get(CGameObject::GetRenderAnimationId(effect.type))->Render(
-			Vector2(finalPos.x + (effect.initPosition.x - this->x), finalPos.y + (effect.initPosition.y - this->y)),
-			Vector2(-nx, ny), 255);
-}
 
 void CEnemy::Render(Vector2 finalPos) {
 	RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos,Vector2(-nx, ny) , 255);
-	RenderExtraAnimations(finalPos);
+	RenderExtraEffect(finalPos);
 	
 }
 
@@ -105,6 +100,8 @@ void CEnemy::BeingKicked(Vector2 pos) {
 	ChangeState(EEnemyState::BEING_KICKED);
 }
 
+
+
 void CEnemy::KillMario(CMario* mario) {
 	mario->BeingKilled();
 }
@@ -121,12 +118,14 @@ void CEnemy::ChangeState(EEnemyState newState)
 		break;
 	case EEnemyState::WILL_DIE:
 		if (state.type == EEnemyState::LIVE) {
+			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 			walkingSpeed = 0;
 			SetState(newState);
 		}
 		break;
 	case EEnemyState::BEING_KICKED:
 		if (state.type == EEnemyState::WILL_DIE) {
+			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 			SetState(newState);
 		}
 		break;
@@ -137,6 +136,7 @@ void CEnemy::ChangeState(EEnemyState newState)
 	case EEnemyState::ONESHOTDIE:
 		vy = -0.7f;
 		ny = -1;
+		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 		SetState(newState);
 		break;
 	default:
