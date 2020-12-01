@@ -170,6 +170,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="KoopasFly.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLayer.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="KoopasFly.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="Mario.h" />

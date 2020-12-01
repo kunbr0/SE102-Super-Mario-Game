@@ -50,7 +50,7 @@ public:
 	virtual float GetDefaultWalkingSpeed() { return 0.0f; }
 
 	virtual void SetState(EEnemyState, DWORD = 0);
-	virtual void ChangeState(EEnemyState newState);
+	virtual void ChangeState(EEnemyState newState, DWORD = 0);
 	virtual EEnemyState GetState() { return state.type; };
 
 	virtual void BeingKicked(Vector2 pos);
@@ -58,8 +58,11 @@ public:
 	virtual void ChangeDirection();
 	virtual void ChangeDirectionAfterAxisCollide();
 
-	virtual void BeingCollidedTop(LPGAMEOBJECT) override;
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
 
+	virtual void BeingCollidedTop(LPGAMEOBJECT) override;
+	virtual void BeingCollided(LPGAMEOBJECT) override;
+	virtual void BeingCollidedLeftRight(LPGAMEOBJECT) override;
 	virtual void OnHadCollided(LPGAMEOBJECT) override;
 
 	virtual void KillMario(CMario* );

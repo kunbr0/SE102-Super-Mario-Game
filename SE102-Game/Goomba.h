@@ -3,12 +3,16 @@
 
 #define GOOMBA_WALKING_SPEED 0.09f;
 
-#define GOOMBA_BBOX_WIDTH 48
-#define GOOMBA_BBOX_HEIGHT 45
+#define GOOMBA_BBOX_WIDTH				48
+#define GOOMBA_BBOX_HEIGHT				45
+#define GOOMBA_BBOX_WILL_DIE_HEIGHT		18
+
 #define GOOMBA_BBOX_HEIGHT_DIE 9
 
 
 #define GOOMBA_ANI_WALKING			"ani-goomba-walk"
+#define GOOMBA_ANI_WILL_DIE			"ani-goomba-die"
+
 #define GOOMBA_ANI_DIE				"ani-goomba-die"
 
 class CGoomba : public CEnemy
@@ -23,19 +27,16 @@ public:
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
 	void Collided() override {};
 
-	//void BeingCollided(ETag, Vector2);
-	void BeingCollidedTop(LPGAMEOBJECT) override;
+	
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
 
-	void BeingCollidedLeftRight(LPGAMEOBJECT) override;
-	void BeingCollided(LPGAMEOBJECT) override;
-	//void BeingCollidedRight(ETag, Vector2);
+	
 
+	void ChangeState(EEnemyState, DWORD = 0) override;
 
 	std::string GetAnimationIdFromState() override;
 

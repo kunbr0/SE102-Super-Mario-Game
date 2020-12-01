@@ -58,8 +58,8 @@ void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
 	state.timeState = timeState;
 	state.timeBegin = GetTickCount64();
 	if (newSize.x == 0 && newSize.y == 0) return;
-	this->y -= (newSize.y - currentSize.y);
-	this->x -= (newSize.x - currentSize.x);
+	this->y -= (newSize.y - currentSize.y) / 2;
+	this->x -= (newSize.x - currentSize.x) / 2;
 }
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -70,6 +70,7 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 void CEnemy::Render(Vector2 finalPos) {
+	if (state.type == EEnemyState::DIE) return;
 	RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos,Vector2(-nx, ny) , 255);
 	RenderExtraEffect(finalPos);
@@ -85,7 +86,32 @@ void CEnemy::BeingCollidedTop(LPGAMEOBJECT obj) {
 	if (dynamic_cast<CMario*>(obj)) {
 		((CMario*)(obj))->BeingBouncedAfterJumpInTopEnemy();
 	}
+	this->BeingCollidedTopBottom(obj);
 };
+
+void CEnemy::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+	ChangeDirection();
+}
+
+void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+	BeingCollided(obj);
+	if (dynamic_cast<CMario*>(obj)) {
+		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
+		switch (state.type)
+		{
+		case EEnemyState::LIVE:
+		case EEnemyState::BEING_KICKED:
+			KillMario((CMario*)obj);
+			break;
+		case EEnemyState::WILL_DIE:
+			BeingKicked(obj->GetPosition());
+			break;
+		case EEnemyState::DIE:
+			break;
+		}
+	}
+
+}
 
 
 void CEnemy::BeingKicked(Vector2 pos) {
@@ -100,6 +126,20 @@ void CEnemy::BeingKicked(Vector2 pos) {
 	ChangeState(EEnemyState::BEING_KICKED);
 }
 
+void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		MarioAction objAction = ((CMario*)(obj))->GetAction();
+		if (objAction == MarioAction::ATTACK) {
+			vy = -0.9f;
+			SwitchEffect(EExtraEffect::BEING_DAMAGED);
+			ChangeState(EEnemyState::WILL_DIE);
+		}
+	}
+	else if (dynamic_cast<CFireBullet*>(obj)) {
+		ChangeState(EEnemyState::ONESHOTDIE);
+	}
+}
+
 
 
 void CEnemy::KillMario(CMario* mario) {
@@ -108,36 +148,37 @@ void CEnemy::KillMario(CMario* mario) {
 
 
 
-void CEnemy::ChangeState(EEnemyState newState)
+void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 {
+	if (GetTickCount64() < state.timeBegin + state.timeState) return;
 	switch (newState)
 	{
 	case EEnemyState::DIE:
 		if (state.type == EEnemyState::WILL_DIE)
-			SetState(newState);
+			SetState(newState, newTimeState);
 		break;
 	case EEnemyState::WILL_DIE:
 		if (state.type == EEnemyState::LIVE) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 			walkingSpeed = 0;
-			SetState(newState);
+			SetState(newState, newTimeState);
 		}
 		break;
 	case EEnemyState::BEING_KICKED:
 		if (state.type == EEnemyState::WILL_DIE) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
-			SetState(newState);
+			SetState(newState, newTimeState);
 		}
 		break;
 	case EEnemyState::LIVE:
 		walkingSpeed = GetDefaultWalkingSpeed();
-		SetState(newState);
+		SetState(newState, newTimeState);
 		break;
 	case EEnemyState::ONESHOTDIE:
 		vy = -0.7f;
 		ny = -1;
 		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
-		SetState(newState);
+		SetState(newState, newTimeState);
 		break;
 	default:
 		break;

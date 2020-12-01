@@ -122,6 +122,9 @@
     <Filter Include="GameSource\GameObjects\Effect\AddingPointEffect">
       <UniqueIdentifier>{e334cfef-c005-43e3-9755-8652ae033c0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemy\KoopasFly">
+      <UniqueIdentifier>{687de0b5-aefd-490a-a02a-76f0a679fc10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -256,6 +259,9 @@
     <ClCompile Include="BoundingCoinEffect.cpp">
       <Filter>GameSource\GameObjects\Effect\BoundingCoinEffect</Filter>
     </ClCompile>
+    <ClCompile Include="KoopasFly.cpp">
+      <Filter>GameSource\GameObjects\Enemy\KoopasFly</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -389,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="BoundingCoinEffect.h">
       <Filter>GameSource\GameObjects\Effect\BoundingCoinEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopasFly.h">
+      <Filter>GameSource\GameObjects\Enemy\KoopasFly</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,10 +8,6 @@
 #define KOOPAS_BBOX_CROUCH_WIDTH	48
 #define KOOPAS_BBOX_CROUCH_HEIGHT	40
 
-#define GOOMBA_STATE_WALKING		100
-#define GOOMBA_STATE_CROUCHING		200
-#define MARGIN_STANDING_AREA		0
-
 
 #define KOOPAS_ANI_WALKING "ani-red-koopa-troopa-move"
 #define KOOPAS_ANI_CROUCH "ani-red-koopa-troopa-crouch"
@@ -32,17 +28,14 @@ public:
 	
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {} ;
 	void Collided() override {};
 
 	//void BeingCollided(ETag, Vector2);
-	void BeingCollidedTop(LPGAMEOBJECT) override;
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
 	
-	void BeingCollidedLeftRight(LPGAMEOBJECT) override;
-	void BeingCollided(LPGAMEOBJECT) override;
+	//void BeingCollided(LPGAMEOBJECT) override;
 	//void BeingCollidedRight(ETag, Vector2);
 
 

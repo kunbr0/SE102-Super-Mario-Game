@@ -39,51 +39,17 @@ Vector2 CKoopas::GetBoundingBoxSize(EEnemyState st) {
 	}
 }
 
-void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
-	if (dynamic_cast<CMario*>(obj)) {
-		MarioAction objAction = ((CMario*)(obj))->GetAction();
-		if (objAction == MarioAction::ATTACK) {
-			vy = -0.9f;
-			SwitchEffect(EExtraEffect::BEING_DAMAGED);
-			ChangeState(EEnemyState::WILL_DIE);
-		}
-	}
-	else if (dynamic_cast<CFireBullet*>(obj)) {
-		ChangeState(EEnemyState::ONESHOTDIE);
-	}
-}
 
 
-void CKoopas::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
-	BeingCollided(obj);
-	if (dynamic_cast<CMario*>(obj)) {
-		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
-		switch (state.type)
-		{
-		case EEnemyState::LIVE:
-		case EEnemyState::BEING_KICKED:
-			KillMario((CMario*)obj);
-			break;
-		case EEnemyState::WILL_DIE:
-			BeingKicked(obj->GetPosition());
-			break;
-		case EEnemyState::DIE:
-			break;
-		}
-	}
-	
-}
 
-void CKoopas::BeingCollidedTop(LPGAMEOBJECT obj) {
-	this->BeingCollidedTopBottom(obj);
-}
+
 
 void CKoopas::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
 	BeingCollided(obj);
-	CEnemy::BeingCollidedTop(obj);
+	
 	if (dynamic_cast<CMario*>(obj)) {
 		if (state.type == EEnemyState::LIVE)
-			ChangeState(EEnemyState::WILL_DIE);
+			ChangeState(EEnemyState::WILL_DIE, 5000);
 		else
 			BeingKicked(obj->GetPosition());
 	}
@@ -93,9 +59,6 @@ void CKoopas::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
 
 
 
-void CKoopas::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents){
-	ChangeDirection();
-}
 
 void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	InitWtandingScope(coEvents);
@@ -103,12 +66,11 @@ void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 
 
 
-
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state.type == EEnemyState::WILL_DIE) ChangeState(EEnemyState::LIVE);
 	ApplyGravity();
 	CEnemy::Update(dt, coObjects);
-	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 	ChangeDirectionAfterAxisCollide();
 	UpdateWithCollision(coObjects);
 }

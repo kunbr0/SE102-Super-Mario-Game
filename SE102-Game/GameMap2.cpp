@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "KoopasFly.h"
 
 
 #define marginXWindow	96
@@ -227,6 +228,16 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 					);
+					dynamicObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "KoopasFly") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CKoopasFly(
+					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+						);
 					dynamicObjects->push_back(obj);
 				}
 			}
