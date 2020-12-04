@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="69">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="95">
  <editorsettings>
   <export target="Resources/world-1-1-mapn.xml" format="tmx"/>
  </editorsettings>
@@ -36,6 +36,18 @@
   <object id="34" x="0" y="0" width="5" height="1296"/>
   <object id="35" x="0" y="0" width="8448" height="5"/>
   <object id="36" x="8443" y="0" width="5" height="1296"/>
+  <object id="69" x="6192" y="1392" width="48" height="528"/>
+  <object id="70" x="6192" y="1872" width="480" height="48"/>
+  <object id="71" x="6624" y="1824" width="48" height="48"/>
+  <object id="72" x="6672" y="1776" width="48" height="48"/>
+  <object id="73" x="6720" y="1728" width="48" height="48"/>
+  <object id="74" x="6768" y="1680" width="48" height="48"/>
+  <object id="75" x="6816" y="1632" width="48" height="48"/>
+  <object id="76" x="6864" y="1584" width="192" height="48"/>
+  <object id="77" x="7008" y="1392" width="48" height="240"/>
+  <object id="78" x="6313.33" y="1392" width="625" height="48"/>
+  <object id="92" x="4176" y="576" width="192" height="48"/>
+  <object id="93" x="4416" y="528" width="672" height="48"/>
  </objectgroup>
  <objectgroup id="15" name="QuestionBox_Coin">
   <object id="49" x="528" y="1056" width="48" height="48"/>
@@ -60,6 +72,18 @@
   <object id="59" x="3408" y="768" width="48" height="48"/>
   <object id="60" x="3504" y="672" width="48" height="48"/>
   <object id="61" x="3600" y="576" width="48" height="48"/>
+  <object id="80" x="6536" y="1752" width="48" height="48"/>
+  <object id="81" x="6474" y="1752" width="48" height="48"/>
+  <object id="82" x="6420" y="1704" width="48" height="48"/>
+  <object id="83" x="6588" y="1704" width="48" height="48"/>
+  <object id="84" x="6588" y="1650" width="48" height="48"/>
+  <object id="85" x="6536" y="1608" width="48" height="48"/>
+  <object id="86" x="6474" y="1608" width="48" height="48"/>
+  <object id="87" x="6588" y="1566" width="48" height="48"/>
+  <object id="88" x="6588" y="1512" width="48" height="48"/>
+  <object id="89" x="6536" y="1464" width="48" height="48"/>
+  <object id="90" x="6474" y="1464" width="48" height="48"/>
+  <object id="91" x="6420" y="1512" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="20" name="Koopas">
   <object id="65" x="1728" y="1050" width="48" height="48"/>
@@ -83,6 +107,7 @@
   <object id="46" x="3936" y="960" width="336" height="288"/>
   <object id="47" x="6384" y="1104" width="144" height="144"/>
   <object id="48" x="6480" y="816" width="144" height="432"/>
+  <object id="94" x="3888" y="432" width="192" height="24"/>
  </objectgroup>
  <layer id="9" name="Background-black" width="176" height="41">
   <data encoding="csv">

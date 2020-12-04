@@ -67,6 +67,7 @@ protected:
 	float vxmax;
 	float vymax;
 	
+	
 
 	MarioType type;
 
@@ -84,6 +85,9 @@ public:
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL) override;
 	virtual void Render(Vector2 finalPos) override;
+
+	
+
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 

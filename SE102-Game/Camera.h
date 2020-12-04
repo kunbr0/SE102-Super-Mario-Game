@@ -15,9 +15,16 @@ class CCamera {
 
 protected:
 	
-	Vector2 camPosition = Vector2(0.0f, 0.0f);
+	Vector2 camPosition ;
 	Vector2 camSize; // (width,height) px
 	Vector2 mapSize; // (width, height) px
+
+	Vector2 LeftTopLimit = Vector2(0, 0);
+	Vector2 RightBottomLimit = Vector2(0, 0);
+	
+
+
+
 	CGameObject* positionController; // who controls the camera position
 	CGameMap* mMap;
 	MapData	mapData;
@@ -32,6 +39,8 @@ public:
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
 	
+	void ChangeCamPosition(Vector2);
+
 	void SetMapData(int=-1, int=-1, int=-1);
 	void AdjustTimeRemaining(int);
 	void AdjustScore(int);

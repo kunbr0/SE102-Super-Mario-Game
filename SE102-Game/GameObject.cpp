@@ -12,7 +12,7 @@
 #include "Coin.h"
 #define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
 #define ANIMATIONID_BONUS				"ani-mario-damaged"
-
+#define DELTA_TO_APPLY_NEW_BASE_POSITION		500
 
 CGameObject::CGameObject()
 {
@@ -193,6 +193,12 @@ void CGameObject::ApplyFriction() {
 		vx += ACCELERATION_FRICTION*dt;
 		if (vx > 0) vx = 0;
 	}
+}
+
+void CGameObject::ChangeBasePosition(Vector2 newPos) {
+	if (abs(basePosition.x - newPos.x) > DELTA_TO_APPLY_NEW_BASE_POSITION) basePosition.x = newPos.x;
+	if (abs(basePosition.y - newPos.y) > DELTA_TO_APPLY_NEW_BASE_POSITION) basePosition.y = newPos.y;
+	
 }
 
 void CGameObject::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {

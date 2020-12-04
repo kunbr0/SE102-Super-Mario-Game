@@ -34,6 +34,8 @@ void CMario::TriggerLifeCycleOfActions() {
 }
 
 void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
+	
+	ChangeBasePosition(GetPosition());
 	if (state.action == MarioAction::DIE) return;
 	if (state.action != MarioAction::CROUCH) {
 		ChangeAction(MarioAction::IDLE);

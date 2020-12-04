@@ -3,12 +3,14 @@
 #include "UIDrawer.h"
 #include <iomanip>
 
+#define DELTA_CHANGE_CAM_BASE_POSITION			5
+
 #define DetailsBoardHeight		200
 #define YGROUND					710
 
 
 CCamera::CCamera() {
-	this->camPosition = Vector2(0, 0);
+	this->camPosition = Vector2(0, 800);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	this->positionController = NULL;
 	mapData.timeRemaining = 300 * 1000;
@@ -24,7 +26,11 @@ void CCamera::InitPositionController(CGameObject* player) {
 void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
 	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
 	mMap->GetMapSize(mapSize);
-	mapSize;
+	LeftTopLimit = Vector2(0, 0);
+	RightBottomLimit = Vector2(mapSize.x, mapSize.y - 520);
+	//RightBottomLimit.y = 1440;
+	/*LeftTopLimit = Vector2(6100, 1000);
+	RightBottomLimit = Vector2(7100, 2100);*/
 }
 
 Vector2 CCamera::GetCamPosition() {
@@ -42,16 +48,9 @@ void CCamera::AdjustTimeRemaining(int deltaTime) {
 	if (mapData.timeRemaining < 0) mapData.timeRemaining = 0;
 }
 
-void CCamera::AdjustScore(int deltaScore) {
+   void CCamera::AdjustScore(int deltaScore) {
 	mapData.score += deltaScore;
 	if (mapData.score < 0) mapData.score = 0;
-}
-
-void CCamera::SetCamPosition(Vector2 pos) {
-	if (pos.x < 0) pos.x = 0; // overflow left side
-	if (pos.x + camSize.x > mapSize.x) pos.x = (int)(mapSize.x - camSize.x); // overflow right side
-	if (pos.y < 0) pos.y = 0;
-	camPosition = pos;
 }
 
 Vector2 CCamera::ConvertPosition(Vector2 pos) {
@@ -67,11 +66,67 @@ bool CCamera::IsInCamera(Vector2 realPos, int outsideCam) {
 	return false;
 }
 
-void CCamera::UpdateCamPosition() {
-	float left, top, right, bottom;
-	positionController->GetBoundingBox(left, top, right, bottom);
+void CCamera::ChangeCamPosition(Vector2 newPos) {
+	Vector2 newResult;
+	newResult.x = newPos.x - camSize.x / 2;
+	newResult.y = newPos.y - camSize.y / 2;
 
-	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, YGROUND));
+	/*newPos.y = newPos.y - camSize.y / 2;
+
+	float deltaY = RightBottomLimit.y - camSize.y - newPos.y;
+	if (deltaY > 300)
+		newResult.y = newPos.y + deltaY * (1 - ((deltaY* deltaY) / (800*800)));
+	else
+		newResult.y = newPos.y + deltaY;*/
+	SetCamPosition(newResult);
+}
+
+
+void CCamera::SetCamPosition(Vector2 pos) {
+	//if (camPosition.y - pos.y < 300) pos.y = camPosition.y;
+
+	if (pos.x < LeftTopLimit.x)
+		pos.x = LeftTopLimit.x; // overflow left side
+	if (pos.x + camSize.x > RightBottomLimit.x)
+		pos.x = (int)(RightBottomLimit.x - camSize.x); // overflow right side
+	if (pos.y < LeftTopLimit.y)
+		pos.y = LeftTopLimit.y;
+
+	
+	
+
+	if (pos.y + 300 > RightBottomLimit.y - camSize.y) {
+		pos.y = RightBottomLimit.y - camSize.y;
+	}
+
+	if (abs(camPosition.y - pos.y) > DELTA_CHANGE_CAM_BASE_POSITION) {
+		if (camPosition.y > pos.y) pos.y = camPosition.y - DELTA_CHANGE_CAM_BASE_POSITION;
+		else pos.y = camPosition.y + DELTA_CHANGE_CAM_BASE_POSITION * 2;
+	}
+
+	
+	pos.x = (int)pos.x;
+	pos.y = (int)pos.y;
+	camPosition = pos;
+}
+
+
+void CCamera::UpdateCamPosition() {
+	float xMario, yMario;
+	positionController->GetPosition(xMario, yMario);
+
+	ChangeCamPosition(positionController->GetPosition());
+
+	/*if (abs(CamBasePosition.y - yMario) < 300) {
+		SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(CamBasePosition.y - camSize.y / 2) - 130));
+	}
+	else {
+		SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(yMario - camSize.y / 2)));
+	}*/
+	//SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(CamBasePosition.y - camSize.y / 2) - 130));
+
+	//SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(yMario - camSize.y / 2)));
+	
 }
 
 void CCamera::Update(DWORD dt) {

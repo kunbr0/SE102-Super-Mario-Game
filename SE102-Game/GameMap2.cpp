@@ -12,7 +12,9 @@
 
 
 #define marginXWindow	96
-#define	marginYWindow	72
+#define	marginYWindow	272
+//#define marginXWindow	0
+//#define	marginYWindow	0
 
 CGameMap::CGameMap()
 {

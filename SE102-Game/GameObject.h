@@ -96,6 +96,7 @@ public:
 
 	DWORD dt;
 
+	Vector2 basePosition = Vector2(0, 0);
 	LPANIMATION_SET animation_set;
 
 	bool isDisable = false;
@@ -112,8 +113,8 @@ public:
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	Vector2 GetPosition() { return Vector2(this->x, this->y); }
 
-	
-
+	virtual Vector2 GetBasePosition() { return basePosition; }
+	virtual void ChangeBasePosition(Vector2);
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 
 	// Speed
