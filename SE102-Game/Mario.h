@@ -3,7 +3,7 @@
 #include "MarioConsts.h"
 #include "AnimationSet.h"
 #include "Game.h"
-
+#include <unordered_map>
 
 
 enum class MarioType
@@ -39,16 +39,13 @@ enum class MarioAction
 	
 };
 
-enum class EMovementX {
-	WALK,
-	RUN,
-};
+
 
 struct SMarioState {
 	MarioAction action = MarioAction::IDLE;
 	int beginAction = 0;
 	int timeAction = 0; // How long the state is.
-	EMovementX movementX = EMovementX::WALK;
+	
 };
 
 struct SMarioBoost {
@@ -64,8 +61,6 @@ protected:
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 	
-	float vxmax;
-	float vymax;
 	
 	
 
@@ -77,7 +72,7 @@ protected:
 	SMarioState state; // 0: isStandingInSomeThing
 	SMarioBoost boost;
 	//bool isBoostedSpeed = false;
-	
+	std::unordered_map<int, bool> holdingKeys;
 	
 
 
@@ -90,10 +85,11 @@ public:
 
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
+	
 
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
-	virtual void Collided() override;
+	virtual void Collided(vector<LPCOLLISIONEVENT>*) override;
 	
 
 	virtual void NoCollided() override;
@@ -102,6 +98,7 @@ public:
 	virtual void BeingKilled();
 	virtual void BeingBouncedAfterJumpInTopEnemy();
 
+	bool isHoldingKey(int keyCode) { return holdingKeys[keyCode]; }
 
 	virtual MarioType GetType() { return type; }
 

@@ -25,6 +25,6 @@ public:
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
-	virtual void Collided() override {};
+	virtual void Collided(vector<LPCOLLISIONEVENT>*) override {};
 };
 

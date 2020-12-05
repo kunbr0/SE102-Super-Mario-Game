@@ -159,7 +159,7 @@ public:
 	void ApplyFriction();
 	
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
-	virtual void Render(Vector2 finalPos) = 0;
+	virtual void Render(Vector2 finalPos) {};
 
 	virtual void OnHadCollided(LPGAMEOBJECT) {};
 
@@ -168,7 +168,7 @@ public:
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*);
-	virtual void Collided() {};
+	virtual void Collided(vector<LPCOLLISIONEVENT>*) {};
 	virtual void NoCollided() {};
 
 	virtual void BeingCollided(LPGAMEOBJECT) {};

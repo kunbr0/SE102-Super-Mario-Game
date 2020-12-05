@@ -9,7 +9,7 @@ CCoin::CCoin(Vector2 initPos) {
 	isTemp = true;
 }
 
-void CCoin::Collided() {
+void CCoin::Collided(vector<LPCOLLISIONEVENT>*) {
 	isTemp = false;
 	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(Vector2(x, y), Vector2(0, -0.13)));
 

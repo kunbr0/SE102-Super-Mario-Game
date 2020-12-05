@@ -456,9 +456,10 @@ void CGame::SwitchScene(std::string scene_id)
 	s->Load();
 }
 
-SKeyboardEvent CGame::GenerateKeyboardEvent(int key, bool isHold) {
+SKeyboardEvent CGame::GenerateKeyboardEvent(int key, bool isHold, bool isKeyUp) {
 	SKeyboardEvent result;
 	result.key = key;
 	result.isHold = isHold;
+	result.isKeyUp = isKeyUp;
 	return result;
 }

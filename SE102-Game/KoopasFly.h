@@ -32,7 +32,7 @@ public:
 	
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
-	void Collided() override {};
+	void Collided(vector<LPCOLLISIONEVENT>*) override {};
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
 	std::string GetAnimationIdFromState() override;
 

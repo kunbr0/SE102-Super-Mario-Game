@@ -7,7 +7,6 @@
 
 #include "Enemy.h"
 
-#include "Portal.h"
 
 CMario::CMario(float x, float y) : CGameObject()
 {
@@ -52,7 +51,7 @@ void CMario::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
 }
 
 
-void CMario::Collided() {}
+void CMario::Collided(vector<LPCOLLISIONEVENT>*) {}
 void CMario::NoCollided() {
 	if (vy > 0) ChangeAction(MarioAction::FALL);
 }
@@ -63,6 +62,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	if (state.action == MarioAction::DIE) return;
 	// Increase velocity if in limit
+	float vxmax = holdingKeys[DIK_A] ? VELOCITY_X_MAX_RUN : VELOCITY_X_MAX_WALK;
+	ax = ax * (1 + (holdingKeys[DIK_A] ? ACCELERATION_X_RUN_GREATER_RATIO : 0));
 	if (abs(vx) < vxmax)
 		vx += ax * dt;
 
@@ -75,8 +76,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	UpdateWithCollision(coObjects);
-	
-	
+
 
 	if (vx != 0) {
 		if (abs(vx) < VELOCITY_X_MIN_FOR_RUN && state.action != MarioAction::CROUCH) {
@@ -171,35 +171,30 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
 	if (state.action == MarioAction::EXPLODE) return;
+
+	if (kEvent.isKeyUp == true) {
+		holdingKeys[kEvent.key] = false;
+		return;
+	}
+
+	if (kEvent.isHold == false) holdingKeys[kEvent.key] = true;
+
 	switch (kEvent.key)
 	{
-	case DIK_A:
-		if (kEvent.isHold) {
-			state.movementX = EMovementX::RUN;
-			vxmax = VELOCITY_X_MAX_RUN;
-		}
-		break;
+
 	case DIK_LEFT:
-		ax = -ACCELERATION_X_WALK * ( 1 + (int)state.movementX*ACCELERATION_X_RUN_GREATER_RATIO);
+		ax = -ACCELERATION_X_WALK;
 		nx = -1;
 		break;
 
 	case DIK_RIGHT:
-		ax = ACCELERATION_X_WALK * (1 + (int)state.movementX * ACCELERATION_X_RUN_GREATER_RATIO);
+		ax = ACCELERATION_X_WALK;
 		nx = 1;
 		break;
 
 	case DIK_DOWN:
 		if (kEvent.isHold) ChangeAction(MarioAction::CROUCH);
 		break;
-
-	//case DIK_X:
-	//	// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-	//	if (this->state.action == MarioAction::IDLE || this->state.action == MarioAction::WALK) {
-	//		vy = -MARIO_JUMP_SPEED_Y;
-	//		ChangeAction(MarioAction::JUMP);
-	//	}
-	//	break;
 		
 	case DIK_S:
 		if(!kEvent.isHold) 
@@ -208,7 +203,6 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 			ChangeAction(MarioAction::HIGH_JUMP);
 		break;
 
-
 	default:
 		if (this->state.action == MarioAction::CROUCH) 
 			ChangeAction(MarioAction::IDLE);
@@ -216,7 +210,6 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	}
 
 }
-
 
 std::string CMario::GetAnimationIdFromState() {
 	std::string typeId;
@@ -301,9 +294,7 @@ void CMario::Reset()
 }
 
 void CMario::ResetTempValues() {
-	state.movementX = EMovementX::WALK;
 	ax = 0;
-	vxmax = VELOCITY_X_MAX_WALK;
 }
 
 void CMario::SetBoost(MarioBoost boostType, int beginBoost, int timeBoost) {

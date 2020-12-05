@@ -20,6 +20,7 @@ using namespace std;
 struct SKeyboardEvent {
 	int key;
 	bool isHold;
+	bool isKeyUp;
 };
 
 class CGame
@@ -97,7 +98,7 @@ public:
 	// Sprite Handler
 	LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
 	
-	SKeyboardEvent GenerateKeyboardEvent(int key, bool isHold = false);
+	SKeyboardEvent GenerateKeyboardEvent(int key, bool isHold = false, bool isKeyUp = false);
 
 	~CGame();
 };

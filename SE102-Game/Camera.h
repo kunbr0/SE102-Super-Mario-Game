@@ -40,6 +40,7 @@ public:
 	Vector2 ConvertPosition(Vector2 pos);
 	
 	void ChangeCamPosition(Vector2);
+	void ChangeCamArea(Vector2 ar1, Vector2 ar2) { LeftTopLimit = ar1; RightBottomLimit = ar2; }
 
 	void SetMapData(int=-1, int=-1, int=-1);
 	void AdjustTimeRemaining(int);

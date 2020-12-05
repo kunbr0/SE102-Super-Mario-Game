@@ -9,6 +9,7 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "KoopasFly.h"
+#include "MiniPortal.h"
 
 
 #define marginXWindow	96
@@ -237,10 +238,58 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 			if (std::string(objGroupNode->Attribute("name")) == "KoopasFly") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CKoopasFly(
-					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
-						);
+					);
 					dynamicObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "MiniPortal") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					
+					if (std::string(objNode->Attribute("type")) == "In") {
+						std::string portalName = std::string(objNode->Attribute("name"));
+						int x = atoi(objNode->Attribute("x"));
+						int y = atoi(objNode->Attribute("y"));
+						int width = atoi(objNode->Attribute("width"));
+						int height = atoi(objNode->Attribute("height"));
+						int targetX = 0, targetY = 0, targetWidth = 0, targetHeight = 0;
+						Vector2 CameraLeftTopLimit, CameraRightBottomLimit;
+						// Find portal type OUT
+						for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+							if (std::string(objNode->Attribute("name")) == portalName && std::string(objNode->Attribute("type")) == "Out") {
+								targetX = atoi(objNode->Attribute("x"));
+								targetY = atoi(objNode->Attribute("y"));
+								targetWidth = atoi(objNode->Attribute("width"));
+								targetHeight = atoi(objNode->Attribute("height"));
+								TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
+								for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
+									if(std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitX")
+										CameraLeftTopLimit.x = atoi(propertyNode->Attribute("value"));
+									else if (std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitY")
+										CameraLeftTopLimit.y = atoi(propertyNode->Attribute("value"));
+									else if (std::string(propertyNode->Attribute("name")) == "CameraRightBottomLimitX")
+										CameraRightBottomLimit.x = atoi(propertyNode->Attribute("value"));
+									else if (std::string(propertyNode->Attribute("name")) == "CameraRightBottomLimitY")
+										CameraRightBottomLimit.y = atoi(propertyNode->Attribute("value"));
+								}
+
+								break;
+							}
+						}
+						LPGAMEOBJECT obj = new CMiniPortal(
+							Vector2(x,y),
+							Vector2(width,height),
+							Vector2(targetX, targetY),
+							Vector2(targetWidth, targetHeight),
+							CameraLeftTopLimit,
+							CameraRightBottomLimit
+						);
+						obj->isTemp = true;
+						
+						tempObjects->push_back(obj);
+					}
 				}
 			}
 			

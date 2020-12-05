@@ -125,6 +125,9 @@
     <Filter Include="GameSource\GameObjects\Enemy\KoopasFly">
       <UniqueIdentifier>{687de0b5-aefd-490a-a02a-76f0a679fc10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Portal\MiniPortal">
+      <UniqueIdentifier>{81b0856a-c4ef-4c12-928a-149db34f85eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -171,9 +174,6 @@
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Framework\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>GameSource\GameObjects\Portal</Filter>
     </ClCompile>
     <ClCompile Include="RectCollision.cpp">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision</Filter>
@@ -262,6 +262,9 @@
     <ClCompile Include="KoopasFly.cpp">
       <Filter>GameSource\GameObjects\Enemy\KoopasFly</Filter>
     </ClCompile>
+    <ClCompile Include="MiniPortal.cpp">
+      <Filter>GameSource\GameObjects\Portal\MiniPortal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -305,9 +308,6 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>GameSource\GameObjects\Portal</Filter>
     </ClInclude>
     <ClInclude Include="RectCollision.h">
       <Filter>GameSource\GameObjects\CollisionBox\RectCollision</Filter>
@@ -398,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="KoopasFly.h">
       <Filter>GameSource\GameObjects\Enemy\KoopasFly</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniPortal.h">
+      <Filter>GameSource\GameObjects\Portal\MiniPortal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

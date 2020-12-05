@@ -5,7 +5,7 @@
 #include "Utils.h"
 #include "TextureManager.h"
 #include "Animation.h"
-#include "Portal.h"
+
 #include "Const.h"
 #include "XmlReader/tinyxml.h"
 
@@ -303,9 +303,17 @@ void CPlayScene::Render()
 	
 }
 
+
+void CPlayScene::ChangeCameraArea(Vector2 playerPos, Vector2 LeftTopLimit, Vector2 RightBottomLimit) {
+	player->SetPosition(playerPos.x, playerPos.y);
+	sceneCamera.ChangeCamArea(LeftTopLimit, RightBottomLimit);
+}
+
 /*
 	Unload current scene
 */
+
+
 void CPlayScene::Unload()
 {
 	for (int i = 0; i < staticObjects.size(); i++)
@@ -385,10 +393,19 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			);
 		}	break;
 
+		/*case DIK_P: {
+			((CPlayScene*)scence)->ChangeCameraArea();
+		}	break;*/
+
 	}
 
-	
+}
 
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	CMario* currentPlayer = (CMario*)(((CPlayScene*)scence)->GetPlayer());
+	CGame* gameInstance = CGame::GetInstance();
+	currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(KeyCode, false, true));
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)

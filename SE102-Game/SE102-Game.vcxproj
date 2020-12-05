@@ -175,8 +175,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="QuestionBlockItem.cpp" />
     <ClCompile Include="RectCollision.cpp" />
@@ -223,9 +223,9 @@
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConsts.h" />
+    <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="PhysicsConsts.h" />
     <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockItem.h" />
     <ClInclude Include="RectCollision.h" />

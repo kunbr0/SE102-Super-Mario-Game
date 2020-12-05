@@ -21,7 +21,7 @@ void CVenus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		ChangeState(EVenusState::HEADUP);
 	}
 	state.timeRemaining -= dt;
-	DebugOut(ToWSTR(std::to_string((int)state.timeRemaining) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((int)state.timeRemaining) + "\n").c_str());
 }
 
 

@@ -30,7 +30,7 @@ public:
 
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {} ;
-	void Collided() override {};
+	void Collided(vector<LPCOLLISIONEVENT>*) override {};
 
 	//void BeingCollided(ETag, Vector2);
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;

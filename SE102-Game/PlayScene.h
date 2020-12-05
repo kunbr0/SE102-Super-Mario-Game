@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Mario.h"
 #include "Effect.h"
+#include <map>
 
 //#include "GameMap2.h"
 
@@ -20,8 +21,10 @@ protected:
 	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
 	vector<LPGAMEOBJECT> tempObjects;
-
 	vector<CEffect*> effects;
+
+	//std::map<std::string, Vector2> miniPortals;
+
 	float standingY;
 
 
@@ -45,8 +48,10 @@ public:
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
 	void PushEffects(CEffect* eff) { effects.push_back(eff); }
 
+
 	CMario* GenerateMario(MarioType, Vector2);
 
+	void ChangeCameraArea(Vector2, Vector2, Vector2);
 
 
 	//friend class CPlayScenceKeyHandler;
@@ -57,7 +62,7 @@ class CPlayScenceKeyHandler : public CScenceKeyHandler
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
 
