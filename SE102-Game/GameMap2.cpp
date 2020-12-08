@@ -154,8 +154,8 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 			if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CRectPlatform(
-						atoi(objNode->Attribute("x")),
-						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2,
+						atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2,
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
@@ -250,19 +250,19 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					
 					if (std::string(objNode->Attribute("type")) == "In") {
 						std::string portalName = std::string(objNode->Attribute("name"));
-						int x = atoi(objNode->Attribute("x"));
-						int y = atoi(objNode->Attribute("y"));
 						int width = atoi(objNode->Attribute("width"));
 						int height = atoi(objNode->Attribute("height"));
+						int x = atoi(objNode->Attribute("x")) + width / 2;
+						int y = atoi(objNode->Attribute("y")) + height / 2;
 						int targetX = 0, targetY = 0, targetWidth = 0, targetHeight = 0;
 						Vector2 CameraLeftTopLimit, CameraRightBottomLimit;
 						// Find portal type OUT
 						for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 							if (std::string(objNode->Attribute("name")) == portalName && std::string(objNode->Attribute("type")) == "Out") {
-								targetX = atoi(objNode->Attribute("x"));
-								targetY = atoi(objNode->Attribute("y"));
 								targetWidth = atoi(objNode->Attribute("width"));
 								targetHeight = atoi(objNode->Attribute("height"));
+								targetX = atoi(objNode->Attribute("x")) + targetWidth / 2;
+								targetY = atoi(objNode->Attribute("y")) + targetHeight / 2;
 								TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
 								for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
 									if(std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitX")
@@ -286,9 +286,8 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 							CameraLeftTopLimit,
 							CameraRightBottomLimit
 						);
-						obj->isTemp = true;
 						
-						tempObjects->push_back(obj);
+						staticObjects->push_back(obj);
 					}
 				}
 			}

@@ -1,14 +1,17 @@
 #pragma once
 #include "Enemy.h"
-#define VENUS_TIME_DURATION_PER_STATE		1500
+#define VENUS_TIME_DURATION_HEADING_DOWNUP		1500
+#define VENUS_TIME_DURATION_IDLE				500
 
 enum class EVenusState {
-	HEADUP,
-	HEADDOWN
+	HEADUP_IDLE,
+	HEADINGUP,
+	HEADDOWN_IDLE,
+	HEADINGDOWN
 };
 
 struct SVenusState {
-	EVenusState type = EVenusState::HEADDOWN;
+	EVenusState type = EVenusState::HEADDOWN_IDLE;
 	int timeRemaining = 0;
 };
 
@@ -21,6 +24,7 @@ protected:
 public:
 	CVenus(Vector2, Vector2);
 
+	bool ShootBullet();
 	
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
 

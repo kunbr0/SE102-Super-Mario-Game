@@ -130,6 +130,16 @@ bool CPlayScene::LoadDataFromFile() {
 			SwitchPlayer(GenerateMario((MarioType)playerLevel, Vector2(x,y)));
 			
 		}
+
+		for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
+			
+			int quantity = atoi(mario->Attribute("quantity"));
+			for (int i = 0; i < quantity; i++) {
+				enemyBullets.push_back(new CFireBullet(0,0,1));
+			}
+			
+
+		}
 		
 	}
 	
@@ -237,6 +247,13 @@ void CPlayScene::Update(DWORD dt)
 
 	}
 
+	for (size_t i = 0; i < enemyBullets.size(); i++)
+	{
+		if (sceneCamera.IsInCamera(Vector2(enemyBullets[i]->x, enemyBullets[i]->y)))
+			enemyBullets[i]->Update(dt, &mainObjects);
+		else
+			enemyBullets[i]->isDisable = true;
+	}
 
 	for (size_t i = 0; i < effects.size(); i++)
 	{
@@ -291,7 +308,13 @@ void CPlayScene::Render()
 			
 	}
 		
-			
+	for (int i = 0; i < enemyBullets.size(); i++) {
+		if (sceneCamera.IsInCamera(Vector2(enemyBullets[i]->x, enemyBullets[i]->y))) {
+			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(enemyBullets[i]->x, enemyBullets[i]->y));
+			enemyBullets[i]->Render(finalPos);
+		}
+
+	}
 
 
 

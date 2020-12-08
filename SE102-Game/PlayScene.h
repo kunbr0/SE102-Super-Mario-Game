@@ -23,6 +23,8 @@ protected:
 	vector<LPGAMEOBJECT> tempObjects;
 	vector<CEffect*> effects;
 
+	vector<LPGAMEOBJECT> enemyBullets;
+
 	//std::map<std::string, Vector2> miniPortals;
 
 	float standingY;
@@ -40,7 +42,7 @@ public:
 	/*virtual bool ParseTextures();
 	virtual bool ParseSprites();*/
 
-	
+	vector<LPGAMEOBJECT> GetEnemyBullets() { return enemyBullets; }
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }

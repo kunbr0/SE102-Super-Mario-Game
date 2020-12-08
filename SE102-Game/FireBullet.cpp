@@ -1,11 +1,6 @@
 #include "FireBullet.h"
 #include "Koopas.h"
-#define VELOCITY_X_FIRE_BULLET			0.028125f 
-#define VELOCITY_Y_FIRE_BULLET			0.14f 
-#define VELOCITY_Y_FIRE_BULLET_BOUNCE	0.485f 
-#define INITIAL_DELTA_Y_FIRE_BULLET		10
 
-#define DELTA_WIDTH_IN_LEFT_SIDE	80
 
 CFireBullet::CFireBullet(float x, float y, int nx) {
 	this->x = x;

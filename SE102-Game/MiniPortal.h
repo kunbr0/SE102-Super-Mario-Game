@@ -14,8 +14,8 @@ protected:
 
 public:
 	CMiniPortal(Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0,0), Vector2 = Vector2(0, 0));
-	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
-	void Collided(vector<LPCOLLISIONEVENT>*) override;
+	void BeingCollided(LPGAMEOBJECT) override;
 	void GetBoundingBox(float&, float&, float&, float&) override;
+	void Render(Vector2 finalPos) override;
 };
 

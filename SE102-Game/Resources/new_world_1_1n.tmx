@@ -31,7 +31,7 @@
   <object id="29" x="6288" y="1200" width="48" height="48"/>
   <object id="30" x="6720" y="1248" width="1728" height="48"/>
   <object id="31" x="6720" y="1104" width="96" height="144"/>
-  <object id="32" x="6720" y="480" width="96" height="528"/>
+  <object id="32" x="6720" y="490" width="96" height="518"/>
   <object id="33" x="6912" y="1152" width="96" height="96"/>
   <object id="34" x="0" y="0" width="5" height="1296"/>
   <object id="35" x="0" y="0" width="8448" height="5"/>
@@ -67,7 +67,7 @@
   <object id="68" x="4224" y="862" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="22" name="MiniPortal">
-  <object id="95" name="MiniP1" type="In" x="820" y="1008" width="134.667" height="36"/>
+  <object id="95" name="MiniP1" type="In" x="6720" y="480" width="96" height="36"/>
   <object id="96" name="MiniP1" type="Out" x="6242.67" y="1392" width="92" height="34.6667">
    <properties>
     <property name="CameraLeftTopLimitX" type="float" value="6100"/>
@@ -103,7 +103,7 @@
   <object id="52" x="720" y="912" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="17" name="Venus">
-  <object id="53" x="1056" y="960" width="96" height="144"/>
+  <object id="53" x="1056" y="1008" width="96" height="96"/>
  </objectgroup>
  <objectgroup id="14" name="RectPlatform">
   <object id="37" x="1200" y="1104" width="240" height="144"/>

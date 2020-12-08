@@ -14,21 +14,20 @@ CMiniPortal::CMiniPortal( Vector2 portalPosition, Vector2 portalSize, Vector2 po
 	this->targetCameraRightBottomLimit = portalLimit2;
 }
 
-void CMiniPortal::Collided(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (int i = 0; i < coEvents->size(); i++) {
-		if (dynamic_cast<CMario*>(coEvents->at(i)->obj)) {
-			if (((CMario*)(coEvents->at(i)->obj))->isHoldingKey(DIK_DOWN)) {
-				((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->ChangeCameraArea(targetPosition + targetSize /2 , targetCameraLeffTopLimit, targetCameraRightBottomLimit);
-			}
-			return;
+void CMiniPortal::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		if (((CMario*)(obj))->isHoldingKey(DIK_DOWN)) {
+			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->ChangeCameraArea(targetPosition + targetSize /2 , targetCameraLeffTopLimit, targetCameraRightBottomLimit);
 		}
+		return;
 	}
 }
 
-void CMiniPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	CGameObject::Update(dt);
-	UpdateWithCollision(coObjects);
+
+void CMiniPortal::Render(Vector2 finalPos) {
+	RenderBoundingBox(finalPos);
 }
+
 
 void CMiniPortal::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 	left = x - portalSize.x / 2;
