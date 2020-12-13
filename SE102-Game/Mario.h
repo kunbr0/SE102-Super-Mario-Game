@@ -31,9 +31,11 @@ enum class MarioAction
 	CROUCH,
 	FLY,
 	FALL,
+	HOLD,
 	FALL_SLIGHTLY,
 	SKID,
 	ATTACK,
+	KICK,
 	DIE,
 	EXPLODE,
 	

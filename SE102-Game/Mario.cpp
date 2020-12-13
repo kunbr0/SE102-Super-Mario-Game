@@ -70,9 +70,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 
 	ApplyFriction();
-	ApplyGravity();
+	if (state.action == MarioAction::FALL_SLIGHTLY)
+		vy = ACCELERATION_Y_GRAVITY * dt * 1.7;
 
-	// Calculate dx, dy 
+	else if (state.action != MarioAction::FLY)
+		ApplyGravity();
+	else
+		ChangeAction(MarioAction::FALL);
+	//vy = ACCELERATION_Y_GRAVITY * dt * 0.1;
+
 	CGameObject::Update(dt);
 
 	UpdateWithCollision(coObjects);
@@ -133,7 +139,7 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 
 	if (boost.type == MarioBoost::UNTOUCHABLE && GetTickCount64() % 100 > 50) return;
 	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, Vector2(nx*(renderAnimation.isFlipY ? -1 : 1),ny), 255);
@@ -272,6 +278,12 @@ std::string CMario::GetAnimationIdFromState() {
 	case MarioAction::ATTACK:
 		actionId = "attack";
 		break;
+	case MarioAction::KICK:
+		actionId = "kick";
+		break;
+	case MarioAction::HOLD:
+		actionId = "hold";
+		break;
 	case MarioAction::EXPLODE:
 		typeId = "ani-mario";
 		actionId = "damaged";
@@ -328,6 +340,17 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	
 	if (state.action == MarioAction::DIE) return false;
 
+	if (state.action == MarioAction::HOLD && isHoldingKey(DIK_A)) return false;
+
+	// Refresh action duration
+	if (state.action == newAction) state.beginAction = GetTickCount64();
+
+	if (state.action == MarioAction::FALL_SLIGHTLY && newAction == MarioAction::IDLE) {
+		state.action = MarioAction::IDLE;
+		state.timeAction = 0;
+	}
+		
+
 	switch (newAction)
 	{
 	case MarioAction::IDLE:
@@ -352,7 +375,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::JUMP:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN
-				|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
+				|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP || state.action == MarioAction::HOLD) {
 			vy = -MARIO_JUMP_SPEED_Y * (1 + (vx > VELOCITY_X_MAX_WALK ? vx : 0));
 			SetAction(newAction, timeAction);
 			if(state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
@@ -390,7 +413,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::FALL_SLIGHTLY:
 		if (state.action == MarioAction::FALL || state.action == MarioAction::FALL_SLIGHTLY) {
-			vy = 0;
+			//vy = 0;
 			SetAction(newAction, timeAction);
 		}
 			
@@ -414,6 +437,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 			SetAction(newAction, timeAction);
 		}
 		break;
+	
 
 	default:
 		return false;

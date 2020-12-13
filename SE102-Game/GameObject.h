@@ -115,12 +115,14 @@ public:
 
 	virtual Vector2 GetBasePosition() { return basePosition; }
 	virtual void ChangeBasePosition(Vector2);
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-
+	void SetPosition(float x, float y) { this->x = x; this->y = y; }
+	void SetPosition(Vector2 pos) { this->x = pos.x; this->y = pos.y; }
 	// Speed
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	
+	int GetNX() { return nx; }
+
 	virtual std::string GetRenderAnimationId(EExtraEffect);
 
 	virtual void SetEffect(EExtraEffect = EExtraEffect::NONE, DWORD = 0);

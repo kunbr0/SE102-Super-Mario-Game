@@ -14,7 +14,8 @@ public:
 };
 
 Vector2 VectorZero();
-Vector2 NormalizedVector();
+
+Vector2 VectorUnit();
 Vector2 Multiply(float k, Vector2 vec);
 Transform CreateTransform(Vector2 position, Vector2 scale, float rotation);
 

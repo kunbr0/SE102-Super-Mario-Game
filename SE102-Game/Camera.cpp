@@ -83,7 +83,7 @@ void CCamera::ChangeCamPosition(Vector2 newPos) {
 
 
 void CCamera::SetCamPosition(Vector2 pos) {
-	//if (camPosition.y - pos.y < 300) pos.y = camPosition.y;
+	
 
 	if (pos.x < LeftTopLimit.x)
 		pos.x = LeftTopLimit.x; // overflow left side
@@ -92,17 +92,18 @@ void CCamera::SetCamPosition(Vector2 pos) {
 	if (pos.y < LeftTopLimit.y)
 		pos.y = LeftTopLimit.y;
 
+	if (pos.y > RightBottomLimit.y - camSize.y) {
+		pos.y = RightBottomLimit.y - camSize.y;
+	}
 	
 	
 
-	if (pos.y + 300 > RightBottomLimit.y - camSize.y) {
-		pos.y = RightBottomLimit.y - camSize.y;
-	}
+	/*
 
 	if (abs(camPosition.y - pos.y) > DELTA_CHANGE_CAM_BASE_POSITION) {
 		if (camPosition.y > pos.y) pos.y = camPosition.y - DELTA_CHANGE_CAM_BASE_POSITION;
 		else pos.y = camPosition.y + DELTA_CHANGE_CAM_BASE_POSITION * 2;
-	}
+	}*/
 
 	
 	pos.x = (int)pos.x;

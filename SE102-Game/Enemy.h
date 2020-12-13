@@ -9,6 +9,7 @@ enum class EEnemyState {
 	DIE,
 	WILL_DIE,
 	BEING_KICKED,
+	BEING_HELD,
 	LIVE,
 };
 
@@ -24,15 +25,19 @@ class CEnemy : public CGameObject
 {
 protected:
 	SEnemyState state;
-	
+	CMario* holdController;
 	Vector2 walkingScope;
 	float walkingSpeed;
+
+	bool useChangeDirectionAfterAxisCollide = false;
+
 public:
 	
 	CEnemy();
 
 	void InitWtandingScope(vector<LPCOLLISIONEVENT>*);
 
+	void BeingHeldProcess();
 
 	virtual std::string GetAnimationIdFromState() = 0;
 

@@ -9,8 +9,9 @@
 #define KOOPAS_BBOX_CROUCH_HEIGHT	40
 
 
-#define KOOPAS_ANI_WALKING "ani-red-koopa-troopa-move"
-#define KOOPAS_ANI_CROUCH "ani-red-koopa-troopa-crouch"
+#define KOOPAS_ANI_WALKING			"ani-red-koopa-troopa-move"
+#define KOOPAS_ANI_CROUCH			"ani-red-koopa-troopa-crouch"
+#define KOOPAS_ANI_BEING_KICKED		"ani-red-koopa-troopa-shell-run"
 
 
 

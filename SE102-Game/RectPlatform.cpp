@@ -18,7 +18,7 @@ void CRectPlatform::GetBoundingBox(float& left, float& top, float& right, float&
 }
 
 void CRectPlatform::Render(Vector2 finalPos) {
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 
 }
 

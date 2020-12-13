@@ -2,6 +2,8 @@
 #include "PlayScene.h"
 #include "AddingPointEffect.h"
 
+#define HOLDING_DISTANCE			50 // pixels
+
 CEnemy::CEnemy() {
 	walkingSpeed = 0;
 	walkingScope = Vector2(0, 0);
@@ -29,6 +31,7 @@ void CEnemy::InitWtandingScope(vector<LPCOLLISIONEVENT>* coEvents) {
 }
 
 void CEnemy::ChangeDirectionAfterAxisCollide() {
+	if (!useChangeDirectionAfterAxisCollide) return;
 	float left, top, right, bottom;
 	GetBoundingBox(left, top, right, bottom);
 	if ((x + dx < walkingScope.x || x + dx > walkingScope.y - (right-left)) && walkingScope.x != 0 && walkingScope.y != 0) {
@@ -62,9 +65,21 @@ void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
 	this->x -= (newSize.x - currentSize.x) / 2;
 }
 
+void CEnemy::BeingHeldProcess() {
+	if (state.type != EEnemyState::BEING_HELD) return;
+	if(holdController->GetAction() != MarioAction::HOLD) {
+		holdController->SetAction(MarioAction::KICK, 200);
+		BeingKicked(holdController->GetPosition());
+		return;
+	}
+	vx = vy = 0;
+	SetPosition(holdController->GetPosition() + Vector2(HOLDING_DISTANCE*(holdController->GetNX()), 0));
+}
+
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vx = walkingSpeed * nx;
 	SetEffect(EExtraEffect::NONE);
+	BeingHeldProcess();
 	CGameObject::Update(dt, coObjects);
 }
 
@@ -99,13 +114,28 @@ void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
 		switch (state.type)
 		{
+		case EEnemyState::WILL_DIE:
+			if (((CMario*)(obj))->isHoldingKey(DIK_A)) {
+				holdController = ((CMario*)(obj));
+				((CMario*)(obj))->SetAction(MarioAction::HOLD);
+				SetState(EEnemyState::BEING_HELD);
+				
+			}
+			else {
+				((CMario*)(obj))->SetAction(MarioAction::KICK, 200);
+				BeingKicked(obj->GetPosition());
+			}
+			
+			break;
 		case EEnemyState::LIVE:
-		case EEnemyState::BEING_KICKED:
 			KillMario((CMario*)obj);
 			break;
-		case EEnemyState::WILL_DIE:
-			BeingKicked(obj->GetPosition());
+		case EEnemyState::BEING_KICKED:
+			if(((CMario*)(obj))->GetAction() != MarioAction::KICK){
+				KillMario((CMario*)obj);
+			}
 			break;
+		
 		case EEnemyState::DIE:
 			break;
 		}
@@ -122,8 +152,9 @@ void CEnemy::BeingKicked(Vector2 pos) {
 		nx = 1;
 	else
 		nx = -1;
-	walkingSpeed = 0.74;
-	ChangeState(EEnemyState::BEING_KICKED);
+	walkingSpeed = 0.54;
+	useChangeDirectionAfterAxisCollide = false;
+	SetState(EEnemyState::BEING_KICKED, 3000);
 }
 
 void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
@@ -165,11 +196,12 @@ void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 		}
 		break;
 	case EEnemyState::BEING_KICKED:
-		if (state.type == EEnemyState::WILL_DIE) {
+		if (state.type == EEnemyState::WILL_DIE || state.type == EEnemyState::BEING_HELD) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 			SetState(newState, newTimeState);
 		}
 		break;
+	
 	case EEnemyState::LIVE:
 		walkingSpeed = GetDefaultWalkingSpeed();
 		SetState(newState, newTimeState);
