@@ -62,6 +62,24 @@ void CKoopas::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
 
 
 
+void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		MarioAction objAction = ((CMario*)(obj))->GetAction();
+		if (objAction == MarioAction::ATTACK) {
+			vy = -0.55f;
+			
+			walkingSpeed = 0;
+
+			SwitchEffect(EExtraEffect::BEING_DAMAGED);
+			ChangeState(EEnemyState::WILL_DIE, 5000);
+		}
+	}
+	else if (dynamic_cast<CFireBullet*>(obj)) {
+		ChangeState(EEnemyState::ONESHOTDIE);
+	}
+}
+
+
 void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	InitWtandingScope(coEvents);
 }

@@ -14,6 +14,7 @@ std::string CGoomba::GetAnimationIdFromState() {
 	switch (state.type)
 	{
 	case EEnemyState::LIVE:
+	case EEnemyState::ONESHOTDIE:
 		return GOOMBA_ANI_WALKING;
 	case EEnemyState::WILL_DIE:
 		return GOOMBA_ANI_WILL_DIE;

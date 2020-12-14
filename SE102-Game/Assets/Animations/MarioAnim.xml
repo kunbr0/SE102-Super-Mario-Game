@@ -29,8 +29,8 @@
 		</Animation>
 		<!-- Animation SPEED UP-->
 		<Animation aniId="ani-small-mario-speed-up" frameTime="100" name="RUN">
-			<Sprite id="spr-small-mario-run-0" left="323" top="8"  width="16" height="16" frameTime="40"/>
-			<Sprite id="spr-small-mario-run-1" left="341" top="8"  width="16" height="16" frameTime="40"/>
+			<Sprite id="spr-small-mario-run-0" left="323" top="8"  width="16" height="16" frameTime="30"/>
+			<Sprite id="spr-small-mario-run-1" left="341" top="8"  width="16" height="16" frameTime="30"/>
 		</Animation>
 		<!-- Animation JUMP-->
 		<Animation aniId="ani-small-mario-jump" frameTime="100" name="JUMP">
@@ -106,9 +106,9 @@
 		</Animation>
 		<!-- Animation SPEED UP-->
 		<Animation aniId="ani-big-mario-speed-up" frameTime="100" name="RUN">
-			<Sprite id="spr-big-mario-run-0" left="290" top="48"  width="19" height="27" frameTime="40"/>
-			<Sprite id="spr-big-mario-run-1" left="312" top="48"  width="19" height="27" frameTime="40"/>
-			<Sprite id="spr-big-mario-run-2" left="335" top="49"  width="19" height="26" frameTime="40"/>
+			<Sprite id="spr-big-mario-run-0" left="290" top="48"  width="19" height="27" frameTime="30"/>
+			<Sprite id="spr-big-mario-run-1" left="312" top="48"  width="19" height="27" frameTime="30"/>
+			<Sprite id="spr-big-mario-run-2" left="335" top="49"  width="19" height="26" frameTime="30"/>
 		</Animation>
 		<!-- Animation JUMP-->
 		<Animation aniId="ani-big-mario-jump" frameTime="100" name="JUMP">
@@ -329,9 +329,9 @@
 		</Animation>
 		<!-- Animation SPEED UP -->
 		<Animation aniId="ani-fire-mario-speed-up" frameTime="100" name="RUN">
-			<Sprite id="spr-fire-mario-run-0" left="333" top="109"  width="19" height="27" frameTime="40"/>
-			<Sprite id="spr-fire-mario-run-1" left="355" top="109"  width="19" height="27" frameTime="40"/>
-			<Sprite id="spr-fire-mario-run-2" left="378" top="110"  width="19" height="26" frameTime="40"/>
+			<Sprite id="spr-fire-mario-run-0" left="333" top="109"  width="19" height="27" frameTime="30"/>
+			<Sprite id="spr-fire-mario-run-1" left="355" top="109"  width="19" height="27" frameTime="30"/>
+			<Sprite id="spr-fire-mario-run-2" left="378" top="110"  width="19" height="26" frameTime="30"/>
 		</Animation>
 		<!-- Animation JUMP -->
 		<Animation aniId="ani-fire-mario-jump" frameTime="100" name="JUMP">

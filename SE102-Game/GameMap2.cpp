@@ -85,6 +85,7 @@ void CGameMap::Render(float bottomMargin)
 
 	float screenWidth = CGame::GetInstance()->GetScreenWidth() + marginXWindow;
 	float screenHeight = CGame::GetInstance()->GetScreenHeight() + marginYWindow - bottomMargin;
+
 	Vector2 drawingSize = Vector2(screenWidth / tileWidth, screenHeight / tileHeight);
 	
 	for (int i = col; i < drawingSize.x + col; i++) {

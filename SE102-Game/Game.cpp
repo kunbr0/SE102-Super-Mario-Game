@@ -5,6 +5,7 @@
 #include "Utils.h"
 
 #include "PlayScene.h"
+#include "SelectionScene.h"
 
 #include "SpriteManager.h"
 #include "AnimationSet.h"
@@ -35,6 +36,7 @@ void CGame::Init(HWND hWnd)
 
 	RECT r;
 	GetClientRect(hWnd, &r);	// retrieve Window width & height 
+	
 	
 	
 
@@ -117,10 +119,14 @@ void CGame::KDrawBoardDetails(float x, float y, LPCSTR text) {
 
 void CGame::DrawWithScaling(Vector2 finalPos, Vector2 pivot, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, Vector2 scale)
 {
+	finalPos.x = (int)finalPos.x;
+	finalPos.y = (int)finalPos.y;
 	Vector2 deltaToCenter = Vector2((rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2);
-	
+	Vector3 pCenter = Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y, 0);
+	Vector3 pPosition = Vector3(finalPos.x, finalPos.y, 0);
 	if (scale.x == 1 && scale.y == 1) {
-		spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y, 0), &Vector3(finalPos.x, finalPos.y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		
+		spriteHandler->Draw(texture, &rect, &pCenter, &pPosition, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	}
 	else {
 		D3DXMATRIX oldMatrix, newMatrix;
@@ -129,10 +135,10 @@ void CGame::DrawWithScaling(Vector2 finalPos, Vector2 pivot, LPDIRECT3DTEXTURE9 
 		D3DXMatrixTransformation2D(&newMatrix, &(finalPos), 0.0f, &scale, &finalPos, 0.0f, NULL);
 		spriteHandler->SetTransform(&newMatrix);
 
-		spriteHandler->Draw(texture, &rect, &Vector3(deltaToCenter.x + pivot.x, deltaToCenter.y + pivot.y, 0), &Vector3(finalPos.x, finalPos.y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		spriteHandler->Draw(texture, &rect, &pCenter, &pPosition, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 		spriteHandler->SetTransform(&oldMatrix);
 	}
-
+	
 	
 }
 
@@ -430,8 +436,18 @@ bool CGame::Load(std::string gameFile)
 	for (TiXmlElement* KScene = KScenes->FirstChildElement("Scene"); KScene != nullptr; KScene = KScene->NextSiblingElement("Scene")) {
 		std::string sceneId = KScene->Attribute("id");
 		std::string scenePath = KScene->Attribute("path");
-		LPSCENE scene = new CPlayScene(sceneId, scenePath);
-		scenes[sceneId] = scene;
+		std::string type = KScene->Attribute("type");
+		
+		if (type == "play-scene") {
+			LPSCENE scene = new CPlayScene(sceneId, scenePath);
+			scenes[sceneId] = scene;
+		}
+		else if (type == "selection-scene") {
+			LPSCENE scene = new CSelectionScene(sceneId, scenePath);
+			scenes[sceneId] = scene;
+		}
+		
+		
 	}
 	
 

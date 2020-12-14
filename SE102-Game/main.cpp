@@ -72,6 +72,8 @@ void Render()
 	{
 		// Clear back buffer with a color
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		
+		
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -80,7 +82,7 @@ void Render()
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
-
+	
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }

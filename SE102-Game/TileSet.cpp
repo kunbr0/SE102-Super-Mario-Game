@@ -24,7 +24,7 @@ CTileSet::CTileSet(TiXmlElement* data, string xmlPath)
 	TiXmlElement* imgDom = data->FirstChildElement("image");
 	string imgPath = imgDom->Attribute("source");
 	//this->texture = TextureManager::Load(ToLPCWSTR(imgPath), D3DCOLOR_ARGB(0, 0, 0, 0));
-	CTextures::GetInstance()->Add("tileset_" + this->name, ToLPCWSTR("Resources/"+imgPath), D3DCOLOR_ARGB(0, 0, 0, 0));
+	CTextures::GetInstance()->Add("tileset_" + this->name, ToLPCWSTR("Resources/"+ name + "/" +imgPath), D3DCOLOR_ARGB(0, 0, 0, 0));
 	this->texture = CTextures::GetInstance()->Get("tileset_" + this->name);
 
 

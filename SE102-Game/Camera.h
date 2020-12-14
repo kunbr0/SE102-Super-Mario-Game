@@ -21,9 +21,8 @@ protected:
 
 	Vector2 LeftTopLimit = Vector2(0, 0);
 	Vector2 RightBottomLimit = Vector2(0, 0);
-	
 
-
+	bool isLocked = true;
 
 	CGameObject* positionController; // who controls the camera position
 	CGameMap* mMap;
@@ -36,11 +35,12 @@ public:
 	~CCamera();
 	Vector2 GetCamPosition();
 	Vector2 GetCamSize() { return camSize; }
+	Vector2 GetMapSize() { return mapSize; }
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
 	
 	void ChangeCamPosition(Vector2);
-	void ChangeCamArea(Vector2 ar1, Vector2 ar2) { LeftTopLimit = ar1; RightBottomLimit = ar2; }
+	void ChangeCamArea(Vector2 ar1, Vector2 ar2);
 
 	void SetMapData(int=-1, int=-1, int=-1);
 	void AdjustTimeRemaining(int);

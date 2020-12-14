@@ -161,9 +161,12 @@ void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
 	if (dynamic_cast<CMario*>(obj)) {
 		MarioAction objAction = ((CMario*)(obj))->GetAction();
 		if (objAction == MarioAction::ATTACK) {
-			vy = -0.9f;
+			vy = -0.55f;
+			nx = (x - obj->x) > 0 ? 1 : -1;
+			walkingSpeed = 0.1;
+
 			SwitchEffect(EExtraEffect::BEING_DAMAGED);
-			ChangeState(EEnemyState::WILL_DIE);
+			ChangeState(EEnemyState::ONESHOTDIE);
 		}
 	}
 	else if (dynamic_cast<CFireBullet*>(obj)) {

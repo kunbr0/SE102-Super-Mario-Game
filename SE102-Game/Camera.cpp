@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "UIDrawer.h"
 #include <iomanip>
+#include "Mario.h"
+#include "Mathf.h"
 
 #define DELTA_CHANGE_CAM_BASE_POSITION			5
 
@@ -10,7 +12,7 @@
 
 
 CCamera::CCamera() {
-	this->camPosition = Vector2(0, 800);
+	this->camPosition = Vector2(0, 0);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	this->positionController = NULL;
 	mapData.timeRemaining = 300 * 1000;
@@ -26,11 +28,7 @@ void CCamera::InitPositionController(CGameObject* player) {
 void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
 	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
 	mMap->GetMapSize(mapSize);
-	LeftTopLimit = Vector2(0, 0);
-	RightBottomLimit = Vector2(mapSize.x, mapSize.y - 520);
-	//RightBottomLimit.y = 1440;
-	/*LeftTopLimit = Vector2(6100, 1000);
-	RightBottomLimit = Vector2(7100, 2100);*/
+	
 }
 
 Vector2 CCamera::GetCamPosition() {
@@ -66,6 +64,11 @@ bool CCamera::IsInCamera(Vector2 realPos, int outsideCam) {
 	return false;
 }
 
+void CCamera::ChangeCamArea(Vector2 ar1, Vector2 ar2) { 
+	LeftTopLimit = ar1;
+	RightBottomLimit = ar2; 
+}
+
 void CCamera::ChangeCamPosition(Vector2 newPos) {
 	Vector2 newResult;
 	newResult.x = newPos.x - camSize.x / 2;
@@ -89,21 +92,36 @@ void CCamera::SetCamPosition(Vector2 pos) {
 		pos.x = LeftTopLimit.x; // overflow left side
 	if (pos.x + camSize.x > RightBottomLimit.x)
 		pos.x = (int)(RightBottomLimit.x - camSize.x); // overflow right side
+	
 	if (pos.y < LeftTopLimit.y)
 		pos.y = LeftTopLimit.y;
+	MarioAction marioAction = ((CMario*)(positionController))->GetAction();
+	bool isFlying = marioAction == MarioAction::FLY;
+	bool isFalling = marioAction == MarioAction::FALL || marioAction == MarioAction::FALL_SLIGHTLY;
+	
+	if (isFlying) isLocked = false;
+	if (!isLocked && marioAction == MarioAction::IDLE) isLocked = true;
 
-	if (pos.y > RightBottomLimit.y - camSize.y) {
+	int BottomOffSet = 0;
+
+	if (isLocked) BottomOffSet = 500;
+
+	
+
+	if (pos.y + BottomOffSet > RightBottomLimit.y - camSize.y) {
 		pos.y = RightBottomLimit.y - camSize.y;
 	}
 	
-	
-
-	/*
-
-	if (abs(camPosition.y - pos.y) > DELTA_CHANGE_CAM_BASE_POSITION) {
-		if (camPosition.y > pos.y) pos.y = camPosition.y - DELTA_CHANGE_CAM_BASE_POSITION;
-		else pos.y = camPosition.y + DELTA_CHANGE_CAM_BASE_POSITION * 2;
-	}*/
+	//if (((CMario*)(positionController))->GetAction() != MarioAction::FLY)
+	//{
+	//	auto val = Mathf::Min(LastLeftTopLimit.y, LastRightBottomLimit.y - camSize.y);
+	//	if (pos.y >= val)
+	//	{
+	//		// DebugOut(L"Cam: %f, %f\n", pos.y, val);
+	//		LeftTopLimit = LastLeftTopLimit;
+	//		RightBottomLimit = LastRightBottomLimit;
+	//	}
+	//}
 
 	
 	pos.x = (int)pos.x;
@@ -141,11 +159,19 @@ void CCamera::Update(DWORD dt) {
 }
 
 void CCamera::RenderDetailBoard() {
+
+	LPDIRECT3DTEXTURE9 black = CTextures::GetInstance()->Get("black");
+	RECT rect; rect.left = 0; rect.top = 0; rect.right = camSize.x; rect.bottom = DetailsBoardHeight;
+	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x / 2, camSize.y - DetailsBoardHeight / 2 + 48), Vector2(0, 0), black, rect, 255);
+
 	LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
 	LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
 	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
 	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
 	Vector2 beginPos = Vector2(240, camSize.y + hud->getSize().y - DetailsBoardHeight + 20);
+
+	
+
 	hud->DrawWithScaling(beginPos);
 	Mchar->DrawWithScaling(Vector2(beginPos.x-190, beginPos.y+14));
 	Onechar->DrawWithScaling(Vector2(beginPos.x - 100, beginPos.y - 10));
@@ -160,7 +186,7 @@ void CCamera::RenderDetailBoard() {
 	}*/
 
 	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.score), beginScorePos, '0', 7);
-
+	if (positionController == NULL) return;
 	for (int i = 0; i < 7; i++) {
 		LPSPRITE Zerochar;
 		if (i < positionController->powerX/1000) {
@@ -182,6 +208,5 @@ void CCamera::RenderDetailBoard() {
 }
 
 void CCamera::Render() {
-	mMap->Render(DetailsBoardHeight);
-	RenderDetailBoard();
+	mMap->Render(DetailsBoardHeight+150);
 }
