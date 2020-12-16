@@ -41,7 +41,7 @@ void CFireMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if (!kEvent.isHold)
+		if (!kEvent.isHold && !kEvent.isKeyUp)
 			if (ShootBullet())
 				ChangeAction(MarioAction::ATTACK, 200);
 		break;

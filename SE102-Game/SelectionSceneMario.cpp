@@ -8,6 +8,6 @@ CSelectionSceneMario::CSelectionSceneMario(Vector2 pos) {
 
 void CSelectionSceneMario::Render(Vector2 finalPos)
 {
-	std::string aniId = "ani-big-mario-idle-front";
+	std::string aniId = "ani-big-mario-selection";
 	CAnimations::GetInstance()->Get(aniId)->Render(finalPos);
 }

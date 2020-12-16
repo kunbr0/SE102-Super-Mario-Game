@@ -10,6 +10,8 @@
 #include "GameObject.h"
 #include "RectPlatform.h"
 #include "Coin.h"
+#include "PhysicConstants.h"
+
 #define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
 #define ANIMATIONID_BONUS				"ani-mario-damaged"
 #define DELTA_TO_APPLY_NEW_BASE_POSITION		500
@@ -180,8 +182,12 @@ void CGameObject::RenderBoundingBox(Vector2 finalPos)
 }
 
 void CGameObject::ApplyGravity() {
-	vy += ACCELERATION_Y_GRAVITY * dt;
-
+	
+	if (vy >= GRAVITY_VELOCITY_MAX) return;
+	if (vy + ACCELERATION_Y_GRAVITY * dt < GRAVITY_VELOCITY_MAX)
+		vy += ACCELERATION_Y_GRAVITY * dt;
+	else
+		vy = GRAVITY_VELOCITY_MAX;
 }
 
 void CGameObject::ApplyFriction() {

@@ -9,15 +9,10 @@
 #include "Const.h"
 #include "XmlReader/tinyxml.h"
 
-#include "Brick.h"
-#include "Goomba.h"
-#include "Koopas.h"
 #include "RedSmallMario.h"
 #include "RedBigMario.h"
 #include "RedRaccoonMario.h"
 #include "FireMario.h"
-#include "RectCollision.h"
-#include "QuestionBlock.h"
 
 
 CPlayScene::CPlayScene(std::string id, std::string filePath) :
@@ -28,12 +23,6 @@ CPlayScene::CPlayScene(std::string id, std::string filePath) :
 	timeScale = DEFAULT_TIME_SCALE;
 	
 }
-
-/*
-	Load scene resources from scene file (textures, sprites, animations and objects)
-	See scene1.txt, scene2.txt for detail format specification
-*/
-
 
 
 CMario* CPlayScene::GenerateMario(MarioType mType, Vector2 pos) {
@@ -50,11 +39,12 @@ CMario* CPlayScene::GenerateMario(MarioType mType, Vector2 pos) {
 	default:
 		return new CRedSmallMario(pos.x, pos.y);
 	}
-	
 }
 
 
 bool CPlayScene::LoadDataFromFile() {
+	CScene::LoadDataFromFile();
+
 	TiXmlDocument document(sceneFilePath.c_str());
 	if (!document.LoadFile())
 	{
@@ -63,44 +53,6 @@ bool CPlayScene::LoadDataFromFile() {
 	}
 
 	TiXmlElement* root = document.RootElement();
-
-
-
-	// Load Texture
-	for (TiXmlElement* textures = root->FirstChildElement("textures"); textures != nullptr; textures = textures->NextSiblingElement("textures")) {
-		for (TiXmlElement* texture = textures->FirstChildElement("texture"); texture != nullptr; texture = texture->NextSiblingElement("texture")) {
-			std::string id = texture->Attribute("id");
-			std::string filePath = texture->Attribute("filePath");
-			auto transColor = texture->Attribute("transColor");
-			if (transColor != NULL) {
-				auto rgb = split(transColor, ",");
-				CTextures::GetInstance()->Add(id, ToLPCWSTR(filePath), D3DCOLOR_XRGB(atoi(rgb[0].c_str()), atoi(rgb[1].c_str()), atoi(rgb[2].c_str())));
-			}
-			else {
-				CTextures::GetInstance()->Add(id, ToLPCWSTR(filePath), D3DXCOLOR());
-			}
-			
-		}
-	}
-
-	// Load Sprite
-	for (TiXmlElement* sprites = root->FirstChildElement("sprites"); sprites != nullptr; sprites = sprites->NextSiblingElement("sprites")) {
-		for (TiXmlElement* sprite = sprites->FirstChildElement("sprite"); sprite != nullptr; sprite = sprite->NextSiblingElement("sprite")) {
-			//std::string texId = sprite->Attribute("texId");
-			std::string filePath = sprite->Attribute("filePath");
-			CSprites::GetInstance()->LoadSpriteFromFile(filePath);
-		}
-	}
-
-	// Load Animations
-	for (TiXmlElement* animations = root->FirstChildElement("animations"); animations != nullptr; animations = animations->NextSiblingElement("animations")) {
-		for (TiXmlElement* animation = animations->FirstChildElement("animation"); animation != nullptr; animation = animation->NextSiblingElement("animation")) {
-			std::string idSet = animation->Attribute("idSet");
-			std::string filePath = animation->Attribute("filePath");
-			CAnimations::GetInstance()->LoadAnimationsFromFile(filePath, idSet);
-
-		}
-	}
 
 	// Load Objects
 	for (TiXmlElement* objs = root->FirstChildElement("objects"); objs != nullptr; objs = objs->NextSiblingElement("objects")) {
@@ -113,130 +65,44 @@ bool CPlayScene::LoadDataFromFile() {
 			mario->QueryIntAttribute("type", &iType);
 			playerLevel = iType;
 			SwitchPlayer(GenerateMario((MarioType)playerLevel, Vector2(x,y)));
-			
 		}
 
 		for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
-			
 			int quantity = atoi(mario->Attribute("quantity"));
 			for (int i = 0; i < quantity; i++) {
 				enemyBullets.push_back(new CFireBullet(0,0,1));
 			}
-			
-
 		}
-		
 	}
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
 	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap, &tempObjects);
-	
 	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y - 520));
+
 	return true;
 }
 
 
 void CPlayScene::Load()
 {
-
 	LoadDataFromFile();
-	
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
-	
 }
 
-void CPlayScene::Update(DWORD dt)
-{
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-	
-	if (player == NULL) return;
-
-	if ( ((CMario*)(player))->GetAction() == MarioAction::EXPLODE ) {
-		timeScale = 0;
-	}
-	else {
-		timeScale = DEFAULT_TIME_SCALE;
-	}
-	
-	dt = dt * timeScale;
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 0; i < staticObjects.size(); i++)
-	{
-		coObjects.push_back(staticObjects[i]);
-	}
-
-	for (size_t i = 0; i < dynamicObjects.size(); i++)
-	{
-		if (sceneCamera.IsInCamera(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y)))
-			dynamicObjects[i]->Update(dt, &coObjects);
-		/*else
-			dynamicObjects[i]->isDisable = true;*/
-		
-	}
-
-	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
-	{
-		if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
-			dynamicObjectsBehindMap[i]->Update(dt, &coObjects);
-		/*else
-			dynamicObjects[i]->isDisable = true;*/
-
-	}
-	
-	for (size_t i = 0; i < dynamicObjects.size(); i++)
-	{
-		coObjects.push_back(dynamicObjects[i]);
-	}
-
-	for (size_t i = 0; i < dynamicObjectsBehindMap.size(); i++)
-	{
-		coObjects.push_back(dynamicObjectsBehindMap[i]);
-	}
-
+void CPlayScene::HandleMarioDie() {
 	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
 		if (playerLevel - 1 >= 0) playerLevel--;
 
 		CMario* newMario = GenerateMario(
-		(MarioType)(playerLevel),
+			(MarioType)(playerLevel),
 			Vector2(player->x, player->y));
 		newMario->ChangeAction(MarioAction::EXPLODE);
 		SwitchPlayer(newMario);
 	}
+}
 
-	for (size_t i = 0; i < mainObjects.size(); i++)
-	{
-		if(!(dynamic_cast<CMario*>(mainObjects[i])) && !sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y)))
-			mainObjects[i]->isDisable = true;
-		else
-			mainObjects[i]->Update(dt, &coObjects);
-	}
-
-	
-	for (size_t i = 0; i < tempObjects.size(); i++)
-	{
-		if (!tempObjects[i]->isTemp) {
-			tempObjects.erase(tempObjects.begin() + i);
-		}
-		else if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y)))
-			tempObjects[i]->Update(dt, &mainObjects);
-		else
-			if (!dynamic_cast<CMario*>(tempObjects[i]))
-				tempObjects[i]->isDisable = true;
-		
-
-	}
-
-	for (size_t i = 0; i < enemyBullets.size(); i++)
-	{
-		if (sceneCamera.IsInCamera(Vector2(enemyBullets[i]->x, enemyBullets[i]->y)))
-			enemyBullets[i]->Update(dt, &mainObjects);
-		else
-			enemyBullets[i]->isDisable = true;
-	}
-
+void CPlayScene::UpdateEffects(DWORD dt) {
 	for (size_t i = 0; i < effects.size(); i++)
 	{
 		if (!effects[i]->GetActiveState()) {
@@ -246,7 +112,46 @@ void CPlayScene::Update(DWORD dt)
 		else
 			effects[i]->Update(dt);
 	}
+
+}
+
+void CPlayScene::HandleSceneTime(DWORD& dt) {
+	if (((CMario*)(player))->GetAction() == MarioAction::EXPLODE) {
+		timeScale = 0;
+	}
+	else {
+		timeScale = DEFAULT_TIME_SCALE;
+	}
+
+	dt = dt * timeScale;
+}
+
+void CPlayScene::Update(DWORD dt)
+{
+	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
+	// TO-DO: This is a "dirty" way, need a more organized way 
 	
+	if (player == NULL) return;
+
+	HandleSceneTime(dt);
+
+	vector<LPGAMEOBJECT> coObjects;
+	
+	PushBackToCalculateCollision(&coObjects, &staticObjects);
+
+	UpdateIfInCamera(&dynamicObjects, dt, &coObjects);
+	UpdateIfInCamera(&dynamicObjectsBehindMap, dt, &coObjects);
+	
+	PushBackToCalculateCollision(&coObjects, &dynamicObjects);
+	PushBackToCalculateCollision(&coObjects, &dynamicObjectsBehindMap);
+
+	HandleMarioDie();
+	UpdateIfInCameraOrDisable(&mainObjects, dt, &coObjects);
+	UpdateTempObjsInCamera(&tempObjects, dt, &mainObjects);
+
+	UpdateIfInCameraOrDisable(&enemyBullets, dt, &mainObjects);
+	UpdateEffects(dt);
+
 	sceneCamera.Update(dt); // Update Map in Camera
 }
 
@@ -254,51 +159,23 @@ void CPlayScene::Render()
 {
 	Vector2 camSize = sceneCamera.GetCamSize();
 
-	for (int i = 0; i < dynamicObjectsBehindMap.size(); i++)
-		if (!dynamicObjectsBehindMap[i]->isDisable) {
-			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y));
-			if (sceneCamera.IsInCamera(Vector2(dynamicObjectsBehindMap[i]->x, dynamicObjectsBehindMap[i]->y)))
-				dynamicObjectsBehindMap[i]->Render(finalPos);
+	RenderIfEnableAndInCamera(&dynamicObjectsBehindMap);
 
-		}
 
 	sceneCamera.Render();
-	for (int i = 0; i < staticObjects.size(); i++)
+
+	RenderIfEnableAndInCamera(&staticObjects);
+	/*for (int i = 0; i < staticObjects.size(); i++)
 		staticObjects[i]->Render(sceneCamera.ConvertPosition(Vector2(staticObjects[i]->x, staticObjects[i]->y)));
+	*/
+	RenderIfEnableAndInCamera(&dynamicObjects);
+	RenderIfEnableAndInCamera(&mainObjects);
+
+	RenderIfEnableAndInCamera(&tempObjects);
+
+	RenderIfEnableAndInCamera(&enemyBullets);
 	
-	for (int i = 0; i < dynamicObjects.size(); i++)
-		if (!dynamicObjects[i]->isDisable) {
-			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y));
-			if (sceneCamera.IsInCamera(Vector2(dynamicObjects[i]->x, dynamicObjects[i]->y)))
-				dynamicObjects[i]->Render(finalPos);
-
-		}
-
-	for (int i = 0; i < mainObjects.size(); i++)
-		if (!mainObjects[i]->isDisable) {
-			if (sceneCamera.IsInCamera(Vector2(mainObjects[i]->x, mainObjects[i]->y))) {
-				Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(mainObjects[i]->x, mainObjects[i]->y));
-				mainObjects[i]->Render(finalPos);
-			}
-		}
-
-	for (int i = 0; i < tempObjects.size(); i++) {
-		if (sceneCamera.IsInCamera(Vector2(tempObjects[i]->x, tempObjects[i]->y))) {
-			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(tempObjects[i]->x, tempObjects[i]->y));
-			tempObjects[i]->Render(finalPos);
-		}
-			
-	}
-		
-	for (int i = 0; i < enemyBullets.size(); i++) {
-		if (sceneCamera.IsInCamera(Vector2(enemyBullets[i]->x, enemyBullets[i]->y))) {
-			Vector2 finalPos = sceneCamera.ConvertPosition(Vector2(enemyBullets[i]->x, enemyBullets[i]->y));
-			enemyBullets[i]->Render(finalPos);
-		}
-
-	}
-
-
+	
 
 	for (size_t i = 0; i < effects.size(); i++)
 	{
@@ -368,7 +245,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 	CGame* gameInstance = CGame::GetInstance();
 
-	currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(KeyCode, false));
+	currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(KeyCode));
 	switch (KeyCode)
 	{
 		case DIK_0:
@@ -397,11 +274,6 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 				new CFireMario(currentPlayer->x, currentPlayer->y)
 			);
 		}	break;
-
-		/*case DIK_P: {
-			((CPlayScene*)scence)->ChangeCameraArea();
-		}	break;*/
-
 	}
 
 }

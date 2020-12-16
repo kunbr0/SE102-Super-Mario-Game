@@ -98,30 +98,6 @@
     <Filter Include="GameSource\GameObjects\PlayScene\Items\QuestionBox">
       <UniqueIdentifier>{f9afaaa0-e30e-4b79-9191-00784fcde9aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario">
-      <UniqueIdentifier>{263e2313-396c-4574-a4a1-ca54e76354af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\FireMario">
-      <UniqueIdentifier>{a68f682f-d6e1-4dca-a4b9-991b31f278cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\FireMario\FireBullet">
-      <UniqueIdentifier>{5bdeb1f4-322f-4b99-a3be-27465c40b414}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\FrogMario">
-      <UniqueIdentifier>{4121f363-c45a-4caf-8a56-0b62c35cfe15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\RedRaccoonMario">
-      <UniqueIdentifier>{8f978460-0ce4-4af6-a519-ed790ac18542}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\RedSmallMario">
-      <UniqueIdentifier>{82aad18d-86a4-43e7-bbb8-7f7088b9e15d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\RedBigMario">
-      <UniqueIdentifier>{1d5b88c5-fc89-4400-ae71-c829492686e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\GameObjects\PlayScene\Mario\SelectionSceneMario">
-      <UniqueIdentifier>{08b85f94-3f53-4d70-854f-dd8721f1b721}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource\GameObjects\SelectionScene">
       <UniqueIdentifier>{56661244-245c-44d3-bbf9-3471c8aff88e}</UniqueIdentifier>
     </Filter>
@@ -152,6 +128,30 @@
     <Filter Include="GameSource\Scenes\PlayScene">
       <UniqueIdentifier>{3904fad4-cb44-415b-96b2-735f2aceaba6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Mario">
+      <UniqueIdentifier>{263e2313-396c-4574-a4a1-ca54e76354af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FireMario">
+      <UniqueIdentifier>{a68f682f-d6e1-4dca-a4b9-991b31f278cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FireMario\FireBullet">
+      <UniqueIdentifier>{5bdeb1f4-322f-4b99-a3be-27465c40b414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\FrogMario">
+      <UniqueIdentifier>{4121f363-c45a-4caf-8a56-0b62c35cfe15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\RedRaccoonMario">
+      <UniqueIdentifier>{8f978460-0ce4-4af6-a519-ed790ac18542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\RedSmallMario">
+      <UniqueIdentifier>{82aad18d-86a4-43e7-bbb8-7f7088b9e15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\RedBigMario">
+      <UniqueIdentifier>{1d5b88c5-fc89-4400-ae71-c829492686e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\SelectionSceneMario">
+      <UniqueIdentifier>{08b85f94-3f53-4d70-854f-dd8721f1b721}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -161,7 +161,7 @@
       <Filter>Framework\WindowGame</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario</Filter>
+      <Filter>GameSource\GameObjects\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Framework\Sprite</Filter>
@@ -233,19 +233,19 @@
       <Filter>Framework\GameMap2</Filter>
     </ClCompile>
     <ClCompile Include="FireMario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\FireMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
     </ClCompile>
     <ClCompile Include="FireBullet.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\FireMario\FireBullet</Filter>
+      <Filter>GameSource\GameObjects\Mario\FireMario\FireBullet</Filter>
     </ClCompile>
     <ClCompile Include="RedSmallMario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedSmallMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedSmallMario</Filter>
     </ClCompile>
     <ClCompile Include="RedRaccoonMario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedRaccoonMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
     </ClCompile>
     <ClCompile Include="RedBigMario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedBigMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedBigMario</Filter>
     </ClCompile>
     <ClCompile Include="RectPlatform.cpp">
       <Filter>GameSource\GameObjects\PlayScene\CollisionBox\RectPlatform</Filter>
@@ -296,7 +296,7 @@
       <Filter>GameSource\GameObjects\SelectionScene\Portal</Filter>
     </ClCompile>
     <ClCompile Include="SelectionSceneMario.cpp">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\SelectionSceneMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\SelectionSceneMario</Filter>
     </ClCompile>
     <ClCompile Include="SelectionTree.cpp">
       <Filter>GameSource\GameObjects\SelectionScene\Tree</Filter>
@@ -316,7 +316,7 @@
       <Filter>Framework\WindowGame</Filter>
     </ClInclude>
     <ClInclude Include="Mario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario</Filter>
+      <Filter>GameSource\GameObjects\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Framework\Sprite</Filter>
@@ -358,7 +358,7 @@
       <Filter>Framework\Animation</Filter>
     </ClInclude>
     <ClInclude Include="MarioConsts.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario</Filter>
+      <Filter>GameSource\GameObjects\Mario</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsConsts.h">
       <Filter>Framework\Utils</Filter>
@@ -388,19 +388,19 @@
       <Filter>Framework\GameMap2</Filter>
     </ClInclude>
     <ClInclude Include="FireMario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\FireMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\FireMario</Filter>
     </ClInclude>
     <ClInclude Include="FireBullet.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\FireMario\FireBullet</Filter>
+      <Filter>GameSource\GameObjects\Mario\FireMario\FireBullet</Filter>
     </ClInclude>
     <ClInclude Include="RedSmallMario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedSmallMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedSmallMario</Filter>
     </ClInclude>
     <ClInclude Include="RedRaccoonMario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedRaccoonMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
     </ClInclude>
     <ClInclude Include="RedBigMario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\RedBigMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\RedBigMario</Filter>
     </ClInclude>
     <ClInclude Include="RectPlatform.h">
       <Filter>GameSource\GameObjects\PlayScene\CollisionBox\RectPlatform</Filter>
@@ -451,7 +451,7 @@
       <Filter>GameSource\GameObjects\SelectionScene\Portal</Filter>
     </ClInclude>
     <ClInclude Include="SelectionSceneMario.h">
-      <Filter>GameSource\GameObjects\PlayScene\Mario\SelectionSceneMario</Filter>
+      <Filter>GameSource\GameObjects\Mario\SelectionSceneMario</Filter>
     </ClInclude>
     <ClInclude Include="SelectionTree.h">
       <Filter>GameSource\GameObjects\SelectionScene\Tree</Filter>

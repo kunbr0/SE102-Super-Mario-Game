@@ -203,10 +203,11 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 		break;
 		
 	case DIK_S:
-		if(!kEvent.isHold) 
-			ChangeAction(MarioAction::JUMP);
-		else
-			ChangeAction(MarioAction::HIGH_JUMP);
+		if (!kEvent.isHold) {
+			if(!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+		}
+		else ChangeAction(MarioAction::HIGH_JUMP);
+			
 		break;
 
 	default:

@@ -14,7 +14,7 @@
 #define VELOCITY_X_MIN_FOR_SKID					0.12f
 #define VELOCITY_X_MIN_FOR_RUN					0.25f
 #define DISTANCE_Y_MIN_FOR_FALL					7.0f
-
+#define GRAVITY_VELOCITY_MAX					3.0f
 
 // VELOCITY
 #define VELOCITY_X_AFTER_SKID			0.08f

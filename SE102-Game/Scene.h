@@ -21,11 +21,23 @@ public:
 	CCamera* GetCamera() { return &sceneCamera; }
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
+	virtual bool LoadDataFromFile();
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
-	virtual void Update(DWORD dt) = 0;
-	virtual void Render() = 0;
 	
+	
+	
+	// Update
+	virtual void Update(DWORD dt) = 0;
+	void UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
+	void UpdateIfInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
+	void UpdateTempObjsInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
+	void PushBackToCalculateCollision(vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*);
+
+	// Render
+	virtual void Render() = 0;
+	void RenderIfEnableAndInCamera(vector<LPGAMEOBJECT>*);
+
 };
 typedef CScene* LPSCENE;
 

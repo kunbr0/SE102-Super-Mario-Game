@@ -5,7 +5,14 @@
 
 		<!--Small Mario-->
 	 	<!-- Animation IDLE FRONT-->
-		 <Animation aniId="ani-small-mario-idle-front" frameTime="100" name="IDLE-FRONT">
+		
+		<Animation aniId="ani-small-mario-selection" frameTime="100" name="SELECTION">
+			<Sprite id="spr-small-mario-map-0" frameTime="100"/>
+			<Sprite id="spr-small-mario-map-1" frameTime="100"/>
+		</Animation>
+
+
+		<Animation aniId="ani-small-mario-idle-front" frameTime="100" name="IDLE-FRONT">
 			<Sprite id="spr-small-mario-idle-front-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
 		</Animation>
 		<!-- Animation IDLE-->
@@ -77,7 +84,16 @@
 			<Sprite id="spr-small-mario-climb-1" left="578" top="9"  width="14" height="15" frameTime="100"/>
 		</Animation>
 
+
+
+
+
 		<!--Big Mario-->
+		<!-- Animation SELECTION-->
+		<Animation aniId="ani-big-mario-selection" frameTime="100" name="SELECTION">
+			<Sprite id="spr-big-mario-map-0" frameTime="100"/>
+			<Sprite id="spr-big-mario-map-1" frameTime="100"/>
+		</Animation>
 		<!-- Animation IDLE FRONT-->
 		<Animation aniId="ani-big-mario-idle" frameTime="100" name="IDLE">
 			<Sprite id="spr-big-mario-idle-0" left="197" top="48"  width="14" height="27" frameTime="100"/>
@@ -169,6 +185,11 @@
 		</Animation>
 
 		<!--Raccoon Mario-->
+		<!-- Animation SELECTION-->
+		<Animation aniId="ani-raccoon-mario-selection" frameTime="100" name="SELECTION">
+			<Sprite id="spr-raccoon-mario-map-0" frameTime="100"/>
+			<Sprite id="spr-raccoon-mario-map-1" frameTime="100"/>
+		</Animation>
 		<!-- Animation IDLE FRONT-->
 		<Animation aniId="ani-raccoon-mario-idle-front" frameTime="100" name="IDLE-FRONT">
 			<Sprite id="spr-raccoon-mario-idle-front-0" left="174" top="142"  width="16" height="28" frameTime="100"/>
@@ -284,6 +305,12 @@
 		</Animation>
 
 		<!--Fire Mario-->
+		<!-- Animation SELECTION-->
+		<Animation aniId="ani-fire-mario-selection" frameTime="100" name="SELECTION">
+			<Sprite id="spr-fire-mario-map-0" frameTime="100"/>
+			<Sprite id="spr-fire-mario-map-1" frameTime="100"/>
+		</Animation>
+
 		<!-- Animation MAP -->
 		<Animation aniId="ani-fire-mario-map-???" frameTime="100" name="???">
 			<Sprite id="spr-fire-mario-map-???-0" left="124" top="115"  width="16" height="21" frameTime="100"/>

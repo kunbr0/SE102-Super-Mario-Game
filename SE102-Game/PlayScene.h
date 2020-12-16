@@ -50,6 +50,10 @@ public:
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
 	void PushEffects(CEffect* eff) { effects.push_back(eff); }
 
+	void HandleSceneTime(DWORD&);
+
+	void UpdateEffects(DWORD);
+	void HandleMarioDie();
 
 	CMario* GenerateMario(MarioType, Vector2);
 
