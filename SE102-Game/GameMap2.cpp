@@ -10,7 +10,8 @@
 #include "Koopas.h"
 #include "KoopasFly.h"
 #include "MiniPortal.h"
-
+#include "SelectionPortal.h"
+#include "SelectionTree.h"
 
 #define marginXWindow	96
 #define	marginYWindow	272
@@ -293,6 +294,38 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 			
+
+			// Selection Scene
+			if (std::string(objGroupNode->Attribute("name")) == "SelectionPortal") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					
+					LPGAMEOBJECT obj = new CSelectionPortal(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+						),
+						Vector2(
+							(int)(atoi(objNode->Attribute("width")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("height")) + atoi(objNode->Attribute("height")) / 2)
+						),
+						std::string(objNode->Attribute("name"))
+					);
+					staticObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "SelectionTree") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+
+					LPGAMEOBJECT obj = new CSelectionTree(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+						)
+					);
+					staticObjects->push_back(obj);
+				}
+			}
 			
 		}
 

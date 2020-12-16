@@ -10,7 +10,7 @@ class CSelectionScene : public CScene
 
 protected:
 	LPGAMEOBJECT player; // Player controls the position of camera.
-
+	vector<LPGAMEOBJECT> selectionPortals;
 
 public:
 	CSelectionScene(std::string id, std::string filePath);

@@ -1,5 +1,5 @@
 #include "SelectionScene.h"
-
+#include "SelectionSceneMario.h"
 
 CSelectionScene::CSelectionScene(std::string id, std::string filePath) :
 	CScene(id, filePath)
@@ -38,6 +38,11 @@ void CSelectionScene::Update(DWORD dt)
 void CSelectionScene::Render()
 {
 	sceneCamera.Render();
+	for (int i = 0; i < selectionPortals.size(); i++)
+		selectionPortals[i]->Render(sceneCamera.ConvertPosition(Vector2(selectionPortals[i]->x, selectionPortals[i]->y)));
+
+	player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
+	
 	sceneCamera.RenderDetailBoard();
 }
 
@@ -118,13 +123,17 @@ bool CSelectionScene::LoadDataFromFile() {
 	// Load Objects
 	for (TiXmlElement* objs = root->FirstChildElement("objects"); objs != nullptr; objs = objs->NextSiblingElement("objects")) {
 		// Mario
-		
-		
+		for (TiXmlElement* mario = objs->FirstChildElement("mario"); mario != nullptr; mario = mario->NextSiblingElement("mario")) {
+			if (player != NULL) break;
+			int x = atoi(mario->Attribute("x"));
+			int y = atoi(mario->Attribute("y"));
+			player = new CSelectionSceneMario(Vector2(x, y));
+		}
 
 	}
 	std::string mapFilePath = root->Attribute("mapFilePath");
 	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath);
+	sceneCamera.LoadMap(mapFilePath, &selectionPortals);
 
 	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y));
 	return true;

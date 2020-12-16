@@ -188,7 +188,10 @@
     <ClCompile Include="RedSmallMario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SelectionPortal.cpp" />
     <ClCompile Include="SelectionScene.cpp" />
+    <ClCompile Include="SelectionSceneMario.cpp" />
+    <ClCompile Include="SelectionTree.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -239,7 +242,10 @@
     <ClInclude Include="RedSmallMario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SelectionPortal.h" />
     <ClInclude Include="SelectionScene.h" />
+    <ClInclude Include="SelectionSceneMario.h" />
+    <ClInclude Include="SelectionTree.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="TextureManager.h" />

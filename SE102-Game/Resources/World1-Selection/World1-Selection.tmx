@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="56">
  <editorsettings>
   <export target="Resources/World1-Selection/World1-Selection.xml" format="tmx"/>
  </editorsettings>
@@ -24,6 +24,65 @@
 28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28
 </data>
  </layer>
+ <objectgroup id="5" name="SelectionPortal">
+  <object id="1" name="start-0" x="96" y="144" width="48" height="48"/>
+  <object id="2" name="gate-1" x="192" y="48" width="48" height="48"/>
+  <object id="3" name="gate-2" x="384" y="48" width="48" height="48"/>
+  <object id="4" name="gate-3" x="480" y="48" width="48" height="48"/>
+  <object id="5" name="gate-4" x="480" y="144" width="48" height="48"/>
+  <object id="6" name="gate-5" x="192" y="432" width="48" height="48"/>
+  <object id="7" name="gate-6" x="384" y="432" width="48" height="48"/>
+  <object id="8" name="spade-0" x="384" y="240" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup id="6" name="SelectionTree">
+  <object id="9" x="48" y="48" width="48" height="48"/>
+  <object id="10" x="96" y="48" width="48" height="48"/>
+  <object id="11" x="144" y="48" width="48" height="48"/>
+  <object id="12" x="48" y="96" width="48" height="48"/>
+  <object id="13" x="96" y="96" width="48" height="48"/>
+  <object id="14" x="144" y="96" width="48" height="48"/>
+  <object id="15" x="48" y="192" width="48" height="48"/>
+  <object id="16" x="96" y="192" width="48" height="48"/>
+  <object id="17" x="144" y="192" width="48" height="48"/>
+  <object id="18" x="48" y="240" width="48" height="48"/>
+  <object id="19" x="96" y="240" width="48" height="48"/>
+  <object id="20" x="144" y="240" width="48" height="48"/>
+  <object id="21" x="48" y="288" width="48" height="48"/>
+  <object id="22" x="240" y="96" width="48" height="48"/>
+  <object id="23" x="288" y="96" width="48" height="48"/>
+  <object id="24" x="336" y="96" width="48" height="48"/>
+  <object id="25" x="240" y="144" width="48" height="48"/>
+  <object id="26" x="288" y="144" width="48" height="48"/>
+  <object id="27" x="336" y="144" width="48" height="48"/>
+  <object id="28" x="240" y="192" width="48" height="48"/>
+  <object id="29" x="288" y="192" width="48" height="48"/>
+  <object id="30" x="336" y="192" width="48" height="48"/>
+  <object id="31" x="288" y="288" width="48" height="48"/>
+  <object id="32" x="336" y="288" width="48" height="48"/>
+  <object id="33" x="384" y="288" width="48" height="48"/>
+  <object id="34" x="432" y="96" width="48" height="48"/>
+  <object id="35" x="480" y="96" width="48" height="48"/>
+  <object id="36" x="528" y="96" width="48" height="48"/>
+  <object id="37" x="432" y="192" width="48" height="48"/>
+  <object id="38" x="480" y="192" width="48" height="48"/>
+  <object id="39" x="528" y="192" width="48" height="48"/>
+  <object id="40" x="432" y="240" width="48" height="48"/>
+  <object id="41" x="480" y="240" width="48" height="48"/>
+  <object id="42" x="576" y="192" width="48" height="48"/>
+  <object id="43" x="624" y="192" width="48" height="48"/>
+  <object id="44" x="672" y="192" width="48" height="48"/>
+  <object id="45" x="624" y="48" width="48" height="48"/>
+  <object id="46" x="672" y="48" width="48" height="48"/>
+  <object id="47" x="624" y="96" width="48" height="48"/>
+  <object id="48" x="672" y="96" width="48" height="48"/>
+  <object id="49" x="624" y="144" width="48" height="48"/>
+  <object id="50" x="672" y="144" width="48" height="48"/>
+  <object id="51" x="672" y="240" width="48" height="48"/>
+  <object id="52" x="672" y="288" width="48" height="48"/>
+  <object id="53" x="672" y="336" width="48" height="48"/>
+  <object id="54" x="672" y="384" width="48" height="48"/>
+  <object id="55" x="672" y="432" width="48" height="48"/>
+ </objectgroup>
  <layer id="2" name="yellow" width="16" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
