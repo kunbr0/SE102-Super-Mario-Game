@@ -146,6 +146,12 @@
     <Filter Include="GameSource\GameObjects\SelectionScene\Tree">
       <UniqueIdentifier>{b0d26b48-f9c0-427d-8fd1-3a65c6a91dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\SelectionScene\Node">
+      <UniqueIdentifier>{0f4a06b7-25fe-4a24-8987-efcf01109bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Scenes\PlayScene">
+      <UniqueIdentifier>{3904fad4-cb44-415b-96b2-735f2aceaba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -183,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Framework\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>GameSource\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Koopas.cpp">
       <Filter>GameSource\GameObjects\PlayScene\Enemy\Koopas</Filter>
@@ -298,6 +301,12 @@
     <ClCompile Include="SelectionTree.cpp">
       <Filter>GameSource\GameObjects\SelectionScene\Tree</Filter>
     </ClCompile>
+    <ClCompile Include="SelectionNode.cpp">
+      <Filter>GameSource\GameObjects\SelectionScene\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>GameSource\Scenes\PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -344,9 +353,6 @@
     </ClInclude>
     <ClInclude Include="RectCollision.h">
       <Filter>GameSource\GameObjects\PlayScene\CollisionBox\RectCollision</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>GameSource\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animation</Filter>
@@ -449,6 +455,12 @@
     </ClInclude>
     <ClInclude Include="SelectionTree.h">
       <Filter>GameSource\GameObjects\SelectionScene\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionNode.h">
+      <Filter>GameSource\GameObjects\SelectionScene\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>GameSource\Scenes\PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -54,6 +54,9 @@ public:
 	
 
 	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, std::unordered_map<std::string, CSelectionNode*>* = NULL);
+	
+	
 	void Update(DWORD dt);
 	void Render();
 	void RenderDetailBoard();

@@ -5,6 +5,8 @@
 #include "./XmlReader/tinyxml.h"
 #include "./XmlReader/tinystr.h"
 #include "GameObject.h"
+#include <unordered_map>
+#include "SelectionNode.h"
 
 struct kTilesetRender {
 	CTileSet* tileset;
@@ -47,7 +49,8 @@ public:
 
 	virtual void GetMapSize(Vector2 &out);
 
-	static CGameMap* FromTMX(string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* = NULL, std::unordered_map<std::string, CSelectionNode*>* = NULL);
 	~CGameMap();
 };
 

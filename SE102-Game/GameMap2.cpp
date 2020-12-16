@@ -295,10 +295,55 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 			}
 			
 
+			
+
+
+
+		}
+
+		return gameMap;
+	}
+
+	throw "Load map that bai!!";
+}
+
+
+CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, std::unordered_map<std::string, CSelectionNode*>* selectionNodes)
+{
+	string fullPath = filePath;
+	TiXmlDocument doc(fullPath.c_str());
+
+	if (doc.LoadFile()) {
+		TiXmlElement* root = doc.RootElement();
+		CGameMap* gameMap = new CGameMap();
+
+		root->QueryIntAttribute("width", &gameMap->width);
+		root->QueryIntAttribute("height", &gameMap->height);
+		root->QueryIntAttribute("tilewidth", &gameMap->tileWidth);
+		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
+
+		//Load tileset
+
+		for (TiXmlElement* node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset")) {
+			CTileSet* tileSet = new CTileSet(node, filePath);
+
+			gameMap->tilesets.push_back(tileSet);
+		}
+
+		//Load layer
+		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
+			CMapLayer* layer = new CMapLayer(node);
+			gameMap->AddLayer(layer);
+		}
+
+		// Load collision group objects
+		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
+			
+
 			// Selection Scene
 			if (std::string(objGroupNode->Attribute("name")) == "SelectionPortal") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
-					
+
 					LPGAMEOBJECT obj = new CSelectionPortal(
 						Vector2(
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
@@ -326,7 +371,36 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					staticObjects->push_back(obj);
 				}
 			}
-			
+
+			if (std::string(objGroupNode->Attribute("name")) == "SelectionNode") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+
+					std::string nodeName = std::string(objNode->Attribute("name"));
+					int width = atoi(objNode->Attribute("width"));
+					int height = atoi(objNode->Attribute("height"));
+					int x = atoi(objNode->Attribute("x")) + width / 2;
+					int y = atoi(objNode->Attribute("y")) + height / 2;
+					
+					CSelectionNode* seNode = new CSelectionNode(nodeName, Vector2(x,y));
+
+					// Insert Movable Ways of this Node
+					
+					TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
+					for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
+						std::string keyDirection = std::string(propertyNode->Attribute("name"));
+						std::string targetNodeName = std::string(propertyNode->Attribute("value"));
+						seNode->AddMovableNode(keyDirection, targetNodeName);
+					}
+
+					/*(std::unordered_map<std::string, CSelectionNode*>)(*selectionNodes)
+					selectionNodes->at(nodeName) = seNode;*/
+					(*selectionNodes)[nodeName] = seNode;
+					
+				}
+			}
+
+
+
 		}
 
 		return gameMap;
@@ -334,6 +408,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 
 	throw "Load map that bai!!";
 }
+
 
 void CGameMap::GetMapSize(Vector2 &out) {
 	out.x = this->width * tileWidth;

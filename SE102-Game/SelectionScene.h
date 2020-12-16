@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include <map>
+#include <unordered_map>
+#include "SelectionNode.h"
 
 
 class CSelectionScene : public CScene
@@ -12,6 +14,9 @@ protected:
 	LPGAMEOBJECT player; // Player controls the position of camera.
 	vector<LPGAMEOBJECT> selectionPortals;
 
+	std::unordered_map<std::string, CSelectionNode*> selectionNodes;
+	CSelectionNode* standingNode = nullptr;
+
 public:
 	CSelectionScene(std::string id, std::string filePath);
 	virtual bool LoadDataFromFile();
@@ -20,6 +25,9 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	void ProcessMovingToNewNode(int);
+	bool isMoving = false;
 
 };
 

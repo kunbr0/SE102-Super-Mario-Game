@@ -31,6 +31,12 @@ void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjec
 	
 }
 
+void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, std::unordered_map<std::string, CSelectionNode*>* selectionNodes) {
+	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, selectionNodes);
+	mMap->GetMapSize(mapSize);
+
+}
+
 Vector2 CCamera::GetCamPosition() {
 	return camPosition;
 }
