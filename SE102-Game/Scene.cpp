@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Mario.h"
+#include "SpriteManager.h"
 
 CScene::CScene(std::string id, std::string filePath)
 {
@@ -51,7 +52,65 @@ void CScene::PushBackToCalculateCollision(vector<LPGAMEOBJECT>* storageList, vec
 	}
 }
 
+void CScene::ProcessBlackPortion(DWORD dt) {
+	if (!closingOpeningEffect.isActive) return;
 
+	if (closingOpeningEffect.currentBlackPortion == 0 - closingOpeningEffect.depreciation && closingOpeningEffect.isOpening
+		|| closingOpeningEffect.currentBlackPortion == closingOpeningEffect.totalBlackPortion + closingOpeningEffect.depreciation && !closingOpeningEffect.isOpening)
+	{
+		closingOpeningEffect.isActive = false;
+		if (closingOpeningEffect.callback != nullptr) closingOpeningEffect.callback();
+	}
+
+	if (closingOpeningEffect.isOpening) {
+		if (closingOpeningEffect.currentBlackPortion - dt > 0 - closingOpeningEffect.depreciation)
+			closingOpeningEffect.currentBlackPortion -= dt;
+		else {
+			closingOpeningEffect.currentBlackPortion = 0 - closingOpeningEffect.depreciation;
+		}
+	}
+	else {
+		if (closingOpeningEffect.currentBlackPortion + dt < closingOpeningEffect.totalBlackPortion + closingOpeningEffect.depreciation)
+			closingOpeningEffect.currentBlackPortion += dt;
+		else {
+			closingOpeningEffect.currentBlackPortion = closingOpeningEffect.totalBlackPortion + closingOpeningEffect.depreciation;
+		}
+	}
+}
+void CScene::BeginOpeningEffect(CallbackType callback) {
+	closingOpeningEffect.isActive = true;
+	closingOpeningEffect.currentBlackPortion = closingOpeningEffect.totalBlackPortion;
+	closingOpeningEffect.isOpening = true;
+	closingOpeningEffect.callback = callback;
+}
+
+void CScene::BeginClosingEffect(CallbackType callback) {
+	closingOpeningEffect.isActive = true;
+	closingOpeningEffect.currentBlackPortion = 0;
+	closingOpeningEffect.isOpening = false;
+	closingOpeningEffect.callback = callback;
+}
+
+void CScene::RenderBlackEffect() {
+	if (!closingOpeningEffect.isActive) return;
+	LPDIRECT3DTEXTURE9 black = CTextures::GetInstance()->Get("black");
+	Vector2 camSize = sceneCamera.GetCamSize();
+	RECT rect; rect.left = 0; rect.top = 0; rect.right = camSize.x; rect.bottom = camSize.y;
+	float positivePortion = (closingOpeningEffect.totalBlackPortion - closingOpeningEffect.currentBlackPortion) / closingOpeningEffect.totalBlackPortion;
+	float negativePortion = (closingOpeningEffect.currentBlackPortion - closingOpeningEffect.totalBlackPortion) / closingOpeningEffect.totalBlackPortion;
+	// Center To Left
+	CGame::GetInstance()->DrawWithScaling(Vector2((camSize.x * negativePortion) / 2, camSize.y / 2), Vector2(0, 0), black, rect, 255);
+	// Center To Right
+	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x + (camSize.x * positivePortion) / 2, camSize.y / 2), Vector2(0, 0), black, rect, 255);
+	
+	// Center To Top
+	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x / 2, (camSize.y * negativePortion) / 2), Vector2(0, 0), black, rect, 255);
+	// Center To Bottom
+	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x / 2, camSize.x + (camSize.y * positivePortion) / 2), Vector2(0, 0), black, rect, 255);
+
+
+
+}
 
 void CScene::RenderIfEnableAndInCamera(vector<LPGAMEOBJECT>* objList) {
 	for (int i = 0; i < objList->size(); i++) {

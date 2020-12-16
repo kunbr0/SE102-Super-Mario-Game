@@ -87,6 +87,7 @@ bool CPlayScene::LoadDataFromFile() {
 void CPlayScene::Load()
 {
 	LoadDataFromFile();
+	BeginOpeningEffect();
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -153,6 +154,7 @@ void CPlayScene::Update(DWORD dt)
 	UpdateEffects(dt);
 
 	sceneCamera.Update(dt); // Update Map in Camera
+	ProcessBlackPortion(dt);
 }
 
 void CPlayScene::Render()
@@ -183,6 +185,7 @@ void CPlayScene::Render()
 		effects[i]->Render(finalPos);
 	}
 	sceneCamera.RenderDetailBoard();
+	RenderBlackEffect();
 }
 
 

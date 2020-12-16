@@ -15,11 +15,13 @@ CSelectionScene::CSelectionScene(std::string id, std::string filePath) :
 void CSelectionScene::Load()
 {
 	LoadDataFromFile();
+	BeginOpeningEffect();
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
 void CSelectionScene::Update(DWORD dt)
 {
+	
 	if (isMoving) {
 		int distanceX = player->x - standingNode->GetPosition().x;
 		int distanceY = player->y - standingNode->GetPosition().y;
@@ -29,6 +31,7 @@ void CSelectionScene::Update(DWORD dt)
 		if (abs(distanceY) < MOVING_DISTANCE) player->y -= distanceY;
 		else player->y += MOVING_DISTANCE * (distanceY < 0 ? 1 : -1);
 	}
+	ProcessBlackPortion(dt);
 }
 
 void CSelectionScene::Render()
@@ -38,6 +41,7 @@ void CSelectionScene::Render()
 		selectionPortals[i]->Render(sceneCamera.ConvertPosition(Vector2(selectionPortals[i]->x, selectionPortals[i]->y)));
 	player->Render(sceneCamera.ConvertPosition(Vector2(player->x, player->y)));
 	sceneCamera.RenderDetailBoard();
+	RenderBlackEffect();
 }
 
 void CSelectionScene::Unload()
@@ -71,7 +75,10 @@ void CSelectionSceneKeyHandler::OnKeyDown(int KeyCode)
 	{
 		
 	case DIK_W:
-		CGame::GetInstance()->SwitchScene("world1-1");
+		((CSelectionScene*)scence)->BeginClosingEffect([]() {
+			CGame::GetInstance()->SwitchScene("world1-1");
+		});
+		
 		break;
 	}
 }

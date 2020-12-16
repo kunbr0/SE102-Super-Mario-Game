@@ -6,6 +6,19 @@
 #define DEFAULT_TIME_SCALE		1
 
 
+typedef void (*CallbackType)();
+
+
+struct SClosingOpeningEffect {
+	float currentBlackPortion = 0;
+	const float totalBlackPortion = 1500;
+	const float depreciation = 100;
+	bool isOpening = true;
+	bool isActive = false;
+
+	CallbackType callback;
+};
+
 class CScene
 {
 protected:
@@ -15,6 +28,9 @@ protected:
 	CCamera sceneCamera;
 	unsigned long timeScale;
 
+	SClosingOpeningEffect closingOpeningEffect;
+	
+	
 public:
 	CScene(std::string id, std::string filePath);
 
@@ -26,6 +42,10 @@ public:
 	virtual void Unload() = 0;
 	
 	
+	// Features
+	void BeginOpeningEffect(CallbackType = nullptr);
+	void BeginClosingEffect(CallbackType = nullptr);
+	
 	
 	// Update
 	virtual void Update(DWORD dt) = 0;
@@ -33,10 +53,12 @@ public:
 	void UpdateIfInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
 	void UpdateTempObjsInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
 	void PushBackToCalculateCollision(vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*);
+	void ProcessBlackPortion(DWORD);
 
 	// Render
 	virtual void Render() = 0;
 	void RenderIfEnableAndInCamera(vector<LPGAMEOBJECT>*);
+	void RenderBlackEffect();
 
 };
 typedef CScene* LPSCENE;
