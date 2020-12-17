@@ -133,7 +133,7 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	
 	if (player == NULL) return;
-
+	if (isPausing) return;
 	HandleSceneTime(dt);
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -159,6 +159,7 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+
 	Vector2 camSize = sceneCamera.GetCamSize();
 
 	RenderIfEnableAndInCamera(&dynamicObjectsBehindMap);
@@ -186,6 +187,8 @@ void CPlayScene::Render()
 	}
 	sceneCamera.RenderDetailBoard();
 	RenderBlackEffect();
+
+	if (isPausing) sceneCamera.RenderPausing();
 }
 
 
@@ -197,6 +200,10 @@ void CPlayScene::ChangeCameraArea(Vector2 playerPos, Vector2 LeftTopLimit, Vecto
 /*
 	Unload current scene
 */
+
+void CPlayScene::TogglePausingMode() {
+	isPausing = !isPausing;
+}
 
 
 void CPlayScene::Unload()
@@ -244,7 +251,7 @@ void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
+	if (((CPlayScene*)scence)->GetPausingStatus() && KeyCode != DIK_ESCAPE) return;
 	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 	CGame* gameInstance = CGame::GetInstance();
 
@@ -277,12 +284,17 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 				new CFireMario(currentPlayer->x, currentPlayer->y)
 			);
 		}	break;
+
+		case DIK_ESCAPE: {
+			((CPlayScene*)scence)->TogglePausingMode();
+		}	break;
 	}
 
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
+	if (((CPlayScene*)scence)->GetPausingStatus()) return;
 	CMario* currentPlayer = (CMario*)(((CPlayScene*)scence)->GetPlayer());
 	CGame* gameInstance = CGame::GetInstance();
 	currentPlayer->ProcessKeyboard(gameInstance->GenerateKeyboardEvent(KeyCode, false, true));
@@ -290,6 +302,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
+	if (((CPlayScene*)scence)->GetPausingStatus()) return;
 	CGame* gameInstance = CGame::GetInstance();
 	CMario* currentPlayer = (CMario * )(((CPlayScene*)scence)->GetPlayer());
 	if (currentPlayer == NULL)return;

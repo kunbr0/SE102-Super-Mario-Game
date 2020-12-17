@@ -43,6 +43,7 @@ void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjec
 
 }
 
+
 Vector2 CCamera::GetCamPosition() {
 	return camPosition;
 }
@@ -222,4 +223,11 @@ void CCamera::RenderDetailBoard() {
 void CCamera::Render() {
 	//mMap->Render(DetailsBoardHeight+150);
 	mMap->Render();
+}
+
+void CCamera::RenderPausing() {
+	LPDIRECT3DTEXTURE9 black = CTextures::GetInstance()->Get("black");
+	RECT rect; rect.left = 0; rect.top = 0; rect.right = camSize.x; rect.bottom = camSize.y;
+	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x / 2, camSize.y / 2), Vector2(0, 0), black, rect, 100);
+	CUIDrawer::GetInstance()->Draw("PAUSE", Vector2(camSize.x / 2 - 60, camSize.y / 2 - 10));
 }

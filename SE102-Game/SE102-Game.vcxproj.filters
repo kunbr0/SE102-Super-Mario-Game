@@ -158,6 +158,9 @@
     <Filter Include="GameSource\GameObjects\IntroScene">
       <UniqueIdentifier>{1b534af2-9441-416c-ba43-f90525a82b5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Items\GoldenBrick">
+      <UniqueIdentifier>{4beed926-8b6e-4984-87c2-33de43b13424}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -319,6 +322,9 @@
     <ClCompile Include="IntroSceneObj.cpp">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClCompile>
+    <ClCompile Include="GoldenBrick.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -479,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="IntroSceneObj.h">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldenBrick.h">
+      <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

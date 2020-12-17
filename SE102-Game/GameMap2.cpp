@@ -13,6 +13,7 @@
 #include "SelectionPortal.h"
 #include "SelectionTree.h"
 #include "IntroSceneObj.h"
+#include "GoldenBrick.h"
 
 
 #define marginXWindow	96
@@ -244,6 +245,17 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					LPGAMEOBJECT obj = new CKoopasFly(
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					);
+					dynamicObjects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "GoldenBrick") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CGoldenBrick(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 					);
 					dynamicObjects->push_back(obj);
 				}

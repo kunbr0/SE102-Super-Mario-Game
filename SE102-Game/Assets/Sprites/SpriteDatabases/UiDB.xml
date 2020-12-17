@@ -31,7 +31,7 @@
         <Sprite id="spr-font-P" left="53" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-Q" left="71" top="54"  width="9" height="9"/>
         <Sprite id="spr-font-R" left="90" top="54"  width="8" height="9"/>
-        <Sprite id="spr-font-S" left="108" top="54"  width="9" height="9"/>
+        <Sprite id="spr-font-S" left="108" top="55"  width="9" height="8"/>
         <Sprite id="spr-font-T" left="127" top="54"  width="8" height="9"/>
         <Sprite id="spr-font-U" left="145" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-V" left="162" top="55"  width="8" height="8"/>

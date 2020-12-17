@@ -334,6 +334,8 @@ void CGame::SweptAABB(
 
 	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
 
+	if (st == sb || sl == sr) return;
+
 	if (dx > 0)
 	{
 		dx_entry = sl - mr;

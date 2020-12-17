@@ -137,6 +137,12 @@
 			<Sprite id="spr-platform-0" left="352" top="167"  width="48" height="16"/>
 		</Animation>
 
+		<Animation aniId="ani-brick-debris" frameTime="100">
+			<Sprite id="spr-debris-0"/>
+			<Sprite id="spr-debris-1"/>
+			<Sprite id="spr-debris-2"/>
+			<Sprite id="spr-debris-3"/>
+		</Animation>
 		<!-- MUSIC NOTE BLOCK -->
 		<!-- White -->
 		<Animation aniId="ani-music-note-block" frameTime="100">

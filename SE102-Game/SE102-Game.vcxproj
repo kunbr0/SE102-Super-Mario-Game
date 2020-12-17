@@ -168,6 +168,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap2.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GoldenBrick.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IntroSceneObj.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap2.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GoldenBrick.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IntroSceneObj.h" />

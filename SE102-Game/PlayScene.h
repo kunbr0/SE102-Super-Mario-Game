@@ -13,6 +13,7 @@ class CPlayScene : public CScene
 {
 
 protected:
+	bool isPausing = false;
 	LPGAMEOBJECT player; // Player controls the position of camera.
 	int playerLevel = 1;
 	//shared_ptr<CGameMap> kMap;
@@ -43,6 +44,8 @@ public:
 	virtual bool ParseSprites();*/
 
 	vector<LPGAMEOBJECT> GetEnemyBullets() { return enemyBullets; }
+	bool GetPausingStatus() { return isPausing; }
+	void TogglePausingMode();
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }

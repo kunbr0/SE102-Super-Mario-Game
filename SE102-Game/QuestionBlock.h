@@ -22,7 +22,7 @@ struct SBlockState {
 
 class CQuestionBlock : public CRectCollision
 {
-private:
+protected:
 	SBlockState state;
 	Vector2 deltaRender;
 	Vector2 deltaRenderSpeed;
@@ -35,9 +35,9 @@ public:
 	virtual void Render(Vector2 finalPos);
 
 
-	void Update(DWORD, vector<LPGAMEOBJECT>* ) override;
-	void ChangeState(EBlockState, DWORD = 0);
-	void SetState(EBlockState, DWORD = 0);
+	virtual void Update(DWORD, vector<LPGAMEOBJECT>* ) override;
+	virtual void ChangeState(EBlockState, DWORD = 0);
+	virtual void SetState(EBlockState, DWORD = 0);
 	virtual void OpenBox();
 
 	

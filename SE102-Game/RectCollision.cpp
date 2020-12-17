@@ -13,7 +13,6 @@ void CRectCollision::GetBoundingBox(float& left, float& top, float& right, float
 	top = y - height / 2;
 	right = x + width / 2;
 	bottom = y + height /2;
-
 }
 
 void CRectCollision::Render(Vector2 finalPos) {

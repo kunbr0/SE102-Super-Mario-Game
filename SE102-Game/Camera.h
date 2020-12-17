@@ -46,6 +46,8 @@ public:
 	void AdjustTimeRemaining(int);
 	void AdjustScore(int);
 
+	void RenderPausing();
+
 	bool IsInCamera(Vector2 realPos, int outsideCam = 20);
 	
 	void InitPositionController(CGameObject* a);
