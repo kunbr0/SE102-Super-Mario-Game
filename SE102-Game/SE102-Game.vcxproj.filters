@@ -152,6 +152,12 @@
     <Filter Include="GameSource\GameObjects\Mario\SelectionSceneMario">
       <UniqueIdentifier>{08b85f94-3f53-4d70-854f-dd8721f1b721}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\Scenes\IntroScene">
+      <UniqueIdentifier>{615228a4-52aa-4fdd-87cd-9b202acb1510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\IntroScene">
+      <UniqueIdentifier>{1b534af2-9441-416c-ba43-f90525a82b5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -307,6 +313,12 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>GameSource\Scenes\PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>GameSource\Scenes\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroSceneObj.cpp">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -461,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="PlayScene.h">
       <Filter>GameSource\Scenes\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>GameSource\Scenes\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroSceneObj.h">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

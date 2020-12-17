@@ -3,8 +3,8 @@
 
 #define MOVING_DISTANCE				3.5f
 
-CSelectionScene::CSelectionScene(std::string id, std::string filePath) :
-	CScene(id, filePath)
+CSelectionScene::CSelectionScene(std::string id, std::string filePath, std::string type) :
+	CScene(id, filePath, type)
 {
 
 	key_handler = new CSelectionSceneKeyHandler(this);

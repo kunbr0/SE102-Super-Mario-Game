@@ -12,6 +12,8 @@
 #include "MiniPortal.h"
 #include "SelectionPortal.h"
 #include "SelectionTree.h"
+#include "IntroSceneObj.h"
+
 
 #define marginXWindow	96
 #define	marginYWindow	272
@@ -400,6 +402,61 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 			}
 
 
+
+		}
+
+		return gameMap;
+	}
+
+	throw "Load map that bai!!";
+}
+
+
+
+CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects)
+{
+	string fullPath = filePath;
+	TiXmlDocument doc(fullPath.c_str());
+
+	if (doc.LoadFile()) {
+		TiXmlElement* root = doc.RootElement();
+		CGameMap* gameMap = new CGameMap();
+
+		root->QueryIntAttribute("width", &gameMap->width);
+		root->QueryIntAttribute("height", &gameMap->height);
+		root->QueryIntAttribute("tilewidth", &gameMap->tileWidth);
+		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
+
+		//Load tileset
+
+		for (TiXmlElement* node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset")) {
+			CTileSet* tileSet = new CTileSet(node, filePath);
+
+			gameMap->tilesets.push_back(tileSet);
+		}
+
+		//Load layer
+		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
+			CMapLayer* layer = new CMapLayer(node);
+			gameMap->AddLayer(layer);
+		}
+
+		// Load collision group objects
+		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
+			std::string objName = std::string(objGroupNode->Attribute("name"));
+
+			for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+
+				LPGAMEOBJECT obj = new CIntroSceneObj(
+					Vector2(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					),
+					objName
+				);
+				staticObjects->push_back(obj);
+			}
+			
 
 		}
 

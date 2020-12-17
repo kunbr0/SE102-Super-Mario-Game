@@ -15,8 +15,8 @@
 #include "FireMario.h"
 
 
-CPlayScene::CPlayScene(std::string id, std::string filePath) :
-	CScene(id, filePath)
+CPlayScene::CPlayScene(std::string id, std::string filePath, std::string type) :
+	CScene(id, filePath, type)
 {
 	
 	key_handler = new CPlayScenceKeyHandler(this);

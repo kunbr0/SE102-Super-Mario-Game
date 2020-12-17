@@ -37,6 +37,12 @@ void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjec
 
 }
 
+void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects) {
+	mMap = CGameMap().FromTMX(mapFilePath, staticObjects);
+	mMap->GetMapSize(mapSize);
+
+}
+
 Vector2 CCamera::GetCamPosition() {
 	return camPosition;
 }
@@ -214,5 +220,6 @@ void CCamera::RenderDetailBoard() {
 }
 
 void CCamera::Render() {
-	mMap->Render(DetailsBoardHeight+150);
+	//mMap->Render(DetailsBoardHeight+150);
+	mMap->Render();
 }

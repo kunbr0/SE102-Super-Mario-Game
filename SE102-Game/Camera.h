@@ -52,11 +52,16 @@ public:
 
 	void UpdateCamPosition();
 	
+	
+	// IntroScene
+	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL);
 
-	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
-	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL, std::unordered_map<std::string, CSelectionNode*>* = NULL);
+	// PlayScene
+	void LoadMap(std::string, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	// SelectionScene
+	void LoadMap(std::string, vector<LPGAMEOBJECT>*, std::unordered_map<std::string, CSelectionNode*>* );
 	
-	
+
 	void Update(DWORD dt);
 	void Render();
 	void RenderDetailBoard();

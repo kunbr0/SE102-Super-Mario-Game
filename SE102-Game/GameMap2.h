@@ -49,8 +49,15 @@ public:
 
 	virtual void GetMapSize(Vector2 &out);
 
-	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
-	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* = NULL, std::unordered_map<std::string, CSelectionNode*>* = NULL);
+	// PlayScene
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	
+	// SelectionScene
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* , std::unordered_map<std::string, CSelectionNode*>* );
+	
+	// IntroScene
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*);
+
 	~CGameMap();
 };
 

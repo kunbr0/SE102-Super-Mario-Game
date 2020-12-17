@@ -169,6 +169,8 @@
     <ClCompile Include="GameMap2.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroSceneObj.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="KoopasFly.cpp" />
     <ClCompile Include="Leaf.cpp" />
@@ -223,6 +225,8 @@
     <ClInclude Include="GameMap2.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroSceneObj.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="KoopasFly.h" />
     <ClInclude Include="Leaf.h" />

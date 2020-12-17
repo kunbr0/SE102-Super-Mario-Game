@@ -50,7 +50,7 @@ class CGame
 
 	unordered_map<std::string, LPSCENE> scenes;
 	std::string current_scene;
-
+	std::string current_scene_type;
 	
 
 public:
@@ -65,6 +65,8 @@ public:
 	void ProcessKeyboard();
 
 	bool Load(std::string gameFile);
+
+	std::string GetCurrentSceneType() { return current_scene_type; }
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void SwitchScene(std::string scene_id);
 

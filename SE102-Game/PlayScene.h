@@ -31,7 +31,7 @@ protected:
 
 
 public:
-	CPlayScene(std::string id, std::string filePath);
+	CPlayScene(std::string id, std::string, std::string);
 	void SwitchPlayer(LPGAMEOBJECT newPlayer);
 	virtual void Load();
 	virtual void Update(DWORD dt);

@@ -4,8 +4,9 @@
 #include "Game.h"
 #include "Utils.h"
 
-#include "PlayScene.h"
+#include "IntroScene.h"
 #include "SelectionScene.h"
+#include "PlayScene.h"
 
 #include "SpriteManager.h"
 #include "AnimationSet.h"
@@ -439,14 +440,17 @@ bool CGame::Load(std::string gameFile)
 		std::string type = KScene->Attribute("type");
 		
 		if (type == "play-scene") {
-			LPSCENE scene = new CPlayScene(sceneId, scenePath);
+			LPSCENE scene = new CPlayScene(sceneId, scenePath, type);
 			scenes[sceneId] = scene;
 		}
 		else if (type == "selection-scene") {
-			LPSCENE scene = new CSelectionScene(sceneId, scenePath);
+			LPSCENE scene = new CSelectionScene(sceneId, scenePath, type);
 			scenes[sceneId] = scene;
 		}
-		
+		else if (type == "intro-scene") {
+			LPSCENE scene = new CIntroScene(sceneId, scenePath, type);
+			scenes[sceneId] = scene;
+		}
 		
 	}
 	
@@ -460,7 +464,7 @@ void CGame::SwitchScene(std::string scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
-	scenes[current_scene]->Unload();;
+	scenes[current_scene]->Unload();
 
 	CTextures::GetInstance()->Clear();
 	CSprites::GetInstance()->Clear();
@@ -468,6 +472,7 @@ void CGame::SwitchScene(std::string scene_id)
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
+	current_scene_type = s->GetSceneType();
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }

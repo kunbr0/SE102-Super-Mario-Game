@@ -5,38 +5,38 @@
 #include <map>
 #include <unordered_map>
 #include "SelectionNode.h"
+#include "IntroSceneObj.h"
 
-
-class CSelectionScene : public CScene
+class CIntroScene : public CScene
 {
-
+	int selectedOption = 0;
 protected:
 	LPGAMEOBJECT player; // Player controls the position of camera.
-	vector<LPGAMEOBJECT> selectionPortals;
+	CIntroSceneObj* cursor;
 
-	std::unordered_map<std::string, CSelectionNode*> selectionNodes;
-	CSelectionNode* standingNode = nullptr;
+	vector<LPGAMEOBJECT> objs;
+
 
 public:
-	CSelectionScene(std::string, std::string, std::string);
+	CIntroScene(std::string, std::string, std::string);
+	void ChangeOption(int);
+	bool GetCursor(vector<LPGAMEOBJECT>*, CIntroSceneObj**);
 	virtual bool LoadDataFromFile();
-
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
 
-	void ProcessMovingToNewNode(int);
 	bool isMoving = false;
 
 };
 
-class CSelectionSceneKeyHandler : public CScenceKeyHandler
+class CIntroSceneKeyHandler : public CScenceKeyHandler
 {
 public:
 	virtual void KeyState(BYTE* states) {};
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode) {};
-	CSelectionSceneKeyHandler(CScene* s) : CScenceKeyHandler(s) {};
+	CIntroSceneKeyHandler(CScene* s) : CScenceKeyHandler(s) {};
 };
 

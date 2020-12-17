@@ -138,7 +138,7 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			if (dynamic_cast<CRectPlatform*>(coEvents[i]->obj)) {
+			if (dynamic_cast<CRectPlatform*>(c->obj)) {
 				// Do not thing ( allow Mario go in X-direction )
 			}
 			else {
@@ -148,7 +148,13 @@ void CGameObject::FilterCollision(
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			if (dynamic_cast<CRectPlatform*>(c->obj) && c->ny == 1) {
+				min_ty = 1; ny = 2; min_iy = i; rdy = c->dy;
+			}
+			else {
+				min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			}
+			
 		}
 	}
 
@@ -258,7 +264,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		}
 
 		
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
 
@@ -269,7 +275,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
-		if(ny < 0)
+		if(ny != 0)
 			y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) { 
@@ -279,7 +285,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		}
 
 		else if (ny != 0) {
-			vy = 0;
+			if(ny != 2) vy = 0;
 			if (ny > 0) CollidedBottom(&coEventsResult);
 			else 
 				CollidedTop(&coEventsResult);

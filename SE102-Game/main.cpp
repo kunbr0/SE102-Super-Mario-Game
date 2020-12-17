@@ -28,7 +28,12 @@
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(156, 252, 240)
+// PlayScene
+#define BG_PLAYSCENE D3DCOLOR_XRGB(156, 252, 240)
+//Intro
+#define BG_INTRO D3DCOLOR_XRGB(247, 216, 165)
+
+
 #define SCREEN_WIDTH 780
 #define SCREEN_HEIGHT 780
 
@@ -71,7 +76,12 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		D3DCOLOR bgColor;
+		std::string sceneType = CGame::GetInstance()->GetCurrentSceneType();
+		if (sceneType == "play-scene") bgColor = BG_PLAYSCENE;
+		else if (sceneType == "intro-scene") bgColor = BG_INTRO;
+		else bgColor = BG_PLAYSCENE;
+		d3ddv->ColorFill(bb, NULL, bgColor);
 		
 		
 

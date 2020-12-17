@@ -24,6 +24,7 @@ class CScene
 protected:
 	CKeyEventHandler* key_handler;
 	std::string id;
+	std::string type;
 	std::string sceneFilePath;
 	CCamera sceneCamera;
 	unsigned long timeScale;
@@ -32,11 +33,12 @@ protected:
 	
 	
 public:
-	CScene(std::string id, std::string filePath);
+	CScene(std::string id, std::string filePath, std::string type);
 
 	CCamera* GetCamera() { return &sceneCamera; }
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
+	std::string GetSceneType() { return type; }
 	virtual bool LoadDataFromFile();
 	virtual void Load() = 0;
 	virtual void Unload() = 0;

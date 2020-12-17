@@ -2,10 +2,11 @@
 #include "Mario.h"
 #include "SpriteManager.h"
 
-CScene::CScene(std::string id, std::string filePath)
+CScene::CScene(std::string id, std::string filePath, std::string type)
 {
 	this->id = id;
 	this->sceneFilePath = filePath;
+	this->type = type;
 	sceneCamera = CCamera();
 }
 
