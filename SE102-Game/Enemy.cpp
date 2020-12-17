@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "PlayScene.h"
 #include "AddingPointEffect.h"
+#include "RaccoonAttackBoundingBox.h"
 
 #define HOLDING_DISTANCE			50 // pixels
 
@@ -158,16 +159,15 @@ void CEnemy::BeingKicked(Vector2 pos) {
 }
 
 void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
-	if (dynamic_cast<CMario*>(obj)) {
-		MarioAction objAction = ((CMario*)(obj))->GetAction();
-		if (objAction == MarioAction::ATTACK) {
-			vy = -0.55f;
-			nx = (x - obj->x) > 0 ? 1 : -1;
-			walkingSpeed = 0.1;
+	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
+		
+		vy = -0.55f;
+		nx = (x - obj->x) > 0 ? 1 : -1;
+		walkingSpeed = 0.1;
 
-			SwitchEffect(EExtraEffect::BEING_DAMAGED);
-			ChangeState(EEnemyState::ONESHOTDIE);
-		}
+		SwitchEffect(EExtraEffect::BEING_DAMAGED);
+		ChangeState(EEnemyState::ONESHOTDIE);
+	
 	}
 	else if (dynamic_cast<CFireBullet*>(obj)) {
 		ChangeState(EEnemyState::ONESHOTDIE);

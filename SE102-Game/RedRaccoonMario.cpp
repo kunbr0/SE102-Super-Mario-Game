@@ -1,28 +1,28 @@
 #include "RedRaccoonMario.h"
+#define DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER		Vector2(0, 20)
 
 CRedRaccoonMario::CRedRaccoonMario(float x, float y) : CMario(x, y) {
 	type = MarioType::RED_RACCON;
-
+	attackBoundingBox = CRaccoonAttackBoundingBox();
 }
 
 void CRedRaccoonMario::Render(Vector2 finalPos)
 {
 	CMario::Render(finalPos);
-
-}
-
-void CRedRaccoonMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	if (state.action == MarioAction::ATTACK) {
-		left = x - GetBoundingBoxSize(type, state.action).x / 2 - 10;
-		top = y - GetBoundingBoxSize(type, state.action).x /2 + 25;
-		right = x + GetBoundingBoxSize(type, state.action).x / 2 + 10;
-		bottom = y + GetBoundingBoxSize(type, state.action).y / 2;
-	}
-	else {
-		CMario::GetBoundingBox(left, top, right, bottom);
-	}
+	RenderBoundingBox(finalPos);
+	attackBoundingBox.Render(finalPos + DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER);
 	
 }
+
+void CRedRaccoonMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (state.action == MarioAction::ATTACK) attackBoundingBox.SetIsOpening(true);
+	else attackBoundingBox.SetIsOpening(false);
+	CMario::Update(dt, coObjects);
+	attackBoundingBox.UpdatePosition(GetPosition() + DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER);
+	attackBoundingBox.Update(dt, coObjects);
+}
+
+
 
 void CRedRaccoonMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
 	if (state.action == MarioAction::DIE) return;
@@ -40,7 +40,10 @@ void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	switch (kEvent.key)
 	{
 	case DIK_A:
-		if (!kEvent.isHold && !kEvent.isKeyUp) ChangeAction(MarioAction::ATTACK, 450);
+		if (!kEvent.isHold && !kEvent.isKeyUp) {
+			if (ChangeAction(MarioAction::ATTACK, 450))
+				attackBoundingBox.SetHasAttacked(false);
+		}
 		break;
 
 	case DIK_S:

@@ -325,6 +325,9 @@
     <ClCompile Include="GoldenBrick.cpp">
       <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrick</Filter>
     </ClCompile>
+    <ClCompile Include="RaccoonAttackBoundingBox.cpp">
+      <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -488,6 +491,9 @@
     </ClInclude>
     <ClInclude Include="GoldenBrick.h">
       <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="RaccoonAttackBoundingBox.h">
+      <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "GoldenBrick.h"
 #include "PlayScene.h"
 #include "BoundingCoinEffect.h"
+#include "RaccoonAttackBoundingBox.h"
 
 #define DELTA_POSITION_STEP_OPENING			7
 
@@ -83,11 +84,8 @@ void CGoldenBrick::OnHadCollided(LPGAMEOBJECT obj) {
 };
 
 void CGoldenBrick::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
-	if (dynamic_cast<CMario*>(obj)) {
-		MarioAction objAction = ((CMario*)(obj))->GetAction();
-		if (objAction == MarioAction::ATTACK) {
-			ChangeState(EBlockState::OPENING, 3000);
-		}
+	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
+		ChangeState(EBlockState::OPENING, 3000);
 	}
 	
 }

@@ -183,6 +183,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="QuestionBlockItem.cpp" />
+    <ClCompile Include="RaccoonAttackBoundingBox.cpp" />
     <ClCompile Include="RectCollision.cpp" />
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockItem.h" />
+    <ClInclude Include="RaccoonAttackBoundingBox.h" />
     <ClInclude Include="RectCollision.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="RectPlatform.h" />
