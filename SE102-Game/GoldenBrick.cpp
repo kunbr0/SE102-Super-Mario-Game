@@ -80,15 +80,17 @@ std::string CGoldenBrick::GetAnimationIdFromState() {
 }
 
 void CGoldenBrick::OnHadCollided(LPGAMEOBJECT obj) {
-	this->BeingCollidedLeftRight(obj);
-};
-
-void CGoldenBrick::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
 		ChangeState(EBlockState::OPENING, 3000);
 	}
-	
-}
+};
+
+//void CGoldenBrick::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+//	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
+//		ChangeState(EBlockState::OPENING, 3000);
+//	}
+//	
+//}
 
 
 

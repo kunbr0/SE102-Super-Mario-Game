@@ -14,8 +14,10 @@ public:
 	void Update(DWORD, vector<LPGAMEOBJECT>* = NULL) override;
 	void UpdatePosition(Vector2);
 	void SetHasAttacked(bool a) { hasAttacked = a; }
-	void SetIsOpening(bool a) { isOpening = a; }
-	void Collided(vector<LPCOLLISIONEVENT>*) override;
+	void SetIsOpening(bool a);
 	void Render(Vector2) override;
+
+	void OnHadCollided(LPGAMEOBJECT) override;
+	
 };
 

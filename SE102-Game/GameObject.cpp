@@ -12,6 +12,10 @@
 #include "Coin.h"
 #include "PhysicConstants.h"
 
+#include "RaccoonAttackBoundingBox.h"
+#include "GoldenBrick.h"
+
+
 #define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
 #define ANIMATIONID_BONUS				"ani-mario-damaged"
 #define DELTA_TO_APPLY_NEW_BASE_POSITION		500
@@ -31,6 +35,17 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	dy = vy * dt;
 }
 
+
+bool CGameObject::HasOverLap(Vector2 l1 , Vector2 r1, Vector2 l2, Vector2 r2) {
+	if (l1.x >= r2.x || l2.x >= r1.x)
+		return false;
+
+	// If one rectangle is above other 
+	if (l1.y >= r2.y || l2.y >= r1.y)
+ 		return false;
+
+	return true;
+}
 
 
 /*
@@ -64,10 +79,26 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 		);
 
+	/*if (dynamic_cast<CRaccoonAttackBoundingBox*>(this))
 	if (((ml + (mr-ml) >= sl) && (sl + (sr-sl) >= ml) 
-		&& (mt + (mr-ml) >= st) && (st + (sr-sl) >= mt))) {
-		coO->OnHadCollided(this);
+		&& (mt + (mr-ml) >= st) && (st + (sr-sl) >= mt))
+		&& ml != mr && mt != mb && sl != sr && st != sb
+		) {
+		
+			coO->OnHadCollided(this);
+	}*/
+
+	if (ml < mr && mt < mb && sl != sr && st != sb) {
+		if (
+			HasOverLap(Vector2(ml, mt), Vector2(mr, mb), Vector2(sl, st), Vector2(sr, sb))
+			) {
+
+			coO->OnHadCollided(this);
+			this->OnHadCollided(coO);
+		}
 	}
+	
+	
 
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
@@ -242,26 +273,23 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	coEvents.clear();
 
 	CalcPotentialCollisions(coObjects, coEvents);
+
 	if (coEvents.size() == 0)
 	{
 		x += dx;
 		y += dy;
 		NoCollided();
 
-		if (dynamic_cast<CCoin*>(this)) {
-			auto aa = this;
-			int a = 9;
 
-		}
 	}
 	else
 	{
 		
-		if (dynamic_cast<CCoin*>(this)) {
+		/*if (dynamic_cast<CCoin*>(this)) {
 			auto aa = this;
 			int a = 9;
 
-		}
+		}*/
 
 		
 		float min_tx, min_ty, nx = 0, ny = 0;
@@ -270,6 +298,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
 
 		Collided(&coEventsResult);
 

@@ -37,8 +37,6 @@ public:
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
 
 	
-	//void BeingCollided(LPGAMEOBJECT) override;
-	//void BeingCollidedRight(ETag, Vector2);
 
 
 	std::string GetAnimationIdFromState() override;

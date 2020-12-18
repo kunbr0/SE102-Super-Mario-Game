@@ -160,7 +160,6 @@ void CEnemy::BeingKicked(Vector2 pos) {
 
 void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
 	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
-		
 		vy = -0.55f;
 		nx = (x - obj->x) > 0 ? 1 : -1;
 		walkingSpeed = 0.1;
@@ -172,6 +171,8 @@ void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
 	else if (dynamic_cast<CFireBullet*>(obj)) {
 		ChangeState(EEnemyState::ONESHOTDIE);
 	}
+
+	
 }
 
 

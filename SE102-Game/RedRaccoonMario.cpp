@@ -9,16 +9,19 @@ CRedRaccoonMario::CRedRaccoonMario(float x, float y) : CMario(x, y) {
 void CRedRaccoonMario::Render(Vector2 finalPos)
 {
 	CMario::Render(finalPos);
-	RenderBoundingBox(finalPos);
-	attackBoundingBox.Render(finalPos + DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER);
+	//RenderBoundingBox(finalPos);
+	//attackBoundingBox.Render(finalPos + DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER);
 	
 }
 
 void CRedRaccoonMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (state.action == MarioAction::ATTACK) attackBoundingBox.SetIsOpening(true);
 	else attackBoundingBox.SetIsOpening(false);
+	
 	CMario::Update(dt, coObjects);
+	
 	attackBoundingBox.UpdatePosition(GetPosition() + DISTANCE_OF_ATTACK_BOUNDINGBOX_FROM_CENTER);
+	
 	attackBoundingBox.Update(dt, coObjects);
 }
 
@@ -41,7 +44,7 @@ void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	{
 	case DIK_A:
 		if (!kEvent.isHold && !kEvent.isKeyUp) {
-			if (ChangeAction(MarioAction::ATTACK, 450))
+			if (ChangeAction(MarioAction::ATTACK, 410))
 				attackBoundingBox.SetHasAttacked(false);
 		}
 		break;
