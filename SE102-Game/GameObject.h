@@ -163,7 +163,7 @@ public:
 	void ApplyGravity();
 	void ApplyFriction();
 	
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = nullptr);
 	virtual void Render(Vector2 finalPos) {};
 
 	virtual void OnHadCollided(LPGAMEOBJECT) {};

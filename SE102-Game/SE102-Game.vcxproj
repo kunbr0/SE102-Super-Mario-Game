@@ -188,6 +188,7 @@
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
     <ClCompile Include="RedBigMario.cpp" />
+    <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedRaccoonMario.cpp" />
     <ClCompile Include="RedSmallMario.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="RectF.h" />
     <ClInclude Include="RectPlatform.h" />
     <ClInclude Include="RedBigMario.h" />
+    <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="RedRaccoonMario.h" />
     <ClInclude Include="RedSmallMario.h" />
     <ClInclude Include="Scene.h" />

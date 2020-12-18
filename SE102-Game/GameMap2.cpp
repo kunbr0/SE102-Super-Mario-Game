@@ -6,7 +6,7 @@
 #include "QuestionBlockItem.h"
 #include "Venus.h"
 #include "Coin.h"
-#include "Goomba.h"
+#include "RedGoomba.h"
 #include "Koopas.h"
 #include "KoopasFly.h"
 #include "MiniPortal.h"
@@ -51,9 +51,9 @@ Vector2 CGameMap::GetBound()
 
 CTileSet* CGameMap::GetTileSetByTileID(int id)
 {
-	
-	
-	if(!(id >= kRender.rangeId.x && id <= kRender.rangeId.y)) {
+
+
+	if (!(id >= kRender.rangeId.x && id <= kRender.rangeId.y)) {
 		for (int i = 0; i < tilesets.size(); i++) {
 			Vector2 tilesetRangeId = tilesets[i]->GetRangeId();
 			if (id >= tilesetRangeId.x && id <= tilesetRangeId.y) {
@@ -63,7 +63,7 @@ CTileSet* CGameMap::GetTileSetByTileID(int id)
 			}
 		}
 	}
-	
+
 
 	return kRender.tileset;
 }
@@ -91,7 +91,7 @@ void CGameMap::Render(float bottomMargin)
 	float screenHeight = CGame::GetInstance()->GetScreenHeight() + marginYWindow - bottomMargin;
 
 	Vector2 drawingSize = Vector2(screenWidth / tileWidth, screenHeight / tileHeight);
-	
+
 	for (int i = col; i < drawingSize.x + col; i++) {
 		for (int j = row; j < drawingSize.y + row; j++) {
 
@@ -99,7 +99,7 @@ void CGameMap::Render(float bottomMargin)
 			int y = j * tileHeight + tileHeight / 2;
 
 
-			
+
 
 			for (CMapLayer* layer : layers) {
 				if (layer->Hidden) continue;
@@ -107,8 +107,8 @@ void CGameMap::Render(float bottomMargin)
 				if (id > 0) {
 					this->GetTileSetByTileID(id)->Draw(id, ConvertToPositionInCam(Vector2(x, y)));
 				}
-				
-				
+
+
 			}
 		}
 	}
@@ -129,10 +129,10 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
 
 		//Load tileset
-		
+
 		for (TiXmlElement* node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset")) {
 			CTileSet* tileSet = new CTileSet(node, filePath);
-			
+
 			gameMap->tilesets.push_back(tileSet);
 		}
 
@@ -156,7 +156,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
+			else if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CRectPlatform(
 						atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2,
@@ -168,59 +168,60 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Coin") {
+			else if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Coin") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CQuestionBlock(
 						Vector2(
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
-						);
+					);
 					staticObjects->push_back(obj);
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Item") {
+			else if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Item") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CQuestionBlockItem(
 						Vector2(
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
-						);
+					);
 					staticObjects->push_back(obj);
 				}
 			}
 
-			
 
-			if (std::string(objGroupNode->Attribute("name")) == "Coin") {
+
+			else if (std::string(objGroupNode->Attribute("name")) == "Coin") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CCoin(
 						Vector2(
-						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
-						);
+					);
 					tempObjects->push_back(obj);
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "Venus") {
+			else if (std::string(objGroupNode->Attribute("name")) == "Venus") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CVenus(
 						Vector2(
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
-						), 
+						),
 						Vector2(
 							(int)atoi(objNode->Attribute("width")),
 							(int)atoi(objNode->Attribute("height"))
-						)
+						),
+						atoi(objNode->Attribute("type"))
 					);
 					dynamicObjectsBehindMap->push_back(obj);
 				}
 			}
 
 
-			if (std::string(objGroupNode->Attribute("name")) == "Goomba") {
+			else if (std::string(objGroupNode->Attribute("name")) == "Goomba") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CGoomba(
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
@@ -230,7 +231,17 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "Koopas") {
+			else if (std::string(objGroupNode->Attribute("name")) == "RedGoomba") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CRedGoomba(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					);
+					dynamicObjects->push_back(obj);
+				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "Koopas") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CKoopas(
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
@@ -240,7 +251,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "KoopasFly") {
+			else if (std::string(objGroupNode->Attribute("name")) == "KoopasFly") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CKoopasFly(
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
@@ -250,7 +261,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "GoldenBrick") {
+			else if (std::string(objGroupNode->Attribute("name")) == "GoldenBrick") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CGoldenBrick(
 						Vector2(
@@ -261,9 +272,9 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "MiniPortal") {
+			else if (std::string(objGroupNode->Attribute("name")) == "MiniPortal") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
-					
+
 					if (std::string(objNode->Attribute("type")) == "In") {
 						std::string portalName = std::string(objNode->Attribute("name"));
 						int width = atoi(objNode->Attribute("width"));
@@ -272,6 +283,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 						int y = atoi(objNode->Attribute("y")) + height / 2;
 						int targetX = 0, targetY = 0, targetWidth = 0, targetHeight = 0;
 						Vector2 CameraLeftTopLimit, CameraRightBottomLimit;
+						std::string accessKeycode;
 						// Find portal type OUT
 						for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 							if (std::string(objNode->Attribute("name")) == portalName && std::string(objNode->Attribute("type")) == "Out") {
@@ -279,9 +291,12 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 								targetHeight = atoi(objNode->Attribute("height"));
 								targetX = atoi(objNode->Attribute("x")) + targetWidth / 2;
 								targetY = atoi(objNode->Attribute("y")) + targetHeight / 2;
+
 								TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
 								for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
-									if(std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitX")
+									if (std::string(propertyNode->Attribute("name")) == "AccessKeycode")
+										accessKeycode = std::string(propertyNode->Attribute("value"));
+									if (std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitX")
 										CameraLeftTopLimit.x = atoi(propertyNode->Attribute("value"));
 									else if (std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitY")
 										CameraLeftTopLimit.y = atoi(propertyNode->Attribute("value"));
@@ -295,21 +310,21 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 							}
 						}
 						LPGAMEOBJECT obj = new CMiniPortal(
-							Vector2(x,y),
-							Vector2(width,height),
+							accessKeycode,
+							Vector2(x, y),
+							Vector2(width, height),
 							Vector2(targetX, targetY),
-							Vector2(targetWidth, targetHeight),
 							CameraLeftTopLimit,
 							CameraRightBottomLimit
 						);
-						
-						staticObjects->push_back(obj);
+
+						tempObjects->push_back(obj);
 					}
 				}
 			}
-			
 
-			
+
+
 
 
 
@@ -352,7 +367,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 
 		// Load collision group objects
 		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
-			
+
 
 			// Selection Scene
 			if (std::string(objGroupNode->Attribute("name")) == "SelectionPortal") {
@@ -373,7 +388,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "SelectionTree") {
+			else if (std::string(objGroupNode->Attribute("name")) == "SelectionTree") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 
 					LPGAMEOBJECT obj = new CSelectionTree(
@@ -386,7 +401,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
-			if (std::string(objGroupNode->Attribute("name")) == "SelectionNode") {
+			else if (std::string(objGroupNode->Attribute("name")) == "SelectionNode") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 
 					std::string nodeName = std::string(objNode->Attribute("name"));
@@ -394,11 +409,11 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					int height = atoi(objNode->Attribute("height"));
 					int x = atoi(objNode->Attribute("x")) + width / 2;
 					int y = atoi(objNode->Attribute("y")) + height / 2;
-					
-					CSelectionNode* seNode = new CSelectionNode(nodeName, Vector2(x,y));
+
+					CSelectionNode* seNode = new CSelectionNode(nodeName, Vector2(x, y));
 
 					// Insert Movable Ways of this Node
-					
+
 					TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
 					for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
 						std::string keyDirection = std::string(propertyNode->Attribute("name"));
@@ -409,7 +424,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					/*(std::unordered_map<std::string, CSelectionNode*>)(*selectionNodes)
 					selectionNodes->at(nodeName) = seNode;*/
 					(*selectionNodes)[nodeName] = seNode;
-					
+
 				}
 			}
 
@@ -468,7 +483,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				);
 				staticObjects->push_back(obj);
 			}
-			
+
 
 		}
 
@@ -479,7 +494,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 }
 
 
-void CGameMap::GetMapSize(Vector2 &out) {
+void CGameMap::GetMapSize(Vector2& out) {
 	out.x = this->width * tileWidth;
 	out.y = this->height * tileHeight;
 }

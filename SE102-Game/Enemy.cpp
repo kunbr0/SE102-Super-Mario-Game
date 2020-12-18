@@ -87,7 +87,7 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CEnemy::Render(Vector2 finalPos) {
 	if (state.type == EEnemyState::DIE) return;
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos,Vector2(-nx, ny) , 255);
 	RenderExtraEffect(finalPos);
 	
@@ -106,6 +106,12 @@ void CEnemy::BeingCollidedTop(LPGAMEOBJECT obj) {
 };
 
 void CEnemy::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+	for (int i = 0; i < coEvents->size(); i++) {
+		if (dynamic_cast<CEnemy*>(coEvents->at(i)->obj)) {
+			if(GetState() == EEnemyState::BEING_KICKED)
+			return;
+		}
+	}
 	ChangeDirection();
 }
 
@@ -155,7 +161,9 @@ void CEnemy::BeingKicked(Vector2 pos) {
 		nx = -1;
 	walkingSpeed = 0.54;
 	useChangeDirectionAfterAxisCollide = false;
-	SetState(EEnemyState::BEING_KICKED, 3000);
+	isTemp = true;
+	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushHighPriorityObjects(this);
+	SetState(EEnemyState::BEING_KICKED, 5000);
 }
 
 void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
@@ -167,6 +175,17 @@ void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
 		SwitchEffect(EExtraEffect::BEING_DAMAGED);
 		ChangeState(EEnemyState::ONESHOTDIE);
 	
+	}
+	else if (dynamic_cast<CEnemy*>(obj)) {
+		if (((CEnemy*)obj)->GetState() == EEnemyState::BEING_KICKED) {
+			vy = -0.55f;
+			nx = (x - obj->x) > 0 ? 1 : -1;
+			walkingSpeed = 0.1;
+
+			SwitchEffect(EExtraEffect::BEING_DAMAGED);
+			ChangeState(EEnemyState::ONESHOTDIE);
+		}
+		
 	}
 	else if (dynamic_cast<CFireBullet*>(obj)) {
 		ChangeState(EEnemyState::ONESHOTDIE);
@@ -189,11 +208,11 @@ void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 	switch (newState)
 	{
 	case EEnemyState::DIE:
-		if (state.type == EEnemyState::WILL_DIE)
+		if (state.type == EEnemyState::WILL_DIE || state.type == EEnemyState::BEING_KICKED)
 			SetState(newState, newTimeState);
 		break;
 	case EEnemyState::WILL_DIE:
-		if (state.type == EEnemyState::LIVE) {
+		if (state.type == EEnemyState::LIVE || state.type == EEnemyState::LIVE1) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 			walkingSpeed = 0;
 			SetState(newState, newTimeState);
@@ -202,13 +221,22 @@ void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 	case EEnemyState::BEING_KICKED:
 		if (state.type == EEnemyState::WILL_DIE || state.type == EEnemyState::BEING_HELD) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
-			SetState(newState, newTimeState);
+			SetState(newState, 3000);
 		}
 		break;
 	
 	case EEnemyState::LIVE:
+		isTemp = false;
 		walkingSpeed = GetDefaultWalkingSpeed();
 		SetState(newState, newTimeState);
+		break;
+	case EEnemyState::LIVE1:
+		isTemp = false;
+		if (state.type == EEnemyState::LIVE) {
+			walkingSpeed = GetDefaultWalkingSpeed();
+			SetState(newState, newTimeState);
+		}
+		
 		break;
 	case EEnemyState::ONESHOTDIE:
 		vy = -0.7f;

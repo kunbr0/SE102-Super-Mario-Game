@@ -74,7 +74,7 @@ void CSelectionSceneKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 		
-	case DIK_W:
+	case DIK_S:
 		((CSelectionScene*)scence)->BeginClosingEffect([]() {
 			CGame::GetInstance()->SwitchScene("world1-1");
 		});

@@ -34,7 +34,7 @@
         <!-- Dynamic Objects -->
             <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <!--<mario type="2" x="6290" y="1500" /> -->
-            <mario type="2" x="1300" y="800" />
-            <enemyBullets quantity="2"/>
+            <mario type="0" x="50" y="800" />
+            <enemyBullets quantity="3"/>
         </objects>
     </mapdata>

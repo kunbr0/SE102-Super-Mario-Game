@@ -29,11 +29,12 @@ void CScene::UpdateTempObjsInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vec
 
 
 void CScene::UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>* objList, DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	
 	for (size_t i = 0; i < objList->size(); i++)
 	{
 		if (!(dynamic_cast<CMario*>(objList->at(i))) && !sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)))
 			objList->at(i)->isDisable = true;
-		else
+		else if(!objList->at(i)->isDisable)
 			objList->at(i)->Update(dt, coObjects);
 	}
 }
@@ -41,7 +42,7 @@ void CScene::UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>* objList, DWORD dt, 
 void CScene::UpdateIfInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	for (size_t i = 0; i < objList->size(); i++)
 	{
-		if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)))
+		if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)) && !objList->at(i)->isDisable && !objList->at(i)->isTemp)
 			objList->at(i)->Update(dt, coObjects);
 	}
 }
@@ -175,4 +176,12 @@ bool CScene::LoadDataFromFile() {
 		}
 	}
 
+}
+
+
+void CScene::CleanObjList(vector<LPGAMEOBJECT>& objList) {
+	for (int i = 0; i < objList.size(); i++)
+		delete objList[i];
+
+	objList.clear();
 }

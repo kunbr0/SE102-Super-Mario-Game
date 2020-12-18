@@ -7,7 +7,7 @@ CQuestionBlockItem::CQuestionBlockItem(Vector2 initPos) : CQuestionBlock(initPos
 }
 
 void CQuestionBlockItem::OpenBox() {
-	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushDynamicObjects(new CLeaf(GetPosition()));
+	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushTempObjects(new CLeaf(GetPosition()));
 	
 
 }

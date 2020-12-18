@@ -44,7 +44,7 @@ void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 	{
 	case DIK_A:
 		if (!kEvent.isHold && !kEvent.isKeyUp) {
-			if (ChangeAction(MarioAction::ATTACK, 410))
+			if (ChangeAction(MarioAction::ATTACK, 430))
 				attackBoundingBox.SetHasAttacked(false);
 		}
 		break;

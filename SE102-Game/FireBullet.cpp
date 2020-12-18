@@ -2,10 +2,11 @@
 #include "Koopas.h"
 
 
-CFireBullet::CFireBullet(float x, float y, int nx) {
+CFireBullet::CFireBullet(float x, float y, int nx, int owner) {
 	this->x = x;
 	this->y = y;
 	this->nx = nx;
+	this->owner = owner;
 	this->isDisable = true;
 }
 
@@ -21,36 +22,46 @@ void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 
 
 void CFireBullet::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents) {
-	this->isDisable = true;
+	if(owner == 0)
+		this->isDisable = true;
 	CGameObject::CollidedLeft(coEvents);
 }
 
 void CFireBullet::CollidedRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	this->isDisable = true;
-	CGameObject::CollidedLeft(coEvents);
+	if (owner == 0)
+		this->isDisable = true;
+	CGameObject::CollidedRight(coEvents);
 }
 
 void CFireBullet::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	CGameObject::CollidedTop(coEvents);
-	vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
+	if(owner == 0) vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
 }
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (isDisable) return;
 
-
-	vx = VELOCITY_X_FIRE_BULLET*nx*dt;
-	ApplyGravity();
-	CGameObject::Update(dt, coObjects);
-	UpdateWithCollision(coObjects);
+	if (owner == 0) {
+		vx = VELOCITY_X_FIRE_BULLET * nx * dt;
+		ApplyGravity();
+	}
+	if (owner == 1) {
+		vx = 1.25f * venusBulletDirection.x;
+		vy = 1.25f * venusBulletDirection.y;
+	}
 	
+	CGameObject::Update(dt, coObjects);
+
+	UpdateWithCollision(coObjects);
+
 }
 
 void CFireBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + FIRE_BULLET_WIDTH;
-	bottom = y + FIRE_BULLET_HEIGHT;
+	left = x - FIRE_BULLET_WIDTH / 2;
+	top = y - FIRE_BULLET_HEIGHT / 2;
+	right = x + FIRE_BULLET_WIDTH / 2;
+	bottom = y + FIRE_BULLET_HEIGHT /2;
 
 }
 
@@ -59,5 +70,5 @@ void CFireBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 void CFireBullet::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get(ANI_FIRE_BULLET)
 		->Render(finalPos, Vector2(nx,ny), 255);
-
+	//RenderBoundingBox(finalPos);
 }

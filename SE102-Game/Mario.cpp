@@ -6,12 +6,12 @@
 #include "Game.h"
 
 #include "Enemy.h"
+#include "FireBullet.h"
+#include "PlayScene.h"
 
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-
-	untouchable = 0;
 
 	start_x = x;
 	start_y = y;
@@ -24,8 +24,18 @@ void CMario::BeingBouncedAfterJumpInTopEnemy() {
 }
 
 void CMario::BeingKilled() {
-	if (state.action == MarioAction::EXPLODE) return;
-	SetAction(MarioAction::DIE);
+	/*if (state.action == MarioAction::EXPLODE) return;
+	SetAction(MarioAction::DIE);*/
+	if (state.action == MarioAction::DIE) return;
+	if (type == MarioType::RED_SMALL) {
+		vy = -0.7f;
+		vx = ax = ay = 0;
+
+		SetAction(MarioAction::DIE, 1500);
+		return;
+	}
+	if(untouchable.isUntouchable == false)
+		ChangeAction(MarioAction::EXPLODE);
 }
 
 void CMario::TriggerLifeCycleOfActions() {
@@ -56,16 +66,47 @@ void CMario::NoCollided() {
 	if (vy > 0) ChangeAction(MarioAction::FALL);
 }
 
+void CMario::BeingCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CFireBullet*>(obj)) {
+		BeingKilled();
+	}
+}
+
+void CMario::GetIntoTheHole(Vector2 distance, CallbackType callback) {
+	getIntoTheHole.distance = distance;
+	getIntoTheHole.OnFinish = callback;
+	getIntoTheHole.time = getIntoTheHole.totalTime;
+	SetAction(MarioAction::GETTING_INTO_THE_HOLE);
+}
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
-	if (state.action == MarioAction::DIE) return;
+	if (state.action == MarioAction::DIE && IsReadyToChangeAction()) {
+		((CPlayScene*) CGame::GetInstance()->GetCurrentScene())->SwitchToSelectionScene();
+	}
+	if (state.action == MarioAction::GETTING_INTO_THE_HOLE) {
+		
+		if (getIntoTheHole.time <= 0) {
+			// Finish Get Into Hole
+			SetAction(MarioAction::IDLE);
+			deltaRender.x = deltaRender.y = 0;
+			if(getIntoTheHole.OnFinish != nullptr) getIntoTheHole.OnFinish();
+		}
+		
+		DWORD time = getIntoTheHole.time - dt > 0 ? dt : getIntoTheHole.time;
+		getIntoTheHole.time -= time;
+		deltaRender.x += getIntoTheHole.distance.x * (time * 1.0f / getIntoTheHole.totalTime * 1.0f);
+		deltaRender.y += getIntoTheHole.distance.y * (time * 1.0f / getIntoTheHole.totalTime * 1.0f);
+		return;
+	}
 	// Increase velocity if in limit
 	float vxmax = holdingKeys[DIK_A] ? VELOCITY_X_MAX_RUN : VELOCITY_X_MAX_WALK;
 	ax = ax * (1 + (holdingKeys[DIK_A] ? ACCELERATION_X_RUN_GREATER_RATIO : 0));
-	if (abs(vx) < vxmax)
-		vx += ax * dt;
+	
+	if(state.action != MarioAction::DIE)
+		if (abs(vx) < vxmax)
+			vx += ax * dt;
 
 	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
 
@@ -111,14 +152,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
 	
-	DebugOut(ToWSTR(std::to_string((float)vy) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((float)vy) + "\n").c_str());
 	
+	if (untouchable.isUntouchable) {
+		untouchable.remainingTime -= dt;
+		if (untouchable.remainingTime <= 0) untouchable.isUntouchable = false;
+	}
 
 	ResetTempValues(); // Set all temp values to initial value;
 }
 
 void CMario::Render(Vector2 finalPos) {
-	if (state.action == MarioAction::DIE) return;
+	
 
 	std::vector<MarioAction> animationFlipY = {MarioAction::SKID};
 	
@@ -139,14 +184,26 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 
-	if (boost.type == MarioBoost::UNTOUCHABLE && GetTickCount64() % 100 > 50) return;
-	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos, Vector2(nx*(renderAnimation.isFlipY ? -1 : 1),ny), 255);
+	if (untouchable.isUntouchable && GetTickCount64() % 100 > 50) return;
+	
+	
+	CAnimations::GetInstance()->Get(renderAnimation.AnimationID)->Render(finalPos + deltaRender, Vector2(nx*(renderAnimation.isFlipY ? -1 : 1),ny), 255);
 
 };
 
+Vector2 CMario::GetBoundingBoxSize() {
+	return GetBoundingBoxSize(type, state.action);
+}
+
+void CMario::BeginUntouchable() {
+	untouchable.isUntouchable = true;
+	untouchable.remainingTime = UNTOUCHABLE_TIME;
+}
+
 Vector2 CMario::GetBoundingBoxSize(MarioType mType, MarioAction mAction) {
+	if (mAction == MarioAction::DIE) return Vector2(0, 0);
 	if(mAction == MarioAction::CROUCH) return Vector2(MARIO_SMALL_BBOX_WIDTH, MARIO_SMALL_BBOX_HEIGHT+10);
 	switch (mType)
 	{
@@ -167,6 +224,7 @@ Vector2 CMario::GetBoundingBoxSize(MarioType mType, MarioAction mAction) {
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
+	if (state.action == MarioAction::DIE) { left = top = right = bottom = 0; return; }
 	left = x - GetBoundingBoxSize(type, state.action).x /2;
 	top = y - GetBoundingBoxSize(type, state.action).y /2;
 	right = x + GetBoundingBoxSize(type, state.action).x /2;
@@ -176,7 +234,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
-	if (state.action == MarioAction::EXPLODE) return;
+	if (state.action == MarioAction::EXPLODE || state.action == MarioAction::UPGRADE_LV) return;
 
 	if (kEvent.isKeyUp == true) {
 		holdingKeys[kEvent.key] = false;
@@ -286,10 +344,16 @@ std::string CMario::GetAnimationIdFromState() {
 		actionId = "hold";
 		break;
 	case MarioAction::EXPLODE:
+	case MarioAction::UPGRADE_LV:
 		typeId = "ani-mario";
 		actionId = "damaged";
 		break;
-
+	case MarioAction::DIE:
+		actionId = "die";
+		break;
+	case MarioAction::GETTING_INTO_THE_HOLE:
+		actionId = "idle-front";
+		break;
 	default:
 		actionId = "idle";
 		break;
@@ -310,16 +374,11 @@ void CMario::ResetTempValues() {
 	ax = 0;
 }
 
-void CMario::SetBoost(MarioBoost boostType, int beginBoost, int timeBoost) {
-	if (GetTickCount64() < boost.beginBoost + boost.timeBoost) return;
-	boost.type = boostType;
-	boost.beginBoost = beginBoost;
-	boost.timeBoost = timeBoost;
-}
+
 
 void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 	
-	if (GetTickCount64() < state.beginAction + state.timeAction) return ;
+	if (!IsReadyToChangeAction()) return;
 
 	Vector2 oldBBox = GetBoundingBoxSize(type, state.action);
 	Vector2 newBBox = GetBoundingBoxSize(type, newAction);
@@ -329,17 +388,14 @@ void CMario::SetAction(MarioAction newAction, DWORD timeAction) {
 	state.action = newAction;
 	state.beginAction = GetTickCount64();
 	state.timeAction = timeAction;
-	if (state.action == MarioAction::EXPLODE) {
-		SetBoost(MarioBoost::UNTOUCHABLE, state.beginAction, timeAction * 3);
-	}
-	else {
-		SetBoost(); // SetBoost to default.
-	}
+	
 }
 
 bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	
-	if (state.action == MarioAction::DIE) return false;
+	
+
+	if (state.action == MarioAction::DIE || state.action == MarioAction::GETTING_INTO_THE_HOLE) return false;
 
 	if (state.action == MarioAction::HOLD && isHoldingKey(DIK_A)) return false;
 
@@ -376,12 +432,11 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	case MarioAction::JUMP:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN
-				|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP || state.action == MarioAction::HOLD) {
-			vy = -MARIO_JUMP_SPEED_Y * (1 + (vx > VELOCITY_X_MAX_WALK ? vx : 0));
+			|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
+			vy = -MARIO_JUMP_SPEED_Y;
 			SetAction(newAction, timeAction);
-			if(state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
+			if (state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
 		}
-		
 		break;
 
 	case MarioAction::HIGH_JUMP:
@@ -430,7 +485,8 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 			
 		break;
 	case MarioAction::EXPLODE:
-		SetAction(newAction, 1000);
+	case MarioAction::UPGRADE_LV:
+		SetAction(newAction, 500);
 		break;
 	case MarioAction::ATTACK:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK
@@ -443,5 +499,10 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	default:
 		return false;
 	}
+	return true;
+}
+
+bool CMario::IsReadyToChangeAction() {
+	if (GetTickCount64() < state.beginAction + state.timeAction) return false;
 	return true;
 }

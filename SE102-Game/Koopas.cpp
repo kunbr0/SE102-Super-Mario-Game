@@ -44,10 +44,9 @@ Vector2 CKoopas::GetBoundingBoxSize(EEnemyState st) {
 	}
 }
 
-
-
-
-
+//void CKoopas::BeingCollidedTop(LPGAMEOBJECT obj) {
+//	BeingCollidedTopBottom(obj);
+//}
 
 void CKoopas::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
 	BeingCollided(obj);
@@ -84,10 +83,11 @@ void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state.type == EEnemyState::WILL_DIE || state.type == EEnemyState::BEING_KICKED) ChangeState(EEnemyState::LIVE);
+	if (state.type == EEnemyState::WILL_DIE) ChangeState(EEnemyState::LIVE);
+	if(state.type == EEnemyState::BEING_KICKED) ChangeState(EEnemyState::DIE);
 	ApplyGravity();
 
-	DebugOut(ToWSTR(std::to_string((int)state.type) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((int)state.type) + "\n").c_str());
 
 	CEnemy::Update(dt, coObjects);
 	ChangeDirectionAfterAxisCollide();

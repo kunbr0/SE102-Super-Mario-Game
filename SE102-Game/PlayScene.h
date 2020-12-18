@@ -9,6 +9,12 @@
 
 //#include "GameMap2.h"
 
+struct SChangeCamData {
+	Vector2 playerPos; 
+	Vector2 LeftTopLimit;
+	Vector2 RightBottomLimit;
+};
+
 class CPlayScene : public CScene
 {
 
@@ -21,6 +27,7 @@ protected:
 	vector<LPGAMEOBJECT> dynamicObjects;
 	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
+	vector<LPGAMEOBJECT> highPriorityObjects;
 	vector<LPGAMEOBJECT> tempObjects;
 	vector<CEffect*> effects;
 
@@ -29,6 +36,7 @@ protected:
 	//std::map<std::string, Vector2> miniPortals;
 
 	float standingY;
+	SChangeCamData changeCamData;
 
 
 public:
@@ -51,16 +59,24 @@ public:
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
 	void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
+	void PushHighPriorityObjects(LPGAMEOBJECT obj) { highPriorityObjects.push_back(obj); }
 	void PushEffects(CEffect* eff) { effects.push_back(eff); }
 
 	void HandleSceneTime(DWORD&);
 
 	void UpdateEffects(DWORD);
+
+	void DownLevelMario();
+	void UpLevelMario();
+
 	void HandleMarioDie();
+
+	void SwitchToSelectionScene();
 
 	CMario* GenerateMario(MarioType, Vector2);
 
-	void ChangeCameraArea(Vector2, Vector2, Vector2);
+	void PrepareChangeCameraArea(Vector2, Vector2, Vector2);
+	void ChangeCameraArea();
 
 
 	//friend class CPlayScenceKeyHandler;

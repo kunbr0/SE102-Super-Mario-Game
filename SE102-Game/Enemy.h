@@ -11,6 +11,7 @@ enum class EEnemyState {
 	BEING_KICKED,
 	BEING_HELD,
 	LIVE,
+	LIVE1
 };
 
 struct SEnemyState {
@@ -63,7 +64,7 @@ public:
 	virtual void ChangeDirection();
 	virtual void ChangeDirectionAfterAxisCollide();
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
+	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 
 	virtual void BeingCollidedTop(LPGAMEOBJECT) override;
 	virtual void BeingCollided(LPGAMEOBJECT) override;

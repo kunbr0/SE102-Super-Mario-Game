@@ -47,11 +47,11 @@ public:
 	// Features
 	void BeginOpeningEffect(CallbackType = nullptr);
 	void BeginClosingEffect(CallbackType = nullptr);
-	
+	void CleanObjList(vector<LPGAMEOBJECT>&);
 	
 	// Update
 	virtual void Update(DWORD dt) = 0;
-	void UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
+	void UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>* = nullptr);
 	void UpdateIfInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
 	void UpdateTempObjsInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
 	void PushBackToCalculateCollision(vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*);

@@ -13,6 +13,7 @@
 #include "RedBigMario.h"
 #include "RedRaccoonMario.h"
 #include "FireMario.h"
+#define VELOCITY_X_ENEMY_FIRE_BULLET			0.3625f 
 
 
 CPlayScene::CPlayScene(std::string id, std::string filePath, std::string type) :
@@ -70,7 +71,7 @@ bool CPlayScene::LoadDataFromFile() {
 		for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
 			int quantity = atoi(mario->Attribute("quantity"));
 			for (int i = 0; i < quantity; i++) {
-				enemyBullets.push_back(new CFireBullet(0,0,1));
+				enemyBullets.push_back(new CFireBullet(0,0,1,1));
 			}
 		}
 	}
@@ -91,16 +92,32 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
-void CPlayScene::HandleMarioDie() {
-	if (((CMario*)player)->GetAction() == MarioAction::DIE) {
-		if (playerLevel - 1 >= 0) playerLevel--;
+void CPlayScene::DownLevelMario() {
+	
+	if (playerLevel - 1 >= 0) playerLevel--;
 
-		CMario* newMario = GenerateMario(
-			(MarioType)(playerLevel),
-			Vector2(player->x, player->y));
-		newMario->ChangeAction(MarioAction::EXPLODE);
-		SwitchPlayer(newMario);
-	}
+	CMario* newMario = GenerateMario(
+		(MarioType)(playerLevel),
+		Vector2(player->x, player->y));
+	newMario->BeginUntouchable();
+	SwitchPlayer(newMario);
+	
+}
+
+void CPlayScene::UpLevelMario() {
+
+	if (playerLevel + 1 <= 3) playerLevel++;
+
+	CMario* newMario = GenerateMario(
+		(MarioType)(playerLevel),
+		Vector2(player->x, player->y));
+	newMario->BeginUntouchable();
+	SwitchPlayer(newMario);
+
+}
+
+void CPlayScene::HandleMarioDie() {
+
 }
 
 void CPlayScene::UpdateEffects(DWORD dt) {
@@ -117,8 +134,20 @@ void CPlayScene::UpdateEffects(DWORD dt) {
 }
 
 void CPlayScene::HandleSceneTime(DWORD& dt) {
-	if (((CMario*)(player))->GetAction() == MarioAction::EXPLODE) {
-		timeScale = 0;
+	if (((CMario*)(player))->GetAction() == MarioAction::EXPLODE ||
+		((CMario*)(player))->GetAction() == MarioAction::UPGRADE_LV) {
+		if (((CMario*)(player))->IsReadyToChangeAction()) {
+			timeScale = DEFAULT_TIME_SCALE;
+			if (((CMario*)(player))->GetAction() == MarioAction::EXPLODE)
+				DownLevelMario();
+			else
+				UpLevelMario();
+		}
+		else
+		{
+			UpdateIfInCameraOrDisable(&enemyBullets, dt, &enemyBullets);
+			timeScale = 0;
+		}
 	}
 	else {
 		timeScale = DEFAULT_TIME_SCALE;
@@ -127,13 +156,26 @@ void CPlayScene::HandleSceneTime(DWORD& dt) {
 	dt = dt * timeScale;
 }
 
+void CPlayScene::SwitchToSelectionScene() {
+	if(closingOpeningEffect.isActive == false)
+	BeginClosingEffect([]() {
+		CGame::GetInstance()->SwitchScene("world1-selection");
+	});
+	
+}
+
 void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+	ProcessBlackPortion(dt);
+	if (player == NULL || isPausing ) return;
 	
-	if (player == NULL) return;
-	if (isPausing) return;
+	if (((CMario*)(player))->GetAction() == MarioAction::DIE) {
+		player->Update(dt, &mainObjects);
+		return;
+	}
+
 	HandleSceneTime(dt);
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -143,18 +185,23 @@ void CPlayScene::Update(DWORD dt)
 	UpdateIfInCamera(&dynamicObjects, dt, &coObjects);
 	UpdateIfInCamera(&dynamicObjectsBehindMap, dt, &coObjects);
 	
+	
 	PushBackToCalculateCollision(&coObjects, &dynamicObjects);
 	PushBackToCalculateCollision(&coObjects, &dynamicObjectsBehindMap);
 
-	HandleMarioDie();
+	
 	UpdateIfInCameraOrDisable(&mainObjects, dt, &coObjects);
+	PushBackToCalculateCollision(&coObjects, &mainObjects);
+	
+	UpdateTempObjsInCamera(&highPriorityObjects, dt, &coObjects);
+
 	UpdateTempObjsInCamera(&tempObjects, dt, &mainObjects);
 
 	UpdateIfInCameraOrDisable(&enemyBullets, dt, &mainObjects);
 	UpdateEffects(dt);
 
 	sceneCamera.Update(dt); // Update Map in Camera
-	ProcessBlackPortion(dt);
+	
 }
 
 void CPlayScene::Render()
@@ -175,6 +222,7 @@ void CPlayScene::Render()
 	RenderIfEnableAndInCamera(&mainObjects);
 
 	RenderIfEnableAndInCamera(&tempObjects);
+	RenderIfEnableAndInCamera(&highPriorityObjects);
 
 	RenderIfEnableAndInCamera(&enemyBullets);
 	
@@ -192,10 +240,19 @@ void CPlayScene::Render()
 }
 
 
-void CPlayScene::ChangeCameraArea(Vector2 playerPos, Vector2 LeftTopLimit, Vector2 RightBottomLimit) {
-	player->SetPosition(playerPos.x, playerPos.y);
-	sceneCamera.ChangeCamArea(LeftTopLimit, RightBottomLimit);
+void CPlayScene::PrepareChangeCameraArea(Vector2 playerPos, Vector2 LeftTopLimit, Vector2 RightBottomLimit) {
+	changeCamData.playerPos = playerPos;
+	changeCamData.LeftTopLimit = LeftTopLimit;
+	changeCamData.RightBottomLimit = RightBottomLimit;
 }
+
+
+void CPlayScene::ChangeCameraArea() {
+	player->SetPosition(changeCamData.playerPos);
+	sceneCamera.ChangeCamArea(changeCamData.LeftTopLimit, changeCamData.RightBottomLimit);
+}
+
+
 
 /*
 	Unload current scene
@@ -208,10 +265,17 @@ void CPlayScene::TogglePausingMode() {
 
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < staticObjects.size(); i++)
-		delete staticObjects[i];
+	CleanObjList(staticObjects);
+	CleanObjList(dynamicObjects);
+	CleanObjList(dynamicObjectsBehindMap);
+	CleanObjList(mainObjects);
+	CleanObjList(tempObjects);
+	//CleanObjList(highPriorityObjects);
+	CleanObjList(enemyBullets);
 
-	staticObjects.clear();
+	/*for (int i = 0; i < staticObjects.size(); i++)
+		delete staticObjects[i];
+	staticObjects.clear();*/
 	SetPlayer(NULL);
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);

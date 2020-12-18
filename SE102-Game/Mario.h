@@ -5,6 +5,7 @@
 #include "Game.h"
 #include <unordered_map>
 
+#define UNTOUCHABLE_TIME		3000
 
 enum class MarioType
 {
@@ -14,10 +15,6 @@ enum class MarioType
 	FIRE
 };
 
-enum class MarioBoost {
-	NONE,
-	UNTOUCHABLE
-};
 
 enum class MarioAction
 
@@ -38,10 +35,16 @@ enum class MarioAction
 	KICK,
 	DIE,
 	EXPLODE,
-	
+	UPGRADE_LV,
+	GETTING_INTO_THE_HOLE
 };
 
-
+struct SGetIntoTheHole {
+	Vector2 distance = Vector2(0,50);
+	DWORD time = 1500;
+	const DWORD totalTime = 1500;
+	CallbackType OnFinish = nullptr;
+};
 
 struct SMarioState {
 	MarioAction action = MarioAction::IDLE;
@@ -50,10 +53,11 @@ struct SMarioState {
 	
 };
 
-struct SMarioBoost {
-	MarioBoost type;
-	int beginBoost = 0;
-	int timeBoost = 0;
+
+
+struct SUntouchable {
+	bool isUntouchable = false;
+	int remainingTime = 3000;
 };
 
 class CMario : public CGameObject
@@ -63,17 +67,15 @@ protected:
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 	
-	
-	
+	SGetIntoTheHole getIntoTheHole;
+	Vector2 deltaRender = Vector2(0, 0);
+
+	SUntouchable untouchable;
 
 	MarioType type;
 
-	bool untouchable;
-	DWORD untouchable_start;
-
-	SMarioState state; // 0: isStandingInSomeThing
-	SMarioBoost boost;
-	//bool isBoostedSpeed = false;
+	SMarioState state; 
+	
 	std::unordered_map<int, bool> holdingKeys;
 	
 
@@ -84,18 +86,24 @@ public:
 	virtual void Render(Vector2 finalPos) override;
 
 	
-
+	//void GetIntoTheHole(Vector2, CallbackType = nullptr);
+	
+	
+	void GetIntoTheHole(Vector2, CallbackType = nullptr);
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 	
+	void BeginUntouchable();
 
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
 	virtual void Collided(vector<LPCOLLISIONEVENT>*) override;
 	
+	virtual void BeingCollided(LPGAMEOBJECT) override;
 
 	virtual void NoCollided() override;
 
+	bool IsReadyToChangeAction();
 
 	virtual void BeingKilled();
 	virtual void BeingBouncedAfterJumpInTopEnemy();
@@ -109,16 +117,17 @@ public:
 	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);
 
 
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	
 
 	std::string GetAnimationIdFromState();
 
 	void Reset();
-	void SetBoost(MarioBoost = MarioBoost::NONE, int = 0, int = 0);
+	
 	void TriggerLifeCycleOfActions();
 
 	void ResetTempValues();
 
+	virtual Vector2 GetBoundingBoxSize();
 	virtual Vector2 GetBoundingBoxSize(MarioType mType, MarioAction mAction);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

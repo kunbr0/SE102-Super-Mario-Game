@@ -1,5 +1,6 @@
 #include "FireMario.h"
 
+
 CFireMario::CFireMario(float x, float y) : CMario(x, y) {
 	type = MarioType::FIRE;
 

@@ -39,18 +39,12 @@ Vector2 CGoomba::GetBoundingBoxSize(EEnemyState st) {
 }
 
 
-
-
-
-
-void CGoomba::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
-	BeingCollided(obj);
+void CGoomba::BeingCollidedTop(LPGAMEOBJECT obj) {
+	CEnemy::BeingCollidedTop(obj);
 	
 	if (dynamic_cast<CMario*>(obj)) {
 		if (state.type == EEnemyState::LIVE)
 			ChangeState(EEnemyState::WILL_DIE, 1000);
-		else
-			BeingKicked(obj->GetPosition());
 	}
 
 }

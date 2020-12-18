@@ -23,22 +23,22 @@ public:
 
 	float GetDefaultWalkingSpeed() override { return GOOMBA_WALKING_SPEED; }
 
-	Vector2 GetBoundingBoxSize(EEnemyState) override;
+	virtual Vector2 GetBoundingBoxSize(EEnemyState) override;
 
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
 
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
 	void Collided(vector<LPCOLLISIONEVENT>*) override {};
 
 	
-	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
+	virtual void BeingCollidedTop(LPGAMEOBJECT) override;
 
 	
 
 	void ChangeState(EEnemyState, DWORD = 0) override;
 
-	std::string GetAnimationIdFromState() override;
+	virtual std::string GetAnimationIdFromState() override;
 
 
 };

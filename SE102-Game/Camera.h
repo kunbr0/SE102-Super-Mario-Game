@@ -48,7 +48,7 @@ public:
 
 	void RenderPausing();
 
-	bool IsInCamera(Vector2 realPos, int outsideCam = 20);
+	bool IsInCamera(Vector2 realPos, int outsideCam = 200);
 	
 	void InitPositionController(CGameObject* a);
 

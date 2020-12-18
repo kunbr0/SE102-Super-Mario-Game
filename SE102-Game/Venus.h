@@ -21,14 +21,19 @@ protected:
 	Vector2 initPos;
 	Vector2 size;
 	SVenusState state;
+	int type = 0;
+	
 public:
-	CVenus(Vector2, Vector2);
+	CVenus(Vector2, Vector2, int = 0);
 
 	bool ShootBullet();
 	
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
 
 	void ChangeState(EVenusState);
+	void ChangeState(EEnemyState newState, DWORD = 0) override;
+	void BeingCollidedTop(LPGAMEOBJECT) override;
+
 	std::string GetAnimationIdFromState() override;
 
 	void GetBoundingBox(float&, float&, float&, float&) override;

@@ -161,6 +161,9 @@
     <Filter Include="GameSource\GameObjects\PlayScene\Items\GoldenBrick">
       <UniqueIdentifier>{4beed926-8b6e-4984-87c2-33de43b13424}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Enemy\RedGoomba">
+      <UniqueIdentifier>{3dffbec7-076d-4d73-b1e1-b6681c689875}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -328,6 +331,9 @@
     <ClCompile Include="RaccoonAttackBoundingBox.cpp">
       <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
     </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\RedGoomba</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -494,6 +500,9 @@
     </ClInclude>
     <ClInclude Include="RaccoonAttackBoundingBox.h">
       <Filter>GameSource\GameObjects\Mario\RedRaccoonMario</Filter>
+    </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\RedGoomba</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

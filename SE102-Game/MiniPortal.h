@@ -11,11 +11,13 @@ protected:
 	Vector2 targetSize;
 	Vector2 targetCameraLeffTopLimit;
 	Vector2 targetCameraRightBottomLimit;
-
+	std::string accessKeycode;
 public:
-	CMiniPortal(Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0,0), Vector2 = Vector2(0, 0));
-	void BeingCollided(LPGAMEOBJECT) override;
+	CMiniPortal(std::string, Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0, 0), Vector2 = Vector2(0,0), Vector2 = Vector2(0, 0));
+	void OnHadCollided(LPGAMEOBJECT) override;
 	void GetBoundingBox(float&, float&, float&, float&) override;
+	void Update(DWORD, vector<LPGAMEOBJECT>*);
 	void Render(Vector2 finalPos) override;
+	
 };
 

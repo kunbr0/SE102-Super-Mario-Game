@@ -36,6 +36,7 @@ public:
 	void BeingCollided(LPGAMEOBJECT) override;
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;
 
+	//void BeingCollidedTop(LPGAMEOBJECT) override;
 	
 
 
