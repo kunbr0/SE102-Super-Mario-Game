@@ -99,6 +99,8 @@ public:
 	Vector2 basePosition = Vector2(0, 0);
 	LPANIMATION_SET animation_set;
 
+	bool VerifyCollidedLeftRight(vector<LPCOLLISIONEVENT>*);
+
 	bool isDisable = false;
 	bool isTemp = false;
 	SRenderAnimation renderAnimation;

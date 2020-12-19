@@ -20,9 +20,9 @@ bool CVenus::ShootBullet() {
 			Vector2 playerPos = ((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->GetPlayer()->GetPosition();
 			Vector2 bulletBeginPos = Vector2(this->x + 25 * nx, this->y - 40);
 			Vector2 direction;
-			float magnitude = sqrt(playerPos.x* playerPos.x + x*x);
-			direction.x = (playerPos.x - x) / magnitude;
-			direction.y = (playerPos.y - y) / magnitude;
+			
+			direction.x = (playerPos.x - x) > 0 ? 1 : -1;
+			direction.y = (playerPos.y - y) > 0 ? 1 : -1;
 			if (bullets.at(i)->isDisable) {
 				bullets.at(i)->vy = VELOCITY_Y_FIRE_BULLET * 0.3;
 				bullets.at(i)->SetPosition(bulletBeginPos);
@@ -146,8 +146,13 @@ void CVenus::ChangeState(EVenusState newState) {
 		if(newState == EVenusState::HEADINGDOWN || newState == EVenusState::HEADINGUP)
 			this->state.timeRemaining = VENUS_TIME_DURATION_HEADING_DOWNUP;
 		else {
-			if(newState == EVenusState::HEADUP_IDLE && (type == 0 || type == 2)) ShootBullet();
-			this->state.timeRemaining = VENUS_TIME_DURATION_IDLE;
+			int headDownTime = 3000;
+			if (newState == EVenusState::HEADUP_IDLE && (type == 0 || type == 2)) {
+				ShootBullet();
+				headDownTime = 0;
+			}
+				
+			this->state.timeRemaining = VENUS_TIME_DURATION_IDLE + headDownTime;
 		}
 			
 	}

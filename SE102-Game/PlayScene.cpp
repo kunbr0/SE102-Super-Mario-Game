@@ -329,24 +329,28 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			((CPlayScene*)scence)->SwitchPlayer(
 				new CRedSmallMario(currentPlayer->x, currentPlayer->y)
 			);
+			((CPlayScene*)scence)->SetPlayerLevel(0);
 		}	break;
 
 		case DIK_2: {
 			((CPlayScene*)scence)->SwitchPlayer(
 				new CRedBigMario(currentPlayer->x, currentPlayer->y)
 			);
+			((CPlayScene*)scence)->SetPlayerLevel(1);
 		}	break;
 
 		case DIK_3: {
 			((CPlayScene*)scence)->SwitchPlayer(
 				new CRedRaccoonMario(currentPlayer->x, currentPlayer->y)
 			);
+			((CPlayScene*)scence)->SetPlayerLevel(2);
 		}	break;
 	
 		case DIK_4: {
 			((CPlayScene*)scence)->SwitchPlayer(
 				new CFireMario(currentPlayer->x, currentPlayer->y)
 			);
+			((CPlayScene*)scence)->SetPlayerLevel(3);
 		}	break;
 
 		case DIK_ESCAPE: {

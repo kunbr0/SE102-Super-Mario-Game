@@ -46,8 +46,8 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		ApplyGravity();
 	}
 	if (owner == 1) {
-		vx = 1.25f * venusBulletDirection.x;
-		vy = 1.25f * venusBulletDirection.y;
+		vx = 0.07f * venusBulletDirection.x;
+		vy = 0.05f * venusBulletDirection.y;
 	}
 	
 	CGameObject::Update(dt, coObjects);

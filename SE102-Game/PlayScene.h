@@ -51,6 +51,8 @@ public:
 	/*virtual bool ParseTextures();
 	virtual bool ParseSprites();*/
 
+	void SetPlayerLevel(int a) { playerLevel = a; }
+
 	vector<LPGAMEOBJECT> GetEnemyBullets() { return enemyBullets; }
 	bool GetPausingStatus() { return isPausing; }
 	void TogglePausingMode();

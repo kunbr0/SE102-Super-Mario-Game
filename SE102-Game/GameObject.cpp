@@ -264,6 +264,17 @@ void CGameObject::UpdateNoCollision() {
 	y += dy;
 }
 
+bool CGameObject::VerifyCollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+	for (int i = 0; i < coEvents->size(); i++) {
+		float ml, mt, mr, mb, sl, st, sr, sb = 0;
+		coEvents->at(i)->obj->GetBoundingBox(sl, st, sr, sb);
+		this->GetBoundingBox(ml, mt, mr, mb);
+		if (mb - st > 0 ) 
+			return true;
+	}
+	return false;
+}
+
 void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -299,13 +310,21 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-
 		Collided(&coEventsResult);
+
+		if (nx != 0) {
+			if (!VerifyCollidedLeftRight(&coEventsResult)) {
+				nx = 0;
+				min_tx = 1;
+				rdx = 0;
+			}
+		}
+		
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
-		if(ny != 0)
-			y += min_ty * dy + ny * 0.4f;
+		//if(ny != 0)
+		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) { 
 			vx = 0; 
