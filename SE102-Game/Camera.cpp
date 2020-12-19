@@ -137,8 +137,8 @@ void CCamera::SetCamPosition(Vector2 pos) {
 	//}
 
 	
-	pos.x = (int)pos.x;
-	pos.y = (int)pos.y;
+	/*pos.x = (int)pos.x;
+	pos.y = (int)pos.y;*/
 	camPosition = pos;
 }
 

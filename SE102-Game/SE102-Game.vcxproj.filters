@@ -164,6 +164,9 @@
     <Filter Include="GameSource\GameObjects\PlayScene\Enemy\RedGoomba">
       <UniqueIdentifier>{3dffbec7-076d-4d73-b1e1-b6681c689875}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\EndSceneItem">
+      <UniqueIdentifier>{4e829819-5668-426b-9d83-fe2c490c64c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -334,6 +337,9 @@
     <ClCompile Include="RedGoomba.cpp">
       <Filter>GameSource\GameObjects\PlayScene\Enemy\RedGoomba</Filter>
     </ClCompile>
+    <ClCompile Include="EndSceneItem.cpp">
+      <Filter>GameSource\GameObjects\EndSceneItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -503,6 +509,9 @@
     </ClInclude>
     <ClInclude Include="RedGoomba.h">
       <Filter>GameSource\GameObjects\PlayScene\Enemy\RedGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="EndSceneItem.h">
+      <Filter>GameSource\GameObjects\EndSceneItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

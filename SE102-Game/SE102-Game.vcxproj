@@ -162,6 +162,7 @@
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="EndSceneItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="EndSceneItem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="FireMario.h" />

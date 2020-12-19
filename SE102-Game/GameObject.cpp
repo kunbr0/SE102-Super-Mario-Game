@@ -169,13 +169,14 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			if (dynamic_cast<CRectPlatform*>(c->obj)) {
-				// Do not thing ( allow Mario go in X-direction )
+			if (VerifyCollidedLeftRight(c->obj)) {
+				if (dynamic_cast<CRectPlatform*>(c->obj)) {
+					// Do not thing ( allow Mario go in X-direction )
+				}
+				else {
+					min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+				}
 			}
-			else {
-				min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
-			}
-			
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
@@ -264,14 +265,22 @@ void CGameObject::UpdateNoCollision() {
 	y += dy;
 }
 
-bool CGameObject::VerifyCollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (int i = 0; i < coEvents->size(); i++) {
-		float ml, mt, mr, mb, sl, st, sr, sb = 0;
-		coEvents->at(i)->obj->GetBoundingBox(sl, st, sr, sb);
-		this->GetBoundingBox(ml, mt, mr, mb);
-		if (mb - st > 0 ) 
-			return true;
-	}
+//bool CGameObject::VerifyCollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+//	for (int i = 0; i < coEvents->size(); i++) {
+//		float ml, mt, mr, mb, sl, st, sr, sb = 0;
+//		coEvents->at(i)->obj->GetBoundingBox(sl, st, sr, sb);
+//		this->GetBoundingBox(ml, mt, mr, mb);
+//		if ( (mb>st && sb>mt)  || (sb>mt && mb>st) ) 
+//			return true;
+//	}
+//	return false;
+//}
+bool CGameObject::VerifyCollidedLeftRight(LPGAMEOBJECT obj) {
+
+	float ml, mt, mr, mb, sl, st, sr, sb = 0;
+	obj->GetBoundingBox(sl, st, sr, sb);
+	this->GetBoundingBox(ml, mt, mr, mb);
+	if ((mb>st && sb>mt)) return true;
 	return false;
 }
 
@@ -312,13 +321,13 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		Collided(&coEventsResult);
 
-		if (nx != 0) {
+		/*if (nx != 0) {
 			if (!VerifyCollidedLeftRight(&coEventsResult)) {
 				nx = 0;
 				min_tx = 1;
 				rdx = 0;
 			}
-		}
+		}*/
 		
 
 		// block every object first!

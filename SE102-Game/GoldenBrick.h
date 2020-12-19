@@ -11,7 +11,7 @@ public:
 	CGoldenBrick(Vector2);
 
 
-	virtual void Render(Vector2 finalPos);
+	virtual void Render(Vector2 finalPos) override;
 	Vector2 GetBoundingBoxSizeFromState();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
 	void OnHadCollided(LPGAMEOBJECT) override;

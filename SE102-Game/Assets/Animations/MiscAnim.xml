@@ -3,6 +3,15 @@
 	<!--	Texture Misc  	-->
 	<Textures gameObjectId="0" textureId="0">
 
+
+		<Animation aniId="ani-end-scene-world1-1" frameTime="100" name = "MUSHROOM">
+            <Sprite id="spr-super-mushroom-0" />
+            <Sprite id="spr-star-man-0" />
+			<Sprite id="spr-end-scene-flower-1" />
+        </Animation>
+        
+
+
 		<!-- COIN -->
 		<Animation aniId="ani-coin" frameTime="100">
 			

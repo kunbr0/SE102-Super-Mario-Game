@@ -14,7 +14,7 @@
 #include "SelectionTree.h"
 #include "IntroSceneObj.h"
 #include "GoldenBrick.h"
-
+#include "EndSceneItem.h"
 
 #define marginXWindow	96
 #define	marginYWindow	272
@@ -270,6 +270,17 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 					);
 					dynamicObjects->push_back(obj);
 				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "EndSceneItem") {
+			for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+				LPGAMEOBJECT obj = new CEndSceneItem(
+					Vector2(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+				);
+				tempObjects->push_back(obj);
+			}
 			}
 
 			else if (std::string(objGroupNode->Attribute("name")) == "MiniPortal") {
