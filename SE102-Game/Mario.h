@@ -78,7 +78,7 @@ protected:
 	
 	std::unordered_map<int, bool> holdingKeys;
 	
-
+	
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
