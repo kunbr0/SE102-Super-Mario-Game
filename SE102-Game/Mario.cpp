@@ -27,7 +27,7 @@ void CMario::BeingKilled() {
 	/*if (state.action == MarioAction::EXPLODE) return;
 	SetAction(MarioAction::DIE);*/
 	if (state.action == MarioAction::DIE) return;
-	if (type == MarioType::RED_SMALL) {
+	if (type == MarioType::RED_SMALL && untouchable.isUntouchable == false) {
 		vy = -0.7f;
 		vx = ax = ay = 0;
 
@@ -43,7 +43,11 @@ void CMario::TriggerLifeCycleOfActions() {
 }
 
 void CMario::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents) {
-	if (finishStep == 1) finishStep = 2;
+	if (finishStep == 1) {
+		state.beginAction = GetTickCount64();
+		state.timeAction = 500;
+		finishStep = 2;
+	}
 	CGameObject::CollidedLeft(coEvents);
 }
 
@@ -94,7 +98,7 @@ void CMario::GetIntoTheHole(Vector2 distance, CallbackType callback) {
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
-	if (state.action == MarioAction::DIE && IsReadyToChangeAction()) {
+	if (state.action == MarioAction::DIE && IsReadyToChangeAction() || finishStep == 3) {
 		((CPlayScene*) CGame::GetInstance()->GetCurrentScene())->SwitchToSelectionScene();
 	}
 	if (state.action == MarioAction::GETTING_INTO_THE_HOLE) {
@@ -115,7 +119,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (finishStep == 1) {
 		ChangeAction(MarioAction::WALK);
-		
+	}
+	else if (finishStep == 2) {
+		if (IsReadyToChangeAction()) finishStep = 3;
 	}
 
 	// Increase velocity if in limit
@@ -453,7 +459,8 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	case MarioAction::JUMP:
 		if (state.action == MarioAction::IDLE || state.action == MarioAction::WALK || state.action == MarioAction::RUN
 			|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
-			vy = -MARIO_JUMP_SPEED_Y;
+			if (powerX > 6000) vy = -MARIO_JUMP_SPEED_Y * 0.7f;
+			else vy = -MARIO_JUMP_SPEED_Y;
 			SetAction(newAction, timeAction);
 			if (state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
 		}

@@ -28,10 +28,10 @@ public:
 	CRedGoomba(float x, float y);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
 	void ChangeStepHasWingBehavior(DWORD);
-	void ProcessHasWingBehavior();
+	virtual void ProcessHasWingBehavior();
 	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	void BeingCollidedTop(LPGAMEOBJECT) override;
 
-	Vector2 GetBoundingBoxSize(EEnemyState) override;
-	std::string GetAnimationIdFromState() override;
+	virtual Vector2 GetBoundingBoxSize(EEnemyState) override;
+	virtual std::string GetAnimationIdFromState() override;
 };

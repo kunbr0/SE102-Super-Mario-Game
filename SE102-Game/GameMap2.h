@@ -20,7 +20,7 @@ class CGameMap
 	int tileWidth;
 	int tileHeight;
 	Vector2 camPosition;
-	
+
 
 	vector<CTileSet*> tilesets;
 	kTilesetRender kRender;
@@ -47,14 +47,14 @@ public:
 
 	virtual void Render(float bottomMargin = 0);
 
-	virtual void GetMapSize(Vector2 &out);
+	virtual void GetMapSize(Vector2& out);
 
 	// PlayScene
 	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
-	
+
 	// SelectionScene
-	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>* , std::unordered_map<std::string, CSelectionNode*>* );
-	
+	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*, std::unordered_map<std::string, CSelectionNode*>*);
+
 	// IntroScene
 	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*);
 

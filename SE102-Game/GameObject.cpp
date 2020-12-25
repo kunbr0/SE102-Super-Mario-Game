@@ -329,10 +329,12 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) {
+			
 			for (int i = 0; i < coEventsResult.size(); i++) {
 				if(VerifyCollidedLeftRight(coEventsResult[i]->obj)) 
 					vx = 0;
 			}
+			
 			
 			if (nx > 0) CollidedRight(&coEventsResult);
 			else CollidedLeft(&coEventsResult);

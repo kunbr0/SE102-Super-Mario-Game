@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="AddingPointEffect.cpp" />
     <ClCompile Include="BoundingCoinEffect.cpp" />
+    <ClCompile Include="Death.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
@@ -215,6 +216,7 @@
   <ItemGroup>
     <ClInclude Include="AddingPointEffect.h" />
     <ClInclude Include="BoundingCoinEffect.h" />
+    <ClInclude Include="Death.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationFrame.h" />

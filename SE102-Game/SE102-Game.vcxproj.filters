@@ -167,6 +167,9 @@
     <Filter Include="GameSource\GameObjects\EndSceneItem">
       <UniqueIdentifier>{4e829819-5668-426b-9d83-fe2c490c64c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\DealthCollision">
+      <UniqueIdentifier>{009a5470-2625-43b7-a775-227fb81f4d11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -340,6 +343,9 @@
     <ClCompile Include="EndSceneItem.cpp">
       <Filter>GameSource\GameObjects\EndSceneItem</Filter>
     </ClCompile>
+    <ClCompile Include="Death.cpp">
+      <Filter>GameSource\GameObjects\DealthCollision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -512,6 +518,9 @@
     </ClInclude>
     <ClInclude Include="EndSceneItem.h">
       <Filter>GameSource\GameObjects\EndSceneItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Death.h">
+      <Filter>GameSource\GameObjects\DealthCollision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

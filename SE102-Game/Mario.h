@@ -117,7 +117,7 @@ public:
 	virtual MarioAction GetAction() { return state.action; }
 	virtual bool ChangeAction(MarioAction newAction, DWORD timeAction = 0);
 
-
+	void SetType(MarioType a) { type = a; }
 	
 
 	std::string GetAnimationIdFromState();

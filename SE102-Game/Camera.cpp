@@ -180,7 +180,12 @@ void CCamera::RenderDetailBoard() {
 	LPSPRITE hud = CSprites::GetInstance()->Get("spr-hud-0");
 	LPSPRITE Mchar = CSprites::GetInstance()->Get("spr-m-tag-0");
 	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
-	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-4");
+
+	int currentLv = 1;
+	if(positionController != nullptr)
+		currentLv = (int)((CMario*)positionController)->GetType();
+
+	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-" + std::to_string(currentLv+1));
 	Vector2 beginPos = Vector2(240, camSize.y + hud->getSize().y - DetailsBoardHeight + 20);
 
 	
@@ -235,7 +240,7 @@ void CCamera::Render() {
 	//mMap->Render(DetailsBoardHeight+150);
 	mMap->Render();
 	if(positionController != nullptr)
-		if (((CMario*)positionController)->GetFinishStep() == 2) RenderFinishPlayScene();
+		if (((CMario*)positionController)->GetFinishStep() >= 2) RenderFinishPlayScene();
 }
 
 void CCamera::RenderPausing() {

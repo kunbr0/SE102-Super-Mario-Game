@@ -1,78 +1,49 @@
 #include "KoopasFly.h"
 
-CKoopasFly::CKoopasFly(float x, float y)
+CKoopasFly::CKoopasFly(float x, float y) : CRedGoomba(x, y)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = -1;
 
-	ChangeState(EEnemyState::LIVE);
 }
 
 
 std::string CKoopasFly::GetAnimationIdFromState() {
 	switch (state.type)
 	{
-	case EEnemyState::LIVE:
-		return KOOPASFLY_ANI_WALKING;
-	case EEnemyState::WILL_DIE:
-	case EEnemyState::BEING_KICKED:
-		return KOOPASFLY_ANI_CROUCH;
-	default:
-		return KOOPASFLY_ANI_WALKING;
+	case EEnemyState::LIVE: {
+		return "ani-green-koopa-paratroopa-fly";
 	}
+
+	case EEnemyState::LIVE1:
+		return "ani-green-koopa-troopa-move";
+
+
+	case EEnemyState::ONESHOTDIE:
+		return "ani-green-koopa-troopa-move";
+	case EEnemyState::WILL_DIE:
+		return "ani-green-koopa-troopa-crouch";
+	default:
+		return "ani-green-koopa-troopa-move";
+	}
+}
+
+void CKoopasFly::ProcessHasWingBehavior() {
+	vy = -0.55f;
 }
 
 Vector2 CKoopasFly::GetBoundingBoxSize(EEnemyState st) {
 	switch (st)
 	{
 	case EEnemyState::LIVE:
-		return Vector2(KOOPASFLY_BBOX_WIDTH, KOOPASFLY_BBOX_HEIGHT);
+	case EEnemyState::LIVE1:
+		return Vector2(48, 77);
+
+
 	case EEnemyState::WILL_DIE:
-	case EEnemyState::BEING_KICKED:
-		return Vector2(KOOPASFLY_BBOX_CROUCH_WIDTH, KOOPASFLY_BBOX_CROUCH_WIDTH);
+		return Vector2(48, 40);
 	case EEnemyState::DIE:
 	case EEnemyState::ONESHOTDIE:
 		return Vector2(0, 0);
 	default:
-		return Vector2(KOOPASFLY_BBOX_WIDTH, KOOPASFLY_BBOX_HEIGHT);
+		return Vector2(GOOMBA_BBOX_WIDTH, GOOMBA_BBOX_HEIGHT);
 	}
 }
-
-
-
-
-void CKoopasFly::CollidedTop(vector<LPCOLLISIONEVENT>*) {
-	vy = -0.7f;
-}
-
-void CKoopasFly::BeingCollidedTopBottom(LPGAMEOBJECT obj) {
-	BeingCollided(obj);
-
-	if (dynamic_cast<CMario*>(obj)) {
-		if (state.type == EEnemyState::LIVE)
-			ChangeState(EEnemyState::WILL_DIE);
-		else
-			BeingKicked(obj->GetPosition());
-	}
-
-}
-
-
-
-
-
-
-
-
-void CKoopasFly::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	vy += 0.0014f * dt;
-	CEnemy::Update(dt, coObjects);
-	
-	
-	UpdateWithCollision(coObjects);
-}
-
-
-

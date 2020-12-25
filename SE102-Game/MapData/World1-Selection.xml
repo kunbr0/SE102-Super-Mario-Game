@@ -4,7 +4,7 @@
         <textures>
             <texture id="world1-selection" filePath="Assets\Textures\World1-Selection.png" />
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
-            <texture id="tex-ui" filePath="Assets\Textures\UI.png" />
+            <texture id="tex-ui" filePath="Assets\Textures\UI.png" transColor="239,228,176" />
             <texture id="black" filePath="Assets\Textures\black.png" transColor="255,255,255" />
         </textures>
 
