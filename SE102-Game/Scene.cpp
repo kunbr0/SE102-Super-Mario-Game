@@ -11,7 +11,10 @@ CScene::CScene(std::string id, std::string filePath, std::string type)
 }
 
 
-
+int CScene::GetLastCard() {
+	if (cards.size() == 0) return -1;
+	return cards[cards.size() - 1];
+}
 
 void CScene::UpdateTempObjsInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	for (size_t i = 0; i < objList->size(); i++)
@@ -181,7 +184,8 @@ bool CScene::LoadDataFromFile() {
 
 void CScene::CleanObjList(vector<LPGAMEOBJECT>& objList) {
 	for (int i = 0; i < objList.size(); i++)
-		delete objList[i];
+		if(objList[i] != nullptr)
+			delete objList[i];
 
 	objList.clear();
 }

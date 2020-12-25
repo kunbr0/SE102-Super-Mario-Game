@@ -73,7 +73,7 @@ void Render()
 	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 	
 
-	if (d3ddv->BeginScene())
+	if (SUCCEEDED(d3ddv->BeginScene()))
 	{
 		// Clear back buffer with a color
 		D3DCOLOR bgColor;

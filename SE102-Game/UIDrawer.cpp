@@ -18,7 +18,8 @@ CUIDrawer* CUIDrawer::GetInstance()
 
 void CUIDrawer::Draw(std::string inp, Vector2 finalPos){
 	for (int i = 0; i < inp.length(); i++) {
-		CSprites::GetInstance()->Get("spr-font-"+ string(1, inp[i]))->DrawWithScaling(finalPos + Vector2(i*26,0));
+		std::string sprId = string(1, inp[i]) == " " ? "spr-font-space" : "spr-font-" + string(1, inp[i]);
+		CSprites::GetInstance()->Get(sprId)->DrawWithScaling(finalPos + Vector2(i*26,0));
 	}
 }
 

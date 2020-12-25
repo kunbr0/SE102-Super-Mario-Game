@@ -42,6 +42,13 @@ void CMario::TriggerLifeCycleOfActions() {
 	
 }
 
+void CMario::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents) {
+	if (finishStep == 1) finishStep = 2;
+	CGameObject::CollidedLeft(coEvents);
+}
+
+
+
 void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	
 	ChangeBasePosition(GetPosition());
@@ -53,6 +60,10 @@ void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 	}
 	
 	CGameObject::CollidedTop(coEvents);
+	if (finishStep == 1) {
+		vx = 0.24f;
+		nx = 1;
+	} 
 
 }
 void CMario::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
@@ -79,6 +90,7 @@ void CMario::GetIntoTheHole(Vector2 distance, CallbackType callback) {
 	SetAction(MarioAction::GETTING_INTO_THE_HOLE);
 }
 
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
@@ -100,6 +112,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		deltaRender.y += getIntoTheHole.distance.y * (time * 1.0f / getIntoTheHole.totalTime * 1.0f);
 		return;
 	}
+
+	if (finishStep == 1) {
+		ChangeAction(MarioAction::WALK);
+		
+	}
+
 	// Increase velocity if in limit
 	float vxmax = holdingKeys[DIK_A] ? VELOCITY_X_MAX_RUN : VELOCITY_X_MAX_WALK;
 	ax = ax * (1 + (holdingKeys[DIK_A] ? ACCELERATION_X_RUN_GREATER_RATIO : 0));
@@ -109,8 +127,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vx += ax * dt;
 
 	//DebugOut(ToWSTR(std::to_string(vx) + "\n").c_str());
-
-	ApplyFriction();
+	if(finishStep == 0)
+		ApplyFriction();
 	if (state.action == MarioAction::FALL_SLIGHTLY)
 		vy = ACCELERATION_Y_GRAVITY * dt * 1.7;
 
@@ -162,6 +180,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	ResetTempValues(); // Set all temp values to initial value;
 }
 
+
+
 void CMario::Render(Vector2 finalPos) {
 	
 
@@ -184,7 +204,7 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 
 	if (untouchable.isUntouchable && GetTickCount64() % 100 > 50) return;
 	
@@ -234,7 +254,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 {
-	if (state.action == MarioAction::EXPLODE || state.action == MarioAction::UPGRADE_LV) return;
+	if (state.action == MarioAction::EXPLODE || state.action == MarioAction::UPGRADE_LV || finishStep > 0) return;
 
 	if (kEvent.isKeyUp == true) {
 		holdingKeys[kEvent.key] = false;

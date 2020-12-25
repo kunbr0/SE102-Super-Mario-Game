@@ -29,6 +29,7 @@ protected:
 	vector<LPGAMEOBJECT> mainObjects;
 	vector<LPGAMEOBJECT> highPriorityObjects;
 	vector<LPGAMEOBJECT> tempObjects;
+	
 	vector<CEffect*> effects;
 
 	vector<LPGAMEOBJECT> enemyBullets;

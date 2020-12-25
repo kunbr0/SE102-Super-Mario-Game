@@ -4,7 +4,7 @@
         <textures>
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
             <texture id="tex-enemy" filePath="Assets\Textures\enemy.png" />
-            <texture id="tex-ui" filePath="Assets\Textures\UI.png" />
+            <texture id="tex-ui" filePath="Assets\Textures\UI.png" transColor="239,228,176" />
             <texture id="tex-misc" filePath="Assets\Textures\misc.png" transColor="239,228,176"/>
             <texture id="tex-effect" filePath="Assets\Textures\effect.png" transColor="68,145,190"/>
             <texture id="-100" filePath="Assets\Textures\bbox.png" transColor="255,255,255" />
@@ -34,7 +34,7 @@
         <!-- Dynamic Objects -->
             <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <!--<mario type="2" x="6290" y="1500" /> -->
-            <mario type="0" x="7000" y="800" />
+            <mario type="2" x="7200" y="800" />
             <enemyBullets quantity="3"/>
         </objects>
     </mapdata>

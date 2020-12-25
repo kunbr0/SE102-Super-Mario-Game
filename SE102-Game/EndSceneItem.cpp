@@ -3,12 +3,16 @@
 #include "SpriteManager.h"
 #include "Mario.h"
 
+#define SHOW_TIME_CARD			1000
+#define TOTAL_QUANTITY_OF_CARD		3
+
 CEndSceneItem::CEndSceneItem(Vector2 pos) {
 	SetPosition(pos);
 	isTemp = true;
 }
 
 void CEndSceneItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjs) {
+	ChangeCardId(dt);
 	CGameObject::Update(dt, coObjs);
 	UpdateWithCollision(coObjs);
 	if (claimBonusEffect.isActive) {
@@ -21,7 +25,7 @@ void CEndSceneItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjs) {
 
 void CEndSceneItem::Render(Vector2 finalPos) {
 	if (claimBonusEffect.isActive == false) {
-		CAnimations::GetInstance()->Get("ani-end-scene-world1-1")->Render(finalPos + deltaRender);
+		CSprites::GetInstance()->Get("spr-misc-card-" + std::to_string(cardId))->DrawWithScaling(finalPos + deltaRender);
 	}
 	else {
 		CAnimations::GetInstance()->Get("ani-end-scene-world1-1")->Render(finalPos + deltaRender);
@@ -42,6 +46,19 @@ void CEndSceneItem::Collided(vector<LPCOLLISIONEVENT>* coEvents) {
 		if (dynamic_cast<CMario*>(coEvents->at(i)->obj)) {
 			claimBonusEffect.isActive = true;
 			claimBonusEffect.remainingTime = claimBonusEffect.totalTime;
+			((CMario*)coEvents->at(i)->obj)->vx = 0;
+			((CMario*)coEvents->at(i)->obj)->vy = 0;
+			((CMario*)coEvents->at(i)->obj)->ChangeFinishStep(1);
+			CGame::GetInstance()->GetCurrentScene()->PushToCards(cardId);
 		}
+	}
+}
+
+void CEndSceneItem::ChangeCardId(DWORD dt) {
+	cardIdRemainingTime -= dt;
+	if (cardIdRemainingTime <= 0) {
+		cardId++;
+		cardIdRemainingTime = SHOW_TIME_CARD;
+		if (cardId >= TOTAL_QUANTITY_OF_CARD) cardId = 0;
 	}
 }

@@ -22,6 +22,10 @@
 			<Sprite id="spr-end-scene-flower-1" left="369" top="120"  width="16" height="16"/>
 			
 
+			<Sprite id="spr-misc-card-0" left="156" top="121"  width="16" height="16"/>
+			<Sprite id="spr-misc-card-2" left="201" top="121"  width="16" height="16"/>
+			<Sprite id="spr-misc-card-1" left="370" top="120"  width="16" height="16"/>
+
 			<Sprite id="spr-switch-block-blue-0" left="156" top="144"  width="16" height="16"/>
 			<Sprite id="spr-switch-block-blue-1" left="200" top="153"  width="16" height="7"/>
 			<Sprite id="spr-switch-block-green-0" left="178" top="144"  width="16" height="16"/>

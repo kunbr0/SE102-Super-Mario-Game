@@ -16,6 +16,8 @@ struct SClosingOpeningEffect {
 	bool isOpening = true;
 	bool isActive = false;
 
+	
+
 	CallbackType callback;
 };
 
@@ -25,9 +27,11 @@ protected:
 	CKeyEventHandler* key_handler;
 	std::string id;
 	std::string type;
+	vector<int> cards;
 	std::string sceneFilePath;
 	CCamera sceneCamera;
 	unsigned long timeScale;
+
 
 	SClosingOpeningEffect closingOpeningEffect;
 	
@@ -49,6 +53,11 @@ public:
 	void BeginClosingEffect(CallbackType = nullptr);
 	void CleanObjList(vector<LPGAMEOBJECT>&);
 	
+	// Cards
+	void PushToCards(int a) { cards.push_back(a); }
+	int GetLastCard();
+	vector<int> GetCards() { return cards; }
+
 	// Update
 	virtual void Update(DWORD dt) = 0;
 	void UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>* = nullptr);

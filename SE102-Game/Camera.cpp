@@ -218,11 +218,24 @@ void CCamera::RenderDetailBoard() {
 
 	}
 	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.timeRemaining / 1000), beginScorePos + Vector2(221,0), '0', 3);
+	
+	vector<int> cards = CGame::GetInstance()->GetCurrentScene()->GetCards();
+	for (int i = 0; i < 3; i++) {
+		if(i < cards.size())
+			CSprites::GetInstance()->Get("spr-card-" + std::to_string(cards[i]))->DrawWithScaling(Vector2(beginScorePos.x + 370 + i * 70, beginScorePos.y - 18));
+		else
+		CSprites::GetInstance()->Get("spr-empty-card-0")->DrawWithScaling(Vector2(beginScorePos.x + 370 + i*70, beginScorePos.y - 18));
+	}
+
+
+
 }
 
 void CCamera::Render() {
 	//mMap->Render(DetailsBoardHeight+150);
 	mMap->Render();
+	if(positionController != nullptr)
+		if (((CMario*)positionController)->GetFinishStep() == 2) RenderFinishPlayScene();
 }
 
 void CCamera::RenderPausing() {
@@ -230,4 +243,16 @@ void CCamera::RenderPausing() {
 	RECT rect; rect.left = 0; rect.top = 0; rect.right = camSize.x; rect.bottom = camSize.y;
 	CGame::GetInstance()->DrawWithScaling(Vector2(camSize.x / 2, camSize.y / 2), Vector2(0, 0), black, rect, 100);
 	CUIDrawer::GetInstance()->Draw("PAUSE", Vector2(camSize.x / 2 - 60, camSize.y / 2 - 10));
+}
+
+void CCamera::RenderFinishPlayScene() {
+	
+	CUIDrawer::GetInstance()->Draw("COURSE CLEAR", Vector2(camSize.x / 2 - 130, camSize.y / 2 - 250));
+	CUIDrawer::GetInstance()->Draw("YOU GOT A CARD", Vector2(camSize.x / 2 - 190, camSize.y / 2 - 190));
+	
+	int cardId = CGame::GetInstance()->GetCurrentScene()->GetLastCard();
+	if (cardId != -1) {
+		CSprites::GetInstance()->Get("spr-card-" + std::to_string(cardId))->DrawWithScaling(Vector2(camSize.x / 2 + 210, camSize.y / 2 - 190));
+	}
+	
 }

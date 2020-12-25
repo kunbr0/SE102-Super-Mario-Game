@@ -40,6 +40,7 @@ public:
 	virtual void SetState(EBlockState, DWORD = 0);
 	virtual void OpenBox();
 
+	virtual void BeingCollidedLeftRight(LPGAMEOBJECT) override;
 	
 	std::string GetAnimationIdFromState();
 	

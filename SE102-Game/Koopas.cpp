@@ -69,6 +69,7 @@ void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
 		SwitchEffect(EExtraEffect::BEING_DAMAGED);
 		ChangeState(EEnemyState::WILL_DIE, 5000);
 	}
+	
 	else if (dynamic_cast<CFireBullet*>(obj)) {
 		ChangeState(EEnemyState::ONESHOTDIE);
 	}

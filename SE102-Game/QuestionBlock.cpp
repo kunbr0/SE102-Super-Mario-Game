@@ -1,6 +1,7 @@
 #include "QuestionBlock.h"
 #include "PlayScene.h"
 #include "BoundingCoinEffect.h"
+#include "Enemy.h"
 
 #define DELTA_POSITION_STEP_OPENING			7
 
@@ -21,6 +22,13 @@ void CQuestionBlock::Render(Vector2 finalPos) {
 	//RenderBoundingBox(finalPos);
 }
 
+void CQuestionBlock::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CEnemy*>(obj)) {
+		if (((CEnemy*)obj)->GetState() == EEnemyState::BEING_KICKED) {
+			ChangeState(EBlockState::OPENING, 3000);
+		}
+	}
+}
 
 
 void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {

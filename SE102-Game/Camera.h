@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include "Transform.h"
 #include "GameObject.h"
 #include "GameMap2.h"
@@ -47,6 +47,7 @@ public:
 	void AdjustScore(int);
 
 	void RenderPausing();
+	void RenderFinishPlayScene();
 
 	bool IsInCamera(Vector2 realPos, int outsideCam = 200);
 	

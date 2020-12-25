@@ -5,9 +5,9 @@
 
 
 		<Animation aniId="ani-end-scene-world1-1" frameTime="100" name = "MUSHROOM">
-            <Sprite id="spr-super-mushroom-0" />
-            <Sprite id="spr-star-man-0" />
-			<Sprite id="spr-end-scene-flower-1" />
+            <Sprite id="spr-misc-card-0" />
+            <Sprite id="spr-misc-card-1" />
+			<Sprite id="spr-misc-card-2" />
         </Animation>
         
 

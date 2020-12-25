@@ -35,7 +35,7 @@ void CEnemy::ChangeDirectionAfterAxisCollide() {
 	if (!useChangeDirectionAfterAxisCollide) return;
 	float left, top, right, bottom;
 	GetBoundingBox(left, top, right, bottom);
-	if ((x + dx < walkingScope.x || x + dx > walkingScope.y - (right-left)) && walkingScope.x != 0 && walkingScope.y != 0) {
+	if ((x + dx < walkingScope.x || x + dx > walkingScope.y ) && walkingScope.x != 0 && walkingScope.y != 0) {
 		ChangeDirection();
 	}
 }
@@ -48,10 +48,10 @@ void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	else {
 		left = x - GetBoundingBoxSize().x / 2;
 		top = y - GetBoundingBoxSize().y / 2;
-		right = x + GetBoundingBoxSize().x / 2;
-		bottom = y + GetBoundingBoxSize().y / 2;
+right = x + GetBoundingBoxSize().x / 2;
+bottom = y + GetBoundingBoxSize().y / 2;
 	}
-	
+
 }
 
 
@@ -68,13 +68,13 @@ void CEnemy::SetState(EEnemyState newState, DWORD timeState) {
 
 void CEnemy::BeingHeldProcess() {
 	if (state.type != EEnemyState::BEING_HELD) return;
-	if(holdController->GetAction() != MarioAction::HOLD) {
+	if (holdController->GetAction() != MarioAction::HOLD) {
 		holdController->SetAction(MarioAction::KICK, 200);
 		BeingKicked(holdController->GetPosition());
 		return;
 	}
 	vx = vy = 0;
-	SetPosition(holdController->GetPosition() + Vector2(HOLDING_DISTANCE*(holdController->GetNX()), 0));
+	SetPosition(holdController->GetPosition() + Vector2(HOLDING_DISTANCE * (holdController->GetNX()), 0));
 }
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -88,9 +88,9 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CEnemy::Render(Vector2 finalPos) {
 	if (state.type == EEnemyState::DIE) return;
 	//RenderBoundingBox(finalPos);
-	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos,Vector2(-nx, ny) , 255);
+	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos, Vector2(-nx, ny), 255);
 	RenderExtraEffect(finalPos);
-	
+
 }
 
 
@@ -106,16 +106,19 @@ void CEnemy::BeingCollidedTop(LPGAMEOBJECT obj) {
 };
 
 void CEnemy::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
+	CGameObject::CollidedLeftRight(coEvents);
 	for (int i = 0; i < coEvents->size(); i++) {
 		if (dynamic_cast<CEnemy*>(coEvents->at(i)->obj)) {
-			if(GetState() == EEnemyState::BEING_KICKED)
-			return;
+			if (GetState() == EEnemyState::BEING_KICKED)
+				return;
 		}
 	}
 	ChangeDirection();
 }
 
 void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
+	
+	
 	BeingCollided(obj);
 	if (dynamic_cast<CMario*>(obj)) {
 		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
@@ -126,28 +129,28 @@ void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 				holdController = ((CMario*)(obj));
 				((CMario*)(obj))->SetAction(MarioAction::HOLD);
 				SetState(EEnemyState::BEING_HELD);
-				
+
 			}
 			else {
 				((CMario*)(obj))->SetAction(MarioAction::KICK, 200);
 				BeingKicked(obj->GetPosition());
 			}
-			
+
 			break;
 		case EEnemyState::LIVE:
 			KillMario((CMario*)obj);
 			break;
 		case EEnemyState::BEING_KICKED:
-			if(((CMario*)(obj))->GetAction() != MarioAction::KICK){
+			if (((CMario*)(obj))->GetAction() != MarioAction::KICK) {
 				KillMario((CMario*)obj);
 			}
 			break;
-		
+
 		case EEnemyState::DIE:
 			break;
 		}
 	}
-
+	
 }
 
 

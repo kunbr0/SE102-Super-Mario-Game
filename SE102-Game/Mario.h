@@ -78,7 +78,7 @@ protected:
 	
 	std::unordered_map<int, bool> holdingKeys;
 	
-	
+	int finishStep = 0;
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
@@ -86,15 +86,16 @@ public:
 	virtual void Render(Vector2 finalPos) override;
 
 	
-	//void GetIntoTheHole(Vector2, CallbackType = nullptr);
-	
-	
 	void GetIntoTheHole(Vector2, CallbackType = nullptr);
+	
+	void ChangeFinishStep(int a) { finishStep = a; }
+	int GetFinishStep() { return finishStep; }
 
 	virtual void ProcessKeyboard(SKeyboardEvent kEvent);
 	
 	void BeginUntouchable();
 
+	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
 	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
 	virtual void Collided(vector<LPCOLLISIONEVENT>*) override;

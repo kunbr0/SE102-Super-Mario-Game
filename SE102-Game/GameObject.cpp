@@ -3,17 +3,15 @@
 
 #include <algorithm>
 
-
 #include "debug.h"
 #include "TextureManager.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "RectPlatform.h"
-#include "Coin.h"
 #include "PhysicConstants.h"
 
-#include "RaccoonAttackBoundingBox.h"
-#include "GoldenBrick.h"
+#include "QuestionBlock.h"
+
 
 
 #define ANIMATIONID_BEING_DAMAGE		"ani-enemy-damaged"
@@ -169,14 +167,14 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			if (VerifyCollidedLeftRight(c->obj)) {
-				if (dynamic_cast<CRectPlatform*>(c->obj)) {
-					// Do not thing ( allow Mario go in X-direction )
-				}
-				else {
-					min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
-				}
+			
+			if (dynamic_cast<CRectPlatform*>(c->obj)) {
+				// Do not thing ( allow Mario go in X-direction )
 			}
+			else {
+				min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			}
+			
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
@@ -276,7 +274,7 @@ void CGameObject::UpdateNoCollision() {
 //	return false;
 //}
 bool CGameObject::VerifyCollidedLeftRight(LPGAMEOBJECT obj) {
-
+	
 	float ml, mt, mr, mb, sl, st, sr, sb = 0;
 	obj->GetBoundingBox(sl, st, sr, sb);
 	this->GetBoundingBox(ml, mt, mr, mb);
@@ -300,7 +298,6 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		y += dy;
 		NoCollided();
 
-
 	}
 	else
 	{
@@ -311,6 +308,9 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		}*/
 
+		if (coEvents.size() == 2) {
+			int a = 9;
+		}
 		
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
@@ -321,13 +321,6 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		Collided(&coEventsResult);
 
-		/*if (nx != 0) {
-			if (!VerifyCollidedLeftRight(&coEventsResult)) {
-				nx = 0;
-				min_tx = 1;
-				rdx = 0;
-			}
-		}*/
 		
 
 		// block every object first!
@@ -335,15 +328,20 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		//if(ny != 0)
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) { 
-			vx = 0; 
+		if (nx != 0) {
+			for (int i = 0; i < coEventsResult.size(); i++) {
+				if(VerifyCollidedLeftRight(coEventsResult[i]->obj)) 
+					vx = 0;
+			}
+			
 			if (nx > 0) CollidedRight(&coEventsResult);
 			else CollidedLeft(&coEventsResult);
 		}
 
 		else if (ny != 0) {
 			if(ny != 2) vy = 0;
-			if (ny > 0) CollidedBottom(&coEventsResult);
+			if (ny > 0)
+				CollidedBottom(&coEventsResult);
 			else 
 				CollidedTop(&coEventsResult);
 		}

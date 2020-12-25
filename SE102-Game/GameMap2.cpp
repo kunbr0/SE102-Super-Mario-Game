@@ -268,7 +268,7 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 					);
-					dynamicObjects->push_back(obj);
+					staticObjects->push_back(obj);
 				}
 			}
 
