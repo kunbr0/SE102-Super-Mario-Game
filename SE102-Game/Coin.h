@@ -11,6 +11,7 @@ public:
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
 	void GetBoundingBox(float&, float&, float&, float&) override;
 
+	void BeingCollided(LPGAMEOBJECT) override;
 	void Collided(vector<LPCOLLISIONEVENT>*) override;
 
 };

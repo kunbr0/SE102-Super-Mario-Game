@@ -33,6 +33,7 @@ protected:
 	vector<CEffect*> effects;
 
 	vector<LPGAMEOBJECT> enemyBullets;
+	LPGAMEOBJECT cameraLimitController;
 
 	//std::map<std::string, Vector2> miniPortals;
 

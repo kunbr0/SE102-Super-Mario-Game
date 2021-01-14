@@ -17,6 +17,10 @@
 #include "EndSceneItem.h"
 #include "Death.h"
 
+#include "CameraLimit.h"
+#include "CameraLimitController.h"
+#include "MovablePlatform.h"
+
 
 #define marginXWindow	96
 #define	marginYWindow	272
@@ -116,7 +120,7 @@ void CGameMap::Render(float bottomMargin)
 	}
 }
 
-CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects)
+CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -182,6 +186,28 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 				}
 			}
 
+			else if (std::string(objGroupNode->Attribute("name")) == "MovablePlatform") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CMovablePlatform(
+						atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2,
+						atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2,
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					dynamicObjects->push_back(obj);
+					tempObjects->push_back(obj);
+				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "CameraController") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					int x = (int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) /2);
+					int y = (int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) /2);
+					*cameraLimitController = new CCameraLimitController(Vector2(x,y));
+					int a = 9;
+				}
+			}
+
 			else if (std::string(objGroupNode->Attribute("name")) == "QuestionBox_Coin") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CQuestionBlock(
@@ -213,7 +239,8 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					tempObjects->push_back(obj);
+					
+					dynamicObjects->push_back(obj);
 				}
 			}
 

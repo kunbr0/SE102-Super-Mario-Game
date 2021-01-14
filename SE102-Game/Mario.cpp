@@ -3,7 +3,7 @@
 #include "Utils.h"
 
 #include "Mario.h"
-#include "Game.h"
+
 
 #include "Enemy.h"
 #include "FireBullet.h"
@@ -78,7 +78,7 @@ void CMario::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
 
 void CMario::Collided(vector<LPCOLLISIONEVENT>*) {}
 void CMario::NoCollided() {
-	if (vy > 0) ChangeAction(MarioAction::FALL);
+	if (vy > 0 && dy > 10) ChangeAction(MarioAction::FALL);
 }
 
 void CMario::BeingCollided(LPGAMEOBJECT obj) {
@@ -87,7 +87,7 @@ void CMario::BeingCollided(LPGAMEOBJECT obj) {
 	}
 }
 
-void CMario::GetIntoTheHole(Vector2 distance, CallbackType callback) {
+void CMario::GetIntoTheHole(Vector2 distance, CallbackTypeScene callback) {
 	getIntoTheHole.distance = distance;
 	getIntoTheHole.OnFinish = callback;
 	getIntoTheHole.time = getIntoTheHole.totalTime;

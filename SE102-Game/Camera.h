@@ -1,7 +1,7 @@
  #pragma once
 #include "Transform.h"
-#include "GameObject.h"
 #include "GameMap2.h"
+#include "GameObject.h"
 
 struct MapData
 {
@@ -25,6 +25,7 @@ protected:
 	bool isLocked = true;
 
 	CGameObject* positionController; // who controls the camera position
+	CGameObject* mario;
 	CGameMap* mMap;
 	MapData	mapData;
 	
@@ -36,6 +37,7 @@ public:
 	Vector2 GetCamPosition();
 	Vector2 GetCamSize() { return camSize; }
 	Vector2 GetMapSize() { return mapSize; }
+	LPGAMEOBJECT GetPositionController() { return positionController; }
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
 	
@@ -52,7 +54,7 @@ public:
 	bool IsInCamera(Vector2 realPos, int outsideCam = 200);
 	
 	void InitPositionController(CGameObject* a);
-
+	void InitMario(CGameObject* );
 	void UpdateCamPosition();
 	
 	
@@ -60,7 +62,7 @@ public:
 	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL);
 
 	// PlayScene
-	void LoadMap(std::string, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	void LoadMap(std::string, LPGAMEOBJECT* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
 	// SelectionScene
 	void LoadMap(std::string, vector<LPGAMEOBJECT>*, std::unordered_map<std::string, CSelectionNode*>* );
 	

@@ -156,6 +156,8 @@
   <ItemGroup>
     <ClCompile Include="AddingPointEffect.cpp" />
     <ClCompile Include="BoundingCoinEffect.cpp" />
+    <ClCompile Include="CameraLimit.cpp" />
+    <ClCompile Include="CameraLimitController.cpp" />
     <ClCompile Include="Death.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="MiniPortal.cpp" />
+    <ClCompile Include="MovablePlatform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="QuestionBlockItem.cpp" />
@@ -216,6 +219,8 @@
   <ItemGroup>
     <ClInclude Include="AddingPointEffect.h" />
     <ClInclude Include="BoundingCoinEffect.h" />
+    <ClInclude Include="CameraLimit.h" />
+    <ClInclude Include="CameraLimitController.h" />
     <ClInclude Include="Death.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Animation.h" />
@@ -243,6 +248,7 @@
     <ClInclude Include="MarioConsts.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="MiniPortal.h" />
+    <ClInclude Include="MovablePlatform.h" />
     <ClInclude Include="PhysicsConsts.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="QuestionBlock.h" />

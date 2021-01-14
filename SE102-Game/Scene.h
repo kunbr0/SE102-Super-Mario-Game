@@ -6,7 +6,7 @@
 #define DEFAULT_TIME_SCALE		1
 
 
-typedef void (*CallbackType)();
+typedef void (*CallbackTypeScene)();
 
 
 struct SClosingOpeningEffect {
@@ -18,7 +18,7 @@ struct SClosingOpeningEffect {
 
 	
 
-	CallbackType callback;
+	CallbackTypeScene callback;
 };
 
 class CScene
@@ -49,8 +49,8 @@ public:
 	
 	
 	// Features
-	void BeginOpeningEffect(CallbackType = nullptr);
-	void BeginClosingEffect(CallbackType = nullptr);
+	void BeginOpeningEffect(CallbackTypeScene = nullptr);
+	void BeginClosingEffect(CallbackTypeScene = nullptr);
 	void CleanObjList(vector<LPGAMEOBJECT>&);
 	
 	// Cards

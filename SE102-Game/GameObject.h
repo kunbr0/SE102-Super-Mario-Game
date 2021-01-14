@@ -72,6 +72,7 @@ class CGameObject
 public:
 
 	SExtraEffect effect;
+	bool allowOthersGoThrough = false;
 
 	// Position
 	float x;
@@ -109,6 +110,7 @@ public:
 public:
 	// Con/Destructor
 	CGameObject();
+	CGameObject(Vector2);
 	~CGameObject();
 
 	// Position 
@@ -168,7 +170,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = nullptr);
 	virtual void Render(Vector2 finalPos) {};
 
-	virtual void OnHadCollided(LPGAMEOBJECT) {};
+	virtual void OnHadCollided(LPGAMEOBJECT obj) { Collided(obj); };
 
 	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
 	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*);

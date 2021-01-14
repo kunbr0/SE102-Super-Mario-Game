@@ -50,7 +50,7 @@ void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)
 		break;
 
 	case DIK_S:
-		if (!kEvent.isHold && !kEvent.isKeyUp) ChangeAction(MarioAction::FLY, 350);
+		if (!kEvent.isHold && !kEvent.isKeyUp) ChangeAction(MarioAction::FLY, 150);
 		if (!kEvent.isHold && !kEvent.isKeyUp) ChangeAction(MarioAction::FALL_SLIGHTLY, 200);
 		break;
 	}

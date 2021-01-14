@@ -43,7 +43,8 @@ struct SGetIntoTheHole {
 	Vector2 distance = Vector2(0,50);
 	DWORD time = 1500;
 	const DWORD totalTime = 1500;
-	CallbackType OnFinish = nullptr;
+	CallbackTypeScene OnFinish = nullptr;
+	
 };
 
 struct SMarioState {
@@ -86,7 +87,7 @@ public:
 	virtual void Render(Vector2 finalPos) override;
 
 	
-	void GetIntoTheHole(Vector2, CallbackType = nullptr);
+	void GetIntoTheHole(Vector2, CallbackTypeScene = nullptr);
 	
 	void ChangeFinishStep(int a) { finishStep = a; }
 	int GetFinishStep() { return finishStep; }

@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 
@@ -22,6 +23,7 @@ CPlayScene::CPlayScene(std::string id, std::string filePath, std::string type) :
 	
 	key_handler = new CPlayScenceKeyHandler(this);
 	timeScale = DEFAULT_TIME_SCALE;
+	LPGAMEOBJECT cameraLimitController = NULL;
 	
 }
 
@@ -77,9 +79,14 @@ bool CPlayScene::LoadDataFromFile() {
 	}
 	
 	std::string mapFilePath = root->Attribute("mapFilePath");
-	sceneCamera.InitPositionController(player);
-	sceneCamera.LoadMap(mapFilePath, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap, &tempObjects);
-	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y - 520));
+	
+	sceneCamera.LoadMap(mapFilePath, &cameraLimitController, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap, &tempObjects);
+	if(cameraLimitController == NULL)
+		sceneCamera.InitPositionController(player);
+	else sceneCamera.InitPositionController(cameraLimitController);
+	sceneCamera.InitMario(player);
+	// 520 is the black of World1-1, 96 is World1-2
+	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y -520));
 
 	return true;
 }
@@ -200,6 +207,9 @@ void CPlayScene::Update(DWORD dt)
 	UpdateIfInCameraOrDisable(&enemyBullets, dt, &mainObjects);
 	UpdateEffects(dt);
 
+	if(cameraLimitController != NULL)
+		cameraLimitController->Update(dt, nullptr);
+
 	sceneCamera.Update(dt); // Update Map in Camera
 	
 }
@@ -308,8 +318,9 @@ void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 		mainObjects.push_back(((CFireMario*)newPlayer)->GetBullet(0));
 		mainObjects.push_back(((CFireMario*)newPlayer)->GetBullet(1));
 	}
-
-	sceneCamera.InitPositionController(newPlayer);
+	sceneCamera.InitMario(newPlayer);
+	if(cameraLimitController == NULL)
+		sceneCamera.InitPositionController(newPlayer);
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)

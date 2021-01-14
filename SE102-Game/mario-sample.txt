@@ -1,5 +1,0 @@
-[SETTINGS]
-start	1
-#scene list
-[SCENES]
-1	MapData\World1-1.xml

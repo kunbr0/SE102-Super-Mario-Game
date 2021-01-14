@@ -25,8 +25,12 @@ void CCamera::InitPositionController(CGameObject* player) {
 	this->positionController = player;
 }
 
-void CCamera::LoadMap(std::string mapFilePath, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
-	mMap = CGameMap().FromTMX(mapFilePath, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
+void CCamera::InitMario(CGameObject* player) {
+	this->mario = player;
+}
+
+void CCamera::LoadMap(std::string mapFilePath, LPGAMEOBJECT* camLimitCon, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
+	mMap = CGameMap().FromTMX(mapFilePath, camLimitCon, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
 	mMap->GetMapSize(mapSize);
 	
 }
@@ -87,13 +91,7 @@ void CCamera::ChangeCamPosition(Vector2 newPos) {
 	newResult.x = newPos.x - camSize.x / 2;
 	newResult.y = newPos.y - camSize.y / 2;
 
-	/*newPos.y = newPos.y - camSize.y / 2;
-
-	float deltaY = RightBottomLimit.y - camSize.y - newPos.y;
-	if (deltaY > 300)
-		newResult.y = newPos.y + deltaY * (1 - ((deltaY* deltaY) / (800*800)));
-	else
-		newResult.y = newPos.y + deltaY;*/
+	
 	SetCamPosition(newResult);
 }
 
@@ -108,14 +106,18 @@ void CCamera::SetCamPosition(Vector2 pos) {
 	
 	if (pos.y < LeftTopLimit.y)
 		pos.y = LeftTopLimit.y;
-	MarioAction marioAction = ((CMario*)(positionController))->GetAction();
-	bool isFlying = marioAction == MarioAction::FLY;
-	bool isFalling = marioAction == MarioAction::FALL || marioAction == MarioAction::FALL_SLIGHTLY;
 	
-	if (isFlying) isLocked = false;
-	if (!isLocked && marioAction == MarioAction::IDLE) isLocked = true;
-
 	int BottomOffSet = 0;
+
+	if (dynamic_cast<CMario*>(mario)) {
+		MarioAction marioAction = ((CMario*)(mario))->GetAction();
+		bool isFlying = marioAction == MarioAction::FLY;
+		bool isFalling = marioAction == MarioAction::FALL || marioAction == MarioAction::FALL_SLIGHTLY;
+		if (isFlying) isLocked = false;
+		if (!isLocked && marioAction == MarioAction::IDLE) isLocked = true;
+	}
+	
+
 
 	if (isLocked) BottomOffSet = 500;
 
@@ -125,21 +127,18 @@ void CCamera::SetCamPosition(Vector2 pos) {
 		pos.y = RightBottomLimit.y - camSize.y;
 	}
 	
-	//if (((CMario*)(positionController))->GetAction() != MarioAction::FLY)
-	//{
-	//	auto val = Mathf::Min(LastLeftTopLimit.y, LastRightBottomLimit.y - camSize.y);
-	//	if (pos.y >= val)
-	//	{
-	//		// DebugOut(L"Cam: %f, %f\n", pos.y, val);
-	//		LeftTopLimit = LastLeftTopLimit;
-	//		RightBottomLimit = LastRightBottomLimit;
-	//	}
-	//}
-
-	
-	/*pos.x = (int)pos.x;
-	pos.y = (int)pos.y;*/
 	camPosition = pos;
+	if (mario != NULL) {
+		if (mario->x < camPosition.x + 50) { 
+			mario->x = camPosition.x + 50; 
+			((CMario*)(mario))->ChangeAction(MarioAction::WALK);
+		}
+		else if (mario->x > camPosition.x + camSize.x - 50) {
+			mario->x = camPosition.x + camSize.x - 50;
+			((CMario*)(mario))->ChangeAction(MarioAction::WALK);
+		}
+	}
+		
 }
 
 
@@ -182,8 +181,8 @@ void CCamera::RenderDetailBoard() {
 	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
 
 	int currentLv = 1;
-	if(positionController != nullptr)
-		currentLv = (int)((CMario*)positionController)->GetType();
+	if(mario != nullptr)
+		currentLv = (int)((CMario*)mario)->GetType();
 
 	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-" + std::to_string(currentLv+1));
 	Vector2 beginPos = Vector2(240, camSize.y + hud->getSize().y - DetailsBoardHeight + 20);
@@ -204,10 +203,10 @@ void CCamera::RenderDetailBoard() {
 	}*/
 
 	CUIDrawer::GetInstance()->DrawFixedLengthNumber(to_string(mapData.score), beginScorePos, '0', 7);
-	if (positionController == NULL) return;
+	if (mario == NULL) return;
 	for (int i = 0; i < 7; i++) {
 		LPSPRITE Zerochar;
-		if (i < positionController->powerX/1000) {
+		if (i < mario->powerX/1000) {
 			Zerochar = CSprites::GetInstance()->Get("spr-triangle-icon-0");
 		}
 		else {
@@ -239,8 +238,8 @@ void CCamera::RenderDetailBoard() {
 void CCamera::Render() {
 	//mMap->Render(DetailsBoardHeight+150);
 	mMap->Render();
-	if(positionController != nullptr)
-		if (((CMario*)positionController)->GetFinishStep() >= 2) RenderFinishPlayScene();
+	if(mario != nullptr)
+		if (((CMario*)mario)->GetFinishStep() >= 2) RenderFinishPlayScene();
 }
 
 void CCamera::RenderPausing() {

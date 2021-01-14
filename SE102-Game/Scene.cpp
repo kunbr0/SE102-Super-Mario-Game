@@ -82,14 +82,14 @@ void CScene::ProcessBlackPortion(DWORD dt) {
 		}
 	}
 }
-void CScene::BeginOpeningEffect(CallbackType callback) {
+void CScene::BeginOpeningEffect(CallbackTypeScene callback) {
 	closingOpeningEffect.isActive = true;
 	closingOpeningEffect.currentBlackPortion = closingOpeningEffect.totalBlackPortion;
 	closingOpeningEffect.isOpening = true;
 	closingOpeningEffect.callback = callback;
 }
 
-void CScene::BeginClosingEffect(CallbackType callback) {
+void CScene::BeginClosingEffect(CallbackTypeScene callback) {
 	closingOpeningEffect.isActive = true;
 	closingOpeningEffect.currentBlackPortion = 0;
 	closingOpeningEffect.isOpening = false;

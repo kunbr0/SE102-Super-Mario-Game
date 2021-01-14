@@ -170,6 +170,12 @@
     <Filter Include="GameSource\GameObjects\DealthCollision">
       <UniqueIdentifier>{009a5470-2625-43b7-a775-227fb81f4d11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\CameraLimit">
+      <UniqueIdentifier>{104bd9c3-3ff7-43f2-9402-3a42602db72c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform">
+      <UniqueIdentifier>{338509b8-1f3f-4be7-b1dd-6b3fe4561b2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -346,6 +352,15 @@
     <ClCompile Include="Death.cpp">
       <Filter>GameSource\GameObjects\DealthCollision</Filter>
     </ClCompile>
+    <ClCompile Include="CameraLimit.cpp">
+      <Filter>GameSource\GameObjects\CameraLimit</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraLimitController.cpp">
+      <Filter>GameSource\GameObjects\CameraLimit</Filter>
+    </ClCompile>
+    <ClCompile Include="MovablePlatform.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -521,6 +536,15 @@
     </ClInclude>
     <ClInclude Include="Death.h">
       <Filter>GameSource\GameObjects\DealthCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraLimit.h">
+      <Filter>GameSource\GameObjects\CameraLimit</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraLimitController.h">
+      <Filter>GameSource\GameObjects\CameraLimit</Filter>
+    </ClInclude>
+    <ClInclude Include="MovablePlatform.h">
+      <Filter>GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

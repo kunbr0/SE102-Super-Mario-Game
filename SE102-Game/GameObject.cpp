@@ -25,11 +25,20 @@ CGameObject::CGameObject()
 	nx = 1;
 }
 
+CGameObject::CGameObject(Vector2 pos)
+{
+	x = pos.x;
+	y = pos.y;
+	vx = vy = 0;
+	nx = 1;
+}
+
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
 	dx = vx * dt;
+	if (vy > GRAVITY_VELOCITY_MAX) vy = GRAVITY_VELOCITY_MAX;
 	dy = vy * dt;
 }
 
@@ -263,16 +272,7 @@ void CGameObject::UpdateNoCollision() {
 	y += dy;
 }
 
-//bool CGameObject::VerifyCollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
-//	for (int i = 0; i < coEvents->size(); i++) {
-//		float ml, mt, mr, mb, sl, st, sr, sb = 0;
-//		coEvents->at(i)->obj->GetBoundingBox(sl, st, sr, sb);
-//		this->GetBoundingBox(ml, mt, mr, mb);
-//		if ( (mb>st && sb>mt)  || (sb>mt && mb>st) ) 
-//			return true;
-//	}
-//	return false;
-//}
+
 bool CGameObject::VerifyCollidedLeftRight(LPGAMEOBJECT obj) {
 	
 	float ml, mt, mr, mb, sl, st, sr, sb = 0;
@@ -321,7 +321,26 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		Collided(&coEventsResult);
 
-		
+		for (int i = 0; i < coEventsResult.size(); i++) {
+			if (coEventsResult[i]->nx != 0) {
+				//if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->allowOthersGoThrough) {
+				if (coEventsResult[i]->obj->allowOthersGoThrough) {
+					min_tx = 1;
+				}
+				else {
+					vx = 0;
+				}
+			}
+			else if (coEventsResult[i]->ny != 0) {
+				if (coEventsResult[i]->obj->allowOthersGoThrough) {
+					min_ty = 1;
+				}
+				else {
+					if (ny != 2) vy = 0;
+				}
+			}
+			
+		}
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
@@ -329,19 +348,11 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0) {
-			
-			for (int i = 0; i < coEventsResult.size(); i++) {
-				if(VerifyCollidedLeftRight(coEventsResult[i]->obj)) 
-					vx = 0;
-			}
-			
-			
 			if (nx > 0) CollidedRight(&coEventsResult);
 			else CollidedLeft(&coEventsResult);
 		}
 
 		else if (ny != 0) {
-			if(ny != 2) vy = 0;
 			if (ny > 0)
 				CollidedBottom(&coEventsResult);
 			else 

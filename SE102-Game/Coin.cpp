@@ -1,12 +1,22 @@
 #include "Coin.h"
 #include "AddingPointEffect.h"
 #include "PlayScene.h"
+#include "Mario.h"
 
 
 CCoin::CCoin(Vector2 initPos) {
 	this->x = initPos.x;
 	this->y = initPos.y;
-	isTemp = true;
+	allowOthersGoThrough = true;
+}
+
+void CCoin::BeingCollided(LPGAMEOBJECT obj) {
+	if (isDisable) return;
+	if (dynamic_cast<CMario*>(obj)) {
+		isDisable = true;
+		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(Vector2(x, y), Vector2(0, -0.13)));
+
+	}
 }
 
 void CCoin::Collided(vector<LPCOLLISIONEVENT>*) {
