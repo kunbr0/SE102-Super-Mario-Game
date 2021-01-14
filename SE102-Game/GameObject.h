@@ -172,12 +172,12 @@ public:
 
 	virtual void OnHadCollided(LPGAMEOBJECT obj) { Collided(obj); };
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*);
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*);
-	virtual void Collided(vector<LPCOLLISIONEVENT>*) {};
+	virtual void CollidedLeftRight(LPGAMEOBJECT);
+	virtual void CollidedLeft(LPGAMEOBJECT);
+	virtual void CollidedTop(LPGAMEOBJECT);
+	virtual void CollidedRight(LPGAMEOBJECT);
+	virtual void CollidedBottom(LPGAMEOBJECT);
+	virtual void Collided(LPGAMEOBJECT) {};
 	virtual void NoCollided() {};
 
 	virtual void BeingCollided(LPGAMEOBJECT) {};

@@ -36,7 +36,7 @@ public:
 	
 	CEnemy();
 
-	void InitWtandingScope(vector<LPCOLLISIONEVENT>*);
+	void InitWtandingScope(LPGAMEOBJECT);
 
 	void BeingHeldProcess();
 
@@ -64,7 +64,7 @@ public:
 	virtual void ChangeDirection();
 	virtual void ChangeDirectionAfterAxisCollide();
 
-	virtual void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedLeftRight(LPGAMEOBJECT) override;
 
 	virtual void BeingCollidedTop(LPGAMEOBJECT) override;
 	virtual void BeingCollided(LPGAMEOBJECT) override;

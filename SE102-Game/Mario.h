@@ -96,10 +96,9 @@ public:
 	
 	void BeginUntouchable();
 
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override;
-	virtual void Collided(vector<LPCOLLISIONEVENT>*) override;
+	virtual void CollidedLeft(LPGAMEOBJECT) override;
+	virtual void CollidedTop(LPGAMEOBJECT) override;
+	virtual void CollidedBottom(LPGAMEOBJECT) override;
 	
 	virtual void BeingCollided(LPGAMEOBJECT) override;
 

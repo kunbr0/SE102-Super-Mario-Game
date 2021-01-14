@@ -29,9 +29,9 @@ public:
 	
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
-	void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {} ;
-	void Collided(vector<LPCOLLISIONEVENT>*) override {};
+	void CollidedTop(LPGAMEOBJECT) override;
+	void CollidedBottom(LPGAMEOBJECT) override {} ;
+	void Collided(LPGAMEOBJECT) override {};
 
 	void BeingCollided(LPGAMEOBJECT) override;
 	void BeingCollidedTopBottom(LPGAMEOBJECT) override;

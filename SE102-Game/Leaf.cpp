@@ -40,11 +40,11 @@ void CLeaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	bottom = y + LEFT_SIZE / 2;
 }
 
-void CLeaf::Collided(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (int i = 0; i < coEvents->size(); i++) {
-		if (dynamic_cast<CMario*>(coEvents->at(i)->obj)) {
-			((CMario*)(coEvents->at(i)->obj))->ChangeAction(MarioAction::UPGRADE_LV);
-			isTemp = false;
-		}
+void CLeaf::Collided(LPGAMEOBJECT obj) {
+	
+	if (dynamic_cast<CMario*>(obj)) {
+		((CMario*)(obj))->ChangeAction(MarioAction::UPGRADE_LV);
+		isTemp = false;
 	}
+
 }

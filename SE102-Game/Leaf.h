@@ -11,7 +11,7 @@ public:
 	CLeaf(Vector2);
 	void Render(Vector2) override;
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;	
-	void Collided(vector<LPCOLLISIONEVENT>*) override;
+	void Collided(LPGAMEOBJECT) override;
 	void GetBoundingBox(float&, float&, float&, float&) override;
 };
 

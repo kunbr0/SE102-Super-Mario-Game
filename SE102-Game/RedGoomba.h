@@ -29,7 +29,7 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
 	void ChangeStepHasWingBehavior(DWORD);
 	virtual void ProcessHasWingBehavior();
-	void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
+	void CollidedTop(LPGAMEOBJECT) override;
 	void BeingCollidedTop(LPGAMEOBJECT) override;
 
 	virtual Vector2 GetBoundingBoxSize(EEnemyState) override;

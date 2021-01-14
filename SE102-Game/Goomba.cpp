@@ -51,8 +51,8 @@ void CGoomba::BeingCollidedTop(LPGAMEOBJECT obj) {
 
 
 
-void CGoomba::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
-	InitWtandingScope(coEvents);
+void CGoomba::CollidedTop(LPGAMEOBJECT obj) {
+	InitWtandingScope(obj);
 }
 
 

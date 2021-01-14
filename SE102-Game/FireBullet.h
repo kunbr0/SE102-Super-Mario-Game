@@ -30,10 +30,9 @@ public:
 	void SetVenusBulletDirection(Vector2 a) { venusBulletDirection = a;  }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
-	virtual void CollidedLeft(vector<LPCOLLISIONEVENT>*) override;
-	virtual void CollidedTop(vector<LPCOLLISIONEVENT>*) override;
-	virtual void CollidedRight(vector<LPCOLLISIONEVENT>*) override;
-	virtual void CollidedBottom(vector<LPCOLLISIONEVENT>*) override {};
-	virtual void Collided(vector<LPCOLLISIONEVENT>*) override {};
+	virtual void CollidedLeftRight(LPGAMEOBJECT) override;
+	virtual void CollidedTop(LPGAMEOBJECT) override;
+	virtual void CollidedBottom(LPGAMEOBJECT) override {};
+	virtual void Collided(LPGAMEOBJECT) override {};
 };
 

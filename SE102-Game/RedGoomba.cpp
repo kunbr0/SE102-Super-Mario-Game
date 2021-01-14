@@ -81,7 +81,7 @@ void CRedGoomba::ProcessHasWingBehavior() {
 	}
 }
 
-void CRedGoomba::CollidedTop(vector<LPCOLLISIONEVENT>*) {
+void CRedGoomba::CollidedTop(LPGAMEOBJECT obj) {
 	if(state.type == EEnemyState::LIVE)
 		ProcessHasWingBehavior();
 }

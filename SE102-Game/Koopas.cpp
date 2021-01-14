@@ -76,8 +76,8 @@ void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
 }
 
 
-void CKoopas::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
-	InitWtandingScope(coEvents);
+void CKoopas::CollidedTop(LPGAMEOBJECT obj) {
+	InitWtandingScope(obj);
 }
 
 

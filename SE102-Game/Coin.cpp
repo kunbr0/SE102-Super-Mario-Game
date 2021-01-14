@@ -19,11 +19,6 @@ void CCoin::BeingCollided(LPGAMEOBJECT obj) {
 	}
 }
 
-void CCoin::Collided(vector<LPCOLLISIONEVENT>*) {
-	isTemp = false;
-	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(Vector2(x, y), Vector2(0, -0.13)));
-
-}
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 

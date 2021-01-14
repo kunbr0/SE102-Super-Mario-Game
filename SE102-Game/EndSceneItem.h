@@ -18,7 +18,7 @@ class CEndSceneItem : public CGameObject
 	int cardIdRemainingTime = 0;
 
 public:
-	void Collided(vector<LPCOLLISIONEVENT>*) override;
+	void Collided(LPGAMEOBJECT) override;
 	CEndSceneItem(Vector2);
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
 	void Render(Vector2 finalPos) override;

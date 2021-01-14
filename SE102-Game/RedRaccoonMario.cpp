@@ -27,13 +27,7 @@ void CRedRaccoonMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 
-void CRedRaccoonMario::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	if (state.action == MarioAction::DIE) return;
-	for (UINT i = 0; i < coEvents->size(); i++) {
-		coEvents->at(i)->obj->BeingCollidedLeftRight(this);
-	}
-	CMario::CollidedLeftRight(coEvents);
-}
+
 
 
 void CRedRaccoonMario::ProcessKeyboard(SKeyboardEvent kEvent)

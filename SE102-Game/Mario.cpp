@@ -42,18 +42,18 @@ void CMario::TriggerLifeCycleOfActions() {
 	
 }
 
-void CMario::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents) {
+void CMario::CollidedLeft(LPGAMEOBJECT obj) {
 	if (finishStep == 1) {
 		state.beginAction = GetTickCount64();
 		state.timeAction = 500;
 		finishStep = 2;
 	}
-	CGameObject::CollidedLeft(coEvents);
+	CGameObject::CollidedLeft(obj);
 }
 
 
 
-void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
+void CMario::CollidedTop(LPGAMEOBJECT obj) {
 	
 	ChangeBasePosition(GetPosition());
 	if (state.action == MarioAction::DIE) return;
@@ -63,20 +63,19 @@ void CMario::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
 			powerX -= POWER_X_LOSE_IN_GROUND;
 	}
 	
-	CGameObject::CollidedTop(coEvents);
+	CGameObject::CollidedTop(obj);
 	if (finishStep == 1) {
 		vx = 0.24f;
 		nx = 1;
 	} 
 
 }
-void CMario::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
+void CMario::CollidedBottom(LPGAMEOBJECT obj) {
 	if (state.action == MarioAction::DIE) return;
-	CGameObject::CollidedBottom(coEvents);
+	CGameObject::CollidedBottom(obj);
 }
 
 
-void CMario::Collided(vector<LPCOLLISIONEVENT>*) {}
 void CMario::NoCollided() {
 	if (vy > 0 && dy > 10) ChangeAction(MarioAction::FALL);
 }

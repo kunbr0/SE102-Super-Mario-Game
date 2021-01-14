@@ -12,7 +12,6 @@ public:
 	CRedRaccoonMario(float x = 0.0f, float y = 0.0f);
 	void Render(Vector2 finalPos);
 	void Update(DWORD, vector<LPGAMEOBJECT>* = NULL) override;
-	void CollidedLeftRight(vector<LPCOLLISIONEVENT>*) override;
 	
 
 	void ProcessKeyboard(SKeyboardEvent kEvent);

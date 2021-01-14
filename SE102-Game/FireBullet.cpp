@@ -21,20 +21,16 @@ void CFireBullet::UpdatePos(Vector2 pos, int nx) {
 }
 
 
-void CFireBullet::CollidedLeft(vector<LPCOLLISIONEVENT>* coEvents) {
+void CFireBullet::CollidedLeftRight(LPGAMEOBJECT obj) {
 	if(owner == 0)
 		this->isDisable = true;
-	CGameObject::CollidedLeft(coEvents);
+	CGameObject::CollidedLeftRight(obj);
 }
 
-void CFireBullet::CollidedRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	if (owner == 0)
-		this->isDisable = true;
-	CGameObject::CollidedRight(coEvents);
-}
 
-void CFireBullet::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
-	CGameObject::CollidedTop(coEvents);
+
+void CFireBullet::CollidedTop(LPGAMEOBJECT obj) {
+	CGameObject::CollidedTop(obj);
 	if(owner == 0) vy = -VELOCITY_Y_FIRE_BULLET_BOUNCE;
 }
 

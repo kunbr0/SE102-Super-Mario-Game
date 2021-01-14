@@ -41,16 +41,14 @@ void CEndSceneItem::GetBoundingBox(float& left, float& top, float& right, float&
 }
 
 
-void CEndSceneItem::Collided(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (int i = 0; i < coEvents->size(); i++) {
-		if (dynamic_cast<CMario*>(coEvents->at(i)->obj)) {
-			claimBonusEffect.isActive = true;
-			claimBonusEffect.remainingTime = claimBonusEffect.totalTime;
-			((CMario*)coEvents->at(i)->obj)->vx = 0;
-			((CMario*)coEvents->at(i)->obj)->vy = 0;
-			((CMario*)coEvents->at(i)->obj)->ChangeFinishStep(1);
-			CGame::GetInstance()->GetCurrentScene()->PushToCards(cardId);
-		}
+void CEndSceneItem::Collided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CMario*>(obj)) {
+		claimBonusEffect.isActive = true;
+		claimBonusEffect.remainingTime = claimBonusEffect.totalTime;
+		((CMario*)obj)->vx = 0;
+		((CMario*)obj)->vy = 0;
+		((CMario*)obj)->ChangeFinishStep(1);
+		CGame::GetInstance()->GetCurrentScene()->PushToCards(cardId);
 	}
 }
 

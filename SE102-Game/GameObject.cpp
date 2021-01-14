@@ -252,19 +252,19 @@ void CGameObject::ChangeBasePosition(Vector2 newPos) {
 	
 }
 
-void CGameObject::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (UINT i = 0; i < coEvents->size(); i++)
-		coEvents->at(i)->obj->BeingCollidedLeftRight(this);
+void CGameObject::CollidedLeftRight(LPGAMEOBJECT obj) {
+	Collided(obj);
+	obj->BeingCollidedLeftRight(this);
 }
-void CGameObject::CollidedLeft(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(e); };
-void CGameObject::CollidedRight(vector<LPCOLLISIONEVENT>* e) { CollidedLeftRight(e); };
-void CGameObject::CollidedTop(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (UINT i = 0; i < coEvents->size(); i++)
-		coEvents->at(i)->obj->BeingCollidedTop(this);
+void CGameObject::CollidedLeft(LPGAMEOBJECT obj) { CollidedLeftRight(obj); };
+void CGameObject::CollidedRight(LPGAMEOBJECT obj) { CollidedLeftRight(obj); };
+void CGameObject::CollidedTop(LPGAMEOBJECT obj) {
+	Collided(obj);
+	obj->BeingCollidedTop(this);
 };
-void CGameObject::CollidedBottom(vector<LPCOLLISIONEVENT>* coEvents) {
-	for (UINT i = 0; i < coEvents->size(); i++)
-		coEvents->at(i)->obj->BeingCollidedBottom(this);
+void CGameObject::CollidedBottom(LPGAMEOBJECT obj) {
+	Collided(obj);
+	obj->BeingCollidedBottom(this);
 };
 
 void CGameObject::UpdateNoCollision() {
@@ -319,7 +319,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		Collided(&coEventsResult);
+		
 
 		for (int i = 0; i < coEventsResult.size(); i++) {
 			if (coEventsResult[i]->nx != 0) {
@@ -330,6 +330,8 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 				else {
 					vx = 0;
 				}
+				if (coEventsResult[i]->nx > 0) CollidedRight(coEventsResult[i]->obj);
+				else CollidedLeft(coEventsResult[i]->obj);
 			}
 			else if (coEventsResult[i]->ny != 0) {
 				if (coEventsResult[i]->obj->allowOthersGoThrough) {
@@ -338,6 +340,8 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 				else {
 					if (ny != 2) vy = 0;
 				}
+				if (coEventsResult[i]->ny > 0) CollidedBottom(coEventsResult[i]->obj);
+				else CollidedTop(coEventsResult[i]->obj);
 			}
 			
 		}
@@ -347,17 +351,8 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		//if(ny != 0)
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) {
-			if (nx > 0) CollidedRight(&coEventsResult);
-			else CollidedLeft(&coEventsResult);
-		}
+		
 
-		else if (ny != 0) {
-			if (ny > 0)
-				CollidedBottom(&coEventsResult);
-			else 
-				CollidedTop(&coEventsResult);
-		}
 
 		
 

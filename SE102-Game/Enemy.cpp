@@ -15,19 +15,12 @@ void CEnemy::ChangeDirection() {
 	nx *= -1;
 }
 
-void CEnemy::InitWtandingScope(vector<LPCOLLISIONEVENT>* coEvents) {
+void CEnemy::InitWtandingScope(LPGAMEOBJECT obj) {
 	if (walkingScope.x == 0 && walkingScope.y == 0) {
-		for (UINT i = 0; i < coEvents->size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEvents->at(i);
-			if (e->ny < 0) {
-				float left, top, right, bottom;
-				e->obj->GetBoundingBox(left, top, right, bottom);
-				
-				walkingScope = Vector2(left, right);
-				return;
-			}
-		}
+		float left, top, right, bottom;
+		obj->GetBoundingBox(left, top, right, bottom);
+		walkingScope = Vector2(left, right);
+		return;
 	}
 }
 
@@ -105,13 +98,11 @@ void CEnemy::BeingCollidedTop(LPGAMEOBJECT obj) {
 	this->BeingCollidedTopBottom(obj);
 };
 
-void CEnemy::CollidedLeftRight(vector<LPCOLLISIONEVENT>* coEvents) {
-	CGameObject::CollidedLeftRight(coEvents);
-	for (int i = 0; i < coEvents->size(); i++) {
-		if (dynamic_cast<CEnemy*>(coEvents->at(i)->obj)) {
-			if (GetState() == EEnemyState::BEING_KICKED)
-				return;
-		}
+void CEnemy::CollidedLeftRight(LPGAMEOBJECT obj) {
+	CGameObject::CollidedLeftRight(obj);
+	if (dynamic_cast<CEnemy*>(obj)) {
+		if (GetState() == EEnemyState::BEING_KICKED)
+			return;
 	}
 	ChangeDirection();
 }
