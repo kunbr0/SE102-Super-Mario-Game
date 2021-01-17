@@ -86,7 +86,7 @@ bool CPlayScene::LoadDataFromFile() {
 	else sceneCamera.InitPositionController(cameraLimitController);
 	sceneCamera.InitMario(player);
 	// 520 is the black of World1-1, 96 is World1-2
-	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y -520));
+	//sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y + 96));
 
 	return true;
 }

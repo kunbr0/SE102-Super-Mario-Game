@@ -179,6 +179,17 @@ bool CScene::LoadDataFromFile() {
 		}
 	}
 
+	// Load Limit Area
+	for (TiXmlElement* limitArea = root->FirstChildElement("limitArea"); limitArea != nullptr; limitArea = limitArea->NextSiblingElement("limitArea")) {
+		auto left = limitArea->Attribute("left");
+		auto top = limitArea->Attribute("top");
+		auto right = limitArea->Attribute("right");
+		auto bottom = limitArea->Attribute("bottom");
+		if (left != NULL && top != NULL && right != NULL && bottom != NULL) {
+			sceneCamera.ChangeCamArea(Vector2(atoi(left), atoi(top)), Vector2(atoi(right), atoi(bottom)));
+		}
+	}
+
 }
 
 

@@ -3,7 +3,7 @@
 
 CMovablePlatform::CMovablePlatform(float x, float y, float width, float height) : CRectPlatform(x,y,width,height) {
 	
-	isTemp = true;
+	
 	isFalling = false;
 }
 

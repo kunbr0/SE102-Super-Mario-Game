@@ -323,8 +323,8 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 
 		for (int i = 0; i < coEventsResult.size(); i++) {
 			if (coEventsResult[i]->nx != 0) {
-				//if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->allowOthersGoThrough) {
-				if (coEventsResult[i]->obj->allowOthersGoThrough) {
+				if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->allowOthersGoThrough) {
+				//if (coEventsResult[i]->obj->allowOthersGoThrough) {
 					min_tx = 1;
 				}
 				else {

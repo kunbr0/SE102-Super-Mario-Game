@@ -1,6 +1,6 @@
 #pragma once
 #include "RectPlatform.h"
-
+//#include "RectCollision.h"
 class CMovablePlatform : public CRectPlatform
 {
 	bool isFalling;

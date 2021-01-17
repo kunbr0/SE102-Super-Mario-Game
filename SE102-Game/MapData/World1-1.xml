@@ -1,6 +1,7 @@
 
 <?xml version="1.0" encoding="utf-8"?>
     <mapdata mapFilePath="Resources/World1-1/World1-1.tmx">
+        <limitArea  left="0" top="0" right="7728" bottom="872"/>
         <textures>
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
             <texture id="tex-enemy" filePath="Assets\Textures\enemy.png" />

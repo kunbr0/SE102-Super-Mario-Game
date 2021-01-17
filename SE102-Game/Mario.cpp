@@ -209,7 +209,7 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 
 	if (untouchable.isUntouchable && GetTickCount64() % 100 > 50) return;
 	

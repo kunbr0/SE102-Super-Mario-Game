@@ -195,7 +195,7 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("height"))
 					);
 					dynamicObjects->push_back(obj);
-					tempObjects->push_back(obj);
+					//tempObjects->push_back(obj);
 				}
 			}
 

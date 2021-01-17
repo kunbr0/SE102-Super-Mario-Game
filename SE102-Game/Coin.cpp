@@ -8,6 +8,7 @@ CCoin::CCoin(Vector2 initPos) {
 	this->x = initPos.x;
 	this->y = initPos.y;
 	allowOthersGoThrough = true;
+	isDisable = false;
 }
 
 void CCoin::BeingCollided(LPGAMEOBJECT obj) {
@@ -29,7 +30,7 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CCoin::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get("ani-coin")->Render(finalPos, Vector2(-nx, ny), 255);
-	
+	RenderBoundingBox(finalPos);
 }
 
 
