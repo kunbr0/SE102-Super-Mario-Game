@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="27" nextobjectid="145">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="27" nextobjectid="145">
  <editorsettings>
   <export target="Resources/World1-1/World1-1.xml" format="tmx"/>
  </editorsettings>
@@ -149,7 +149,7 @@
   <object id="121" x="5904" y="1104" width="48" height="48"/>
   <object id="122" x="5952" y="1104" width="48" height="48"/>
   <object id="123" x="6000" y="1104" width="48" height="48"/>
-  <object id="124" x="6048" y="1104" width="48" height="48"/>
+  <object id="124" type="P" x="6048" y="1104" width="48" height="48"/>
   <object id="125" x="6240" y="1152" width="48" height="48"/>
   <object id="126" x="6240" y="1200" width="48" height="48"/>
   <object id="127" x="6288" y="1200" width="48" height="48"/>

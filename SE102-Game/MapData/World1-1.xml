@@ -1,7 +1,7 @@
 
 <?xml version="1.0" encoding="utf-8"?>
     <mapdata mapFilePath="Resources/World1-1/World1-1.tmx">
-        <limitArea  left="0" top="0" right="7728" bottom="872"/>
+        <limitArea  left="0" top="0" right="8448" bottom="1448"/>
         <textures>
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
             <texture id="tex-enemy" filePath="Assets\Textures\enemy.png" />
@@ -35,7 +35,7 @@
         <!-- Dynamic Objects -->
             <!-- Type: 0: red-small / 1: red-big / 2: red-raccoon / 3: fire -->
             <!--<mario type="2" x="6290" y="1500" /> -->
-            <mario type="1" x="50" y="800" />
+            <mario type="1" x="5800" y="800" />
             <enemyBullets quantity="3"/>
         </objects>
     </mapdata>

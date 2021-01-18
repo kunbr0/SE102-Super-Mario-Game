@@ -9,6 +9,7 @@
 CEndSceneItem::CEndSceneItem(Vector2 pos) {
 	SetPosition(pos);
 	isTemp = true;
+	allowOthersGoThrough = true;
 }
 
 void CEndSceneItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjs) {

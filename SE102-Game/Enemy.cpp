@@ -41,8 +41,8 @@ void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	else {
 		left = x - GetBoundingBoxSize().x / 2;
 		top = y - GetBoundingBoxSize().y / 2;
-right = x + GetBoundingBoxSize().x / 2;
-bottom = y + GetBoundingBoxSize().y / 2;
+		right = x + GetBoundingBoxSize().x / 2;
+		bottom = y + GetBoundingBoxSize().y / 2;
 	}
 
 }

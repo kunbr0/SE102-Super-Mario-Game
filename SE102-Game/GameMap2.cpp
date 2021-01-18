@@ -304,11 +304,16 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 
 			else if (std::string(objGroupNode->Attribute("name")) == "GoldenBrick") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					std::string hiddenItemStr = "";
+					auto hiddenItem = objNode->Attribute("type");
+					if (hiddenItem) hiddenItemStr = std::string(hiddenItem);
 					LPGAMEOBJECT obj = new CGoldenBrick(
 						Vector2(
-						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
-							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
-						);
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+						),
+						hiddenItemStr
+					);
 					staticObjects->push_back(obj);
 				}
 			}

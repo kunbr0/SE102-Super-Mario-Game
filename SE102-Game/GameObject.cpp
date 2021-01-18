@@ -86,14 +86,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 		);
 
-	/*if (dynamic_cast<CRaccoonAttackBoundingBox*>(this))
-	if (((ml + (mr-ml) >= sl) && (sl + (sr-sl) >= ml) 
-		&& (mt + (mr-ml) >= st) && (st + (sr-sl) >= mt))
-		&& ml != mr && mt != mb && sl != sr && st != sb
-		) {
-		
-			coO->OnHadCollided(this);
-	}*/
+	
 
 	if (ml < mr && mt < mb && sl != sr && st != sb) {
 		if (
@@ -278,7 +271,7 @@ bool CGameObject::VerifyCollidedLeftRight(LPGAMEOBJECT obj) {
 	float ml, mt, mr, mb, sl, st, sr, sb = 0;
 	obj->GetBoundingBox(sl, st, sr, sb);
 	this->GetBoundingBox(ml, mt, mr, mb);
-	if ((mb>st && sb>mt)) return true;
+	if ((mb>st && sb>mt) || abs(vy) > 0.1f) return true;
 	return false;
 }
 
@@ -302,12 +295,6 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	else
 	{
 		
-		/*if (dynamic_cast<CCoin*>(this)) {
-			auto aa = this;
-			int a = 9;
-
-		}*/
-
 		if (coEvents.size() == 2) {
 			int a = 9;
 		}
@@ -322,6 +309,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 		
 
 		for (int i = 0; i < coEventsResult.size(); i++) {
+			
 			if (coEventsResult[i]->nx != 0) {
 				if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->allowOthersGoThrough) {
 				//if (coEventsResult[i]->obj->allowOthersGoThrough) {
@@ -346,14 +334,14 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 			
 		}
 
+		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 		//if(ny != 0)
 		y += min_ty * dy + ny * 0.4f;
-
 		
 
-
+		
 		
 
 	}

@@ -261,7 +261,7 @@
   <object id="23" x="6576.5" y="1151.75" width="96" height="49"/>
   <object id="24" x="6579.25" y="1194.75" width="90.5" height="59"/>
  </objectgroup>
- <objectgroup id="13" name="CameraController2">
+ <objectgroup id="13" name="CameraController">
   <object id="135" x="0" y="0" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="14" name="GoldenBrick">

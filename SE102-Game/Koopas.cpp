@@ -77,6 +77,9 @@ void CKoopas::BeingCollided(LPGAMEOBJECT obj) {
 
 
 void CKoopas::CollidedTop(LPGAMEOBJECT obj) {
+	if (dy > 3.0f) {
+		walkingScope.x = walkingScope.y = 0;
+	}
 	InitWtandingScope(obj);
 }
 
@@ -93,6 +96,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CEnemy::Update(dt, coObjects);
 	ChangeDirectionAfterAxisCollide();
 	UpdateWithCollision(coObjects);
+	
 }
 
 

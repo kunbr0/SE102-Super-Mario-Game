@@ -15,6 +15,7 @@ CCamera::CCamera() {
 	this->camPosition = Vector2(0, 0);
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	this->positionController = NULL;
+	this->mario = NULL;
 	mapData.timeRemaining = 300 * 1000;
 }
 CCamera::~CCamera() {
@@ -181,7 +182,7 @@ void CCamera::RenderDetailBoard() {
 	LPSPRITE Onechar = CSprites::GetInstance()->Get("spr-font-1");
 
 	int currentLv = 1;
-	if(mario != nullptr)
+	if(mario)
 		currentLv = (int)((CMario*)mario)->GetType();
 
 	LPSPRITE Fourchar = CSprites::GetInstance()->Get("spr-font-" + std::to_string(currentLv+1));
@@ -214,8 +215,14 @@ void CCamera::RenderDetailBoard() {
 		}
 		
 		if (i == 7 - 1) {
-			Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
-			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance + 15, beginScorePos.y - 25));
+			if (mario->powerX / 1000 >= 6) {
+				CAnimations::GetInstance()->Get("ani-p-icon")->Render(Vector2(beginScorePos.x + i * distance + 15, beginScorePos.y - 25));
+			}
+			else {
+				Zerochar = CSprites::GetInstance()->Get("spr-p-icon-1");
+				Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance + 15, beginScorePos.y - 25));
+			}
+			
 		}
 		else
 			Zerochar->DrawWithScaling(Vector2(beginScorePos.x + i * distance, beginScorePos.y - 25));
@@ -238,8 +245,10 @@ void CCamera::RenderDetailBoard() {
 void CCamera::Render() {
 	//mMap->Render(DetailsBoardHeight+150);
 	mMap->Render();
-	if(mario != nullptr)
+	if (mario) {
 		if (((CMario*)mario)->GetFinishStep() >= 2) RenderFinishPlayScene();
+	}
+		
 }
 
 void CCamera::RenderPausing() {

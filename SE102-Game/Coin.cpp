@@ -36,6 +36,10 @@ void CCoin::Render(Vector2 finalPos) {
 
 
 void CCoin::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
+	if (isDisable) {
+		left = top = right = bottom = 0;
+		return;
+	}
 	left = x - COIN_SIZE / 2;
 	top = y - COIN_SIZE / 2;
 	right = x + COIN_SIZE / 2;

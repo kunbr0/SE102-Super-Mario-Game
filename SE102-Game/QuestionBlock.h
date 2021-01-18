@@ -9,7 +9,8 @@
 enum class EBlockState {
 	DEFAULT,
 	OPENING,
-	OPENED
+	OPENED,
+	SHOW_HIDDEN_COIN
 };
 
 

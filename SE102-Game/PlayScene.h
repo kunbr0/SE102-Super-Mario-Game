@@ -82,6 +82,7 @@ public:
 	void PrepareChangeCameraArea(Vector2, Vector2, Vector2);
 	void ChangeCameraArea();
 
+	void ChangeGoldenBricksInCameraToShowCoinState();
 
 	//friend class CPlayScenceKeyHandler;
 };

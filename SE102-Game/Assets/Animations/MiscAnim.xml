@@ -164,5 +164,14 @@
 		<Animation aniId="ani-red-music-note-block" frameTime="100">
 			<Sprite id="spr-red-music-note-block-0" left="409" top="188"  width="16" height="16"/>
 		</Animation>
+
+		<!-- SUPER LEAF -->
+		<Animation aniId="ani-p" frameTime="100">
+			<Sprite id="spr-p-0" frameTime="100"/>
+			<Sprite id="spr-p-1" frameTime="100"/>
+		</Animation>
+		
+
+
 	</Textures>
 </Textures>

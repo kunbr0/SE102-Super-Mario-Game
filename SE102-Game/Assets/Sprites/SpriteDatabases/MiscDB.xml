@@ -18,6 +18,10 @@
 			<Sprite id="spr-magic-wing-0" left="330" top="121"  width="14" height="16"/>
 			<Sprite id="spr-hammer-0" left="350" top="121"  width="16" height="16"/>
 
+			<Sprite id="spr-p-0" left="156" top="143"  width="16" height="17"/>
+			<Sprite id="spr-p-1" left="178" top="143"  width="16" height="17"/>
+			<Sprite id="spr-p-2" left="200" top="151"  width="16" height="8"/>
+
 			<Sprite id="spr-end-scene-flower-0" left="369" top="143"  width="16" height="16"/>
 			<Sprite id="spr-end-scene-flower-1" left="369" top="120"  width="16" height="16"/>
 			
