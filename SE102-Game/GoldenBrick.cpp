@@ -49,6 +49,7 @@ void CGoldenBrick::BeingCollidedTop(LPGAMEOBJECT obj) {
 		if (state.type == EBlockState::OPENING) {
 			ChangeState(EBlockState::OPENED);
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->ChangeGoldenBricksInCameraToShowCoinState();
+			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->BeginVibratingCamera(400);
 		}
 	}
 }

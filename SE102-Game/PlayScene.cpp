@@ -309,6 +309,10 @@ void CPlayScene::ChangeGoldenBricksInCameraToShowCoinState() {
 	}
 }
 
+void CPlayScene::BeginVibratingCamera(DWORD totalTime) {
+	sceneCamera.BeginVibrating(totalTime);
+}
+
 void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer) {
 	if (!newPlayer) return;
 

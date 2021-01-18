@@ -16,10 +16,16 @@ CCamera::CCamera() {
 	this->camSize = Vector2(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	this->positionController = NULL;
 	this->mario = NULL;
+	mMap = NULL;
 	mapData.timeRemaining = 300 * 1000;
 }
 CCamera::~CCamera() {
 
+}
+
+void CCamera::BeginVibrating(DWORD totalTime) {
+	vibrating.totalTime = totalTime;
+	vibrating.beginTime = GetTickCount64();
 }
 
 void CCamera::InitPositionController(CGameObject* player) {
@@ -146,18 +152,25 @@ void CCamera::SetCamPosition(Vector2 pos) {
 void CCamera::UpdateCamPosition() {
 	float xMario, yMario;
 	positionController->GetPosition(xMario, yMario);
-
-	ChangeCamPosition(positionController->GetPosition());
-
-	/*if (abs(CamBasePosition.y - yMario) < 300) {
-		SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(CamBasePosition.y - camSize.y / 2) - 130));
+	if (GetTickCount64() < vibrating.beginTime + vibrating.totalTime) {
+		int remainingTime = vibrating.beginTime + vibrating.totalTime - GetTickCount64();
+		float ratio = 1 - (remainingTime % vibrating.timeOfEachSide)*1.0f / vibrating.timeOfEachSide;
+		ratio = ratio > 0.5f ? 1 - ratio : ratio;
+		DebugOut(ToWSTR(std::to_string((float)ratio) + "\n").c_str());
+		if ((int)(remainingTime / vibrating.timeOfEachSide) % 2 == 0) {
+			// Vibrate to left
+			deltaPos.x = vibrating.totalDeltaPosVibrating.x * ratio * -1.0f;
+		}
+		else {
+			// Vibrate to right
+			deltaPos.x = vibrating.totalDeltaPosVibrating.x * ratio * -1.0f;
+		}
 	}
 	else {
-		SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(yMario - camSize.y / 2)));
-	}*/
-	//SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(CamBasePosition.y - camSize.y / 2) - 130));
+		deltaPos.x = deltaPos.y = 0;
+	}
+	ChangeCamPosition(positionController->GetPosition() + deltaPos);
 
-	//SetCamPosition(Vector2((int)(xMario - camSize.x / 2), (int)(yMario - camSize.y / 2)));
 	
 }
 

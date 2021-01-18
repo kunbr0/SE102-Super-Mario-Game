@@ -175,7 +175,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
 	
-	DebugOut(ToWSTR(std::to_string((float)vy) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string((float)vy) + "\n").c_str());
 	
 	if (untouchable.isUntouchable) {
 		untouchable.remainingTime -= dt;

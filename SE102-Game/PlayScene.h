@@ -81,7 +81,7 @@ public:
 
 	void PrepareChangeCameraArea(Vector2, Vector2, Vector2);
 	void ChangeCameraArea();
-
+	void BeginVibratingCamera(DWORD = 200);
 	void ChangeGoldenBricksInCameraToShowCoinState();
 
 	//friend class CPlayScenceKeyHandler;

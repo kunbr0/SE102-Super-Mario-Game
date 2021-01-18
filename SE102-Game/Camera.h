@@ -10,15 +10,21 @@ struct MapData
 	int playerLife = 1;
 };
 
+struct SVibrating {
+	DWORD totalTime = 0;
+	DWORD beginTime = 0;
+	Vector2 totalDeltaPosVibrating = Vector2(50, 0);
+	DWORD timeOfEachSide = 40;
+};
 
 class CCamera {
 
 protected:
-	
+	SVibrating vibrating;
 	Vector2 camPosition ;
 	Vector2 camSize; // (width,height) px
 	Vector2 mapSize; // (width, height) px
-
+	Vector2 deltaPos = Vector2(0, 0);
 	Vector2 LeftTopLimit = Vector2(0, 0);
 	Vector2 RightBottomLimit = Vector2(0, 0);
 
@@ -41,6 +47,8 @@ public:
 	void SetCamPosition(Vector2 pos);
 	Vector2 ConvertPosition(Vector2 pos);
 	
+	void BeginVibrating(DWORD = 200);
+
 	void ChangeCamPosition(Vector2);
 	void ChangeCamArea(Vector2 ar1, Vector2 ar2);
 
