@@ -8,7 +8,8 @@
 #include "AnimationSet.h"
 #include "PhysicsConsts.h"
 
-
+class CCell;
+typedef CCell* LPCell;
 
 #define ID_TEX_BBOX "-100"		// special texture to draw object bounding box
 
@@ -94,6 +95,8 @@ public:
 	// Direction of Object ( Left , Right )
 	int nx = 1;
 	int ny = 1;
+
+	LPCell cell;
 
 	DWORD dt;
 
@@ -191,5 +194,10 @@ public:
 	void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects);
 	void UpdateNoCollision();
 	
+	// Cell
+	LPCell GetCell() { return this->cell; }
+	void SetCell(LPCell cell) { this->cell = cell; }
+
+
 };
 

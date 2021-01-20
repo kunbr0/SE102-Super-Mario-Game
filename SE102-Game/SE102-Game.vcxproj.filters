@@ -185,6 +185,15 @@
     <Filter Include="GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang">
       <UniqueIdentifier>{8a60a99e-31d6-4af1-b058-910bda2cbb00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\SpacePartition">
+      <UniqueIdentifier>{0e284a5b-e117-4702-8ab6-765509b8e672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SpacePartition\Grid">
+      <UniqueIdentifier>{417b80ca-7f2e-4c22-a254-75a02c77b76f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SpacePartition\Cell">
+      <UniqueIdentifier>{62bfbad0-17ff-4154-ac11-f02b08df7b59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -207,9 +216,6 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Framework\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SpriteManager.cpp">
       <Filter>Framework\Sprite</Filter>
@@ -376,6 +382,12 @@
     <ClCompile Include="Boomerang.cpp">
       <Filter>GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\SpacePartition\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Framework\SpacePartition\Cell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -398,9 +410,6 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Framework\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SpriteManager.h">
       <Filter>Framework\Sprite</Filter>
@@ -566,6 +575,12 @@
     </ClInclude>
     <ClInclude Include="Boomerang.h">
       <Filter>GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\SpacePartition\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Framework\SpacePartition\Cell</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
