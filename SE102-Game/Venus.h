@@ -31,7 +31,7 @@ public:
 	void Update(DWORD, vector<LPGAMEOBJECT>*) override;
 
 	void ChangeState(EVenusState);
-	void ChangeState(EEnemyState newState, DWORD = 0) override;
+	bool ChangeState(EEnemyState newState, DWORD = 0) override;
 	void BeingCollidedTop(LPGAMEOBJECT) override;
 
 	std::string GetAnimationIdFromState() override;

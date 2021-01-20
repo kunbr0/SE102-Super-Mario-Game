@@ -7,6 +7,7 @@
 
 #include "Enemy.h"
 #include "FireBullet.h"
+#include "Boomerang.h"
 #include "PlayScene.h"
 
 
@@ -56,6 +57,7 @@ void CMario::CollidedTop(LPGAMEOBJECT obj) {
 	
 	ChangeBasePosition(GetPosition());
 	if (state.action == MarioAction::DIE) return;
+	if (state.action == MarioAction::FALL_SLIGHTLY) state.timeAction = 0;
 	if (state.action != MarioAction::CROUCH) {
 		ChangeAction(MarioAction::IDLE);
 		if (powerX > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN)
@@ -76,11 +78,11 @@ void CMario::CollidedBottom(LPGAMEOBJECT obj) {
 
 
 void CMario::NoCollided() {
-	if (vy > 0 && dy > 10) ChangeAction(MarioAction::FALL);
+	if (vy > 0 && (dy > 5 || state.action == MarioAction::FALL_SLIGHTLY)) ChangeAction(MarioAction::FALL);
 }
 
 void CMario::BeingCollided(LPGAMEOBJECT obj) {
-	if (dynamic_cast<CFireBullet*>(obj)) {
+	if (dynamic_cast<CFireBullet*>(obj) || dynamic_cast<CBoomerang*>(obj)) {
 		BeingKilled();
 	}
 }
@@ -254,6 +256,9 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = y - GetBoundingBoxSize(type, state.action).y /2;
 	right = x + GetBoundingBoxSize(type, state.action).x /2;
 	bottom = y + GetBoundingBoxSize(type, state.action).y /2;
+	/*if (left == right || bottom == top) {
+		int a = 9;
+	}*/
 }
 
 
@@ -471,7 +476,7 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 	case MarioAction::HIGH_JUMP:
 		if (state.action == MarioAction::JUMP && vy > -MARIO_JUMP_SPEED_Y * 0.6f && vy < -MARIO_JUMP_SPEED_Y * 0.55 && powerX < 6000) {
 
-			vy = -MARIO_JUMP_SPEED_Y;
+			vy = -MARIO_JUMP_SPEED_Y * 1.1f;
 			SetAction(newAction, timeAction);
 		}
 		break;

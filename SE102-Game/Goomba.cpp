@@ -1,11 +1,7 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y)
+CGoomba::CGoomba(float x, float y) : CEnemy(x,y,-1)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = -1;
-
 	ChangeState(EEnemyState::LIVE);
 }
 
@@ -56,9 +52,10 @@ void CGoomba::CollidedTop(LPGAMEOBJECT obj) {
 }
 
 
-void CGoomba::ChangeState(EEnemyState newState, DWORD newTimeState) {
-	CEnemy::ChangeState(newState, newTimeState);
+bool CGoomba::ChangeState(EEnemyState newState, DWORD newTimeState) {
+	if (CEnemy::ChangeState(newState, newTimeState)) return true;
 	if (newState == EEnemyState::WILL_DIE)	y += GOOMBA_BBOX_WILL_DIE_HEIGHT / 2;
+	return true;
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

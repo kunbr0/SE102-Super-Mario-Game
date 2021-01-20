@@ -20,6 +20,10 @@
 #include "CameraLimit.h"
 #include "CameraLimitController.h"
 #include "MovablePlatform.h"
+#include "BoomerangBrother.h"
+#include "PlayScene.h"
+#include "FireBullet.h"
+#include "Boomerang.h"
 
 
 #define marginXWindow	96
@@ -258,6 +262,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("type"))
 						);
 					dynamicObjectsBehindMap->push_back(obj);
+					for (int i = 0; i < 2; i++) {
+						((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEnemyBullet(new CFireBullet(0, 0, 1, 1));
+					}
 				}
 			}
 
@@ -271,6 +278,8 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					dynamicObjects->push_back(obj);
 				}
 			}
+
+
 
 			else if (std::string(objGroupNode->Attribute("name")) == "RedGoomba") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
@@ -299,6 +308,19 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 						);
 					dynamicObjects->push_back(obj);
+				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "BoomerangBrother") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CBoomerangBrother(
+						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+					);
+					dynamicObjects->push_back(obj);
+					for (int i = 0; i < 1; i++) {
+						((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEnemyBullet(new CBoomerang(0, 0, 1));
+					}
 				}
 			}
 
@@ -351,7 +373,7 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 
 								TiXmlElement* propertiesNode = objNode->FirstChildElement("properties");
 								for (TiXmlElement* propertyNode = propertiesNode->FirstChildElement("property"); propertyNode != nullptr; propertyNode = propertyNode->NextSiblingElement("property")) {
-									if (std::string(propertyNode->Attribute("name")) == "AccessKeycode")
+									if (std::string(propertyNode->Attribute("name")) == "AccessKeyCode")
 										accessKeycode = std::string(propertyNode->Attribute("value"));
 									if (std::string(propertyNode->Attribute("name")) == "CameraLeftTopLimitX")
 										CameraLeftTopLimit.x = atoi(propertyNode->Attribute("value"));

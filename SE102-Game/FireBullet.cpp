@@ -1,6 +1,4 @@
 #include "FireBullet.h"
-#include "Koopas.h"
-
 
 CFireBullet::CFireBullet(float x, float y, int nx, int owner) {
 	this->x = x;

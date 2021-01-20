@@ -155,6 +155,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddingPointEffect.cpp" />
+    <ClCompile Include="Boomerang.cpp" />
+    <ClCompile Include="BoomerangBrother.cpp" />
     <ClCompile Include="BoundingCoinEffect.cpp" />
     <ClCompile Include="CameraLimit.cpp" />
     <ClCompile Include="CameraLimitController.cpp" />
@@ -218,6 +220,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddingPointEffect.h" />
+    <ClInclude Include="Boomerang.h" />
+    <ClInclude Include="BoomerangBrother.h" />
     <ClInclude Include="BoundingCoinEffect.h" />
     <ClInclude Include="CameraLimit.h" />
     <ClInclude Include="CameraLimitController.h" />

@@ -65,6 +65,7 @@ public:
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
 	void PushHighPriorityObjects(LPGAMEOBJECT obj) { highPriorityObjects.push_back(obj); }
 	void PushEffects(CEffect* eff) { effects.push_back(eff); }
+	void PushEnemyBullet(LPGAMEOBJECT obj) { enemyBullets.push_back(obj); }
 
 	void HandleSceneTime(DWORD&);
 

@@ -128,12 +128,13 @@ std::string CVenus::GetAnimationIdFromState() {
 }
 
 
-void CVenus::ChangeState(EEnemyState newState, DWORD timeState) {
+bool CVenus::ChangeState(EEnemyState newState, DWORD timeState) {
 	if (newState == EEnemyState::ONESHOTDIE) {
 		ChangeState(EEnemyState::DIE);
 		x = -500; y = -500;
 	}
 	else CEnemy::ChangeState(newState, timeState);
+	return true;
 }
 
 void CVenus::ChangeState(EVenusState newState) {

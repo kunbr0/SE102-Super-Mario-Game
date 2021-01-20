@@ -10,6 +10,14 @@ CEnemy::CEnemy() {
 	walkingScope = Vector2(0, 0);
 }
 
+CEnemy::CEnemy(float x, float y, int nx) {
+	walkingSpeed = 0;
+	walkingScope = Vector2(0, 0);
+	this->x = x;
+	this->y = y;
+	this->nx = nx;
+}
+
 void CEnemy::ChangeDirection() {
 	dx *= -1;
 	nx *= -1;
@@ -28,7 +36,7 @@ void CEnemy::ChangeDirectionAfterAxisCollide() {
 	if (!useChangeDirectionAfterAxisCollide) return;
 	float left, top, right, bottom;
 	GetBoundingBox(left, top, right, bottom);
-	if ((x + dx < walkingScope.x || x + dx > walkingScope.y ) && walkingScope.x != 0 && walkingScope.y != 0) {
+	if ((x + dx < walkingScope.x || x + dx > walkingScope.y ) && (walkingScope.x != 0 || walkingScope.y != 0)) {
 		ChangeDirection();
 	}
 }
@@ -80,7 +88,7 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CEnemy::Render(Vector2 finalPos) {
 	if (state.type == EEnemyState::DIE) return;
-	//RenderBoundingBox(finalPos);
+	RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos, Vector2(-nx, ny), 255);
 	RenderExtraEffect(finalPos);
 
@@ -196,9 +204,9 @@ void CEnemy::KillMario(CMario* mario) {
 
 
 
-void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
+bool CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 {
-	if (GetTickCount64() < state.timeBegin + state.timeState) return;
+	if (GetTickCount64() < state.timeBegin + state.timeState) return false;
 	switch (newState)
 	{
 	case EEnemyState::DIE:
@@ -238,7 +246,12 @@ void CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEffects(new CAddingPointEffect(GetPosition(), Vector2(0, -0.11)));
 		SetState(newState, newTimeState);
 		break;
+
+
 	default:
+		SetState(newState, newTimeState);
 		break;
 	}
+
+	return true;
 }

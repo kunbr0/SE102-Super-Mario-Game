@@ -72,12 +72,12 @@ bool CPlayScene::LoadDataFromFile() {
 			SwitchPlayer(GenerateMario((MarioType)playerLevel, Vector2(x, y)));
 		}
 
-		for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
+		/*for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
 			int quantity = atoi(mario->Attribute("quantity"));
 			for (int i = 0; i < quantity; i++) {
 				enemyBullets.push_back(new CFireBullet(0, 0, 1, 1));
 			}
-		}
+		}*/
 	}
 
 	std::string mapFilePath = root->Attribute("mapFilePath");
@@ -88,7 +88,7 @@ bool CPlayScene::LoadDataFromFile() {
 	else sceneCamera.InitPositionController(cameraLimitController);
 	sceneCamera.InitMario(player);
 	// 520 is the black of World1-1, 96 is World1-2
-	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y -520));
+	//sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y -520));
 
 	return true;
 }
@@ -267,6 +267,8 @@ void CPlayScene::PrepareChangeCameraArea(Vector2 playerPos, Vector2 LeftTopLimit
 
 void CPlayScene::ChangeCameraArea() {
 	player->SetPosition(changeCamData.playerPos);
+	sceneCamera.InitPositionController(player);
+	cameraLimitController = NULL;
 	sceneCamera.ChangeCamArea(changeCamData.LeftTopLimit, changeCamData.RightBottomLimit);
 }
 

@@ -36,7 +36,7 @@ public:
 
 	
 
-	void ChangeState(EEnemyState, DWORD = 0) override;
+	bool ChangeState(EEnemyState, DWORD = 0) override;
 
 	virtual std::string GetAnimationIdFromState() override;
 

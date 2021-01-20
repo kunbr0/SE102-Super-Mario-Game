@@ -11,7 +11,9 @@ enum class EEnemyState {
 	BEING_KICKED,
 	BEING_HELD,
 	LIVE,
-	LIVE1
+	LIVE1,
+	PREPARE_ATTACK,
+	ATTACK
 };
 
 struct SEnemyState {
@@ -35,6 +37,7 @@ protected:
 public:
 	
 	CEnemy();
+	CEnemy(float, float, int = -1);
 
 	void InitWtandingScope(LPGAMEOBJECT);
 
@@ -56,7 +59,7 @@ public:
 	virtual float GetDefaultWalkingSpeed() { return 0.0f; }
 
 	virtual void SetState(EEnemyState, DWORD = 0);
-	virtual void ChangeState(EEnemyState newState, DWORD = 0);
+	virtual bool ChangeState(EEnemyState newState, DWORD = 0);
 	virtual EEnemyState GetState() { return state.type; };
 
 	virtual void BeingKicked(Vector2 pos);

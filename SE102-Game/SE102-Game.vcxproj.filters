@@ -176,6 +176,15 @@
     <Filter Include="GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform">
       <UniqueIdentifier>{338509b8-1f3f-4be7-b1dd-6b3fe4561b2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Enemy\BoomerangBrother">
+      <UniqueIdentifier>{69140bd1-790e-4897-8e1a-d512616076ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\EnemyBullet">
+      <UniqueIdentifier>{1c1b7c65-47cb-4fbc-8334-d00652e7a293}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang">
+      <UniqueIdentifier>{8a60a99e-31d6-4af1-b058-910bda2cbb00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -361,6 +370,12 @@
     <ClCompile Include="MovablePlatform.cpp">
       <Filter>GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform</Filter>
     </ClCompile>
+    <ClCompile Include="BoomerangBrother.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\BoomerangBrother</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -545,6 +560,12 @@
     </ClInclude>
     <ClInclude Include="MovablePlatform.h">
       <Filter>GameSource\GameObjects\PlayScene\CollisionBox\MovablePlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBrother.h">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\BoomerangBrother</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>GameSource\GameObjects\PlayScene\EnemyBullet\Boomerang</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
