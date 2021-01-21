@@ -87,7 +87,7 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CEnemy::Render(Vector2 finalPos) {
 	if (state.type == EEnemyState::DIE) return;
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos, Vector2(-nx, ny), 255);
 	RenderExtraEffect(finalPos);
 

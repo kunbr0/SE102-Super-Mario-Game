@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="263">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="264">
  <editorsettings>
   <export target="Resources/World1-4/World1-4.xml" format="tmx"/>
  </editorsettings>
@@ -122,6 +122,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="21" name="KoopasUpDown">
+  <object id="263" x="5569.33" y="1000" width="48" height="48"/>
+ </objectgroup>
  <layer id="4" name="Platform" width="161" height="29">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -281,7 +284,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="13" name="CameraController">
+ <objectgroup id="13" name="CameraController2">
   <object id="135" x="0" y="0" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="20" name="Death">

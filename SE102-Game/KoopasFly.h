@@ -18,12 +18,12 @@
 
 class CKoopasFly : public CRedGoomba
 {
-
+	
 
 public:
 	CKoopasFly(float x, float y);
 
-	std::string GetAnimationIdFromState() override;
+	virtual std::string GetAnimationIdFromState() override;
 	void ProcessHasWingBehavior() override;
 	Vector2 GetBoundingBoxSize(EEnemyState) override;
 

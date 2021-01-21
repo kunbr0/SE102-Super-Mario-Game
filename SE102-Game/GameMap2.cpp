@@ -9,6 +9,7 @@
 #include "RedGoomba.h"
 #include "Koopas.h"
 #include "KoopasFly.h"
+#include "KoopasUpDown.h"
 #include "MiniPortal.h"
 #include "SelectionPortal.h"
 #include "SelectionTree.h"
@@ -322,6 +323,18 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					gameMap->grid.AddObjectToGrid(obj);
 					//dynamicObjects->push_back(obj);
 				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "KoopasUpDown") {
+			for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+				LPGAMEOBJECT obj = new CKoopasUpDown(
+					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+					(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
+				);
+				obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+				gameMap->grid.AddObjectToGrid(obj);
+				//dynamicObjects->push_back(obj);
+			}
 			}
 
 			else if (std::string(objGroupNode->Attribute("name")) == "KoopasFly") {

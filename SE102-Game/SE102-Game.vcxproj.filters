@@ -194,6 +194,9 @@
     <Filter Include="Framework\SpacePartition\Cell">
       <UniqueIdentifier>{62bfbad0-17ff-4154-ac11-f02b08df7b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown">
+      <UniqueIdentifier>{0a026a73-2d56-4c17-b24e-f9deaa3b5b22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -388,6 +391,9 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Framework\SpacePartition\Cell</Filter>
     </ClCompile>
+    <ClCompile Include="KoopasUpDown.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -581,6 +587,9 @@
     </ClInclude>
     <ClInclude Include="Cell.h">
       <Filter>Framework\SpacePartition\Cell</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopasUpDown.h">
+      <Filter>GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
