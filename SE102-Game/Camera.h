@@ -65,12 +65,13 @@ public:
 	void InitMario(CGameObject* );
 	void UpdateCamPosition();
 	
+	CGameMap* GetMap() { return mMap; }
 	
 	// IntroScene
 	void LoadMap(std::string, vector<LPGAMEOBJECT>* = NULL);
 
 	// PlayScene
-	void LoadMap(std::string, LPGAMEOBJECT* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	void LoadMap(std::string, LPGAMEOBJECT* = NULL, vector<LPGAMEOBJECT>* = NULL);
 	// SelectionScene
 	void LoadMap(std::string, vector<LPGAMEOBJECT>*, std::unordered_map<std::string, CSelectionNode*>* );
 	

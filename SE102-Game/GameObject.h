@@ -57,6 +57,17 @@ enum class EExtraEffect {
 	BONUS,
 };
 
+enum class EPriorityFlag {
+	
+	MAP_OBJECT, // QUESTIONBOX, GOLDEN BRICK,
+	DYNAMIC_OBJECT, // Enemy
+	DYNAMIC_OBJECT_BEHIND_MAP, // Venus
+	MAIN_OBJECT, // Mario, Mario Bullets
+	HIGH_PRIORITY_OBJECT,
+	TEMP_OBJECT,
+	ENEMY_BULLET
+};
+
 struct SExtraEffect {
 	EExtraEffect type = EExtraEffect::NONE;
 	int timeBegin = 0;
@@ -100,6 +111,8 @@ public:
 
 	DWORD dt;
 
+	std::vector<EPriorityFlag> priorityFlag;
+
 	Vector2 basePosition = Vector2(0, 0);
 	LPANIMATION_SET animation_set;
 
@@ -128,8 +141,10 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	
+	bool AddPriority(EPriorityFlag);
+	bool RemovePriority(EPriorityFlag);
 	int GetNX() { return nx; }
-
+	std::vector<EPriorityFlag> GetPriorityFlag() { return priorityFlag; }
 	virtual std::string GetRenderAnimationId(EExtraEffect);
 
 	virtual void SetEffect(EExtraEffect = EExtraEffect::NONE, DWORD = 0);

@@ -3,26 +3,19 @@
 #include "Camera.h"
 #include "Game.h"
 
-using namespace std;
-
 CGrid::CGrid(int w, int h) {
 	numOfColumns = (int)ceil((float)w / (SCREEN_WIDTH >> 1));
 	numOfRows = (int)ceil((float)h / (SCREEN_HEIGHT >> 1));
-	
 
 	for (int y = 0; y < numOfRows; ++y)
 	{
 		vector<LPCell> row = vector<LPCell>();
 		for (int x = 0; x < numOfColumns; ++x)
 		{
-			row.push_back(new CCell(Vector2(x,y)));
+			row.push_back(new CCell(Vector2(x, y)));
 		}
 		gridCells.push_back(row);
 	}
-}
-
-CGrid::~CGrid() {
-	//if (activeCells)	delete activeCells;
 }
 
 void CGrid::AddObjectToGrid(CGameObject* obj) {
@@ -42,10 +35,14 @@ vector<LPCell> CGrid::GetCellsInGrid() {
 	CCamera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	Vector2 camPos = camera->GetCamPosition();
 
-	int startX = (int)((camPos.x - SCREEN_WIDTH / 2) / CCell::cellWidth);
-	int endX = (int)((camPos.x + SCREEN_WIDTH * 3 / 2) / CCell::cellWidth);
-	int startY = (int)((camPos.y - SCREEN_HEIGHT / 2) / CCell::cellHeight);
-	int endY = (int)(camPos.y + SCREEN_HEIGHT * 3 / 2) / CCell::cellHeight;
+	int startX = (int)((camPos.x - SCREEN_WIDTH) / CCell::cellWidth);
+	if (startX < 0) startX = 0;
+	int endX = (int)((camPos.x + SCREEN_WIDTH) / CCell::cellWidth);
+	if (endX > numOfColumns - 1) endX = numOfColumns - 1;
+	int startY = (int)((camPos.y - SCREEN_HEIGHT) / CCell::cellHeight);
+	if (startY < 0) startY = 0;
+	int endY = (int)(camPos.y + SCREEN_HEIGHT) / CCell::cellHeight;
+	if (endY > numOfColumns - 1) endY = numOfColumns - 1;
 
 	for (int i = startX; i <= endX; ++i)
 	{

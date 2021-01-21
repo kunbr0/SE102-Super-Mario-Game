@@ -72,24 +72,17 @@ bool CPlayScene::LoadDataFromFile() {
 			SwitchPlayer(GenerateMario((MarioType)playerLevel, Vector2(x, y)));
 		}
 
-		/*for (TiXmlElement* mario = objs->FirstChildElement("enemyBullets"); mario != nullptr; mario = mario->NextSiblingElement("enemyBullets")) {
-			int quantity = atoi(mario->Attribute("quantity"));
-			for (int i = 0; i < quantity; i++) {
-				enemyBullets.push_back(new CFireBullet(0, 0, 1, 1));
-			}
-		}*/
+		
 	}
 
 	std::string mapFilePath = root->Attribute("mapFilePath");
 
-	sceneCamera.LoadMap(mapFilePath, &cameraLimitController, &staticObjects, &dynamicObjects, &dynamicObjectsBehindMap, &tempObjects);
+	sceneCamera.LoadMap(mapFilePath, &cameraLimitController, &staticObjects);
 	if (cameraLimitController == NULL)
 		sceneCamera.InitPositionController(player);
 	else sceneCamera.InitPositionController(cameraLimitController);
 	sceneCamera.InitMario(player);
-	// 520 is the black of World1-1, 96 is World1-2
-	//sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y -520));
-
+	
 	return true;
 }
 
@@ -177,8 +170,7 @@ void CPlayScene::SwitchToSelectionScene() {
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	
 	ProcessBlackPortion(dt);
 	if (player == NULL || isPausing) return;
 
@@ -191,36 +183,64 @@ void CPlayScene::Update(DWORD dt)
 	HandleSceneTime(dt);
 
 	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> mapObjects;
+	vector<LPGAMEOBJECT> dynamicObjects;
+	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
+	vector<LPGAMEOBJECT> highPriorityObjects;
+	vector<LPGAMEOBJECT> tempObjects;
+	
 
+	vector<LPGAMEOBJECT> objsFromGrid = sceneCamera.GetMap()->GetGrid()->GetObjectsInGrid();
+	GetObjsBaseOnPriority(&objsFromGrid, &mapObjects, EPriorityFlag::MAP_OBJECT);
 	PushBackToCalculateCollision(&coObjects, &staticObjects);
-
+	PushBackToCalculateCollision(&coObjects, &mapObjects);
+	
+	GetObjsBaseOnPriority(&objsFromGrid, &dynamicObjects, EPriorityFlag::DYNAMIC_OBJECT);
+	GetObjsBaseOnPriority(&objsFromGrid, &dynamicObjectsBehindMap, EPriorityFlag::DYNAMIC_OBJECT_BEHIND_MAP);
+	
 	UpdateIfInCamera(&dynamicObjects, dt, &coObjects);
 	UpdateIfInCamera(&dynamicObjectsBehindMap, dt, &coObjects);
-
 
 	PushBackToCalculateCollision(&coObjects, &dynamicObjects);
 	PushBackToCalculateCollision(&coObjects, &dynamicObjectsBehindMap);
 
 
-UpdateIfInCameraOrDisable(&mainObjects, dt, &coObjects);
-PushBackToCalculateCollision(&coObjects, &mainObjects);
+	UpdateIfInCameraOrDisable(&mainObjects, dt, &coObjects);
+	PushBackToCalculateCollision(&coObjects, &mainObjects);
 
-UpdateTempObjsInCamera(&highPriorityObjects, dt, &coObjects);
+	GetObjsBaseOnPriority(&objsFromGrid, &highPriorityObjects, EPriorityFlag::HIGH_PRIORITY_OBJECT);
+	UpdateTempObjsInCamera(&highPriorityObjects, dt, &coObjects);
 
-UpdateTempObjsInCamera(&tempObjects, dt, &mainObjects);
+	GetObjsBaseOnPriority(&objsFromGrid, &tempObjects, EPriorityFlag::TEMP_OBJECT);
+	UpdateTempObjsInCamera(&tempObjects, dt, &mainObjects);
 
-UpdateIfInCameraOrDisable(&enemyBullets, dt, &mainObjects);
-UpdateEffects(dt);
+	
+	UpdateIfInCameraOrDisable(&enemyBullets, dt, &mainObjects);
 
-if (cameraLimitController != NULL)
-cameraLimitController->Update(dt, nullptr);
+	UpdateEffects(dt);
 
-sceneCamera.Update(dt); // Update Map in Camera
+	if (cameraLimitController != NULL)
+	cameraLimitController->Update(dt, nullptr);
+
+	sceneCamera.GetMap()->GetGrid()->Update();
+	sceneCamera.Update(dt); // Update Map in Camera
 
 }
 
 void CPlayScene::Render()
 {
+	vector<LPGAMEOBJECT> mapObjects;
+	vector<LPGAMEOBJECT> dynamicObjects;
+	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
+	vector<LPGAMEOBJECT> highPriorityObjects;
+	vector<LPGAMEOBJECT> tempObjects;
+	vector<LPGAMEOBJECT> objsFromGrid = sceneCamera.GetMap()->GetGrid()->GetObjectsInGrid();
+	
+	GetObjsBaseOnPriority(&objsFromGrid, &dynamicObjects, EPriorityFlag::MAP_OBJECT);
+	GetObjsBaseOnPriority(&objsFromGrid, &dynamicObjects, EPriorityFlag::DYNAMIC_OBJECT);
+	GetObjsBaseOnPriority(&objsFromGrid, &dynamicObjectsBehindMap, EPriorityFlag::DYNAMIC_OBJECT_BEHIND_MAP);
+	GetObjsBaseOnPriority(&objsFromGrid, &highPriorityObjects, EPriorityFlag::HIGH_PRIORITY_OBJECT);
+	GetObjsBaseOnPriority(&objsFromGrid, &tempObjects, EPriorityFlag::TEMP_OBJECT);
 
 	Vector2 camSize = sceneCamera.GetCamSize();
 
@@ -231,9 +251,7 @@ void CPlayScene::Render()
 	sceneCamera.Render();
 	
 	RenderIfEnableAndInCamera(&staticObjects);
-	/*for (int i = 0; i < staticObjects.size(); i++)
-		staticObjects[i]->Render(sceneCamera.ConvertPosition(Vector2(staticObjects[i]->x, staticObjects[i]->y)));
-	*/
+	RenderIfEnableAndInCamera(&mapObjects);
 	RenderIfEnableAndInCamera(&dynamicObjects);
 
 	if (((CMario*)(player))->GetAction() != MarioAction::GETTING_INTO_THE_HOLE)
@@ -286,10 +304,10 @@ void CPlayScene::TogglePausingMode() {
 void CPlayScene::Unload()
 {
 	CleanObjList(staticObjects);
-	CleanObjList(dynamicObjects);
-	CleanObjList(dynamicObjectsBehindMap);
+	/*CleanObjList(dynamicObjects);
+	CleanObjList(dynamicObjectsBehindMap);*/
 	CleanObjList(mainObjects);
-	CleanObjList(tempObjects);
+	//CleanObjList(tempObjects);
 	//CleanObjList(highPriorityObjects);
 	CleanObjList(enemyBullets);
 
@@ -302,10 +320,14 @@ void CPlayScene::Unload()
 }
 
 void CPlayScene::ChangeGoldenBricksInCameraToShowCoinState() {
-	for (int i = 0; i < staticObjects.size(); i++) {
-		if (sceneCamera.IsInCamera(staticObjects[i]->GetPosition())){
-			if (dynamic_cast<CGoldenBrick*>(staticObjects[i])) {
-				((CGoldenBrick*)(staticObjects[i]))->ChangeState(EBlockState::SHOW_HIDDEN_COIN);
+	vector<LPGAMEOBJECT> mapObjects;
+	vector<LPGAMEOBJECT> objsFromGrid = sceneCamera.GetMap()->GetGrid()->GetObjectsInGrid();
+	GetObjsBaseOnPriority(&objsFromGrid, &mapObjects, EPriorityFlag::MAP_OBJECT);
+
+	for (int i = 0; i < mapObjects.size(); i++) {
+		if (sceneCamera.IsInCamera(mapObjects[i]->GetPosition())){
+			if (dynamic_cast<CGoldenBrick*>(mapObjects[i])) {
+				((CGoldenBrick*)(mapObjects[i]))->ChangeState(EBlockState::SHOW_HIDDEN_COIN);
 			}
 		}
 	}

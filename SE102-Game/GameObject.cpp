@@ -23,6 +23,7 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
+	priorityFlag = std::vector<EPriorityFlag>();
 }
 
 CGameObject::CGameObject(Vector2 pos)
@@ -31,8 +32,27 @@ CGameObject::CGameObject(Vector2 pos)
 	y = pos.y;
 	vx = vy = 0;
 	nx = 1;
+	priorityFlag = std::vector<EPriorityFlag>();
 }
 
+bool CGameObject::AddPriority(EPriorityFlag flag) {
+	for (int i = 0; i < priorityFlag.size(); i++) {
+		if (priorityFlag[i] == flag) return false;
+	}
+	priorityFlag.push_back(flag);
+	return true;
+}
+
+bool CGameObject::RemovePriority(EPriorityFlag flag) {
+	for (int i = 0; i < priorityFlag.size(); i++) {
+		if (priorityFlag[i] == flag) {
+			priorityFlag.erase(priorityFlag.begin() + i);
+			return true;
+		}
+	}
+	
+	return false;
+}
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {

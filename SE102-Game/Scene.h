@@ -3,6 +3,8 @@
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
 #include "Camera.h"
+#include "GameObject.h"
+
 #define DEFAULT_TIME_SCALE		1
 
 
@@ -52,6 +54,7 @@ public:
 	void BeginOpeningEffect(CallbackTypeScene = nullptr);
 	void BeginClosingEffect(CallbackTypeScene = nullptr);
 	void CleanObjList(vector<LPGAMEOBJECT>&);
+	void GetObjsBaseOnPriority(vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, EPriorityFlag);
 	
 	// Cards
 	void PushToCards(int a) { cards.push_back(a); }
@@ -65,6 +68,7 @@ public:
 	void UpdateTempObjsInCamera(vector<LPGAMEOBJECT>*, DWORD, vector<LPGAMEOBJECT>*);
 	void PushBackToCalculateCollision(vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*);
 	void ProcessBlackPortion(DWORD);
+
 
 	// Render
 	virtual void Render() = 0;

@@ -19,7 +19,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "TextureManager.h"
-
+#include "Const.h"
 #include "Mario.h"
 #include "Brick.h"
 #include "Goomba.h"
@@ -33,9 +33,6 @@
 //Intro
 #define BG_INTRO D3DCOLOR_XRGB(247, 216, 165)
 
-
-#define SCREEN_WIDTH 780
-#define SCREEN_HEIGHT 780
 
 #define MAX_FRAME_RATE 120
 

@@ -16,11 +16,22 @@ int CScene::GetLastCard() {
 	return cards[cards.size() - 1];
 }
 
+void CScene::GetObjsBaseOnPriority(vector<LPGAMEOBJECT>* fromList, vector<LPGAMEOBJECT>* toList, EPriorityFlag targetFlag) {
+	for (int i = 0; i < fromList->size(); i++) {
+		std::vector<EPriorityFlag> priorityFlag = fromList->at(i)->GetPriorityFlag();
+		for (int j = 0; j < priorityFlag.size(); j++) {
+			if (priorityFlag[j] == targetFlag) {
+				toList->push_back(fromList->at(i));
+			}
+		}
+	}
+}
+
 void CScene::UpdateTempObjsInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	for (size_t i = 0; i < objList->size(); i++)
 	{
 		if (!objList->at(i)->isTemp) {
-			objList->erase(objList->begin() + i);
+			objList->at(i)->RemovePriority(EPriorityFlag::TEMP_OBJECT);
 		}
 		else if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)))
 			objList->at(i)->Update(dt, coObjects);

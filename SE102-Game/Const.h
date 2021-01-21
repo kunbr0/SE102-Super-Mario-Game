@@ -3,8 +3,8 @@
 
 
 #define TITLE L"Mario"
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 780
+#define SCREEN_HEIGHT 780
 
 #define TEXTURE_MARIO "tex-mario"
 

@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include "SelectionNode.h"
 
+#include "Grid.h"
+
 struct kTilesetRender {
 	CTileSet* tileset;
 	Vector2 rangeId = Vector2(0, 0);
@@ -20,7 +22,8 @@ class CGameMap
 	int tileWidth;
 	int tileHeight;
 	Vector2 camPosition;
-	
+
+	CGrid grid;
 
 
 	vector<CTileSet*> tilesets;
@@ -30,7 +33,7 @@ class CGameMap
 
 public:
 	CGameMap();
-	CGameMap(int width, int height, int tileWidth, int tileHeight);
+	//CGameMap(int width, int height, int tileWidth, int tileHeight);
 
 
 	virtual Vector2 GetBound();
@@ -49,9 +52,13 @@ public:
 	virtual void Render(float bottomMargin = 0);
 
 	virtual void GetMapSize(Vector2& out);
+	
+	CGrid* GetGrid() { return &grid; }
+
+	virtual Vector2 GetMapSize();
 
 	// PlayScene
-	static CGameMap* FromTMX(std::string, LPGAMEOBJECT*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>*, vector<LPGAMEOBJECT>* = NULL, vector<LPGAMEOBJECT>* = NULL);
+	static CGameMap* FromTMX(std::string, LPGAMEOBJECT*, vector<LPGAMEOBJECT>*);
 
 	// SelectionScene
 	static CGameMap* FromTMX(std::string, vector<LPGAMEOBJECT>*, std::unordered_map<std::string, CSelectionNode*>*);

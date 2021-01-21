@@ -24,15 +24,12 @@ protected:
 	int playerLevel = 1;
 	//shared_ptr<CGameMap> kMap;
 	vector<LPGAMEOBJECT> staticObjects;
-	vector<LPGAMEOBJECT> dynamicObjects;
-	vector<LPGAMEOBJECT> dynamicObjectsBehindMap;
 	vector<LPGAMEOBJECT> mainObjects;
-	vector<LPGAMEOBJECT> highPriorityObjects;
-	vector<LPGAMEOBJECT> tempObjects;
+	vector<LPGAMEOBJECT> enemyBullets;
 	
+
 	vector<CEffect*> effects;
 
-	vector<LPGAMEOBJECT> enemyBullets;
 	LPGAMEOBJECT cameraLimitController;
 
 	//std::map<std::string, Vector2> miniPortals;
@@ -61,9 +58,12 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void SetPlayer(LPGAMEOBJECT obj) { player = obj; }
-	void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
+	/*void PushDynamicObjects(LPGAMEOBJECT obj) { dynamicObjects.push_back(obj); }
 	void PushTempObjects(LPGAMEOBJECT obj) { tempObjects.push_back(obj); }
-	void PushHighPriorityObjects(LPGAMEOBJECT obj) { highPriorityObjects.push_back(obj); }
+	void PushHighPriorityObjects(LPGAMEOBJECT obj) { highPriorityObjects.push_back(obj); }*/
+	void PushDynamicObjects(LPGAMEOBJECT obj) { obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT); }
+	void PushTempObjects(LPGAMEOBJECT obj) { obj->AddPriority(EPriorityFlag::TEMP_OBJECT); }
+	void PushHighPriorityObjects(LPGAMEOBJECT obj) { obj->AddPriority(EPriorityFlag::HIGH_PRIORITY_OBJECT); }
 	void PushEffects(CEffect* eff) { effects.push_back(eff); }
 	void PushEnemyBullet(LPGAMEOBJECT obj) { enemyBullets.push_back(obj); }
 

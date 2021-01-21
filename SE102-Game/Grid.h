@@ -1,24 +1,19 @@
+#pragma once
 #include <string>
 #include <vector>
 #include "Transform.h"
 #include "Cell.h"
 
-class CGrid
-{
+
+class CGrid {
 private:
 	RectF viewport;
 	int numOfColumns, numOfRows;
-	std::string gridFile;
 	std::vector<std::vector<LPCell>> gridCells;
-
 	std::vector<LPCell> activeCells;
 
 public:
-
 	CGrid(int = 0, int = 0);
-
-	~CGrid();
-
 	void AddObjectToGrid(CGameObject*);
 	void AddObjectToGrid(CGameObject*, int, int);
 
@@ -33,5 +28,3 @@ public:
 
 	std::vector<CGameObject*> GetObjectsInGrid();
 };
-
-typedef CGrid* Grid;

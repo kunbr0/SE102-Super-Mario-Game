@@ -36,8 +36,8 @@ void CCamera::InitMario(CGameObject* player) {
 	this->mario = player;
 }
 
-void CCamera::LoadMap(std::string mapFilePath, LPGAMEOBJECT* camLimitCon, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects) {
-	mMap = CGameMap().FromTMX(mapFilePath, camLimitCon, staticObjects, dynamicObjects, dynamicObjectsBehindMap, tempObjects);
+void CCamera::LoadMap(std::string mapFilePath, LPGAMEOBJECT* camLimitCon, vector<LPGAMEOBJECT>* staticObjects) {
+	mMap = CGameMap().FromTMX(mapFilePath, camLimitCon, staticObjects);
 	mMap->GetMapSize(mapSize);
 	
 }

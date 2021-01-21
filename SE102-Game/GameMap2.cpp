@@ -28,21 +28,20 @@
 
 #define marginXWindow	96
 #define	marginYWindow	272
-//#define marginXWindow	0
-//#define	marginYWindow	0
 
 CGameMap::CGameMap()
 {
 
 }
 
-CGameMap::CGameMap(int width, int height, int tileWidth, int tileHeight)
-{
-	this->width = width;
-	this->height = height;
-	this->tileHeight = tileHeight;
-	this->tileWidth = tileWidth;
-}
+//CGameMap::CGameMap(int width, int height, int tileWidth, int tileHeight)
+//{
+//	this->width = width;
+//	this->height = height;
+//	this->tileHeight = tileHeight;
+//	this->tileWidth = tileWidth;
+//	
+//}
 
 void CGameMap::UpdateCamPosition(Vector2 newPos) {
 	camPosition = newPos;
@@ -124,7 +123,7 @@ void CGameMap::Render(float bottomMargin)
 	}
 }
 
-CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController, vector<LPGAMEOBJECT>* staticObjects, vector<LPGAMEOBJECT>* dynamicObjects, vector<LPGAMEOBJECT>* dynamicObjectsBehindMap, vector<LPGAMEOBJECT>* tempObjects)
+CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController, vector<LPGAMEOBJECT>* staticObjects)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -137,6 +136,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 		root->QueryIntAttribute("height", &gameMap->height);
 		root->QueryIntAttribute("tilewidth", &gameMap->tileWidth);
 		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
+
+		Vector2 mapSize = gameMap->GetMapSize();
+		gameMap->grid = CGrid(mapSize.x, mapSize.y);
 
 		//Load tileset
 
@@ -162,7 +164,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 						);
-					dynamicObjects->push_back(obj);
+					/*obj->priorityFlag.push_back(EPriorityFlag::STATIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);*/
+					staticObjects->push_back(obj);
 				}
 			}
 
@@ -174,6 +178,8 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 						);
+					/*obj->priorityFlag.push_back(EPriorityFlag::STATIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);*/
 					staticObjects->push_back(obj);
 				}
 			}
@@ -186,6 +192,8 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 						);
+					/*obj->priorityFlag.push_back(EPriorityFlag::STATIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);*/
 					staticObjects->push_back(obj);
 				}
 			}
@@ -198,7 +206,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 					//tempObjects->push_back(obj);
 				}
 			}
@@ -219,7 +229,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					staticObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::MAP_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//staticObjects->push_back(obj);
 				}
 			}
 
@@ -230,7 +242,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					staticObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::MAP_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//staticObjects->push_back(obj);
 				}
 			}
 
@@ -243,8 +257,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 				}
 			}
 
@@ -261,7 +276,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 							),
 						atoi(objNode->Attribute("type"))
 						);
-					dynamicObjectsBehindMap->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT_BEHIND_MAP);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjectsBehindMap->push_back(obj);
 					for (int i = 0; i < 2; i++) {
 						((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEnemyBullet(new CFireBullet(0, 0, 1, 1));
 					}
@@ -275,7 +292,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 						);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 				}
 			}
 
@@ -287,7 +306,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 						);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 				}
 			}
 
@@ -297,7 +318,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 						);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 				}
 			}
 
@@ -307,7 +330,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 						);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 				}
 			}
 
@@ -317,7 +342,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 						(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2)
 					);
-					dynamicObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//dynamicObjects->push_back(obj);
 					for (int i = 0; i < 1; i++) {
 						((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEnemyBullet(new CBoomerang(0, 0, 1));
 					}
@@ -336,7 +363,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						),
 						hiddenItemStr
 					);
-					staticObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::MAP_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//staticObjects->push_back(obj);
 				}
 			}
 
@@ -347,7 +376,9 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
-					tempObjects->push_back(obj);
+					obj->AddPriority(EPriorityFlag::TEMP_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//tempObjects->push_back(obj);
 				}
 			}
 
@@ -396,16 +427,12 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 							CameraLeftTopLimit,
 							CameraRightBottomLimit
 							);
-
-						tempObjects->push_back(obj);
+						obj->AddPriority(EPriorityFlag::TEMP_OBJECT);
+						gameMap->grid.AddObjectToGrid(obj);
+						//tempObjects->push_back(obj);
 					}
 				}
 			}
-
-
-
-
-
 
 		}
 
@@ -576,6 +603,10 @@ CGameMap* CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* staticObjects
 void CGameMap::GetMapSize(Vector2& out) {
 	out.x = this->width * tileWidth;
 	out.y = this->height * tileHeight;
+}
+
+Vector2 CGameMap::GetMapSize() {
+	return Vector2(this->width * tileWidth, this->height * tileHeight);
 }
 
 CGameMap::~CGameMap()
