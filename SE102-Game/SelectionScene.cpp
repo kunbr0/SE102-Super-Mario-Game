@@ -74,12 +74,25 @@ void CSelectionSceneKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 		
-	case DIK_S:
-		((CSelectionScene*)scence)->BeginClosingEffect([]() {
-			CGame::GetInstance()->SwitchScene("world1-1");
-		});
+		case DIK_S:
+		{
+			std::string nodeName = ((CSelectionScene*)scence)->GetStandingNode()->GetName();
+			std::string targetSceneId;
+			if (nodeName == "node-1") {
+				((CSelectionScene*)scence)->BeginClosingEffect([]() {
+					CGame::GetInstance()->SwitchScene("world1-1");
+				});
+			}
+			else if (nodeName == "node-4") {
+				((CSelectionScene*)scence)->BeginClosingEffect([]() {
+					CGame::GetInstance()->SwitchScene("world1-4");
+				});
+			}
+			
+
+			break;
+		}
 		
-		break;
 	}
 }
 
@@ -100,7 +113,8 @@ bool CSelectionScene::LoadDataFromFile() {
 	sceneCamera.InitPositionController(player);
 	sceneCamera.LoadMap(mapFilePath, &selectionPortals, &selectionNodes);
 	sceneCamera.ChangeCamArea(Vector2(0, 0), Vector2(sceneCamera.GetMapSize().x, sceneCamera.GetMapSize().y));
-	standingNode = selectionNodes["node-0"];
+	if(player == NULL)
+		standingNode = selectionNodes["node-0"];
 	
 	// Load Objects
 	for (TiXmlElement* objs = root->FirstChildElement("objects"); objs != nullptr; objs = objs->NextSiblingElement("objects")) {

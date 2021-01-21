@@ -10,6 +10,7 @@
 #include "Boomerang.h"
 #include "PlayScene.h"
 
+#define HOLDING_DISTANCE			40 // pixels
 
 CMario::CMario(float x, float y) : CGameObject()
 {
@@ -59,6 +60,7 @@ void CMario::CollidedTop(LPGAMEOBJECT obj) {
 	if (state.action == MarioAction::DIE) return;
 	if (state.action == MarioAction::FALL_SLIGHTLY) state.timeAction = 0;
 	if (state.action != MarioAction::CROUCH) {
+		canJump = true;
 		ChangeAction(MarioAction::IDLE);
 		if (powerX > 0 && abs(vx) < VELOCITY_X_MIN_FOR_RUN)
 			powerX -= POWER_X_LOSE_IN_GROUND;
@@ -168,11 +170,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 			
 	}
+	if (state.action == MarioAction::HOLD) {
+		holdingObj->SetPosition(GetPosition() + Vector2(HOLDING_DISTANCE * GetNX(), 0));
+	}
 
 	// SKID
 	if (vx * nx < 0 && abs(vx) > VELOCITY_X_MIN_FOR_SKID) {
 		ChangeAction(MarioAction::SKID, 250);
-		powerX = 0;
+		
 	}
 
 	if(powerX > 0) powerX -= POWER_X_LOSE_ALWAYS;
@@ -211,7 +216,7 @@ void CMario::Render(Vector2 finalPos) {
 	GetBoundingBox(l, t, r, b);
 
 	//RenderBoundingBox(Vector2(finalPos.x + (l-this->x), finalPos.y + (t-this->y)));
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 
 	if (untouchable.isUntouchable && GetTickCount64() % 100 > 50) return;
 	
@@ -297,6 +302,10 @@ void CMario::ProcessKeyboard(SKeyboardEvent kEvent)
 		else ChangeAction(MarioAction::HIGH_JUMP);
 			
 		break;
+	case DIK_X:
+		if (!kEvent.isHold) {
+			if (!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+		}
 
 	default:
 		if (this->state.action == MarioAction::CROUCH) 
@@ -427,7 +436,14 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 
 	if (state.action == MarioAction::DIE || state.action == MarioAction::GETTING_INTO_THE_HOLE) return false;
 
-	if (state.action == MarioAction::HOLD && isHoldingKey(DIK_A)) return false;
+	if (state.action == MarioAction::HOLD && isHoldingKey(DIK_A)) {
+		if (newAction == MarioAction::JUMP && canJump) {
+			vy = -MARIO_JUMP_SPEED_Y;
+			canJump = false;
+		}
+		
+		return false;
+	} 
 
 	// Refresh action duration
 	if (state.action == newAction) state.beginAction = GetTickCount64();
@@ -465,11 +481,12 @@ bool CMario::ChangeAction(MarioAction newAction, DWORD timeAction) {
 			|| state.action == MarioAction::CROUCH || state.action == MarioAction::SPEEDUP) {
 			if (powerX < 6000) vy = -MARIO_JUMP_SPEED_Y;
 			else {
-				vy = -MARIO_JUMP_SPEED_Y * 1.35f;
+				vy = -MARIO_JUMP_SPEED_Y * 1.21f;
 				vx *= 1.2f;
 			}
 			SetAction(newAction, timeAction);
 			if (state.action != MarioAction::CROUCH) SetAction(newAction, timeAction);
+			
 		}
 		break;
 

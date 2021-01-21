@@ -70,7 +70,7 @@ protected:
 	
 	SGetIntoTheHole getIntoTheHole;
 	Vector2 deltaRender = Vector2(0, 0);
-
+	LPGAMEOBJECT holdingObj = NULL;
 	SUntouchable untouchable;
 
 	MarioType type;
@@ -80,6 +80,7 @@ protected:
 	std::unordered_map<int, bool> holdingKeys;
 	
 	int finishStep = 0;
+	bool canJump = false;
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
@@ -101,7 +102,7 @@ public:
 	virtual void CollidedBottom(LPGAMEOBJECT) override;
 	
 	virtual void BeingCollided(LPGAMEOBJECT) override;
-
+	void SetHoldingObj(LPGAMEOBJECT obj) { holdingObj = obj; }
 	virtual void NoCollided() override;
 
 	bool IsReadyToChangeAction();

@@ -53,9 +53,15 @@ void CGoomba::CollidedTop(LPGAMEOBJECT obj) {
 
 
 bool CGoomba::ChangeState(EEnemyState newState, DWORD newTimeState) {
-	if (CEnemy::ChangeState(newState, newTimeState)) return true;
-	if (newState == EEnemyState::WILL_DIE)	y += GOOMBA_BBOX_WILL_DIE_HEIGHT / 2;
-	return true;
+	
+	
+	if (CEnemy::ChangeState(newState, newTimeState)) {
+		if (newState == EEnemyState::WILL_DIE) {
+			y += GOOMBA_BBOX_WILL_DIE_HEIGHT / 2;
+		}
+		return true;
+	}
+	return false;
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

@@ -82,6 +82,7 @@ void CRedGoomba::ProcessHasWingBehavior() {
 }
 
 void CRedGoomba::CollidedTop(LPGAMEOBJECT obj) {
+	CGameObject::CollidedTop(obj);
 	if(state.type == EEnemyState::LIVE)
 		ProcessHasWingBehavior();
 }

@@ -22,6 +22,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
 	void OnHadCollided(LPGAMEOBJECT) override;
 	void BeingCollidedTop(LPGAMEOBJECT) override;
+	void BeingCollidedBottom(LPGAMEOBJECT) override;
 	void BeingCollided(LPGAMEOBJECT) override;
 
 

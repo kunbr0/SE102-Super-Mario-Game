@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="95">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="96">
  <editorsettings>
   <export target="Resources/IntroScene/IntroScene.png" format="tmx"/>
  </editorsettings>
@@ -29,10 +29,13 @@
  <objectgroup id="16" name="Curtain">
   <object id="45" x="380" y="20" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="16" name="Title">
-  <object id="1" x="375" y="270" width="16" height="16"/>
+ <objectgroup id="21" name="Ani3">
+  <object id="95" x="375.292" y="370.151" width="17.9935" height="17.9935"/>
  </objectgroup>
-  <objectgroup id="20" name="OptionCursor">
+ <objectgroup id="16" name="Title">
+  <object id="1" x="376.285" y="192.885" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="20" name="OptionCursor">
   <object id="94" x="185" y="485" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="16" name="StartOption1">

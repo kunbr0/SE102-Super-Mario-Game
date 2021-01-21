@@ -79,13 +79,12 @@ LPCell CGrid::GetCellByPos(float x, float y) {
 
 	int cellX = (int)(x / CCell::cellWidth);
 	int cellY = (int)(y / CCell::cellHeight);
-
 	//Bound Check
 	if (cellX < 0) cellX = 0;
-	if (cellX >= numOfColumns) cellX = numOfColumns;
+	if (cellX >= numOfColumns) cellX = numOfColumns - 1;
 
 	if (cellY < 0) cellY = 0;
-	if (cellY >= numOfRows) cellY = numOfRows;
+	if (cellY >= numOfRows) cellY = numOfRows - 1;
 
 	return gridCells[cellY][cellX]; //Treat 1D vector as 2D vector
 }

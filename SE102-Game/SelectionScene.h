@@ -11,7 +11,7 @@ class CSelectionScene : public CScene
 {
 
 protected:
-	LPGAMEOBJECT player; // Player controls the position of camera.
+	LPGAMEOBJECT player = NULL; // Player controls the position of camera.
 	vector<LPGAMEOBJECT> selectionPortals;
 
 	std::unordered_map<std::string, CSelectionNode*> selectionNodes;
@@ -25,7 +25,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-
+	CSelectionNode* GetStandingNode() { return standingNode; }
 	void ProcessMovingToNewNode(int);
 	bool isMoving = false;
 

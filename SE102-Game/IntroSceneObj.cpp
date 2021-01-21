@@ -34,6 +34,10 @@ SIntroRender CIntroSceneObj::GetIntroRender(std::string name) {
 		result.isSprite = true;
 		result.id = "spr-option-arrow-0";
 	}
+	else if (name == "Ani3") {
+		result.isSprite = false;
+		result.id = "ani-3";
+	}
 
 	return result;
 }

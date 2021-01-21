@@ -40,7 +40,7 @@ void CGoldenBrick::Render(Vector2 finalPos) {
 	else if (state.type == EBlockState::SHOW_HIDDEN_COIN) {
 		CSprites::GetInstance()->Get("spr-coin-3")->DrawWithScaling(finalPos);
 	}
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 }
 
 void CGoldenBrick::BeingCollidedTop(LPGAMEOBJECT obj) {
@@ -52,6 +52,12 @@ void CGoldenBrick::BeingCollidedTop(LPGAMEOBJECT obj) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->BeginVibratingCamera(400);
 		}
 	}
+}
+
+void CGoldenBrick::BeingCollidedBottom(LPGAMEOBJECT obj) {
+	CGameObject::BeingCollidedBottom(obj);
+	if (hiddenItem == EHiddenItem::NONE) ChangeState(EBlockState::OPENING, 3000);
+	else if (hiddenItem == EHiddenItem::P) ChangeState(EBlockState::OPENING);
 }
 
 void CGoldenBrick::BeingCollided(LPGAMEOBJECT obj) {

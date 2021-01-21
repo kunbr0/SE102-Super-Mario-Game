@@ -327,6 +327,8 @@ void CPlayScene::ChangeGoldenBricksInCameraToShowCoinState() {
 	for (int i = 0; i < mapObjects.size(); i++) {
 		if (sceneCamera.IsInCamera(mapObjects[i]->GetPosition())){
 			if (dynamic_cast<CGoldenBrick*>(mapObjects[i])) {
+				mapObjects[i]->RemovePriority(EPriorityFlag::MAP_OBJECT);
+				mapObjects[i]->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
 				((CGoldenBrick*)(mapObjects[i]))->ChangeState(EBlockState::SHOW_HIDDEN_COIN);
 			}
 		}

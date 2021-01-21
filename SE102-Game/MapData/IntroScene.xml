@@ -5,6 +5,7 @@
             <texture id="tex-intro" filePath="Assets\Textures\Intro.png" transColor="255,255,255" />
             <texture id="tex-mario" filePath="Assets\Textures\mario.png" />
             <texture id="black" filePath="Assets\Textures\black.png" transColor="255,255,255" />
+            
         </textures>
 
         <sprites>

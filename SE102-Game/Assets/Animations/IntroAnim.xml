@@ -32,5 +32,11 @@
 		<Animation aniId="ani-option-arrow" frameTime="100">
 			<Sprite id="spr-option-arrow-0"/>
 		</Animation>
+		<Animation aniId="ani-3" frameTime="100">
+			<Sprite id="spr-3-0" />
+			<Sprite id="spr-3-1"/>
+			<Sprite id="spr-3-2"/>
+			<Sprite id="spr-3-3"/>
+		</Animation>
 	</Textures>
 </Textures>

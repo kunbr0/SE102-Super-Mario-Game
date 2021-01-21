@@ -30,7 +30,7 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CCoin::Render(Vector2 finalPos) {
 	CAnimations::GetInstance()->Get("ani-coin")->Render(finalPos, Vector2(-nx, ny), 255);
-	RenderBoundingBox(finalPos);
+	//RenderBoundingBox(finalPos);
 }
 
 

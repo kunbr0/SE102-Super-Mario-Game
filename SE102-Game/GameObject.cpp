@@ -11,6 +11,7 @@
 #include "PhysicConstants.h"
 
 #include "QuestionBlock.h"
+#include "Mario.h"
 
 
 
@@ -302,9 +303,9 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects) {
 	
 	
 	coEvents.clear();
-
+	
 	CalcPotentialCollisions(coObjects, coEvents);
-
+	
 	if (coEvents.size() == 0)
 	{
 		x += dx;

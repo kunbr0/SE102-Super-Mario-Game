@@ -16,6 +16,7 @@ public:
 	void AddMovableNode(std::string, std::string);
 	Vector2 GetPosition();
 	std::string GetTargetNode(std::string);
+	std::string GetName() { return name; }
 };
 
 

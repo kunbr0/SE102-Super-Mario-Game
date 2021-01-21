@@ -29,10 +29,8 @@ public:
 	void UpdatePos(Vector2 pos, int nx=1);
 	void SetVenusBulletDirection(Vector2 a) { venusBulletDirection = a;  }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-
+	virtual void OnHadCollided(LPGAMEOBJECT) override;
 	virtual void CollidedLeftRight(LPGAMEOBJECT) override;
 	virtual void CollidedTop(LPGAMEOBJECT) override;
-	virtual void CollidedBottom(LPGAMEOBJECT) override {};
-	virtual void Collided(LPGAMEOBJECT) override {};
 };
 

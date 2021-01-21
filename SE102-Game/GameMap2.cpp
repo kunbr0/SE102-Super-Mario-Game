@@ -345,7 +345,7 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 					obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
 					gameMap->grid.AddObjectToGrid(obj);
 					//dynamicObjects->push_back(obj);
-					for (int i = 0; i < 1; i++) {
+					for (int i = 0; i < 2; i++) {
 						((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushEnemyBullet(new CBoomerang(0, 0, 1));
 					}
 				}

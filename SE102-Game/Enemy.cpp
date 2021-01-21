@@ -3,7 +3,6 @@
 #include "AddingPointEffect.h"
 #include "RaccoonAttackBoundingBox.h"
 
-#define HOLDING_DISTANCE			50 // pixels
 
 CEnemy::CEnemy() {
 	walkingSpeed = 0;
@@ -75,7 +74,7 @@ void CEnemy::BeingHeldProcess() {
 		return;
 	}
 	vx = vy = 0;
-	SetPosition(holdController->GetPosition() + Vector2(HOLDING_DISTANCE * (holdController->GetNX()), 0));
+	//SetPosition(holdController->GetPosition() + Vector2(HOLDING_DISTANCE * (holdController->GetNX()), 0));
 }
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -117,8 +116,6 @@ void CEnemy::CollidedLeftRight(LPGAMEOBJECT obj) {
 
 void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 	
-	
-	BeingCollided(obj);
 	if (dynamic_cast<CMario*>(obj)) {
 		if (((CMario*)(obj))->GetAction() == MarioAction::ATTACK) return;
 		switch (state.type)
@@ -127,6 +124,7 @@ void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 			if (((CMario*)(obj))->isHoldingKey(DIK_A)) {
 				holdController = ((CMario*)(obj));
 				((CMario*)(obj))->SetAction(MarioAction::HOLD);
+				((CMario*)(obj))->SetHoldingObj(this);
 				SetState(EEnemyState::BEING_HELD);
 
 			}
@@ -149,7 +147,7 @@ void CEnemy::BeingCollidedLeftRight(LPGAMEOBJECT obj) {
 			break;
 		}
 	}
-	
+	BeingCollided(obj);
 }
 
 
@@ -206,6 +204,7 @@ void CEnemy::KillMario(CMario* mario) {
 
 bool CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 {
+	
 	if (GetTickCount64() < state.timeBegin + state.timeState) return false;
 	switch (newState)
 	{

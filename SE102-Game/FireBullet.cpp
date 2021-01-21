@@ -25,7 +25,9 @@ void CFireBullet::CollidedLeftRight(LPGAMEOBJECT obj) {
 	CGameObject::CollidedLeftRight(obj);
 }
 
-
+void CFireBullet::OnHadCollided(LPGAMEOBJECT obj) {
+	obj->BeingCollided(this);
+}
 
 void CFireBullet::CollidedTop(LPGAMEOBJECT obj) {
 	CGameObject::CollidedTop(obj);

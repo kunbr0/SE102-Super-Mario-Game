@@ -1,7 +1,7 @@
 #pragma once
-#include "RectPlatform.h"
-//#include "RectCollision.h"
-class CMovablePlatform : public CRectPlatform
+//#include "RectPlatform.h"
+#include "RectCollision.h"
+class CMovablePlatform : public CRectCollision
 {
 	bool isFalling;
 public:

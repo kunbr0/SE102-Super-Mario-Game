@@ -10,6 +10,7 @@ enum class EEnemyState {
 	WILL_DIE,
 	BEING_KICKED,
 	BEING_HELD,
+	WILL_LIVE,
 	LIVE,
 	LIVE1,
 	PREPARE_ATTACK,

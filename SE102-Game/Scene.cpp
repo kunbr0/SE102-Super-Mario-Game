@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "Mario.h"
 #include "SpriteManager.h"
-
+#include "Const.h"
 CScene::CScene(std::string id, std::string filePath, std::string type)
 {
 	this->id = id;
@@ -33,7 +33,7 @@ void CScene::UpdateTempObjsInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vec
 		if (!objList->at(i)->isTemp) {
 			objList->at(i)->RemovePriority(EPriorityFlag::TEMP_OBJECT);
 		}
-		else if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)))
+		else if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y), SCREEN_WIDTH / 2))
 			objList->at(i)->Update(dt, coObjects);
 		/*else
 			if (!dynamic_cast<CMario*>(objList->at(i)))
@@ -46,7 +46,7 @@ void CScene::UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>* objList, DWORD dt, 
 	
 	for (size_t i = 0; i < objList->size(); i++)
 	{
-		if (!(dynamic_cast<CMario*>(objList->at(i))) && !sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)))
+		if (!(dynamic_cast<CMario*>(objList->at(i))) && !sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y), SCREEN_WIDTH / 2))
 			objList->at(i)->isDisable = true;
 		else if(!objList->at(i)->isDisable)
 			objList->at(i)->Update(dt, coObjects);
@@ -56,7 +56,7 @@ void CScene::UpdateIfInCameraOrDisable(vector<LPGAMEOBJECT>* objList, DWORD dt, 
 void CScene::UpdateIfInCamera(vector<LPGAMEOBJECT>* objList, DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	for (size_t i = 0; i < objList->size(); i++)
 	{
-		if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y)) && !objList->at(i)->isDisable && !objList->at(i)->isTemp)
+		if (sceneCamera.IsInCamera(Vector2(objList->at(i)->x, objList->at(i)->y), SCREEN_WIDTH / 2) && !objList->at(i)->isDisable && !objList->at(i)->isTemp)
 			objList->at(i)->Update(dt, coObjects);
 	}
 }

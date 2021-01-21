@@ -135,7 +135,7 @@ void CCamera::SetCamPosition(Vector2 pos) {
 	}
 	
 	camPosition = pos;
-	if (mario != NULL) {
+	if (mario != NULL && positionController != mario) {
 		if (mario->x < camPosition.x + 50) { 
 			mario->x = camPosition.x + 50; 
 			((CMario*)(mario))->ChangeAction(MarioAction::WALK);
