@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="268">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="268">
  <editorsettings>
   <export target="Resources/World1-4/World1-4.xml" format="tmx"/>
  </editorsettings>
@@ -291,7 +291,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="13" name="CameraController2">
+ <objectgroup id="13" name="CameraController">
   <object id="135" x="0" y="0" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="20" name="Death">

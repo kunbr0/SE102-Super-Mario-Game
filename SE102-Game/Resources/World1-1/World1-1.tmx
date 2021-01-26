@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="28" nextobjectid="164">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="28" nextobjectid="164">
  <editorsettings>
   <export target="Resources/World1-1/World1-1.xml" format="tmx"/>
  </editorsettings>
@@ -276,7 +276,7 @@
     <property name="cellY" value="2"/>
    </properties>
   </object>
-  <object id="142" x="6012" y="982" width="48" height="48">
+  <object id="142" x="6240" y="1068" width="48" height="48">
    <properties>
     <property name="cellX" value="16"/>
     <property name="cellY" value="2"/>
