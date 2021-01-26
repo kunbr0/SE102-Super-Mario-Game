@@ -5,6 +5,8 @@
 #include "AddingPointEffect.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "Leaf.h"
+#include "OneUpGreen.h"
 
 #define DELTA_POSITION_STEP_OPENING			7
 
@@ -12,10 +14,13 @@ CGoldenBrick::CGoldenBrick(Vector2 initPos, string hiddenItem) : CQuestionBlock(
 	virtualCenter = Vector2(0, 0);
 	deltaRender = Vector2(0, 0);
 	if (hiddenItem == "P") this->hiddenItem = EHiddenItem::P;
+	else if (hiddenItem == "Leaf") this->hiddenItem = EHiddenItem::LEAF;
+	else if (hiddenItem == "OneUpGreen") this->hiddenItem = EHiddenItem::ONEUP;
 }
 
 
 void CGoldenBrick::Render(Vector2 finalPos) {
+	
 	if (state.type == EBlockState::DEFAULT) {
 		CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos);
 	}
@@ -36,6 +41,10 @@ void CGoldenBrick::Render(Vector2 finalPos) {
 			CSprites::GetInstance()->Get("spr-empty-block-0")->DrawWithScaling(finalPos);
 			CSprites::GetInstance()->Get("spr-p-2")->DrawWithScaling(finalPos - Vector2(0,36));
 		}
+		else if (hiddenItem == EHiddenItem::LEAF || hiddenItem == EHiddenItem::ONEUP) {
+			CSprites::GetInstance()->Get("spr-empty-block-0")->DrawWithScaling(finalPos);
+			
+		}
 	}
 	else if (state.type == EBlockState::SHOW_HIDDEN_COIN) {
 		CSprites::GetInstance()->Get("spr-coin-3")->DrawWithScaling(finalPos);
@@ -52,11 +61,27 @@ void CGoldenBrick::BeingCollidedTop(LPGAMEOBJECT obj) {
 			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->BeginVibratingCamera(400);
 		}
 	}
+	
 }
 
 void CGoldenBrick::BeingCollidedBottom(LPGAMEOBJECT obj) {
 	CGameObject::BeingCollidedBottom(obj);
-	if (hiddenItem == EHiddenItem::NONE) ChangeState(EBlockState::OPENING, 3000);
+	
+	if (hiddenItem == EHiddenItem::LEAF && state.type == EBlockState::DEFAULT) {
+		ChangeState(EBlockState::OPENED);
+		LPGAMEOBJECT obj = new CLeaf(GetPosition() - Vector2(0, 48));
+		obj->AddPriority(EPriorityFlag::TEMP_OBJECT);
+		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->GetCamera()->GetMap()->GetGrid()->AddObjectToGrid(obj);
+	}
+	else if (hiddenItem == EHiddenItem::ONEUP && state.type == EBlockState::DEFAULT) {
+		ChangeState(EBlockState::OPENED);
+		LPGAMEOBJECT obj = new COneUpGreen(GetPosition() - Vector2(0, 48+4));
+		obj->isTemp = false;
+		obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+		((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->GetCamera()->GetMap()->GetGrid()->AddObjectToGrid(obj);
+	}
+
+	//else if (hiddenItem == EHiddenItem::NONE) ChangeState(EBlockState::OPENING, 3000);
 	else if (hiddenItem == EHiddenItem::P) ChangeState(EBlockState::OPENING);
 }
 
@@ -71,8 +96,16 @@ void CGoldenBrick::BeingCollided(LPGAMEOBJECT obj) {
 		}
 	}
 	else if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj) && state.type == EBlockState::DEFAULT) {
+		if (hiddenItem == EHiddenItem::ONEUP && state.type == EBlockState::DEFAULT) {
+			ChangeState(EBlockState::OPENED);
+			LPGAMEOBJECT obj = new COneUpGreen(GetPosition() - Vector2(0, 48 + 4));
+			obj->isTemp = false;
+			obj->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
+			((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->GetCamera()->GetMap()->GetGrid()->AddObjectToGrid(obj);
+		}
 		if (hiddenItem == EHiddenItem::NONE) ChangeState(EBlockState::OPENING, 3000);
 		else if (hiddenItem == EHiddenItem::P) ChangeState(EBlockState::OPENING);
+		
 	}
 }
 
@@ -85,7 +118,14 @@ void CGoldenBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 		ChangeState(EBlockState::OPENED);
 	}
-
+	else if (state.type == EBlockState::SHOW_HIDDEN_COIN) {
+		if (ChangeState(EBlockState::DEFAULT)) {
+			RemovePriority(EPriorityFlag::DYNAMIC_OBJECT);
+			AddPriority(EPriorityFlag::MAP_OBJECT);
+			allowOthersGoThrough = false;
+		}
+	}
+	
 }
 
 void CGoldenBrick::OpenBox() {
@@ -110,6 +150,20 @@ Vector2 CGoldenBrick::GetBoundingBoxSizeFromState() {
 		}
 	}
 	else if (hiddenItem == EHiddenItem::P) {
+		switch (state.type)
+		{
+		case EBlockState::DEFAULT:
+			return Vector2(48, 48);
+
+		case EBlockState::OPENING:
+		case EBlockState::OPENED:
+			return Vector2(48, 48);
+
+		default:
+			return Vector2(0, 0);
+		}
+	}
+	else if (hiddenItem == EHiddenItem::LEAF || hiddenItem == EHiddenItem::ONEUP) {
 		switch (state.type)
 		{
 		case EBlockState::DEFAULT:
@@ -159,8 +213,8 @@ void CGoldenBrick::OnHadCollided(LPGAMEOBJECT obj) {
 
 
 
-void CGoldenBrick::ChangeState(EBlockState newState, DWORD newTimeState) {
-	if (GetTickCount64() < state.timeState + state.beginState) return;
+bool CGoldenBrick::ChangeState(EBlockState newState, DWORD newTimeState) {
+	if (GetTickCount64() < state.timeState + state.beginState) return false;
 	switch (newState)
 	{
 	case EBlockState::DEFAULT:
@@ -197,4 +251,5 @@ void CGoldenBrick::ChangeState(EBlockState newState, DWORD newTimeState) {
 	default:
 		break;
 	}
+	return true;
 }

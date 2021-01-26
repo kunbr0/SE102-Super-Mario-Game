@@ -9,9 +9,9 @@ class CLeaf : public CGameObject
 	Vector2 initPosition;
 public:
 	CLeaf(Vector2);
-	void Render(Vector2) override;
-	void Update(DWORD, vector<LPGAMEOBJECT>*) override;	
-	void Collided(LPGAMEOBJECT) override;
-	void GetBoundingBox(float&, float&, float&, float&) override;
+	virtual void Render(Vector2) override;
+	virtual void Update(DWORD, vector<LPGAMEOBJECT>*) override;	
+	virtual void Collided(LPGAMEOBJECT) override;
+	virtual void GetBoundingBox(float&, float&, float&, float&) override;
 };
 

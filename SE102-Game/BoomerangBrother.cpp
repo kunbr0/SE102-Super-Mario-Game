@@ -1,6 +1,7 @@
 #include "BoomerangBrother.h"
 #include "PlayScene.h"
 #include "Boomerang.h"
+#include "RaccoonAttackBoundingBox.h"
 #define DELTA_BOOMERANG_PREPARE_ATTACK			Vector2(-22, -28)
 
 CBoomerangBrother::CBoomerangBrother(float x, float y) : CEnemy(x,y,-1) {
@@ -19,18 +20,20 @@ std::string CBoomerangBrother::GetAnimationIdFromState() {
 	case EEnemyState::ATTACK:
 		return "ani-boomerang-brother-attack";
 	case EEnemyState::WILL_DIE:
-		return "";
+	case EEnemyState::DIE:
+	case EEnemyState::ONESHOTDIE:
+		return "ani-boomerang-brother-move";
 	default:
 		return "";
 	}
 }
 
 Vector2 CBoomerangBrother::GetBoundingBoxSize(EEnemyState st) {
-	return Vector2(48, 66);
+	
 	switch (st)
 	{
 		case EEnemyState::LIVE:
-			return Vector2(48, 96);
+			return Vector2(48, 66);
 		case EEnemyState::WILL_DIE:
 			return Vector2(0, 0);
 		case EEnemyState::DIE:
@@ -41,9 +44,22 @@ Vector2 CBoomerangBrother::GetBoundingBoxSize(EEnemyState st) {
 	}
 }
 
+void CBoomerangBrother::BeingCollidedTop(LPGAMEOBJECT obj) {
+	CEnemy::BeingCollidedTop(obj);
+
+	if (dynamic_cast<CMario*>(obj)) {
+		if (state.type == EEnemyState::LIVE)
+			SetState(EEnemyState::WILL_DIE);
+		vx = 0; vy = 0; ny = -1;
+	}
+
+}
+
+
+
 void CBoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state.type == EEnemyState::DIE) return;
+	if (state.type == EEnemyState::DIE)return;
 	
 	int playerX = ((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->GetPlayer()->GetPosition().x;
 	if (playerX > this->x) renderNX = 1; else renderNX = -1;
@@ -54,7 +70,7 @@ void CBoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	ChangeDirectionAfterAxisCollide();
 	UpdateWithCollision(coObjects);
 
-
+	if (state.type ==  EEnemyState::WILL_DIE || state.type == EEnemyState::ONESHOTDIE) return;
 	if (state.type == EEnemyState::LIVE) ChangeState(EEnemyState::PREPARE_ATTACK, 600);
 	else if (state.type == EEnemyState::PREPARE_ATTACK) {
 		if(ChangeState(EEnemyState::ATTACK, 200)) ShootBullet();
@@ -65,6 +81,7 @@ void CBoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CBoomerangBrother::Render(Vector2 finalPos) {
 	if (state.type == EEnemyState::DIE) return;
 	//RenderBoundingBox(finalPos);
+	
 	CAnimations::GetInstance()->Get(GetAnimationIdFromState())->Render(finalPos, Vector2(-renderNX, ny), 255);
 	
 	if (state.type == EEnemyState::PREPARE_ATTACK) {

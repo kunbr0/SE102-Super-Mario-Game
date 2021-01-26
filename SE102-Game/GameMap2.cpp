@@ -25,7 +25,7 @@
 #include "PlayScene.h"
 #include "FireBullet.h"
 #include "Boomerang.h"
-
+#include "GoldenBrickCoin.h"
 
 #define marginXWindow	96
 #define	marginYWindow	272
@@ -230,6 +230,19 @@ CGameMap* CGameMap::FromTMX(string filePath, LPGAMEOBJECT* cameraLimitController
 						(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
 							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
 						);
+					obj->AddPriority(EPriorityFlag::MAP_OBJECT);
+					gameMap->grid.AddObjectToGrid(obj);
+					//staticObjects->push_back(obj);
+				}
+			}
+
+			else if (std::string(objGroupNode->Attribute("name")) == "GoldenBrick_Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new GoldenBrickCoin(
+						Vector2(
+							(int)(atoi(objNode->Attribute("x")) + atoi(objNode->Attribute("width")) / 2),
+							(int)(atoi(objNode->Attribute("y")) + atoi(objNode->Attribute("height")) / 2))
+					);
 					obj->AddPriority(EPriorityFlag::MAP_OBJECT);
 					gameMap->grid.AddObjectToGrid(obj);
 					//staticObjects->push_back(obj);

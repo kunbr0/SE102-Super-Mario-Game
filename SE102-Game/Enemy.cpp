@@ -163,7 +163,7 @@ void CEnemy::BeingKicked(Vector2 pos) {
 	useChangeDirectionAfterAxisCollide = false;
 	isTemp = true;
 	((CPlayScene*)(CGame::GetInstance()->GetCurrentScene()))->PushHighPriorityObjects(this);
-	SetState(EEnemyState::BEING_KICKED, 5000);
+	SetState(EEnemyState::BEING_KICKED, 10000);
 }
 
 void CEnemy::BeingCollided(LPGAMEOBJECT obj) {
@@ -205,7 +205,9 @@ void CEnemy::KillMario(CMario* mario) {
 bool CEnemy::ChangeState(EEnemyState newState, DWORD newTimeState)
 {
 	
-	if (GetTickCount64() < state.timeBegin + state.timeState) return false;
+	if (newState != EEnemyState::ONESHOTDIE) {
+		if (GetTickCount64() < state.timeBegin + state.timeState) return false;
+	}
 	switch (newState)
 	{
 	case EEnemyState::DIE:

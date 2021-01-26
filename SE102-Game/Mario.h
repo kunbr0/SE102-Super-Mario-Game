@@ -97,6 +97,7 @@ public:
 	
 	void BeginUntouchable();
 
+	virtual void Collided(LPGAMEOBJECT) override;
 	virtual void CollidedLeft(LPGAMEOBJECT) override;
 	virtual void CollidedTop(LPGAMEOBJECT) override;
 	virtual void CollidedBottom(LPGAMEOBJECT) override;

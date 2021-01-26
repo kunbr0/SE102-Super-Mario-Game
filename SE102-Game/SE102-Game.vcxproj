@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Programs\DirectX\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programs\DirectX\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -95,6 +95,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <CallingConvention>StdCall</CallingConvention>
+      <DisableSpecificWarnings>4996;4244;4067;4018;4305;4805;4715</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -176,6 +177,7 @@
     <ClCompile Include="GameMap2.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GoldenBrick.cpp" />
+    <ClCompile Include="GoldenBrickCoin.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="IntroScene.cpp" />
@@ -190,6 +192,7 @@
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MovablePlatform.cpp" />
+    <ClCompile Include="OneUpGreen.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="QuestionBlockItem.cpp" />
@@ -244,6 +247,7 @@
     <ClInclude Include="GameMap2.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GoldenBrick.h" />
+    <ClInclude Include="GoldenBrickCoin.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="IntroScene.h" />
@@ -258,6 +262,7 @@
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MovablePlatform.h" />
+    <ClInclude Include="OneUpGreen.h" />
     <ClInclude Include="PhysicsConsts.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="QuestionBlock.h" />

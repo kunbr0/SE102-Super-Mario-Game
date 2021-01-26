@@ -33,8 +33,6 @@ class CGameMap
 
 public:
 	CGameMap();
-	//CGameMap(int width, int height, int tileWidth, int tileHeight);
-
 
 	virtual Vector2 GetBound();
 

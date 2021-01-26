@@ -11,9 +11,9 @@ public:
 	virtual std::string GetAnimationIdFromState() override;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
 	virtual void Render(Vector2) override;
-
+	void BeingCollidedTop(LPGAMEOBJECT) override;
 	bool ShootBullet();
-
+	
 	virtual Vector2 GetBoundingBoxSize(EEnemyState) override;
 };
 

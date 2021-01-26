@@ -197,6 +197,12 @@
     <Filter Include="GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown">
       <UniqueIdentifier>{0a026a73-2d56-4c17-b24e-f9deaa3b5b22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Items\GoldenBrickCoin">
+      <UniqueIdentifier>{dafa8d4c-1e58-4cce-9c2c-65275ea508ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\PlayScene\Items\OneUpGreen">
+      <UniqueIdentifier>{6d2a009d-cabf-4229-9a74-961c288a76c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -394,6 +400,12 @@
     <ClCompile Include="KoopasUpDown.cpp">
       <Filter>GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown</Filter>
     </ClCompile>
+    <ClCompile Include="GoldenBrickCoin.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrickCoin</Filter>
+    </ClCompile>
+    <ClCompile Include="OneUpGreen.cpp">
+      <Filter>GameSource\GameObjects\PlayScene\Items\OneUpGreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -590,6 +602,12 @@
     </ClInclude>
     <ClInclude Include="KoopasUpDown.h">
       <Filter>GameSource\GameObjects\PlayScene\Enemy\KoopasUpDown</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldenBrickCoin.h">
+      <Filter>GameSource\GameObjects\PlayScene\Items\GoldenBrickCoin</Filter>
+    </ClInclude>
+    <ClInclude Include="OneUpGreen.h">
+      <Filter>GameSource\GameObjects\PlayScene\Items\OneUpGreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

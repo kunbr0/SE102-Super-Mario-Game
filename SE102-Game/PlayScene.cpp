@@ -329,7 +329,7 @@ void CPlayScene::ChangeGoldenBricksInCameraToShowCoinState() {
 			if (dynamic_cast<CGoldenBrick*>(mapObjects[i])) {
 				mapObjects[i]->RemovePriority(EPriorityFlag::MAP_OBJECT);
 				mapObjects[i]->AddPriority(EPriorityFlag::DYNAMIC_OBJECT);
-				((CGoldenBrick*)(mapObjects[i]))->ChangeState(EBlockState::SHOW_HIDDEN_COIN);
+				((CGoldenBrick*)(mapObjects[i]))->ChangeState(EBlockState::SHOW_HIDDEN_COIN, 5000);
 			}
 		}
 	}

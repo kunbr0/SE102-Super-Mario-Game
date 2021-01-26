@@ -33,9 +33,9 @@ public:
 	void ChangeState(EVenusState);
 	bool ChangeState(EEnemyState newState, DWORD = 0) override;
 	void BeingCollidedTop(LPGAMEOBJECT) override;
-
+	void OnHadCollided(LPGAMEOBJECT) override;
 	std::string GetAnimationIdFromState() override;
-
+	void Render(Vector2) override;
 	void GetBoundingBox(float&, float&, float&, float&) override;
 };
 

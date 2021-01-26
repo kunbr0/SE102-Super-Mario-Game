@@ -2,6 +2,7 @@
 #include "PlayScene.h"
 #include "BoundingCoinEffect.h"
 #include "Enemy.h"
+#include "RaccoonAttackBoundingBox.h"
 
 #define DELTA_POSITION_STEP_OPENING			7
 
@@ -14,6 +15,13 @@ CQuestionBlock::CQuestionBlock(Vector2 initPos) :
 
 void CQuestionBlock::BeingCollidedBottom(LPGAMEOBJECT) {
 	ChangeState(EBlockState::OPENING);
+}
+
+void CQuestionBlock::OnHadCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
+		ChangeState(EBlockState::OPENING, 3000);
+
+	}
 }
 
 void CQuestionBlock::Render(Vector2 finalPos) {
@@ -79,8 +87,8 @@ void CQuestionBlock::SetState(EBlockState newState, DWORD newTimeState) {
 }
 
 
-void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
-	if (GetTickCount64() < state.timeState + state.beginState) return;
+bool CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
+	if (GetTickCount64() < state.timeState + state.beginState) return false;
 	switch (newState)
 	{
 	case EBlockState::DEFAULT:
@@ -106,4 +114,5 @@ void CQuestionBlock::ChangeState(EBlockState newState, DWORD newTimeState) {
 	default:
 		break;
 	}
+	return true;
 }

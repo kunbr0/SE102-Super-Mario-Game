@@ -9,6 +9,7 @@
 #include "FireBullet.h"
 #include "Boomerang.h"
 #include "PlayScene.h"
+#include "OneUpGreen.h"
 
 #define HOLDING_DISTANCE			40 // pixels
 
@@ -19,6 +20,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+	allowOthersGoThrough = true;
 }
 
 void CMario::BeingBouncedAfterJumpInTopEnemy() {
@@ -73,6 +75,17 @@ void CMario::CollidedTop(LPGAMEOBJECT obj) {
 	} 
 
 }
+
+void CMario::Collided(LPGAMEOBJECT obj) {
+	CGameObject::Collided(obj);
+	if (dynamic_cast<COneUpGreen*>(obj)) {
+		obj->x = 0; obj->y = 0;
+		obj->isDisable = true;
+		ChangeAction(MarioAction::UPGRADE_LV);
+	}
+
+}
+
 void CMario::CollidedBottom(LPGAMEOBJECT obj) {
 	if (state.action == MarioAction::DIE) return;
 	CGameObject::CollidedBottom(obj);

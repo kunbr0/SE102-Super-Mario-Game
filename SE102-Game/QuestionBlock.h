@@ -28,6 +28,7 @@ protected:
 	Vector2 deltaRender;
 	Vector2 deltaRenderSpeed;
 
+
 public:
 	
 	
@@ -37,15 +38,15 @@ public:
 
 
 	virtual void Update(DWORD, vector<LPGAMEOBJECT>* ) override;
-	virtual void ChangeState(EBlockState, DWORD = 0);
+	virtual bool ChangeState(EBlockState, DWORD = 0);
 	virtual void SetState(EBlockState, DWORD = 0);
 	virtual void OpenBox();
 
 	virtual void BeingCollidedLeftRight(LPGAMEOBJECT) override;
 	
-	std::string GetAnimationIdFromState();
+	virtual std::string GetAnimationIdFromState();
 	
-
+	void OnHadCollided(LPGAMEOBJECT) override;
 	void BeingCollidedBottom(LPGAMEOBJECT) override;
 };
 

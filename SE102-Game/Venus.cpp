@@ -1,5 +1,6 @@
 #include "Venus.h"
 #include "PlayScene.h"
+#include "RaccoonAttackBoundingBox.h"
 
 
 
@@ -35,6 +36,18 @@ bool CVenus::ShootBullet() {
 		
 	}
 	return false;
+}
+
+void CVenus::OnHadCollided(LPGAMEOBJECT obj) {
+	if (dynamic_cast<CRaccoonAttackBoundingBox*>(obj)) {
+		vy = -0.55f;
+		nx = (x - obj->x) > 0 ? 1 : -1;
+		walkingSpeed = 0.1;
+
+		//SwitchEffect(EExtraEffect::BEING_DAMAGED);
+		ChangeState(EEnemyState::ONESHOTDIE);
+
+	}
 }
 
 void CVenus::BeingCollidedTop(LPGAMEOBJECT obj) {
@@ -131,7 +144,7 @@ std::string CVenus::GetAnimationIdFromState() {
 bool CVenus::ChangeState(EEnemyState newState, DWORD timeState) {
 	if (newState == EEnemyState::ONESHOTDIE) {
 		ChangeState(EEnemyState::DIE);
-		x = -500; y = -500;
+		
 	}
 	else CEnemy::ChangeState(newState, timeState);
 	return true;
@@ -157,4 +170,10 @@ void CVenus::ChangeState(EVenusState newState) {
 		}
 			
 	}
+}
+
+
+void CVenus::Render(Vector2 finalPos) {
+	if (CEnemy::state.type == EEnemyState::DIE) return;
+	CEnemy::Render(finalPos);
 }

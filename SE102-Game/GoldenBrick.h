@@ -4,7 +4,9 @@
 enum class EHiddenItem {
 	NONE,
 	LEAF,
-	P
+	P, 
+	COIN,
+	ONEUP
 };
 
 
@@ -27,7 +29,7 @@ public:
 
 
 	virtual void Update(DWORD, vector<LPGAMEOBJECT>*) override;
-	virtual void ChangeState(EBlockState, DWORD = 0);
+	virtual bool ChangeState(EBlockState, DWORD = 0);
 	virtual void OpenBox();
 
 
