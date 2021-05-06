@@ -7,6 +7,13 @@ Super Mario Bros. 3 (NES) with Direct
 Introduction
 -----------
 * My project in the subject "Introduction to Game Development" at my university, using DirectX 9 library. The requirement is to manually build a **Game Framework** and create SMB3 based on a self-made Framework instead of using Game Engine.
+
+Product Demo
+-----------
+* [PRODUCT DEMO - CLICK HERE](https://drive.google.com/drive/folders/15Hyued_DWmdUoh8md8bRiikCG31ySOwg)
+
+Instruction
+-----------
 * [DETAIL INSTRUCTION - CLICK HERE](https://github.com/kunbr0/SE102-Game/blob/master/Instruction.pdf)
 
 Tools
