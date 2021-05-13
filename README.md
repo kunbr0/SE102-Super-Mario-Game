@@ -14,7 +14,8 @@ Product Demo
 
 Instruction
 -----------
-* [DETAIL INSTRUCTION - CLICK HERE](https://github.com/kunbr0/SE102-Game/blob/master/Instruction.pdf)
+* [DETAIL INSTRUCTION - LINK 1 - CLICK HERE](https://github.com/kunbr0/SE102-Game/blob/master/Instruction.pdf)
+* [DETAIL INSTRUCTION - LINK 2 - CLICK HERE](https://drive.google.com/file/d/1DodK9p7w1SX7RTAYtHL8PVuHNleze_Uj/view?usp=sharing)
 
 Tools
 -----------
